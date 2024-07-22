@@ -22,5 +22,23 @@ namespace SKD.Character.Player
 
             _playerLocamotionManager.HandleAllMovement();
         }
+        public override void OnNetworkSpawn()
+        {
+            base.OnNetworkSpawn();
+
+            // If this is the player object owned by this client
+            if (IsOwner)
+            {
+                PlayerCamera.instance._player = this;
+            }
+        }
+        protected override void LateUpdate()
+        {
+            if (!IsOwner)
+                return;
+            base.LateUpdate();
+
+            PlayerCamera.instance.HandleAllCameraActiond();
+        }
     }
 }

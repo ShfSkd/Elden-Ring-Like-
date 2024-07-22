@@ -11,10 +11,16 @@ namespace SKD.Character.Player
         public static PlayerInputManager instance;
         PlayerControls _playerControls;
 
+        [Header("Player Movement Input")]
         [SerializeField] Vector2 _movementInput;
         public float _verticalInput;
         public float _horizontalInput;
-        public float _moveAmount;
+        public float _moveAmount; 
+
+        [Header("Camera Movement Input")]
+        [SerializeField] Vector2 _cameraInput;
+        public float _cameraVerticalInput;
+        public float _cameraHorizontalInput;
 
         private void Awake()
         {
@@ -46,6 +52,8 @@ namespace SKD.Character.Player
             {
                 _playerControls = new PlayerControls();
                 _playerControls.PlayerMovement.Movment.performed += i => _movementInput = i.ReadValue<Vector2>();
+
+                _playerControls.PlayerCamera.Movement.performed += i => _cameraInput = i.ReadValue<Vector2>();
             }
             _playerControls.Enable();
         }
@@ -66,9 +74,10 @@ namespace SKD.Character.Player
         }
         private void Update()
         {
-            HandleMovementInput();
+            HandlePlayerMovementInput();
+            HandleCameraMovmentInput();
         }
-        private void HandleMovementInput()
+        private void HandlePlayerMovementInput()
         {
             _verticalInput = _movementInput.y;
             _horizontalInput = _movementInput.x;
@@ -80,6 +89,13 @@ namespace SKD.Character.Player
             else if (_moveAmount > 0.5f && _moveAmount <= 1)
                 _moveAmount = 1;
         }
+
+        private void HandleCameraMovmentInput()
+        {
+            _cameraVerticalInput = _cameraInput.y;
+            _cameraHorizontalInput = _cameraInput.x;
+        }
+
     }
 
 }

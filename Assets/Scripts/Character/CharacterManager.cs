@@ -33,6 +33,11 @@ namespace SKD.Character
                 transform.rotation = Quaternion.Slerp(transform.rotation, _characterNetworkManager._networkRotation.Value, _characterNetworkManager._networkRotationSmoothTime);
             }
         }
+
+        protected virtual void LateUpdate()
+        {
+
+        }
     }
 
 }
