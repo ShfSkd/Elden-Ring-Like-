@@ -7,13 +7,22 @@ namespace SKD.Character
 {
     public class CharacterManager : NetworkBehaviour
     {
-        public CharacterController _characterController;
+        [HideInInspector] public CharacterController _characterController;
+        [HideInInspector] public Animator _animator;
+        public CharacterNetworkManager _characterNetworkManager;
 
-        CharacterNetworkManager _characterNetworkManager;
+        [Header("Flags")]
+        public bool _isPerfomingAction = false;
+        public bool _applyRootMotion = false;
+        public bool _canRotate = true;
+        public bool _canMove = true;
+
         protected virtual void Awake()
         {
             DontDestroyOnLoad(this);
+
             _characterController = GetComponent<CharacterController>();
+            _animator = GetComponent<Animator>();
             _characterNetworkManager = GetComponent<CharacterNetworkManager>();
         }
         protected virtual void Update()

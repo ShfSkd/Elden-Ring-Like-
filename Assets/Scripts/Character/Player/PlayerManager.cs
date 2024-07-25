@@ -5,12 +5,15 @@ namespace SKD.Character.Player
 {
     public class PlayerManager : CharacterManager
     {
-        PlayerLocamotionManager _playerLocamotionManager;
+        [HideInInspector] public PlayerAnimationManager _playerAnimationManager;
+        [HideInInspector] public PlayerLocamotionManager _playerLocamotionManager;
         protected override void Awake()
         {
             base.Awake();
 
-            _playerLocamotionManager = GetComponent<PlayerLocamotionManager>();
+            _playerLocamotionManager = GetComponent<PlayerLocamotionManager>(); 
+
+            _playerAnimationManager = GetComponent<PlayerAnimationManager>();
         }
         protected override void Update()
         {
@@ -30,6 +33,7 @@ namespace SKD.Character.Player
             if (IsOwner)
             {
                 PlayerCamera.instance._player = this;
+                PlayerInputManager.instance._player = this;
             }
         }
         protected override void LateUpdate()

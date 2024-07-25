@@ -2,9 +2,6 @@
 {
     public class PlayerNetworkManager : CharacterNetworkManager
     {
-        private void Awake()
-        {
-           
-        }
+        
     }
 }

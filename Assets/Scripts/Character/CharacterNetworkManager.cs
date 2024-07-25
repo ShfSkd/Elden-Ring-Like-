@@ -6,6 +6,8 @@ namespace SKD.Character
 {
     public class CharacterNetworkManager : NetworkBehaviour
     {
+        CharacterManager _characterManager;
+
         [Header("Position")]
         public NetworkVariable<Vector3> _networkPosition = new NetworkVariable<Vector3>(Vector3.zero, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
@@ -15,5 +17,44 @@ namespace SKD.Character
         public Vector3 _networkPositionVelocity;
         public float _networkPositionSmoothTime = 0.1f;
         public float _networkRotationSmoothTime = 0.1f;
+
+        [Header("Animator")]
+        public NetworkVariable<float> _horizontalMovement = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+
+        public NetworkVariable<float> _verticalMovement = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+
+        public NetworkVariable<float> _moveAmount = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+
+        protected virtual void Awake()
+        {
+            _characterManager = GetComponent<CharacterManager>();
+        }
+
+        // A server RPC is a function called from client, to the server (in our case the host)
+        [ServerRpc]
+        public void NotifyTheServerofActionAnimationServerRpc(ulong clientId, string animationID, bool applyRootMotion)
+        {
+            // If this client is the host/server , then activate the client RPC
+            if (IsServer)
+            {
+                PlayActionAnimationForAllClientsClientRpc(clientId, animationID, applyRootMotion);
+            }
+        }
+        // A client RPC is sent To all clients present, from the server 
+        [ClientRpc]
+        public void PlayActionAnimationForAllClientsClientRpc(ulong clientId, string animationID, bool applyRootMotion)
+        {
+            // We make sure to not run the function on the character who sent it (so we don't play the animation twice)
+            if (clientId != NetworkManager.Singleton.LocalClientId)
+            {
+                PerformActionAnimationFromServer(animationID, applyRootMotion);
+            }
+        }
+
+        private void PerformActionAnimationFromServer(string animationID, bool applyRootMotion)
+        {
+            _characterManager._applyRootMotion = applyRootMotion;
+            _characterManager._animator.CrossFade(animationID, 0.2f);
+        }
     }
 }

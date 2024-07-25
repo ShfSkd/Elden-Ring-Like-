@@ -9,5 +9,9 @@ namespace SKD.Character
         {
 
         }
+        protected virtual void Update()
+        {
+
+        }
     }
 }
