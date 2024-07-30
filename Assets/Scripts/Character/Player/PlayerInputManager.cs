@@ -42,7 +42,7 @@ namespace SKD.Character.Player
         }
         private void OnSceneChange(Scene oldScene, Scene newScene)
         {
-            if (newScene.buildIndex == WorldSaveGameManager.instance.GetWorldIndex())
+            if (newScene.buildIndex == WorldSaveGameManager.Instance.GetWorldIndex())
             {
                 instance.enabled = true;
             }

@@ -80,7 +80,7 @@ namespace SKD.Game_Saving
                     // Deserialize the data from JSON back to Unity
                     characterSaveData = JsonUtility.FromJson<CharacterSaveData>(dataToLoad);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     Debug.LogError("");
                 }

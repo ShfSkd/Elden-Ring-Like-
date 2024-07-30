@@ -1,6 +1,7 @@
 using SKd;
 using SKD.Character.Player;
 using SKD.Game_Saving;
+using SKD.MenuScreen;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,16 +11,16 @@ namespace SKD.WorldManager
 {
     public class WorldSaveGameManager : MonoBehaviour
     {
-        public static WorldSaveGameManager instance;
+        public static WorldSaveGameManager Instance;
 
-        [SerializeField] PlayerManager _playerManager;
+        public PlayerManager _playerManager;
 
         [Header("Save/Load")]
         [SerializeField] bool _saveGame;
         [SerializeField] bool _loadGame;
 
         [Header("World Scene Index")]
-        [SerializeField] int worldIndex = 1;
+        [SerializeField] int worldSceneIndex = 1;
 
         [Header("Save Data Writer")]
         private SaveFileDataWriter _saveFileDataWriter;
@@ -42,8 +43,8 @@ namespace SKD.WorldManager
         public CharacterSaveData _characterSlot10;
         private void Awake()
         {
-            if (instance == null)
-                instance = this;
+            if (Instance == null)
+                Instance = this;
             else
                 Destroy(gameObject);
         }
@@ -67,7 +68,7 @@ namespace SKD.WorldManager
             }
 
         }
-        public string DecideCharacterFileNameBasedOnCharacterslotBeingUsed(CharacterSlot characterSlot)
+        public string DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot characterSlot)
         {
             string fileName = "";
             switch (characterSlot)
@@ -107,30 +108,149 @@ namespace SKD.WorldManager
             }
             return fileName;
         }
-        public void CreateNewGame()
+        public void AttempToCreateNewGame()
         {
-            // Create a new file, with a file name depending on which slot we are using 
-            _saveFileName = DecideCharacterFileNameBasedOnCharacterslotBeingUsed(_currentCharacterSlotBeingUsed);
-            _currentCharacterData = new CharacterSaveData();
-            _currentCharacterData = _saveFileDataWriter.LoadSaveFile();
+            _saveFileDataWriter = new SaveFileDataWriter();
+            _saveFileDataWriter._saveDataDirectoryPath = Application.persistentDataPath;
+            // Check to see if we can create a new save file (check for other existing files first
+            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_01);
 
-            StartCoroutine(LoadWorldScene());
+            if (!_saveFileDataWriter.ChechTooSeeFileExists())
+            {
+                // If this profile slot is spot been taken , make a new one using this slot
+                _currentCharacterSlotBeingUsed = CharacterSlot.CharacterSlot_01;
+                _currentCharacterData = new CharacterSaveData();
+                StartCoroutine(LoadWorldScene());
+                return;
+
+            }
+            // Check to see if we can create a new save file (check for other existing files first
+            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_02);
+
+            if (!_saveFileDataWriter.ChechTooSeeFileExists())
+            {
+                // If this profile slot is spot been taken , make a new one using this slot
+                _currentCharacterSlotBeingUsed = CharacterSlot.CharacterSlot_02;
+                _currentCharacterData = new CharacterSaveData();
+                StartCoroutine(LoadWorldScene());
+                return;
+
+            }
+            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_03);
+
+            if (!_saveFileDataWriter.ChechTooSeeFileExists())
+            {
+                // If this profile slot is spot been taken , make a new one using this slot
+                _currentCharacterSlotBeingUsed = CharacterSlot.CharacterSlot_03;
+                _currentCharacterData = new CharacterSaveData();
+                StartCoroutine(LoadWorldScene());
+                return;
+
+            }
+            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_04);
+
+            if (!_saveFileDataWriter.ChechTooSeeFileExists())
+            {
+                // If this profile slot is spot been taken , make a new one using this slot
+                _currentCharacterSlotBeingUsed = CharacterSlot.CharacterSlot_04;
+                _currentCharacterData = new CharacterSaveData();
+                StartCoroutine(LoadWorldScene());
+                return;
+
+            }
+            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_05);
+
+            if (!_saveFileDataWriter.ChechTooSeeFileExists())
+            {
+                // If this profile slot is spot been taken , make a new one using this slot
+                _currentCharacterSlotBeingUsed = CharacterSlot.CharacterSlot_05;
+                _currentCharacterData = new CharacterSaveData();
+                StartCoroutine(LoadWorldScene());
+                return;
+
+            }
+            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_06);
+
+            if (!_saveFileDataWriter.ChechTooSeeFileExists())
+            {
+                // If this profile slot is spot been taken , make a new one using this slot
+                _currentCharacterSlotBeingUsed = CharacterSlot.CharacterSlot_06;
+                _currentCharacterData = new CharacterSaveData();
+                StartCoroutine(LoadWorldScene());
+                return;
+
+            }
+            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_07);
+
+            if (!_saveFileDataWriter.ChechTooSeeFileExists())
+            {
+                // If this profile slot is spot been taken , make a new one using this slot
+                _currentCharacterSlotBeingUsed = CharacterSlot.CharacterSlot_07;
+                _currentCharacterData = new CharacterSaveData();
+                StartCoroutine(LoadWorldScene());
+                return;
+
+            }
+            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_08);
+
+            if (!_saveFileDataWriter.ChechTooSeeFileExists())
+            {
+                // If this profile slot is spot been taken , make a new one using this slot
+                _currentCharacterSlotBeingUsed = CharacterSlot.CharacterSlot_08;
+                _currentCharacterData = new CharacterSaveData();
+                StartCoroutine(LoadWorldScene());
+                return;
+
+            }
+            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_09);
+
+            if (!_saveFileDataWriter.ChechTooSeeFileExists())
+            {
+                // If this profile slot is spot been taken , make a new one using this slot
+                _currentCharacterSlotBeingUsed = CharacterSlot.CharacterSlot_09;
+                _currentCharacterData = new CharacterSaveData();
+                StartCoroutine(LoadWorldScene());
+                return;
+
+            }
+            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_10);
+
+            if (!_saveFileDataWriter.ChechTooSeeFileExists())
+            {
+                // If this profile slot is spot been taken , make a new one using this slot
+                _currentCharacterSlotBeingUsed = CharacterSlot.CharacterSlot_10;
+                _currentCharacterData = new CharacterSaveData();
+                StartCoroutine(LoadWorldScene());
+                return;
+
+            }
+
+            // If they are no free slots, notify the player
+            TitleScreenManager.Instance.DisplayNoFreeCharacterSlotsPopUp();
+
+
+            // Create a new file, with a file name depending on which slot we are using 
+            // _saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(_currentCharacterSlotBeingUsed);
+
         }
         public void LoadGame()
         {
             //  Load a previous file, with a file name depending on which slot we are using 
-            _saveFileName = DecideCharacterFileNameBasedOnCharacterslotBeingUsed(_currentCharacterSlotBeingUsed);
+            _saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(_currentCharacterSlotBeingUsed);
 
             _saveFileDataWriter = new SaveFileDataWriter();
 
             // Generally works on multiple machine types (Application.persistentDataPath)
             _saveFileDataWriter._saveDataDirectoryPath = Application.persistentDataPath;
             _saveFileDataWriter._saveFileName = _saveFileName;
+            _currentCharacterData = _saveFileDataWriter.LoadSaveFile();
+
+            StartCoroutine(LoadWorldScene());
         }
         public void SaveGame()
         {
             // save the current file under a file name depending on which slot we are using 
-            _saveFileName = DecideCharacterFileNameBasedOnCharacterslotBeingUsed(_currentCharacterSlotBeingUsed);
+            _saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(_currentCharacterSlotBeingUsed);
 
             _saveFileDataWriter = new SaveFileDataWriter();
             // Generally works on multiple machine types (Application.persistentDataPath)
@@ -142,6 +262,16 @@ namespace SKD.WorldManager
             // Write that info into a JSON file , saved to this machine
             _saveFileDataWriter.CreateNewCharacterSaveFile(_currentCharacterData);
         }
+        public void DeleteGame(CharacterSlot characterSlot)
+        {
+            _saveFileDataWriter = new SaveFileDataWriter();
+            _saveFileDataWriter._saveDataDirectoryPath = Application.persistentDataPath;
+
+            // Choose file based on name
+            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(characterSlot);
+
+            _saveFileDataWriter.DeleteSaveFile();
+        }
 
         // Load all character profiles on device when starting a game 
         private void LoadAllCharacterProfiles()
@@ -149,44 +279,56 @@ namespace SKD.WorldManager
             _saveFileDataWriter = new SaveFileDataWriter();
             _saveFileDataWriter._saveDataDirectoryPath = Application.persistentDataPath;
 
-            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterslotBeingUsed(CharacterSlot.CharacterSlot_01);
+            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_01);
             _characterSlot01 = _saveFileDataWriter.LoadSaveFile();
 
-            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterslotBeingUsed(CharacterSlot.CharacterSlot_02);
+            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_02);
             _characterSlot02 = _saveFileDataWriter.LoadSaveFile();
 
-            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterslotBeingUsed(CharacterSlot.CharacterSlot_03);
+            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_03);
             _characterSlot03 = _saveFileDataWriter.LoadSaveFile();
 
-            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterslotBeingUsed(CharacterSlot.CharacterSlot_04);
+            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_04);
             _characterSlot04 = _saveFileDataWriter.LoadSaveFile();
 
-            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterslotBeingUsed(CharacterSlot.CharacterSlot_05);
+            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_05);
             _characterSlot05 = _saveFileDataWriter.LoadSaveFile();
 
-            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterslotBeingUsed(CharacterSlot.CharacterSlot_06);
+            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_06);
             _characterSlot06 = _saveFileDataWriter.LoadSaveFile();
 
-            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterslotBeingUsed(CharacterSlot.CharacterSlot_07);
+            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_07);
             _characterSlot07 = _saveFileDataWriter.LoadSaveFile();
 
-            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterslotBeingUsed(CharacterSlot.CharacterSlot_08);
+            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_08);
             _characterSlot08 = _saveFileDataWriter.LoadSaveFile();
 
-            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterslotBeingUsed(CharacterSlot.CharacterSlot_09);
+            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_09);
             _characterSlot09 = _saveFileDataWriter.LoadSaveFile();
 
-            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterslotBeingUsed(CharacterSlot.CharacterSlot_10);
-            _characterSlot10= _saveFileDataWriter.LoadSaveFile();
+            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_10);
+            _characterSlot10 = _saveFileDataWriter.LoadSaveFile();
         }
         public IEnumerator LoadWorldScene()
         {
-            AsyncOperation loadOperation = SceneManager.LoadSceneAsync(worldIndex);
+            // If you just want 1 world scene use this 
+            AsyncOperation loadOperation = SceneManager.LoadSceneAsync(worldSceneIndex);
+
+            // If you want to use different scenes for levels in your project use this
+          //  AsyncOperation loadOperation = SceneManager.LoadSceneAsync(_currentCharacterData._sceneIndex);
+
+            _playerManager.LoadGameDataFromCurrentCharacterData(ref _currentCharacterData);
+
             yield return null;
         }
+        // If you want to use a multi scene setup, there is no current scene index om a new character
+        /*private IEnumerator LoadWorldSceneNewGame()
+        {
+
+        }*/
         public int GetWorldIndex()
         {
-            return worldIndex;
+            return worldSceneIndex;
         }
     }
 }

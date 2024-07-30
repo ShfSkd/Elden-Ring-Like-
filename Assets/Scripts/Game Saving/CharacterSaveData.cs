@@ -8,8 +8,11 @@ namespace SKD.Game_Saving
     // Since we want to reference this data for every save file, this script in not MonoBehavoiur and instead Serializable
     public class CharacterSaveData 
     {
+        [Header("Scene Index")]
+        public int _sceneIndex = 1;
+
         [Header("Character Name")]
-        public string _characterName;
+        public string _characterName = "Character";
 
         [Header("Time Played")]
         public float _secondsPlayed;

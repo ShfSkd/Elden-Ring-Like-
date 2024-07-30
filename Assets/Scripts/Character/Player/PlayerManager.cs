@@ -1,7 +1,9 @@
 ﻿using SKD.Character.Player.PlayerUI;
 using SKD.Game_Saving;
+using SKD.WorldManager;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace SKD.Character.Player
 {
@@ -52,6 +54,7 @@ namespace SKD.Character.Player
             {
                 PlayerCamera.instance._player = this;
                 PlayerInputManager.instance._playerManager = this;
+                WorldSaveGameManager.Instance._playerManager = this;
 
                 _playerNetworkManager._currentStamina.OnValueChanged += PlayerUIManger.instance._playerUIHUDManager.SetNewStaminaValue;
                 _playerNetworkManager._currentStamina.OnValueChanged += _playerStatsManager.ResetStaminaReganTimer;
@@ -68,6 +71,8 @@ namespace SKD.Character.Player
 
         public void SaveGameDataToCurrentCharacterData(ref CharacterSaveData currenCharacterSaveData)
         {
+            currenCharacterSaveData._sceneIndex = SceneManager.GetActiveScene().buildIndex;
+
             currenCharacterSaveData._characterName = _playerNetworkManager._characterName.Value.ToString();
 
             currenCharacterSaveData._xPosition = transform.position.x;

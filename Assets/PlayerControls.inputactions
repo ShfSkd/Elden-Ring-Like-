@@ -148,6 +148,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "UI",
+            "id": "26ace259-ec16-4805-bc1c-72e6d72e644d",
+            "actions": [
+                {
+                    "name": "Delete",
+                    "type": "Button",
+                    "id": "38f2cb6e-969a-4dd0-8e98-4f09322bc88e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Tap",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "55c3bec6-ddff-4e66-a888-1cbed17a4adc",
+                    "path": "<Keyboard>/k",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Delete",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

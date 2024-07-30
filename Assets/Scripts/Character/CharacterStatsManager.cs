@@ -39,7 +39,6 @@ namespace SKD.Character
 
             if (_staminaRegeneartionTimer >= _staminaRegenarationDelay)
             {
-                Debug.Log("current Stamina " + _characterManager._characterNetworkManager._currentStamina.Value + "Max Stamina " + _characterManager._characterNetworkManager._maxStamina.Value);
                 if (_characterManager._characterNetworkManager._currentStamina.Value < _characterManager._characterNetworkManager._maxStamina.Value)
                 {
                     _staminaTickTimer += Time.deltaTime;
