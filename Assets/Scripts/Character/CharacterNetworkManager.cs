@@ -25,6 +25,14 @@ namespace SKD.Character
 
         public NetworkVariable<float> _moveAmount = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
+        [Header("Flags")]
+        public NetworkVariable<bool> _isSprinting = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+
+        [Header("Stats")]
+        public NetworkVariable<int> _endurance = new NetworkVariable<int>(1 , NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<float> _currentStamina = new NetworkVariable<float>(0 , NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<int> _maxStamina = new NetworkVariable<int>(0 , NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+
         protected virtual void Awake()
         {
             _characterManager = GetComponent<CharacterManager>();

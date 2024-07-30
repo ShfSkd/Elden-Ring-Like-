@@ -12,6 +12,7 @@ namespace SKD.Character.Player.PlayerUI
         [Header("Network Join")]
         [SerializeField] bool startGameAsClient;
 
+        [HideInInspector] public PlayerUIHUDManager _playerUIHUDManager;
 
         private void Awake()
         {
@@ -19,6 +20,8 @@ namespace SKD.Character.Player.PlayerUI
                 instance = this;
             else
                 Destroy(gameObject);
+
+            _playerUIHUDManager = GetComponentInChildren<PlayerUIHUDManager>();
         }
         private void Start()
         {

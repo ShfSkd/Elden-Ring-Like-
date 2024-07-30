@@ -1164,10 +1164,11 @@ GameObject:
   - component: {fileID: 6071561081526457013}
   - component: {fileID: -8975570487359277179}
   - component: {fileID: 6857649507195434714}
-  - component: {fileID: 1285713963777622910}
   - component: {fileID: 5343010605841613971}
   - component: {fileID: 4286529109380951767}
   - component: {fileID: 5903223323270404788}
+  - component: {fileID: -828183766973365821}
+  - component: {fileID: 6792009791116337060}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1250,6 +1251,8 @@ MonoBehaviour:
   _canMove: 1
   _playerAnimationManager: {fileID: 0}
   _playerLocamotionManager: {fileID: 0}
+  _playerNetworkManager: {fileID: 0}
+  _playerStatsManager: {fileID: 0}
 --- !u!114 &-8975570487359277179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1267,7 +1270,10 @@ MonoBehaviour:
   _moveAmount: 0
   _walkingSpeed: 1.5
   _runningSpeed: 4.5
+  _sprintingSpeed: 7
   _rotationSpeed: 15
+  _sprintingStaminaCost: 2
+  _dodgeStaminaCost: 25
 --- !u!143 &6857649507195434714
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1286,31 +1292,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &1285713963777622910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5745942221255067093}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e012835eb45eb804086df9ced484ffc0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _networkPosition:
-    m_InternalValue: {x: 0, y: 0, z: 0}
-  _networkRotation:
-    m_InternalValue: {x: 0, y: 0, z: 0, w: 1}
-  _networkPositionVelocity: {x: 0, y: 0, z: 0}
-  _networkPositionSmoothTime: 0.1
-  _networkRotationSmoothTime: 0.1
-  _horizontalMovement:
-    m_InternalValue: 0
-  _verticalMovement:
-    m_InternalValue: 0
-  _moveAmount:
-    m_InternalValue: 0
 --- !u!114 &5343010605841613971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1431,6 +1412,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d9694eef493e5d4c9dc07144516a43b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-828183766973365821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5745942221255067093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 162e3516b9a3bed47ae8d43b977d7e30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _networkPosition:
+    m_InternalValue: {x: 0, y: 0, z: 0}
+  _networkRotation:
+    m_InternalValue: {x: 0, y: 0, z: 0, w: 1}
+  _networkPositionVelocity: {x: 0, y: 0, z: 0}
+  _networkPositionSmoothTime: 0.1
+  _networkRotationSmoothTime: 0.1
+  _horizontalMovement:
+    m_InternalValue: 0
+  _verticalMovement:
+    m_InternalValue: 0
+  _moveAmount:
+    m_InternalValue: 0
+  _isSprinting:
+    m_InternalValue: 0
+  _endurance:
+    m_InternalValue: 1
+  _currentStamina:
+    m_InternalValue: 0
+  _maxStamina:
+    m_InternalValue: 0
+--- !u!114 &6792009791116337060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5745942221255067093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fabe8cadf07c6c0498e8f9dc06613e17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _staminaRegenAmount: 2
+  _staminaRegenarationDelay: 2
 --- !u!1 &5772165799223377349
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ namespace SKD.Character.Player
     {
         public static PlayerInputManager instance;
         PlayerControls _playerControls;
-        public PlayerManager _player;
+        public PlayerManager _playerManager;
 
         [Header("Player Movement Input")]
         [SerializeField] Vector2 _movementInput;
@@ -25,6 +25,7 @@ namespace SKD.Character.Player
 
         [Header("Player Actions Inputs")]
         [SerializeField] bool _dodgeInput;
+        [SerializeField] bool _sprintInput;
 
         private void Awake()
         {
@@ -60,6 +61,10 @@ namespace SKD.Character.Player
                 _playerControls.PlayerCamera.Movement.performed += i => _cameraInput = i.ReadValue<Vector2>();
 
                 _playerControls.PlayerActions.Dodge.performed += i => _dodgeInput = true;
+                // Holding the input, sets the bool to true
+                _playerControls.PlayerActions.Sprint.performed += i => _sprintInput = true;
+                // Releasing the input, sets the bool to false
+                _playerControls.PlayerActions.Sprint.canceled += i => _sprintInput = false;
             }
             _playerControls.Enable();
         }
@@ -88,6 +93,7 @@ namespace SKD.Character.Player
             HandlePlayerMovementInput();
             HandleCameraMovmentInput();
             HandleRoleInput();
+            HandleSptintInput();
         }
 
         // Movement
@@ -106,9 +112,9 @@ namespace SKD.Character.Player
 
             // Why do we pass 0 on the horizontal? because we only want non-strafing movement 
             // We use the horizontal when we are strafing or locked on 
-            if (_player == null) return;
+            if (_playerManager == null) return;
             // If we are not locked on, only use the move amount 
-            _player._playerAnimationManager.UpdateAnimatorMovementParameters(0, _moveAmount);
+            _playerManager._playerAnimationManager.UpdateAnimatorMovementParameters(0, _moveAmount, _playerManager._playerNetworkManager._isSprinting.Value);
 
             // If are locked on pass the horizontal as well 
         }
@@ -117,7 +123,7 @@ namespace SKD.Character.Player
         {
             _cameraVerticalInput = _cameraInput.y;
             _cameraHorizontalInput = _cameraInput.x;
-        } 
+        }
 
         // Actions
         private void HandleRoleInput()
@@ -126,7 +132,18 @@ namespace SKD.Character.Player
             {
                 _dodgeInput = false;
 
-                _player._playerLocamotionManager.AttampToPerformDodge();
+                _playerManager._playerLocamotionManager.AttampToPerformDodge();
+            }
+        }
+        private void HandleSptintInput()
+        {
+            if (_sprintInput)
+            {
+                _playerManager._playerLocamotionManager.HandleSprinting();
+            }
+            else
+            {
+                _playerManager._playerNetworkManager._isSprinting.Value = false;
             }
         }
     }

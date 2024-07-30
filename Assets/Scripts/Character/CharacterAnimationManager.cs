@@ -7,16 +7,25 @@ namespace SKD.Character
     public class CharacterAnimationManager : MonoBehaviour
     {
         CharacterManager _characterManager;
-        float _vertical;
-        float _horizontal;
+        int _vertical;
+        int _horizontal;
         protected virtual void Awake()
         {
             _characterManager = GetComponent<CharacterManager>();
+            _horizontal = Animator.StringToHash("Horizontal");
+            _vertical = Animator.StringToHash("Vertical");
         }
-        public void UpdateAnimatorMovementParameters(float horizontalValue, float verticalValue)
+        public void UpdateAnimatorMovementParameters(float horizontalMovement, float verticalMovement, bool isPrinting)
         {
-            _characterManager._animator.SetFloat("Horizontal", horizontalValue, 0.1f, Time.deltaTime);
-            _characterManager._animator.SetFloat("Vertical", verticalValue, 0.1f, Time.deltaTime);
+            float horizontalAmount = horizontalMovement;
+            float verticalAmpunt = verticalMovement;
+
+            if (isPrinting)
+            {
+                verticalAmpunt = 2f;
+            }
+            _characterManager._animator.SetFloat(_horizontal, horizontalAmount, 0.1f, Time.deltaTime);
+            _characterManager._animator.SetFloat(_vertical, verticalAmpunt, 0.1f, Time.deltaTime);
         }
 
         public virtual void PlayTargetActionAnimation(string targetAnimationName,
@@ -35,7 +44,7 @@ namespace SKD.Character
             _characterManager._canMove = canMove;
 
             // Tell the server/host we played an animation, and to play that animation for everybody else present
-            _characterManager._characterNetworkManager.NotifyTheServerofActionAnimationServerRpc(NetworkManager.Singleton.LocalClientId, targetAnimationName,applyRootMotion);
+            _characterManager._characterNetworkManager.NotifyTheServerofActionAnimationServerRpc(NetworkManager.Singleton.LocalClientId, targetAnimationName, applyRootMotion);
         }
     }
 }
