@@ -13,6 +13,8 @@ namespace SKD.Character
 
         [Header("Flags")]
         public bool _isPerfomingAction = false;
+        public bool _isJumping = false;
+        public bool _isGrounded = true;
         public bool _applyRootMotion = false;
         public bool _canRotate = true;
         public bool _canMove = true;
@@ -27,6 +29,7 @@ namespace SKD.Character
         }
         protected virtual void Update()
         {
+            _animator.SetBool("IsGrounded", _isGrounded);
             //  If this character is being control from our side, then assign its network position to the position of our transform
             if (IsOwner)
             {

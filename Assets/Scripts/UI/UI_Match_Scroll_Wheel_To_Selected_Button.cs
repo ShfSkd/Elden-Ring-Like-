@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace SKD.Menu_Screen
+namespace SKD.UI
 {
     public class UI_Match_Scroll_Wheel_To_Selected_Button : MonoBehaviour
     {
@@ -24,7 +24,7 @@ namespace SKD.Menu_Screen
                     _previsusSelected = _currentSelected;
                     _currentSelectedTransform = _currentSelected.GetComponent<RectTransform>();
                     SnapTo(_currentSelectedTransform);
-                }
+                } 
             }
         }
         private void SnapTo(RectTransform target)

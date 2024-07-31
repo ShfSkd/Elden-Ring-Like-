@@ -6,7 +6,7 @@ namespace SKD.Character.Player
     public class PlayerCamera : MonoBehaviour
     {
         public PlayerManager _player;
-        public static PlayerCamera instance;
+        public static PlayerCamera Instance;
         public Camera _cameraObject;
         [SerializeField] Transform _cameraPivotTransform;
 
@@ -29,8 +29,8 @@ namespace SKD.Character.Player
 
         private void Awake()
         {
-            if (instance == null)
-                instance = this;
+            if (Instance == null)
+                Instance = this;
             else
                 Destroy(gameObject);
         }
@@ -57,9 +57,9 @@ namespace SKD.Character.Player
         }
         private void HandleRotations()
         {
-            _leftAndRightLookAngle += (PlayerInputManager.instance._cameraHorizontalInput * _leftAndRightRotationSpeed) * Time.deltaTime;
+            _leftAndRightLookAngle += (PlayerInputManager.Instance._cameraHorizontalInput * _leftAndRightRotationSpeed) * Time.deltaTime;
 
-            _uptAndDownLookAngle -= (PlayerInputManager.instance._cameraVerticalInput * _upAndDownRotationSpeed) * Time.deltaTime;
+            _uptAndDownLookAngle -= (PlayerInputManager.Instance._cameraVerticalInput * _upAndDownRotationSpeed) * Time.deltaTime;
 
 
             // Clamp the up and down between min and max

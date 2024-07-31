@@ -13,6 +13,7 @@ namespace SKD.Character.Player
         [HideInInspector] public PlayerLocamotionManager _playerLocamotionManager;
         [HideInInspector] public PlayerNetworkManager _playerNetworkManager;
         [HideInInspector] public PlayerStatsManager _playerStatsManager;
+
         protected override void Awake()
         {
             base.Awake();
@@ -43,7 +44,7 @@ namespace SKD.Character.Player
                 return;
             base.LateUpdate();
 
-            PlayerCamera.instance.HandleAllCameraActiond();
+            PlayerCamera.Instance.HandleAllCameraActiond();
         }
         public override void OnNetworkSpawn()
         {
@@ -52,8 +53,8 @@ namespace SKD.Character.Player
             // If this is the player object owned by this client
             if (IsOwner)
             {
-                PlayerCamera.instance._player = this;
-                PlayerInputManager.instance._playerManager = this;
+                PlayerCamera.Instance._player = this;
+                PlayerInputManager.Instance._playerManager = this;
                 WorldSaveGameManager.Instance._playerManager = this;
 
                 _playerNetworkManager._currentStamina.OnValueChanged += PlayerUIManger.instance._playerUIHUDManager.SetNewStaminaValue;

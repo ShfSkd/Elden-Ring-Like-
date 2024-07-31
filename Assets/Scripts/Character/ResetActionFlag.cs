@@ -13,11 +13,12 @@ namespace SKD.Character
                 _characterManager = animator.GetComponent<CharacterManager>();
             }
 
-            // This is called when an action ends, and the state returns to "Empty"
             _characterManager._isPerfomingAction = false;
-            _characterManager._applyRootMotion = false; 
+            _characterManager._applyRootMotion = false;
             _characterManager._canRotate = true;
             _characterManager._canMove = true;
+            _characterManager._isJumping = false;
+
         }
 
         // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

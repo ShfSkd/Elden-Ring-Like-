@@ -8,7 +8,7 @@ namespace SKD.Character.Player
 {
     public class PlayerInputManager : MonoBehaviour
     {
-        public static PlayerInputManager instance;
+        public static PlayerInputManager Instance;
         PlayerControls _playerControls;
         public PlayerManager _playerManager;
 
@@ -26,11 +26,12 @@ namespace SKD.Character.Player
         [Header("Player Actions Inputs")]
         [SerializeField] bool _dodgeInput;
         [SerializeField] bool _sprintInput;
+        [SerializeField] bool _jumpInput;
 
         private void Awake()
         {
-            if (instance == null)
-                instance = this;
+            if (Instance == null)
+                Instance = this;
             else
                 Destroy(gameObject);
         }
@@ -38,17 +39,17 @@ namespace SKD.Character.Player
         {
             DontDestroyOnLoad(gameObject);
             SceneManager.activeSceneChanged += OnSceneChange;
-            instance.enabled = false;
+            Instance.enabled = false;
         }
         private void OnSceneChange(Scene oldScene, Scene newScene)
         {
             if (newScene.buildIndex == WorldSaveGameManager.Instance.GetWorldIndex())
             {
-                instance.enabled = true;
+                Instance.enabled = true;
             }
             else
             {
-                instance.enabled = false;
+                Instance.enabled = false;
             }
         }
         private void OnEnable()
@@ -65,6 +66,8 @@ namespace SKD.Character.Player
                 _playerControls.PlayerActions.Sprint.performed += i => _sprintInput = true;
                 // Releasing the input, sets the bool to false
                 _playerControls.PlayerActions.Sprint.canceled += i => _sprintInput = false;
+                // Holding the input, sets the bool to true
+                _playerControls.PlayerActions.Jump.performed += i => _jumpInput = true;
             }
             _playerControls.Enable();
         }
@@ -94,6 +97,7 @@ namespace SKD.Character.Player
             HandleCameraMovmentInput();
             HandleRoleInput();
             HandleSptintInput();
+            HandleJumpInput();
         }
 
         // Movement
@@ -144,6 +148,18 @@ namespace SKD.Character.Player
             else
             {
                 _playerManager._playerNetworkManager._isSprinting.Value = false;
+            }
+        }
+        private void HandleJumpInput()
+        {
+            if(_jumpInput)
+            {
+                _jumpInput = false;
+
+                // If we have UI window Open, simply return without doing nothing
+
+                // Attemp to perform jump
+                _playerManager._playerLocamotionManager.AttampToPerformJump();
             }
         }
     }
