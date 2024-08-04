@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SKD.Effects
 {
-    [CreateAssetMenu(menuName ="Character Effects/Instant Effect/Take Stamina Damage ")]
+    [CreateAssetMenu(menuName ="Character Effects/Instant Effect/Take Stamina Damage")]
     public class TakeStaminaDamageEffect : InstantCharacterEffect
     {
         public float _staminaDamage;

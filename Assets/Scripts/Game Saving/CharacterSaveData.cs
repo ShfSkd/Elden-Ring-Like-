@@ -6,7 +6,7 @@ namespace SKD.Game_Saving
 {
     [System.Serializable]
     // Since we want to reference this data for every save file, this script in not MonoBehavoiur and instead Serializable
-    public class CharacterSaveData 
+    public class CharacterSaveData
     {
         [Header("Scene Index")]
         public int _sceneIndex = 1;
@@ -23,6 +23,13 @@ namespace SKD.Game_Saving
         public float _xPosition;
         public float _yPosition;
         public float _zPosition;
-        
+
+        [Header("Resources")]
+        public int _currentHealth;
+        public float _currentStamina;
+
+        [Header("Stats")]
+        public int _vitality;
+        public int _endurance;
     }
 }

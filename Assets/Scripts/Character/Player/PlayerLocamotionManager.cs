@@ -22,8 +22,8 @@ namespace SKD.Character.Player
         [Header("Jump")]
         [SerializeField] float _jumpStaminaCost = 25f;
         [SerializeField] float _jumpHeight = 4;
-        [SerializeField] float _jumpForwardSpeed  = 5;
-        [SerializeField] float _freeFallSpeed   = 2;
+        [SerializeField] float _jumpForwardSpeed = 5;
+        [SerializeField] float _freeFallSpeed = 2;
         private Vector3 _jumpDirection;
 
 
@@ -135,7 +135,7 @@ namespace SKD.Character.Player
 
                 freeFallDirection.y = 0f;
 
-                _playerManager._characterController.Move(freeFallDirection * _freeFallSpeed * Time.deltaTime);   
+                _playerManager._characterController.Move(freeFallDirection * _freeFallSpeed * Time.deltaTime);
             }
         }
 

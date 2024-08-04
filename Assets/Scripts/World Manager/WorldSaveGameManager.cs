@@ -1,9 +1,7 @@
-using SKd;
-using SKD.Character.Player;
+using  SKD.Character.Player;
 using SKD.Game_Saving;
 using SKD.MenuScreen;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -120,7 +118,7 @@ namespace SKD.WorldManager
                 // If this profile slot is spot been taken , make a new one using this slot
                 _currentCharacterSlotBeingUsed = CharacterSlot.CharacterSlot_01;
                 _currentCharacterData = new CharacterSaveData();
-                StartCoroutine(LoadWorldScene());
+                NewGame();
                 return;
 
             }
@@ -132,7 +130,7 @@ namespace SKD.WorldManager
                 // If this profile slot is spot been taken , make a new one using this slot
                 _currentCharacterSlotBeingUsed = CharacterSlot.CharacterSlot_02;
                 _currentCharacterData = new CharacterSaveData();
-                StartCoroutine(LoadWorldScene());
+                NewGame();
                 return;
 
             }
@@ -143,7 +141,7 @@ namespace SKD.WorldManager
                 // If this profile slot is spot been taken , make a new one using this slot
                 _currentCharacterSlotBeingUsed = CharacterSlot.CharacterSlot_03;
                 _currentCharacterData = new CharacterSaveData();
-                StartCoroutine(LoadWorldScene());
+                NewGame();
                 return;
 
             }
@@ -154,7 +152,7 @@ namespace SKD.WorldManager
                 // If this profile slot is spot been taken , make a new one using this slot
                 _currentCharacterSlotBeingUsed = CharacterSlot.CharacterSlot_04;
                 _currentCharacterData = new CharacterSaveData();
-                StartCoroutine(LoadWorldScene());
+                NewGame();
                 return;
 
             }
@@ -165,7 +163,7 @@ namespace SKD.WorldManager
                 // If this profile slot is spot been taken , make a new one using this slot
                 _currentCharacterSlotBeingUsed = CharacterSlot.CharacterSlot_05;
                 _currentCharacterData = new CharacterSaveData();
-                StartCoroutine(LoadWorldScene());
+                NewGame();
                 return;
 
             }
@@ -176,7 +174,7 @@ namespace SKD.WorldManager
                 // If this profile slot is spot been taken , make a new one using this slot
                 _currentCharacterSlotBeingUsed = CharacterSlot.CharacterSlot_06;
                 _currentCharacterData = new CharacterSaveData();
-                StartCoroutine(LoadWorldScene());
+                NewGame();
                 return;
 
             }
@@ -187,7 +185,7 @@ namespace SKD.WorldManager
                 // If this profile slot is spot been taken , make a new one using this slot
                 _currentCharacterSlotBeingUsed = CharacterSlot.CharacterSlot_07;
                 _currentCharacterData = new CharacterSaveData();
-                StartCoroutine(LoadWorldScene());
+                NewGame();
                 return;
 
             }
@@ -198,7 +196,7 @@ namespace SKD.WorldManager
                 // If this profile slot is spot been taken , make a new one using this slot
                 _currentCharacterSlotBeingUsed = CharacterSlot.CharacterSlot_08;
                 _currentCharacterData = new CharacterSaveData();
-                StartCoroutine(LoadWorldScene());
+                NewGame();
                 return;
 
             }
@@ -209,7 +207,7 @@ namespace SKD.WorldManager
                 // If this profile slot is spot been taken , make a new one using this slot
                 _currentCharacterSlotBeingUsed = CharacterSlot.CharacterSlot_09;
                 _currentCharacterData = new CharacterSaveData();
-                StartCoroutine(LoadWorldScene());
+                NewGame();
                 return;
 
             }
@@ -220,7 +218,7 @@ namespace SKD.WorldManager
                 // If this profile slot is spot been taken , make a new one using this slot
                 _currentCharacterSlotBeingUsed = CharacterSlot.CharacterSlot_10;
                 _currentCharacterData = new CharacterSaveData();
-                StartCoroutine(LoadWorldScene());
+                NewGame();
                 return;
 
             }
@@ -232,6 +230,15 @@ namespace SKD.WorldManager
             // Create a new file, with a file name depending on which slot we are using 
             // _saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(_currentCharacterSlotBeingUsed);
 
+        }
+        private void NewGame()
+        {
+            // Saves the newly created character stats, and items (when creation screen is added)
+            _playerManager._playerNetworkManager._vitality.Value = 15;
+            _playerManager._playerNetworkManager._endurance.Value = 10;
+
+            SaveGame();
+            StartCoroutine(LoadWorldScene());
         }
         public void LoadGame()
         {
@@ -272,7 +279,6 @@ namespace SKD.WorldManager
 
             _saveFileDataWriter.DeleteSaveFile();
         }
-
         // Load all character profiles on device when starting a game 
         private void LoadAllCharacterProfiles()
         {
@@ -315,7 +321,7 @@ namespace SKD.WorldManager
             AsyncOperation loadOperation = SceneManager.LoadSceneAsync(worldSceneIndex);
 
             // If you want to use different scenes for levels in your project use this
-          //  AsyncOperation loadOperation = SceneManager.LoadSceneAsync(_currentCharacterData._sceneIndex);
+            //  AsyncOperation loadOperation = SceneManager.LoadSceneAsync(_currentCharacterData._sceneIndex);
 
             _playerManager.LoadGameDataFromCurrentCharacterData(ref _currentCharacterData);
 

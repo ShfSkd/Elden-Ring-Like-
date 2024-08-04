@@ -17,6 +17,15 @@ namespace SKD.Character
         {
             _characterManager = GetComponent<CharacterManager>();
         }
+        protected virtual void Start()
+        {
+
+        }
+        public int CalculateHealthBasedOnVitalityLevel(int vitality)
+        {
+            float health = vitality * 15;
+            return Mathf.RoundToInt(health);
+        }   
         public int CalculateStaminaBasedOnEnduraceLevel(int endurance)
         {
             float stamina = endurance * 10;

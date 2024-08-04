@@ -13,6 +13,7 @@ namespace SKD.Character.Player.PlayerUI
         [SerializeField] bool startGameAsClient;
 
         [HideInInspector] public PlayerUIHUDManager _playerUIHUDManager;
+        [HideInInspector]public PlayerUIPopUpmanager _playerUIPopUpmanager;
 
         private void Awake()
         {
@@ -22,6 +23,7 @@ namespace SKD.Character.Player.PlayerUI
                 Destroy(gameObject);
 
             _playerUIHUDManager = GetComponentInChildren<PlayerUIHUDManager>();
+            _playerUIPopUpmanager = GetComponentInChildren<PlayerUIPopUpmanager>();
         }
         private void Start()
         {

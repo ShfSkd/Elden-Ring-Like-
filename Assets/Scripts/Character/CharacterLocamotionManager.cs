@@ -58,7 +58,7 @@ namespace SKD.Character
         // Draw our ground check sphere in scene view
         protected void OnDrawGizmosSelected()
         {
-            Gizmos.DrawSphere(_characterManger.transform.position, _groundCheckSphereRaduis);
+            Gizmos.DrawSphere(_characterManger.transform.position, _groundCheckSphereRaduis); 
         }
     }
 }

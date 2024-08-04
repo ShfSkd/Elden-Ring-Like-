@@ -1,0 +1,65 @@
+using SKD.Character;
+using SKD.Effects;
+using SKD.WorldManager;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace SKD.Colliders
+{
+    public class DamageCollider : MonoBehaviour
+    {
+        [Header("Collider")]
+        protected Collider _damageCollider;
+        [Header("Damage")]
+        public float _physicalDamage;
+        public float _magicDamage;
+        public float _fireDamage;
+        public float _lightnigamage;
+        public float _holyDamage;
+
+        [Header("Contact Point")]
+        private Vector3 _contactPoint;
+
+        [Header("Characters Damaged")]
+        protected List<CharacterManager> _charactersDamagedList = new List<CharacterManager>();
+
+        private void OnTriggerEnter(Collider other)
+        {
+            CharacterManager damageCollider = other.GetComponent<CharacterManager>();
+            if (damageCollider != null)
+            {
+                _contactPoint = other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
+            }
+            DamageTarget(damageCollider);
+        }
+        protected virtual void DamageTarget(CharacterManager damageTarget)
+        {
+            // We don't want to damage the same target more then once in a single attack. So we add them to a list that check before applying damage 
+            if (_charactersDamagedList.Contains(damageTarget))
+                return;
+
+            _charactersDamagedList.Add(damageTarget);
+
+            TakeDamageEffect damageEffect = Instantiate(WorldCharacterEffectsManager.Instance._takeDamageEffect);
+            damageEffect._physicalDamage = _physicalDamage;
+            damageEffect._magicDamage = _magicDamage;
+            damageEffect._fireDamage = _fireDamage;
+            damageEffect._holyDamage = _holyDamage;
+            damageEffect._contantPoint = _contactPoint;
+
+            damageTarget._characterEffectsManager.ProceesInstanceEffect(damageEffect);
+        }
+
+        public virtual void EnableDamageCollider()
+        {
+            _damageCollider.enabled = true;
+        }
+        public virtual void DisableDamageCollider()
+        {
+            _damageCollider.enabled = false;
+            _charactersDamagedList.Clear(); // We rests the characters that have been hit when we reset the collider, so they may be hit again
+        }
+
+    }
+}

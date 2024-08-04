@@ -28,16 +28,35 @@ namespace SKD.Character
         [Header("Flags")]
         public NetworkVariable<bool> _isSprinting = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
+        [Header("Recurses")]
+        public NetworkVariable<int> _currentHealth = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<int> _maxHealth = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<float> _currentStamina = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<int> _maxStamina = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+
         [Header("Stats")]
-        public NetworkVariable<int> _endurance = new NetworkVariable<int>(1 , NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-        public NetworkVariable<float> _currentStamina = new NetworkVariable<float>(0 , NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-        public NetworkVariable<int> _maxStamina = new NetworkVariable<int>(0 , NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<int> _vitality = new NetworkVariable<int>(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<int> _endurance = new NetworkVariable<int>(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
         protected virtual void Awake()
         {
             _characterManager = GetComponent<CharacterManager>();
         }
+        public void CheckHP(int oldValue, int newValue)
+        {
+            if (_currentHealth.Value <= 0)
+            {
+                StartCoroutine(_characterManager.ProcessDeathEvent());
+            }
+            // Prevents us from over-healing 
+            if (_characterManager.IsOwner)
+            {
+                if(_currentHealth.Value<=0)
+                {
 
+                }
+            }
+        }
         // A server RPC is a function called from client, to the server (in our case the host)
         [ServerRpc]
         public void NotifyTheServerofActionAnimationServerRpc(ulong clientId, string animationID, bool applyRootMotion)

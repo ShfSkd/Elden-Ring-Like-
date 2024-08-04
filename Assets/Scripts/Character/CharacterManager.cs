@@ -7,9 +7,15 @@ namespace SKD.Character
 {
     public class CharacterManager : NetworkBehaviour
     {
+        [Header("Status")]
+        public NetworkVariable<bool> _isDead = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+
         [HideInInspector] public CharacterController _characterController;
         [HideInInspector] public Animator _animator;
-        public CharacterNetworkManager _characterNetworkManager;
+
+        [HideInInspector] public CharacterEffectsManager _characterEffectsManager;
+        [HideInInspector] public CharacterNetworkManager _characterNetworkManager;
+        [HideInInspector] public CharacterAnimationManager _characterAnimationManager;
 
         [Header("Flags")]
         public bool _isPerfomingAction = false;
@@ -25,7 +31,10 @@ namespace SKD.Character
 
             _characterController = GetComponent<CharacterController>();
             _animator = GetComponent<Animator>();
+
             _characterNetworkManager = GetComponent<CharacterNetworkManager>();
+            _characterEffectsManager = GetComponent<CharacterEffectsManager>();
+            _characterAnimationManager = GetComponent<CharacterAnimationManager>();
         }
         protected virtual void Update()
         {
@@ -47,6 +56,29 @@ namespace SKD.Character
         }
 
         protected virtual void LateUpdate()
+        {
+
+        }
+
+        public virtual IEnumerator ProcessDeathEvent(bool manuallySelectDeathAnimation = false)
+        {
+            if (IsOwner)
+            {
+                _characterNetworkManager._currentHealth.Value = 0;
+                _isDead.Value = true;
+
+                // Reset any flags you need to reset
+
+                // If we are not grounded, play an aerial death animation
+                if (!manuallySelectDeathAnimation)
+                {
+                    _characterAnimationManager.PlayTargetActionAnimation("Dead_01", true);
+                }
+            }
+            yield return new WaitForSeconds(5);
+        }
+
+        public virtual void ReviveCharacter()
         {
 
         }
