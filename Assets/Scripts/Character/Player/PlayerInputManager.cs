@@ -27,6 +27,7 @@ namespace SKD.Character.Player
         [SerializeField] bool _dodgeInput;
         [SerializeField] bool _sprintInput;
         [SerializeField] bool _jumpInput;
+        [SerializeField] bool _RB_Input;
 
         private void Awake()
         {
@@ -40,16 +41,25 @@ namespace SKD.Character.Player
             DontDestroyOnLoad(gameObject);
             SceneManager.activeSceneChanged += OnSceneChange;
             Instance.enabled = false;
+
+            if (_playerControls != null)
+                _playerControls.Disable();
         }
         private void OnSceneChange(Scene oldScene, Scene newScene)
         {
             if (newScene.buildIndex == WorldSaveGameManager.Instance.GetWorldIndex())
             {
                 Instance.enabled = true;
+
+                if (_playerControls != null)
+                    _playerControls.Enable();
             }
             else
             {
                 Instance.enabled = false;
+
+                if (_playerControls != null)
+                    _playerControls.Disable();
             }
         }
         private void OnEnable()
@@ -68,6 +78,8 @@ namespace SKD.Character.Player
                 _playerControls.PlayerActions.Sprint.canceled += i => _sprintInput = false;
                 // Holding the input, sets the bool to true
                 _playerControls.PlayerActions.Jump.performed += i => _jumpInput = true;
+
+                _playerControls.PlayerActions.RB.performed += i => _RB_Input = true;
             }
             _playerControls.Enable();
         }
@@ -98,6 +110,7 @@ namespace SKD.Character.Player
             HandleRoleInput();
             HandleSptintInput();
             HandleJumpInput();
+            HandleRBInput();
         }
 
         // Movement
@@ -152,14 +165,26 @@ namespace SKD.Character.Player
         }
         private void HandleJumpInput()
         {
-            if(_jumpInput)
+            if (_jumpInput)
             {
                 _jumpInput = false;
 
                 // If we have UI window Open, simply return without doing nothing
 
-                // Attemp to perform jump
+                // Attempt to perform jump
                 _playerManager._playerLocamotionManager.AttampToPerformJump();
+            }
+        }
+        private void HandleRBInput()
+        {
+            if (_RB_Input && Application.isPlaying)
+            {
+                _RB_Input = false;
+                // TODO: If we have UI Window open return and do nothing
+
+                _playerManager._playerNetworkManager.SetCharacterActionHand(true);
+
+                _playerManager._playerCombatManager.PerformWeaponBasedAction(_playerManager._playerInventoryManager._currentRightHandWeapon._keyboard_RB_Action, _playerManager._playerInventoryManager._currentRightHandWeapon);
             }
         }
     }

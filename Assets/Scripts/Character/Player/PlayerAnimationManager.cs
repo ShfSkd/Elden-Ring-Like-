@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace SKD.Character.Player
@@ -12,6 +13,8 @@ namespace SKD.Character.Player
             base.Awake();
             _playerManager = GetComponent<PlayerManager>();
         }
+
+       
         private void OnAnimatorMove()
         {
             if(_playerManager._applyRootMotion)

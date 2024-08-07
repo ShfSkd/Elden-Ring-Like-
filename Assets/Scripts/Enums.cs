@@ -15,4 +15,8 @@ namespace SKD
     {
         RightHand, LeftHand
     }
+    public enum AttackType
+    {
+        LigthAttack01
+    }
 }

@@ -37,7 +37,7 @@ namespace SKD.Character
             else
             {
                 // If we are not jumping, and our falling velocity has not been set 
-                if (!_characterManger._isJumping && !_fallingVelocityhasBeenSet)
+                if (!_characterManger._characterNetworkManager._isJumping.Value && !_fallingVelocityhasBeenSet)
                 {
                     _fallingVelocityhasBeenSet = true;
                     _yVelocity.y = _fallStartYVelocity;
@@ -58,7 +58,7 @@ namespace SKD.Character
         // Draw our ground check sphere in scene view
         protected void OnDrawGizmosSelected()
         {
-            Gizmos.DrawSphere(_characterManger.transform.position, _groundCheckSphereRaduis); 
+           // Gizmos.DrawSphere(_characterManger.transform.position, _groundCheckSphereRaduis); 
         }
     }
 }

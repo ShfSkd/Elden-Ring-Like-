@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -46,5 +47,27 @@ namespace SKD.Character
             // Tell the server/host we played an animation, and to play that animation for everybody else present
             _characterManager._characterNetworkManager.NotifyTheServerofActionAnimationServerRpc(NetworkManager.Singleton.LocalClientId, targetAnimationName, applyRootMotion);
         }
+        public void PlayTargetAttackActioAnimation(AttackType attackType,   string targetAnimationName,
+            bool isPerformingAction,
+            bool applyRootMotion = true,
+            bool canRotate = false,
+            bool canMove = false)
+        {
+            // Keep track of the last attack perform(for combos)
+            // Keep track of current attack type(light,heavy,etc)
+            // Update animation set to current weapons animations
+            // Deiced if our attack can be parried
+            // Tell the network our "IsAttacking" flag
+            _characterManager._characterCombatManager._currentAttacktype = attackType; 
+            _characterManager._applyRootMotion = applyRootMotion;
+            _characterManager._animator.CrossFade(targetAnimationName, 0.2f);
+            _characterManager._isPerfomingAction = isPerformingAction;
+            _characterManager._canRotate = canRotate;
+            _characterManager._canMove = canMove;
+
+            // Tell the server/host we played an animation, and to play that animation for everybody else present
+            _characterManager._characterNetworkManager.NotifyTheServerofActionAttackAnimationServerRpc(NetworkManager.Singleton.LocalClientId, targetAnimationName, applyRootMotion);
+        }
+
     }
 }

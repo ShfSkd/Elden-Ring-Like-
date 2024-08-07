@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SKD
+namespace SKD.Character
 {
     public class WeaponModelInstantationSlot : MonoBehaviour
     {

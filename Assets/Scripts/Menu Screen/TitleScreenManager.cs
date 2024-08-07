@@ -34,6 +34,7 @@ namespace SKD.MenuScreen
                 Instance = this;
             else
                 Destroy(gameObject);
+
         }
         public void StartNetworkAsHost()
         {

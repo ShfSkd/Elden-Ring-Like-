@@ -15,7 +15,7 @@ MonoBehaviour:
   _itemName: 'Straight Sword '
   _itemIcon: {fileID: 21300000, guid: 609776d8ce055b848a087082b1d3f639, type: 3}
   _itemDescription: 'A Straight Sword '
-  _itemID: 0
+  _itemID: 1
   _weaponModel: {fileID: 4785436569430175925, guid: 1b2b986ce8873834bb306c2e9456930f, type: 3}
   _weaponRequirement: 10
   _dexRequirement: 10
@@ -28,3 +28,4 @@ MonoBehaviour:
   _lightningDamage: 0
   _posieDamage: 25
   _baseStaminaCost: 20
+  _keyboard_RB_Action: {fileID: 11400000, guid: 94c2437632bda3e49954af8d6bc9cf34, type: 2}

@@ -28,3 +28,4 @@ MonoBehaviour:
   _lightningDamage: 0
   _posieDamage: 10
   _baseStaminaCost: 5
+  _keyboard_RB_Action: {fileID: 11400000, guid: 41222f16db26c0b44bfe914370783d0c, type: 2}

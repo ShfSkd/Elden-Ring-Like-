@@ -130,11 +130,11 @@ namespace SKD.Character.Player
                 {
                     selectedWeapon = _playerManager._playerInventoryManager._weaponInRigthHandSlots[_playerManager._playerInventoryManager._rightHandWeaponIndex];
                     // Assign the network weapon ID so it switch for all connected clients 
-                    _playerManager._playerNetworkManager._currentRightWeaponID.Value = _playerManager._playerInventoryManager._weaponInRigthHandSlots[_playerManager._playerInventoryManager._leftHandWeaponIndex]._itemID;
+                    _playerManager._playerNetworkManager._currentRightWeaponID.Value = _playerManager._playerInventoryManager._weaponInRigthHandSlots[_playerManager._playerInventoryManager._rightHandWeaponIndex]._itemID;
                     return;
                 }
             }
-            if (selectedWeapon != null && _playerManager._playerInventoryManager._rightHandWeaponIndex <= 2)
+            if (selectedWeapon == null && _playerManager._playerInventoryManager._rightHandWeaponIndex <= 2)
             {
                 SwitchRightWeapon();
             }
@@ -158,6 +158,30 @@ namespace SKD.Character.Player
         public void SwitchLeftWeapon()
         {
 
+        }
+
+        // Damage Colliders
+        public void OpenDamageCollider()
+        {
+            if (_playerManager._playerNetworkManager._isUsingRightHand.Value)
+            {
+                _rightWeaponManager._meleeDamageCollider.EnableDamageCollider();
+            }
+            else if (_playerManager._playerNetworkManager._isUsingLeftHand.Value)
+            {
+                _leftWeaponManager._meleeDamageCollider.EnableDamageCollider();
+            }
+        }
+        public void CloseDamageCollider()
+        {
+            if (_playerManager._playerNetworkManager._isUsingRightHand.Value)
+            {
+                _rightWeaponManager._meleeDamageCollider.DisableDamageCollider();
+            }
+            else if (_playerManager._playerNetworkManager._isUsingLeftHand.Value)
+            {
+                _leftWeaponManager._meleeDamageCollider.DisableDamageCollider();
+            }
         }
     }
 }

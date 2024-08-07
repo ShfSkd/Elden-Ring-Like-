@@ -10,7 +10,7 @@ namespace SKD.Colliders
     public class DamageCollider : MonoBehaviour
     {
         [Header("Collider")]
-        protected Collider _damageCollider;
+        [SerializeField] protected Collider _damageCollider;
         [Header("Damage")]
         public float _physicalDamage;
         public float _magicDamage;
@@ -19,19 +19,30 @@ namespace SKD.Colliders
         public float _holyDamage;
 
         [Header("Contact Point")]
-        private Vector3 _contactPoint;
+        protected Vector3 _contactPoint;
 
         [Header("Characters Damaged")]
         protected List<CharacterManager> _charactersDamagedList = new List<CharacterManager>();
 
-        private void OnTriggerEnter(Collider other)
+        protected virtual void Awake()
         {
-            CharacterManager damageCollider = other.GetComponent<CharacterManager>();
-            if (damageCollider != null)
+
+        }
+        protected virtual void OnTriggerEnter(Collider other)
+        {
+            CharacterManager damagetarget = other.GetComponentInParent<CharacterManager>();
+
+            // If you want to search on both the damageable character colliders & the character collider just check for null here and do the following
+            /* if (damagetarget == null)
+             {
+                 damagetarget = other.GetComponent<CharacterManager>();
+             }*/
+            if (damagetarget != null)
             {
                 _contactPoint = other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
+                Debug.Log(other.gameObject.GetComponent<Collider>().transform.ToString());
             }
-            DamageTarget(damageCollider);
+            DamageTarget(damagetarget);
         }
         protected virtual void DamageTarget(CharacterManager damageTarget)
         {

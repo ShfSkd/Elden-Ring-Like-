@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using SKD.Items.WeaponItems;
+using System.Collections;
 using UnityEngine;
 
 namespace SKD.Items
@@ -31,17 +32,23 @@ namespace SKD.Items
         // Offensive Poise bonus when attacking 
 
         // Weapon Modifier
+        [Header("Attack Modifiers")]
+        public float _light_Attack_01_modifier  = 1.1f;
         // Light Attack Modifier
         // Heavy Attack Modifier
         // Critical Damage Modifier etc..
 
-        [Header("Stamina Cost")]
+        [Header("Stamina Cost Modifiers")]
         public int _baseStaminaCost = 20;
+        public float _lightAttackStaminaCostMultiplier = 0.9f;
         // Running stamina cost modifier 
         // Light stamina cost modifier 
         // Heavy stamina cost modifier ETC
 
         // Item base Action(RB,RT,LB,LT)
+        [Header("Actions")]
+        public WeaponItemAction _keyboard_RB_Action;// One hand right bumper action
+
 
         // Ash of war 
 

@@ -5,11 +5,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SKD
+namespace SKD.Items
 {
     public class WeaponManager : MonoBehaviour
     {
-        [SerializeField] MeleeWeaponDamageCollider _meleeDamageCollider;
+        public MeleeWeaponDamageCollider _meleeDamageCollider;
 
         private void Awake()
         {
@@ -23,6 +23,8 @@ namespace SKD
             _meleeDamageCollider._fireDamage = weapon._fireDamage;
             _meleeDamageCollider._lightnigamage = weapon._lightningDamage;
             _meleeDamageCollider._holyDamage = weapon._holyDamage;
+
+            _meleeDamageCollider._light_Attack_01_Modofier = weapon._light_Attack_01_modifier;
         }
     }
 

@@ -16,10 +16,10 @@ namespace SKD.Character
         [HideInInspector] public CharacterEffectsManager _characterEffectsManager;
         [HideInInspector] public CharacterNetworkManager _characterNetworkManager;
         [HideInInspector] public CharacterAnimationManager _characterAnimationManager;
+        [HideInInspector] public CharacterCombatManager _characterCombatManager;
 
         [Header("Flags")]
         public bool _isPerfomingAction = false;
-        public bool _isJumping = false;
         public bool _isGrounded = true;
         public bool _applyRootMotion = false;
         public bool _canRotate = true;
@@ -35,6 +35,11 @@ namespace SKD.Character
             _characterNetworkManager = GetComponent<CharacterNetworkManager>();
             _characterEffectsManager = GetComponent<CharacterEffectsManager>();
             _characterAnimationManager = GetComponent<CharacterAnimationManager>();
+            _characterCombatManager = GetComponent<CharacterCombatManager>();
+        }
+        protected virtual void Start()
+        {
+            IgnoreMyOwnColliders();
         }
         protected virtual void Update()
         {
@@ -81,6 +86,29 @@ namespace SKD.Character
         public virtual void ReviveCharacter()
         {
 
+        }
+        protected virtual void IgnoreMyOwnColliders()
+        {
+            Collider characterControllerCollider = GetComponent<Collider>();
+            Collider[] damagbleCharacterColliders = GetComponentsInChildren<Collider>();
+            List<Collider> ignoreColliders = new List<Collider>();
+
+            // Add all of our damageable  character colliders, to the list that will be used to ignore collisions 
+            foreach (Collider collider in damagbleCharacterColliders)
+            {
+                ignoreColliders.Add(collider);
+            }
+            // Add our character controller coliider to the list that will be used to ignore collisions
+            ignoreColliders.Add(characterControllerCollider);
+
+            // Goes through every collider on the list, and ignore collision with each other
+            foreach (Collider collider in ignoreColliders)
+            {
+                foreach (Collider otherCollider in ignoreColliders)
+                {
+                    Physics.IgnoreCollision(collider, otherCollider, true);
+                }
+            }
         }
 
     }

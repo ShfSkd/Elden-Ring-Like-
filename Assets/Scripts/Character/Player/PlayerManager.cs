@@ -19,6 +19,7 @@ namespace SKD.Character.Player
         [HideInInspector] public PlayerStatsManager _playerStatsManager;
         [HideInInspector] public PlayerInventoryManager _playerInventoryManager;
         [HideInInspector] public PlayerEquiqmentManager _playerEquiqmentManager;
+        [HideInInspector] public PlayerCombatManager _playerCombatManager;
 
         protected override void Awake()
         {
@@ -35,6 +36,8 @@ namespace SKD.Character.Player
             _playerInventoryManager = GetComponent<PlayerInventoryManager>();
 
             _playerEquiqmentManager = GetComponent<PlayerEquiqmentManager>();
+
+            _playerCombatManager = GetComponent<PlayerCombatManager>();
         }
         protected override void Update()
         {
@@ -62,6 +65,8 @@ namespace SKD.Character.Player
         {
             base.OnNetworkSpawn();
 
+            Debug.Log("Network object spawned. Setting up event handlers.");
+
             // If this is the player object owned by this client
             if (IsOwner)
             {
@@ -84,7 +89,16 @@ namespace SKD.Character.Player
 
             // Equipments
             _playerNetworkManager._currentRightWeaponID.OnValueChanged += _playerNetworkManager.OnCurrentRightHandWeaponIDChanged;
-            _playerNetworkManager._currentLeftWeaponID.OnValueChanged += _playerNetworkManager.OnCurrentLedtHandWeaponIDChanged;
+            _playerNetworkManager._currentLeftWeaponID.OnValueChanged += _playerNetworkManager.OnCurrentLeftHandWeaponIDChanged;
+            _playerNetworkManager._currentWeaponBeingUsed.OnValueChanged += _playerNetworkManager.OnCurrentWeaponBeingUsedIDChange;
+
+            // Upon connecting, If we are the owner of this character, But we are not the server, reload our character data to this newly instantiated character
+            // We don't run it if we are the server, because since they are the host, they are already loaded in and don't need to reload their data
+            if (IsOwner && !IsServer)
+            {
+                LoadGameDataFromCurrentCharacterData(ref WorldSaveGameManager.Instance._currentCharacterData);
+            }
+            Debug.Log("Event handlers set up completed.");
         }
         public override void ReviveCharacter()
         {

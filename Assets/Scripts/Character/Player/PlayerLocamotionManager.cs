@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 namespace SKD.Character.Player
 {
     public class PlayerLocamotionManager : CharacterLocamotionManager
@@ -118,7 +119,7 @@ namespace SKD.Character.Player
 
         private void HandleJumpingMovement()
         {
-            if (_playerManager._isJumping)
+            if (_playerManager._playerNetworkManager._isJumping.Value)
             {
                 _playerManager._characterController.Move(_jumpDirection * _jumpForwardSpeed * Time.deltaTime);
             }
@@ -231,7 +232,7 @@ namespace SKD.Character.Player
                 return;
 
             // If we are already in a jump, we do not wish to allow a jump again until the current jump has finished
-            if (_playerManager._isJumping)
+            if (_playerManager._playerNetworkManager.IsOwner && _playerManager._playerNetworkManager._isJumping.Value)
                 return;
 
             // If we are not grounded, we do not wish to allow a jump
@@ -240,7 +241,7 @@ namespace SKD.Character.Player
             // If we are 2 handed our weapon, play the 2 handed animation , otherwise play the 1 handed animation (TODO) 
             _playerManager._playerAnimationManager.PlayTargetActionAnimation("Main_Jump_01", false);
 
-            _playerManager._isJumping = true;
+            _playerManager._playerNetworkManager._isJumping.Value = true;
 
             _playerManager._playerNetworkManager._currentStamina.Value -= _jumpStaminaCost;
 
