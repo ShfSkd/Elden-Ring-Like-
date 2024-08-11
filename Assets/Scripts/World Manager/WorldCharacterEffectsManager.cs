@@ -9,9 +9,11 @@ namespace SKD.WorldManager
     {
         public static WorldCharacterEffectsManager Instance;
 
+        [Header("VFX")] 
+        public GameObject _bloodSplatterVFX;
+
         [Header("Damage")]
         public TakeDamageEffect _takeDamageEffect;
-
         [SerializeField] List<InstantCharacterEffect> _instantEffects;
 
         private void Awake()

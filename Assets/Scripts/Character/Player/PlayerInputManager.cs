@@ -23,11 +23,18 @@ namespace SKD.Character.Player
         public float _cameraVerticalInput;
         public float _cameraHorizontalInput;
 
+        [Header("Lock On")]
+        [SerializeField] bool _lockOnInput;
+        [SerializeField] bool _lockOnLeftInput;
+        [SerializeField] bool _lockOnRightInput;
+        private Coroutine _lockOnCoroutine;
+
         [Header("Player Actions Inputs")]
         [SerializeField] bool _dodgeInput;
         [SerializeField] bool _sprintInput;
         [SerializeField] bool _jumpInput;
         [SerializeField] bool _RB_Input;
+
 
         private void Awake()
         {
@@ -80,6 +87,11 @@ namespace SKD.Character.Player
                 _playerControls.PlayerActions.Jump.performed += i => _jumpInput = true;
 
                 _playerControls.PlayerActions.RB.performed += i => _RB_Input = true;
+
+                // Lock On
+                _playerControls.PlayerActions.LockOn.performed += i => _lockOnInput = true;
+                _playerControls.PlayerActions.SeekLeftLockOnTarget.performed += i => _lockOnLeftInput = true;
+                _playerControls.PlayerActions.SeekRightLockOnTarget.performed += i => _lockOnRightInput = true;
             }
             _playerControls.Enable();
         }
@@ -105,6 +117,8 @@ namespace SKD.Character.Player
 
         private void HandleAllInputs()
         {
+            HandleLockOnInput();
+            HandleLockOnSwitchTargetInput();
             HandlePlayerMovementInput();
             HandleCameraMovmentInput();
             HandleRoleInput();
@@ -112,7 +126,81 @@ namespace SKD.Character.Player
             HandleJumpInput();
             HandleRBInput();
         }
+        // Lock On
+        private void HandleLockOnInput()
+        {
+            // Check for dead character
+            if (_playerManager._playerNetworkManager._isLockOn.Value)
+            {
+                if (_playerManager._playerCombatManager._currentTarget == null)
+                    return;
 
+                if (_playerManager._playerCombatManager._currentTarget._isDead.Value)
+                {
+                    _playerManager._playerNetworkManager._isLockOn.Value = false;
+                }
+                // Attempt to find new targets
+                // This assures us that the coroutine never runs multiple times overlapping itself
+                if(_lockOnCoroutine!=null)
+                    StopCoroutine(_lockOnCoroutine);
+
+                _lockOnCoroutine = StartCoroutine(PlayerCamera.Instance.WaitThenFindNewTarget());
+            }
+            if (_lockOnInput && _playerManager._playerNetworkManager._isLockOn.Value)
+            {
+                _lockOnInput = false;
+                PlayerCamera.Instance.ClearLockOnTargets();
+                _playerManager._playerNetworkManager._isLockOn.Value = false;
+                // Disable Lock on
+                return;
+            }
+            if (_lockOnInput && !_playerManager._playerNetworkManager._isLockOn.Value)
+            {
+                _lockOnInput = false;
+                // Enable Lock on
+
+                PlayerCamera.Instance.HandleLocatingLockOnTargets();
+
+                if (PlayerCamera.Instance._nearstLockOnTarget != null)
+                {
+                    // Set The Target as our current target 
+                    _playerManager._playerCombatManager.SetTarget(PlayerCamera.Instance._nearstLockOnTarget);
+                    _playerManager._playerNetworkManager._isLockOn.Value = true;
+                }
+            }
+        }
+        private void HandleLockOnSwitchTargetInput()
+        {
+            if (_lockOnLeftInput)
+            {
+                _lockOnLeftInput = false;
+
+                if (_playerManager._playerNetworkManager._isLockOn.Value)
+                {
+                    PlayerCamera.Instance.HandleLocatingLockOnTargets();
+
+                    if (PlayerCamera.Instance._leftLockOnTarget != null)
+                    {
+                        _playerManager._playerCombatManager.SetTarget(PlayerCamera.Instance._leftLockOnTarget);
+                    }
+                }
+            }
+
+            if (_lockOnRightInput)
+            {
+                _lockOnRightInput = false;
+
+                if (_playerManager._playerNetworkManager._isLockOn.Value)
+                {
+                    PlayerCamera.Instance.HandleLocatingLockOnTargets();
+
+                    if (PlayerCamera.Instance._rightLockOnTarget != null)
+                    {
+                        _playerManager._playerCombatManager.SetTarget(PlayerCamera.Instance._rightLockOnTarget);
+                    }
+                }
+            }
+        }
         // Movement
         private void HandlePlayerMovementInput()
         {
@@ -131,9 +219,17 @@ namespace SKD.Character.Player
             // We use the horizontal when we are strafing or locked on 
             if (_playerManager == null) return;
             // If we are not locked on, only use the move amount 
-            _playerManager._playerAnimationManager.UpdateAnimatorMovementParameters(0, _moveAmount, _playerManager._playerNetworkManager._isSprinting.Value);
-
+            if (!_playerManager._playerNetworkManager._isLockOn.Value || _playerManager._playerNetworkManager._isSprinting.Value)
+            {
+                _playerManager._playerAnimationManager.UpdateAnimatorMovementParameters(0, _moveAmount, _playerManager._playerNetworkManager._isSprinting.Value);
+            }
+            else
             // If are locked on pass the horizontal as well 
+            {
+                _playerManager._playerAnimationManager.UpdateAnimatorMovementParameters(_horizontalInput, _verticalInput, _playerManager._playerNetworkManager._isSprinting.Value);
+
+            }
+
         }
 
         private void HandleCameraMovmentInput()

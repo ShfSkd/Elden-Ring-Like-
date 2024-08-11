@@ -49,5 +49,14 @@ namespace SKD.Character.Player
             Debug.Log("Stamina Drained " + staminaDetucted);
             _playerManager._playerNetworkManager._currentStamina.Value -= Mathf.RoundToInt(staminaDetucted);
         }
+        public override void SetTarget(CharacterManager newTarget)
+        {
+            base.SetTarget(newTarget);
+
+            if (_playerManager.IsOwner)
+            {
+                PlayerCamera.Instance.SetLockOnCameraHeight();
+            }
+        }
     }
 }

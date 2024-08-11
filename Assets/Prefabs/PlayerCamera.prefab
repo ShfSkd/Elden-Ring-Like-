@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a88f2a91be562b4090ad95fc76f0ba3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 0}
+  _playerManager: {fileID: 0}
   _cameraObject: {fileID: 6578955995295023865}
   _cameraPivotTransform: {fileID: 3810547780213364990}
   _leftAndRightRotationSpeed: 75
@@ -90,6 +90,16 @@ MonoBehaviour:
     m_Bits: 1
   _leftAndRightLookAngle: 0
   _uptAndDownLookAngle: 0
+  _lockOnRaduis: 20
+  _minimumViewableAngle: -50
+  _maxuimuViewableAngle: 50
+  _lockOnTargetFollowSpeed: 0.2
+  _setCameraSpeed: 0.05
+  _unlockCameraHeigth: 1.65
+  _lockedCameraHeigth: 2
+  _nearstLockOnTarget: {fileID: 0}
+  _leftLockOnTarget: {fileID: 0}
+  _rightLockOnTarget: {fileID: 0}
 --- !u!1 &6578955995295023867
 GameObject:
   m_ObjectHideFlags: 0

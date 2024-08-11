@@ -17,7 +17,7 @@ namespace SKD.Colliders
         {
             base.Awake();
             if (_damageCollider == null)
-                _damageCollider = GetComponent<Collider>() ;
+                _damageCollider = GetComponent<Collider>();
 
             _damageCollider.enabled = false; // Melee Weapon colliders should be disables at start , only enabled when animation allow
         }
@@ -51,6 +51,7 @@ namespace SKD.Colliders
             damageEffect._holyDamage = _holyDamage;
             damageEffect._lightnigamage = _lightnigamage;
             damageEffect._contantPoint = _contactPoint;
+            damageEffect._angleHitFrom = Vector3.SignedAngle(_characterCausingDamage.transform.forward, damageTarget.transform.forward, Vector3.up);
 
             switch (_characterCausingDamage._characterCombatManager._currentAttacktype)
             {

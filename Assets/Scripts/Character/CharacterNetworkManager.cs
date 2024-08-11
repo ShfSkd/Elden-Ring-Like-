@@ -21,12 +21,14 @@ namespace SKD.Character
 
         [Header("Animator")]
         public NetworkVariable<float> _horizontalMovement = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-
         public NetworkVariable<float> _verticalMovement = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-
         public NetworkVariable<float> _moveAmount = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
+        [Header("Target")]
+        public NetworkVariable<ulong> _currentTargetNetworkObjectID = new NetworkVariable<ulong>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+
         [Header("Flags")]
+        public NetworkVariable<bool> _isLockOn = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<bool> _isSprinting = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<bool> _isJumping = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
@@ -57,6 +59,19 @@ namespace SKD.Character
                 {
 
                 }
+            }
+        }
+
+        public void OnLockOnTargetIDChange(ulong oldID, ulong newID)
+        {
+            if (!IsOwner)
+                _characterManager._characterCombatManager._currentTarget = NetworkManager.Singleton.SpawnManager.SpawnedObjects[newID].gameObject.GetComponent<CharacterManager>();
+        }
+        public void OnIsLockOnChanged(bool old,bool isLockOn)
+        {
+            if (!isLockOn)
+            {
+                _characterManager._characterCombatManager._currentTarget = null;     
             }
         }
         // A server RPC is a function called from client, to the server (in our case the host)

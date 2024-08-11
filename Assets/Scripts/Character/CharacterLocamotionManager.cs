@@ -16,6 +16,9 @@ namespace SKD.Character
         [SerializeField] protected float _fallStartYVelocity = -5f;// the force at which our character begins to fall when they become underground (Rises as they fall longer)
         protected bool _fallingVelocityhasBeenSet;
         protected float _inAirTimer = 0f;
+
+        [Header("Flags")]
+        public bool _isRolling;
         protected virtual void Awake()
         {
             _characterManger = GetComponent<CharacterManager>();

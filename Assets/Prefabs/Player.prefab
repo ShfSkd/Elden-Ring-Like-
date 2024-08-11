@@ -253,6 +253,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1740525175848010608}
+  - {fileID: 5372538970158498679}
   - {fileID: 5498915008053945013}
   m_Father: {fileID: 7026073225716045193}
   m_RootOrder: 0
@@ -1296,7 +1297,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6759393352583900978}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5335822304142143423
 GameObject:
@@ -1442,8 +1443,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 951099334
+  GlobalObjectIdHash: 853681870
+  InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
 --- !u!114 &6071561081526457013
@@ -1465,6 +1471,8 @@ MonoBehaviour:
   _characterEffectsManager: {fileID: 0}
   _characterNetworkManager: {fileID: 0}
   _characterAnimationManager: {fileID: 0}
+  _characterCombatManager: {fileID: 0}
+  _characterSoundFXManager: {fileID: 0}
   _isPerfomingAction: 0
   _isGrounded: 1
   _applyRootMotion: 0
@@ -1491,6 +1499,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 961014bc264aa9447a8bd8c570009ac5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentTarget: {fileID: 0}
+  _currentAttacktype: 0
+  _lockOnTransform: {fileID: 5372538970158498679}
   _currentWeaponBeingUsed: {fileID: 0}
 --- !u!114 &-8975570487359277179
 MonoBehaviour:
@@ -1561,6 +1572,8 @@ MonoBehaviour:
   _verticalMovement:
     m_InternalValue: 0
   _moveAmount:
+    m_InternalValue: 0
+  _isLockOn:
     m_InternalValue: 0
   _isSprinting:
     m_InternalValue: 0
@@ -1683,6 +1696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050be47c620198e458c33dd77133cc21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bloodSplatterVFX: {fileID: 3548738708314695399, guid: 13bdfb963274d4742a1e33fd72088c6b, type: 3}
   _effectToTest: {fileID: 11400000, guid: e4552ddebe8b46841a0f48625815ef94, type: 2}
   _proccesEffect: 1
 --- !u!114 &4498521549953450294
@@ -1739,6 +1753,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee10c0897603da54bb99aca5f3a1d9c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _lastDamageAniumationPlayed: 
+  _hit_Forward_Medium_01: Hit_Forward_Medium_01
+  _hit_Forward_Medium_02: Hit_Forward_Medium_02
+  _hit_Backward_Medium_01: Hit_Backward_Medium_01
+  _hit_Backward_Medium_02: Hit_Backward_Medium_02
+  _hit_Left_Medium_01: Hit_Left_Medium_01
+  _hit_Left_Medium_02: Hit_Left_Medium_02
+  _hit_Right_Medium_01: Hit_Right_Medium_01
+  _hit_Right_Medium_02: Hit_Right_Medium_02
+  _forward_Medium_Damage_List: []
+  _backeard_Medium_damage_List: []
+  _left_Medium_damage_List: []
+  _right_Medium_damage_List: []
 --- !u!143 &6857649507195434714
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2548,6 +2575,37 @@ Transform:
   - {fileID: 5695059062265057366}
   m_Father: {fileID: 1620637657389466306}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8004616193320383172
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5372538970158498679}
+  m_Layer: 7
+  m_Name: Lock On Target
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5372538970158498679
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8004616193320383172}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.179, y: 0, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6759393352583900978}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8054559892606305726
 GameObject:

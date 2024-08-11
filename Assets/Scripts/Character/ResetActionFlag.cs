@@ -17,6 +17,7 @@ namespace SKD.Character
             _characterManager._applyRootMotion = false;
             _characterManager._canRotate = true;
             _characterManager._canMove = true;
+            _characterManager._characterLocamotionManager._isRolling = false;
 
             if (_characterManager.IsOwner)
                 _characterManager._characterNetworkManager._isJumping.Value = false;

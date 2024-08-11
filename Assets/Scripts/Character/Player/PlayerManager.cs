@@ -1,7 +1,9 @@
 ﻿using SKD.Character.Player.PlayerUI;
 using SKD.Game_Saving;
+using SKD.World_Manager;
 using SKD.WorldManager;
 using System.Collections;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -64,13 +66,14 @@ namespace SKD.Character.Player
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
+            NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnectedCallback;
 
             Debug.Log("Network object spawned. Setting up event handlers.");
 
             // If this is the player object owned by this client
             if (IsOwner)
             {
-                PlayerCamera.Instance._player = this;
+                PlayerCamera.Instance._playerManager = this;
                 PlayerInputManager.Instance._playerManager = this;
                 WorldSaveGameManager.Instance._playerManager = this;
 
@@ -87,9 +90,13 @@ namespace SKD.Character.Player
             // Stats 
             _playerNetworkManager._currentHealth.OnValueChanged += _playerNetworkManager.CheckHP;
 
+            // Lock On 
+            _playerNetworkManager._isLockOn.OnValueChanged += _playerNetworkManager.OnIsLockOnChanged;
+            _playerNetworkManager._currentTargetNetworkObjectID.OnValueChanged += _playerNetworkManager.OnLockOnTargetIDChange;
+
             // Equipments
-            _playerNetworkManager._currentRightWeaponID.OnValueChanged += _playerNetworkManager.OnCurrentRightHandWeaponIDChanged;
-            _playerNetworkManager._currentLeftWeaponID.OnValueChanged += _playerNetworkManager.OnCurrentLeftHandWeaponIDChanged;
+            _playerNetworkManager._currentRightWeaponID.OnValueChanged += _playerNetworkManager.OnCurrentRightHandWeaponIDChange;
+            _playerNetworkManager._currentLeftWeaponID.OnValueChanged += _playerNetworkManager.OnCurrentLeftHandWeaponIDChange;
             _playerNetworkManager._currentWeaponBeingUsed.OnValueChanged += _playerNetworkManager.OnCurrentWeaponBeingUsedIDChange;
 
             // Upon connecting, If we are the owner of this character, But we are not the server, reload our character data to this newly instantiated character
@@ -100,15 +107,32 @@ namespace SKD.Character.Player
             }
             Debug.Log("Event handlers set up completed.");
         }
+        private void OnClientConnectedCallback(ulong clientID)
+        {
+            WorldGameSessionManager.Instance.AddPlayerToActivePlayerList(this);
+            // keep a list of active players in the game
+            // If we are the server, we are the host, so we don't need to load players to sync them
+            // You only need to load other players gear to sync it if you join a game thats already been active without you being present 
+            if (!IsServer && IsOwner)
+            {
+                foreach (PlayerManager player in WorldGameSessionManager.Instance._players)
+                {
+                    if (player != this)
+                    {
+                        player.LoadOtherCharacterPlayerCharaceterWhenJoininigServer();
+                    }
+                }
+            }
+        }
         public override void ReviveCharacter()
         {
             base.ReviveCharacter();
             if (IsOwner)
             {
+                _isDead.Value = false;
                 _playerNetworkManager._currentHealth.Value = _playerNetworkManager._maxHealth.Value;
                 _playerNetworkManager._currentStamina.Value = _playerNetworkManager._maxStamina.Value;
                 _playerAnimationManager.PlayTargetActionAnimation("Empty", false);
-                Debug.Log(_isDead.Value);
             }
         }
         public override IEnumerator ProcessDeathEvent(bool manuallySelectDeathAnimation = false)
@@ -162,6 +186,19 @@ namespace SKD.Character.Player
             PlayerUIManger.instance._playerUIHUDManager.SetMaxStaminaValue(_playerNetworkManager._maxStamina.Value);
 
         }
+        private void LoadOtherCharacterPlayerCharaceterWhenJoininigServer()
+        {
+            // Sync weapons 
+            _playerNetworkManager.OnCurrentRightHandWeaponIDChange(0, _playerNetworkManager._currentRightWeaponID.Value);
+            _playerNetworkManager.OnCurrentLeftHandWeaponIDChange(0, _playerNetworkManager._currentLeftWeaponID.Value);
+
+
+            // Lock On 
+            if(_playerNetworkManager._isLockOn.Value)
+            {
+                _playerNetworkManager.OnLockOnTargetIDChange(0,_playerNetworkManager._currentTargetNetworkObjectID.Value);
+            }
+        }
 
         public void DebugMenu()
         {
@@ -175,6 +212,10 @@ namespace SKD.Character.Player
                 _switchRightWeapon = false;
                 _playerEquiqmentManager.SwitchRightWeapon();
             }
+        }
+        private void PlayDamageSFX()
+        {
+            // Priorities: If fire damage is grater then 0 , play burn SFX (and for lightning..etc)  
         }
 
     }

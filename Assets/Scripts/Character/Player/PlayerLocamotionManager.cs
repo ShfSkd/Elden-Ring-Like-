@@ -51,14 +51,21 @@ namespace SKD.Character.Player
             {
 
                 _verticalMovement = _playerManager._characterNetworkManager._verticalMovement.Value;
-
                 _horizontalMovement = _playerManager._characterNetworkManager._horizontalMovement.Value;
-
                 _moveAmount = _playerManager._characterNetworkManager._moveAmount.Value;
-                // If not locked on, pass move amount
-                _playerManager._playerAnimationManager.UpdateAnimatorMovementParameters(0, _moveAmount, _playerManager._playerNetworkManager._isSprinting.Value);
 
+                // If not locked on, pass move amount
+                if (!_playerManager._playerNetworkManager._isLockOn.Value || _playerManager._playerNetworkManager._isSprinting.Value)
+                {
+                    _playerManager._playerAnimationManager.UpdateAnimatorMovementParameters(0, _moveAmount, _playerManager._playerNetworkManager._isSprinting.Value);
+                }
                 // if locked on, pass horizontal and vertical
+                else
+                {
+                    _playerManager._playerAnimationManager.UpdateAnimatorMovementParameters(_horizontalMovement, _verticalMovement, _playerManager._playerNetworkManager._isSprinting.Value);
+
+                }
+
             }
 
         }
@@ -142,26 +149,65 @@ namespace SKD.Character.Player
 
         private void HandleRotation()
         {
+            if (_playerManager._isDead.Value)
+                return;
+
             if (!_playerManager._canRotate)
                 return;
 
-            _targetRotationDirection = Vector3.zero;
-            _targetRotationDirection = PlayerCamera.Instance.transform.forward * _verticalMovement;
-
-            _targetRotationDirection += PlayerCamera.Instance._cameraObject.transform.right * _horizontalMovement;
-
-            _targetRotationDirection.y = 0;
-            _targetRotationDirection.Normalize();
-
-            if (_targetRotationDirection == Vector3.zero)
+            if (_playerManager._playerNetworkManager._isLockOn.Value)
             {
-                _targetRotationDirection = transform.forward;
+                if (_playerManager._playerNetworkManager._isSprinting.Value || _playerManager._playerLocamotionManager._isRolling)
+                {
+                    Vector3 targetDirection = Vector3.zero;
+                    targetDirection = PlayerCamera.Instance._cameraObject.transform.forward * _verticalMovement;
+                    targetDirection += PlayerCamera.Instance._cameraObject.transform.right * _horizontalMovement;
+                    targetDirection.Normalize();
+                    targetDirection.y = 0f;
+
+                    if (targetDirection == Vector3.zero)
+                        targetDirection = transform.forward;
+
+                    Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+                    Quaternion finalRotation = Quaternion.Slerp(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+                    transform.rotation = finalRotation;
+                }
+                else
+                {
+                    if (_playerManager._playerCombatManager._currentTarget == null)
+                        return;
+
+                    Vector3 targetDirection;
+                    targetDirection = _playerManager._playerCombatManager._currentTarget.transform.position - transform.position;
+                    targetDirection.Normalize();
+                    targetDirection.y = 0f;
+
+                    Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+                    Quaternion finalRotation = Quaternion.Slerp(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+                    transform.rotation = finalRotation;
+                }
             }
-            Quaternion newRotation = Quaternion.LookRotation(_targetRotationDirection);
+            else
+            {
 
-            Quaternion targetRotation = Quaternion.Slerp(transform.rotation, newRotation, _rotationSpeed * Time.deltaTime);
+                _targetRotationDirection = Vector3.zero;
+                _targetRotationDirection = PlayerCamera.Instance.transform.forward * _verticalMovement;
 
-            transform.rotation = targetRotation;
+                _targetRotationDirection += PlayerCamera.Instance._cameraObject.transform.right * _horizontalMovement;
+
+                _targetRotationDirection.y = 0;
+                _targetRotationDirection.Normalize();
+
+                if (_targetRotationDirection == Vector3.zero)
+                {
+                    _targetRotationDirection = transform.forward;
+                }
+                Quaternion newRotation = Quaternion.LookRotation(_targetRotationDirection);
+
+                Quaternion targetRotation = Quaternion.Slerp(transform.rotation, newRotation, _rotationSpeed * Time.deltaTime);
+
+                transform.rotation = targetRotation;
+            }
 
         }
 
@@ -213,6 +259,7 @@ namespace SKD.Character.Player
                 _playerManager.transform.rotation = playerRotation;
 
                 _playerManager._playerAnimationManager.PlayTargetActionAnimation("Roll_Forward_01", true, true);
+                _playerManager._playerLocamotionManager._isRolling = true;
             }
             //  If we are stationary, we performed a backstep
             else

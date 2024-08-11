@@ -55,13 +55,13 @@ namespace SKD.Character.Player
             PlayerUIManger.instance._playerUIHUDManager.SetMaxStaminaValue(_maxStamina.Value);
             _currentStamina.Value = _maxStamina.Value;
         }
-        public void OnCurrentRightHandWeaponIDChanged(int oldId, int newId)
+        public void OnCurrentRightHandWeaponIDChange(int oldId, int newId)
         {
             WeaponItem newWeapon = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(newId));
             _playerManager._playerInventoryManager._currentRightHandWeapon = newWeapon;
             _playerManager._playerEquiqmentManager.LoadRightWepon();
         }
-        public void OnCurrentLeftHandWeaponIDChanged(int oldId, int newId)
+        public void OnCurrentLeftHandWeaponIDChange(int oldId, int newId)
         {
             WeaponItem newWeapon = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(newId));
             _playerManager._playerInventoryManager._currentLeftHandWeapon = newWeapon;

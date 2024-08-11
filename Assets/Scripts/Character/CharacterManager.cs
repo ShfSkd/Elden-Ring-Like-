@@ -16,7 +16,9 @@ namespace SKD.Character
         [HideInInspector] public CharacterEffectsManager _characterEffectsManager;
         [HideInInspector] public CharacterNetworkManager _characterNetworkManager;
         [HideInInspector] public CharacterAnimationManager _characterAnimationManager;
-        [HideInInspector] public CharacterCombatManager _characterCombatManager;
+        [HideInInspector] public CharacterCombatManager _characterCombatManager; 
+        [HideInInspector] public CharacterSoundFXManager _characterSoundFXManager; 
+        [HideInInspector] public CharacterLocamotionManager _characterLocamotionManager;
 
         [Header("Flags")]
         public bool _isPerfomingAction = false;
@@ -36,6 +38,8 @@ namespace SKD.Character
             _characterEffectsManager = GetComponent<CharacterEffectsManager>();
             _characterAnimationManager = GetComponent<CharacterAnimationManager>();
             _characterCombatManager = GetComponent<CharacterCombatManager>();
+            _characterSoundFXManager = GetComponent<CharacterSoundFXManager>();
+            _characterLocamotionManager = GetComponent<CharacterLocamotionManager>();
         }
         protected virtual void Start()
         {
