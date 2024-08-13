@@ -13,6 +13,12 @@ namespace SKD.Colliders
 
         [Header("Weapon Attack Modifiers")]
         public float _light_Attack_01_Modofier;
+        public float _light_Attack_02_Modofier;
+        public float _heavy_Attack_01_Modofier;
+        public float _heavy_Attack_02_Modofier;
+        public float _charge_Attack_01_Modofier;
+        public float _charge_Attack_02_Modofier;
+
         protected override void Awake()
         {
             base.Awake();
@@ -57,6 +63,21 @@ namespace SKD.Colliders
             {
                 case AttackType.LigthAttack01:
                     ApplyDamageModifier(_light_Attack_01_Modofier, damageEffect);
+                    break;
+                case AttackType.LigthAttack02:
+                    ApplyDamageModifier(_light_Attack_02_Modofier, damageEffect);
+                    break;
+                case AttackType.HeavyAttack01:
+                    ApplyDamageModifier(_heavy_Attack_01_Modofier, damageEffect);
+                    break;
+                case AttackType.HeavyAttack02:
+                    ApplyDamageModifier(_heavy_Attack_02_Modofier, damageEffect);
+                    break;
+                case AttackType.ChargedAttack01:
+                    ApplyDamageModifier(_charge_Attack_01_Modofier, damageEffect);
+                    break;
+                case AttackType.ChargedAttack02:
+                    ApplyDamageModifier(_charge_Attack_02_Modofier, damageEffect);
                     break;
                 default:
                     break;

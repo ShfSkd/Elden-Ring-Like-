@@ -180,7 +180,6 @@ namespace SKD.Character.Player
                     // The player cannot lock on himself 
                     if (lockOnTarget.transform.root == _playerManager.transform.root)
                     {
-                        Debug.Log(colliders[i].gameObject.name);
                         continue;
                     }
 

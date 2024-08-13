@@ -9,8 +9,12 @@ namespace SKD.Character
     {
         private CharacterManager _characterManager;
 
+        [Header("last Attack Animation Perform")]
+        public string _lastAttackAnimationPerformed;
+
         [Header("Attack Character")]
         public CharacterManager _currentTarget;
+
 
         [Header("Attack Type")]
         public AttackType _currentAttacktype;

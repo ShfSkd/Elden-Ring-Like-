@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SKD.Character.Player
 {
-    public class PlayerAnimationManager : CharacterAnimationManager 
+    public class PlayerAnimatorManager : CharacterAnimatorManager
     {
         PlayerManager _playerManager;
 
@@ -14,15 +14,28 @@ namespace SKD.Character.Player
             _playerManager = GetComponent<PlayerManager>();
         }
 
-       
+
         private void OnAnimatorMove()
         {
-            if(_playerManager._applyRootMotion)
+            if (_playerManager._applyRootMotion)
             {
                 Vector3 velocity = _playerManager._animator.deltaPosition;
                 _playerManager._characterController.Move(velocity);
                 _playerManager.transform.rotation *= _playerManager._animator.deltaRotation;
             }
+        }
+        // Action Event Calls 
+        public override void EnableCanDoCombo()
+        {
+            if (_playerManager._playerNetworkManager._isUsingRightHand.Value)
+            {
+                _playerManager._playerCombatManager._canComboWithMainHandWeapon = true;
+            }
+        }
+        public override void DisableCanDoCombo()
+        {
+            _playerManager._playerCombatManager._canComboWithMainHandWeapon = false;
+            // _canComboWithOffHandWeapon = false;
         }
     }
 }

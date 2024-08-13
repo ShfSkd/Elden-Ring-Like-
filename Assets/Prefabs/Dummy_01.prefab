@@ -664,7 +664,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.13
+  m_Radius: 0.16
   m_Height: 0.35
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
@@ -1999,7 +1999,6 @@ GameObject:
   - component: {fileID: 7210787387513105758}
   - component: {fileID: 4973147409798606285}
   - component: {fileID: 4231640007107700082}
-  - component: {fileID: 8405186828919824516}
   - component: {fileID: 2076647263226008321}
   - component: {fileID: 2564767499389109684}
   - component: {fileID: 8145826538506627205}
@@ -2012,8 +2011,9 @@ GameObject:
   - component: {fileID: 9209016423382402283}
   - component: {fileID: 1426315112099601969}
   - component: {fileID: 1989310939168742630}
+  - component: {fileID: 4968042942360955378}
   m_Layer: 6
-  m_Name: Dummy
+  m_Name: Dummy_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2027,7 +2027,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8023739156023064548}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 6.09, y: 0, z: -4.64}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2069,7 +2069,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 4219909002
+  GlobalObjectIdHash: 476950569
   InScenePlacedSourceGlobalObjectIdHash: 853681870
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -2078,32 +2078,6 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &8405186828919824516
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8023739156023064548}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3853aa156930306409819b1504c98fa0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _isDead:
-    m_InternalValue: 0
-  _characterController: {fileID: 0}
-  _animator: {fileID: 0}
-  _characterEffectsManager: {fileID: 0}
-  _characterNetworkManager: {fileID: 0}
-  _characterAnimationManager: {fileID: 0}
-  _characterCombatManager: {fileID: 0}
-  _characterSoundFXManager: {fileID: 0}
-  _isPerfomingAction: 0
-  _isGrounded: 1
-  _applyRootMotion: 0
-  _canRotate: 1
-  _canMove: 1
 --- !u!114 &2076647263226008321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2116,6 +2090,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10026996df588e447bfb4a0d0513ed98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _lastAttackAnimationPerformed: 
   _currentTarget: {fileID: 0}
   _currentAttacktype: 0
   _lockOnTransform: {fileID: 7667567462452031814}
@@ -2139,6 +2114,7 @@ MonoBehaviour:
   _yVelocity: {x: 0, y: 0, z: 0}
   _groundedYVelocity: -20
   _fallStartYVelocity: -5
+  _isRolling: 0
 --- !u!114 &8145826538506627205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2176,11 +2152,15 @@ MonoBehaviour:
     m_InternalValue: 0
   _moveAmount:
     m_InternalValue: 0
+  _currentTargetNetworkObjectID:
+    m_InternalValue: 0
   _isLockOn:
     m_InternalValue: 0
   _isSprinting:
     m_InternalValue: 0
   _isJumping:
+    m_InternalValue: 0
+  _isCharcgingAttack:
     m_InternalValue: 0
   _currentHealth:
     m_InternalValue: 0
@@ -2400,6 +2380,33 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4968042942360955378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8023739156023064548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f89392fcb70e704184fe06017da0f43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isDead:
+    m_InternalValue: 0
+  _characterController: {fileID: 0}
+  _animator: {fileID: 0}
+  _characterEffectsManager: {fileID: 0}
+  _characterNetworkManager: {fileID: 0}
+  _characterAnimationManager: {fileID: 0}
+  _characterCombatManager: {fileID: 0}
+  _characterSoundFXManager: {fileID: 0}
+  _characterLocamotionManager: {fileID: 0}
+  _isPerfomingAction: 0
+  _isGrounded: 1
+  _applyRootMotion: 0
+  _canRotate: 1
+  _canMove: 1
 --- !u!1 &8141776365858344948
 GameObject:
   m_ObjectHideFlags: 0

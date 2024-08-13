@@ -27,5 +27,10 @@ MonoBehaviour:
   _holyDamage: 0
   _lightningDamage: 0
   _posieDamage: 10
+  _light_Attack_01_modifier: 1.1
+  _heavy_Attack_01_modifier: 1.4
+  _charge_Attack_01_Modofier: 2
   _baseStaminaCost: 5
+  _lightAttackStaminaCostMultiplier: 0.9
   _keyboard_RB_Action: {fileID: 11400000, guid: 41222f16db26c0b44bfe914370783d0c, type: 2}
+  _keyboard_RT_Action: {fileID: 0}

@@ -15,7 +15,7 @@ namespace SKD.Character.Player
         [SerializeField] bool _respawnCharacter = false;
         [SerializeField] bool _switchRightWeapon = false;
 
-        [HideInInspector] public PlayerAnimationManager _playerAnimationManager;
+        [HideInInspector] public PlayerAnimatorManager _playerAnimationManager;
         [HideInInspector] public PlayerLocamotionManager _playerLocamotionManager;
         [HideInInspector] public PlayerNetworkManager _playerNetworkManager;
         [HideInInspector] public PlayerStatsManager _playerStatsManager;
@@ -29,7 +29,7 @@ namespace SKD.Character.Player
 
             _playerLocamotionManager = GetComponent<PlayerLocamotionManager>();
 
-            _playerAnimationManager = GetComponent<PlayerAnimationManager>();
+            _playerAnimationManager = GetComponent<PlayerAnimatorManager>();
 
             _playerNetworkManager = GetComponent<PlayerNetworkManager>();
 
@@ -53,7 +53,7 @@ namespace SKD.Character.Player
             // Regenerate Stamina
             _playerStatsManager.RegenerateStamina();
 
-            DebugMenu();
+          //  DebugMenu();
         }
         protected override void LateUpdate()
         {
@@ -99,6 +99,9 @@ namespace SKD.Character.Player
             _playerNetworkManager._currentLeftWeaponID.OnValueChanged += _playerNetworkManager.OnCurrentLeftHandWeaponIDChange;
             _playerNetworkManager._currentWeaponBeingUsed.OnValueChanged += _playerNetworkManager.OnCurrentWeaponBeingUsedIDChange;
 
+            // Flags
+            _playerNetworkManager._isCharcgingAttack.OnValueChanged += _playerNetworkManager.OnIsCharagingAttackChanged;
+
             // Upon connecting, If we are the owner of this character, But we are not the server, reload our character data to this newly instantiated character
             // We don't run it if we are the server, because since they are the host, they are already loaded in and don't need to reload their data
             if (IsOwner && !IsServer)
@@ -106,6 +109,39 @@ namespace SKD.Character.Player
                 LoadGameDataFromCurrentCharacterData(ref WorldSaveGameManager.Instance._currentCharacterData);
             }
             Debug.Log("Event handlers set up completed.");
+        }
+        public override void OnNetworkDespawn()
+        {
+            base.OnNetworkDespawn();
+            NetworkManager.Singleton.OnClientConnectedCallback -= OnClientConnectedCallback;
+
+            // If this is the player object owned by this client
+            if (IsOwner)
+            {
+                // Update the total amount of health or stamina when the stat linked to either changes
+                _playerNetworkManager._vitality.OnValueChanged -= _playerNetworkManager.SetNewMaxHealthValue;
+                _playerNetworkManager._endurance.OnValueChanged -= _playerNetworkManager.SetNewMaxStaminaValue;
+
+                // Updated UI stat bars when a stat changes(Health or stamina)
+                _playerNetworkManager._currentHealth.OnValueChanged -= PlayerUIManger.instance._playerUIHUDManager.SetNewHealthValue;
+                _playerNetworkManager._currentStamina.OnValueChanged -= PlayerUIManger.instance._playerUIHUDManager.SetNewStaminaValue;
+                _playerNetworkManager._currentStamina.OnValueChanged -= _playerStatsManager.ResetStaminaReganTimer;
+
+            }
+            // Stats 
+            _playerNetworkManager._currentHealth.OnValueChanged -= _playerNetworkManager.CheckHP;
+
+            // Lock On 
+            _playerNetworkManager._isLockOn.OnValueChanged -= _playerNetworkManager.OnIsLockOnChanged;
+            _playerNetworkManager._currentTargetNetworkObjectID.OnValueChanged -= _playerNetworkManager.OnLockOnTargetIDChange;
+
+            // Equipments
+            _playerNetworkManager._currentRightWeaponID.OnValueChanged -= _playerNetworkManager.OnCurrentRightHandWeaponIDChange;
+            _playerNetworkManager._currentLeftWeaponID.OnValueChanged -= _playerNetworkManager.OnCurrentLeftHandWeaponIDChange;
+            _playerNetworkManager._currentWeaponBeingUsed.OnValueChanged -= _playerNetworkManager.OnCurrentWeaponBeingUsedIDChange;
+
+            // Flags
+            _playerNetworkManager._isCharcgingAttack.OnValueChanged -= _playerNetworkManager.OnIsCharagingAttackChanged;
         }
         private void OnClientConnectedCallback(ulong clientID)
         {

@@ -1,24 +1,28 @@
 using SKD.Character;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
-public class ResetIsJumping : StateMachineBehaviour
+public class ResetActionFlag : StateMachineBehaviour
 {
     CharacterManager _characterManager;
-    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    //OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
+    override public void OnStateEnter(UnityEngine.Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (_characterManager == null)
         {
             _characterManager = animator.GetComponent<CharacterManager>();
         }
+
+        _characterManager._isPerfomingAction = false;
+        _characterManager._applyRootMotion = false;
+        _characterManager._canRotate = true;
+        _characterManager._canMove = true;
+        _characterManager._characterLocamotionManager._isRolling = false;
+        _characterManager._characterAnimationManager.DisableCanDoCombo();
+
         if (_characterManager.IsOwner)
-        {
-            // This is called when an action ends, and the state returns to "Empty"
             _characterManager._characterNetworkManager._isJumping.Value = false;
-        }
+
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -45,5 +49,4 @@ public class ResetIsJumping : StateMachineBehaviour
     //    // Implement code that sets up animation IK (inverse kinematics)
     //}
 }
-
 

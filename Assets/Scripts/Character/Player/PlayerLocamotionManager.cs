@@ -159,7 +159,7 @@ namespace SKD.Character.Player
             {
                 if (_playerManager._playerNetworkManager._isSprinting.Value || _playerManager._playerLocamotionManager._isRolling)
                 {
-                    Vector3 targetDirection = Vector3.zero;
+                    Vector3 targetDirection;
                     targetDirection = PlayerCamera.Instance._cameraObject.transform.forward * _verticalMovement;
                     targetDirection += PlayerCamera.Instance._cameraObject.transform.right * _horizontalMovement;
                     targetDirection.Normalize();
@@ -249,8 +249,9 @@ namespace SKD.Character.Player
             // If we are moving when we attempt to dodge, we perform a roll
             if (_moveAmount > 0)
             {
-                _rollDirection = PlayerCamera.Instance._cameraObject.transform.forward * _verticalMovement;
-                _rollDirection = PlayerCamera.Instance.transform.right * _horizontalMovement;
+                _rollDirection = (PlayerCamera.Instance._cameraObject.transform.forward * _verticalMovement) +
+                       (PlayerCamera.Instance.transform.right * _horizontalMovement);
+
 
                 _rollDirection.y = 0;
                 _rollDirection.Normalize();

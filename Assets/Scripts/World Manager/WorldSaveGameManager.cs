@@ -18,7 +18,7 @@ namespace SKD.WorldManager
         [SerializeField] bool _loadGame;
 
         [Header("World Scene Index")]
-        [SerializeField] int worldSceneIndex = 1;
+        [SerializeField] int _worldSceneIndex = 1;
 
         [Header("Save Data Writer")]
         private SaveFileDataWriter _saveFileDataWriter;
@@ -318,7 +318,7 @@ namespace SKD.WorldManager
         public IEnumerator LoadWorldScene()
         {
             // If you just want 1 world scene use this 
-            AsyncOperation loadOperation = SceneManager.LoadSceneAsync(worldSceneIndex);
+            AsyncOperation loadOperation = SceneManager.LoadSceneAsync(_worldSceneIndex);
 
             // If you want to use different scenes for levels in your project use this
             //  AsyncOperation loadOperation = SceneManager.LoadSceneAsync(_currentCharacterData._sceneIndex);
@@ -334,7 +334,7 @@ namespace SKD.WorldManager
         }*/
         public int GetWorldIndex()
         {
-            return worldSceneIndex;
+            return _worldSceneIndex;
         }
 
     }

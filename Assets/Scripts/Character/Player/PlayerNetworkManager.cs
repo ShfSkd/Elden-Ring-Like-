@@ -60,12 +60,22 @@ namespace SKD.Character.Player
             WeaponItem newWeapon = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(newId));
             _playerManager._playerInventoryManager._currentRightHandWeapon = newWeapon;
             _playerManager._playerEquiqmentManager.LoadRightWepon();
+
+            if (_playerManager.IsOwner)
+            {
+                PlayerUIManger.instance._playerUIHUDManager.SetRightWeaponQuickSlotIcon(newId);
+            }
         }
         public void OnCurrentLeftHandWeaponIDChange(int oldId, int newId)
         {
             WeaponItem newWeapon = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(newId));
             _playerManager._playerInventoryManager._currentLeftHandWeapon = newWeapon;
             _playerManager._playerEquiqmentManager.LoadLeftWepon();
+
+            if (_playerManager.IsOwner)
+            {
+                PlayerUIManger.instance._playerUIHUDManager.SetLeftWeaponQuickSlotIcon(newId);
+            }
         }
         public void OnCurrentWeaponBeingUsedIDChange(int oldId, int newId)
         {

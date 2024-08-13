@@ -33,9 +33,14 @@ namespace SKD.Items
 
         // Weapon Modifier
         [Header("Attack Modifiers")]
-        public float _light_Attack_01_modifier  = 1.1f;
         // Light Attack Modifier
+        public float _light_Attack_01_modifier  = 1.0f;
+        public float _light_Attack_02_modifier = 1.2f;
         // Heavy Attack Modifier
+        public float _heavy_Attack_01_modifier = 1.4f;
+        public float _heavy_Attack_02_modifier = 1.6f;
+        public float _charge_Attack_01_Modofier = 2.0f;
+        public float _charge_Attack_02_Modofier = 2.2f;
         // Critical Damage Modifier etc..
 
         [Header("Stamina Cost Modifiers")]
@@ -48,6 +53,7 @@ namespace SKD.Items
         // Item base Action(RB,RT,LB,LT)
         [Header("Actions")]
         public WeaponItemAction _keyboard_RB_Action;// One hand right bumper action
+        public WeaponItemAction _keyboard_RT_Action;// One hand right trigger action
 
 
         // Ash of war 

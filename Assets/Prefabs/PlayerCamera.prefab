@@ -93,7 +93,7 @@ MonoBehaviour:
   _lockOnRaduis: 20
   _minimumViewableAngle: -50
   _maxuimuViewableAngle: 50
-  _lockOnTargetFollowSpeed: 0.2
+  _lockOnTargetFollowSpeed: 1
   _setCameraSpeed: 0.05
   _unlockCameraHeigth: 1.65
   _lockedCameraHeigth: 2

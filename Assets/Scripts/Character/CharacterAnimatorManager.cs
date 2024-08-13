@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SKD.Character.Player;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -6,7 +7,7 @@ using UnityEngine;
 
 namespace SKD.Character
 {
-    public class CharacterAnimationManager : MonoBehaviour
+    public class CharacterAnimatorManager : MonoBehaviour
     {
         CharacterManager _characterManager;
         int _vertical;
@@ -50,6 +51,14 @@ namespace SKD.Character
 
             _right_Medium_damage_List.Add(_hit_Right_Medium_01);
             _right_Medium_damage_List.Add(_hit_Right_Medium_02);
+
+        }
+        public virtual void EnableCanDoCombo()
+        {
+
+        }
+        public virtual void DisableCanDoCombo()
+        {
 
         }
         public string GetRandomAnimationFromList(List<string> animationList)
@@ -123,7 +132,6 @@ namespace SKD.Character
             bool canRotate = false,
             bool canMove = false)
         {
-            Debug.Log("Playing Animation: " + targetAnimationName);
             _characterManager._applyRootMotion = applyRootMotion;
             _characterManager._animator.CrossFade(targetAnimationName, 0.2f);
             // Can be used to stop character from attempting new actions
@@ -148,6 +156,7 @@ namespace SKD.Character
             // Deiced if our attack can be parried
             // Tell the network our "IsAttacking" flag
             _characterManager._characterCombatManager._currentAttacktype = attackType;
+            _characterManager._characterCombatManager._lastAttackAnimationPerformed = targetAnimationName;
             _characterManager._applyRootMotion = applyRootMotion;
             _characterManager._animator.CrossFade(targetAnimationName, 0.2f);
             _characterManager._isPerfomingAction = isPerformingAction;

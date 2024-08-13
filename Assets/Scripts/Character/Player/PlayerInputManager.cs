@@ -33,7 +33,15 @@ namespace SKD.Character.Player
         [SerializeField] bool _dodgeInput;
         [SerializeField] bool _sprintInput;
         [SerializeField] bool _jumpInput;
+        [SerializeField] bool _switchRightWeapon_Input;
+        [SerializeField] bool _switchLeftWeapon_Input;
+
+        [Header("Bumper Inputs")]
         [SerializeField] bool _RB_Input;
+
+        [Header("Trigger Inputs")]
+        [SerializeField] bool _RT_Input;
+        [SerializeField] bool _holdRT_Input;
 
 
         private void Awake()
@@ -75,23 +83,32 @@ namespace SKD.Character.Player
             {
                 _playerControls = new PlayerControls();
                 _playerControls.PlayerMovement.Movment.performed += i => _movementInput = i.ReadValue<Vector2>();
-
                 _playerControls.PlayerCamera.Movement.performed += i => _cameraInput = i.ReadValue<Vector2>();
 
+                // Actions
                 _playerControls.PlayerActions.Dodge.performed += i => _dodgeInput = true;
-                // Holding the input, sets the bool to true
                 _playerControls.PlayerActions.Sprint.performed += i => _sprintInput = true;
-                // Releasing the input, sets the bool to false
-                _playerControls.PlayerActions.Sprint.canceled += i => _sprintInput = false;
-                // Holding the input, sets the bool to true
-                _playerControls.PlayerActions.Jump.performed += i => _jumpInput = true;
-
+                _playerControls.PlayerActions.SwitchRightWeapon.performed += i => _switchRightWeapon_Input = true;
+                _playerControls.PlayerActions.SwitchLeftWeapon.performed += i => _switchLeftWeapon_Input = true;
+                
+                // Bumpers
                 _playerControls.PlayerActions.RB.performed += i => _RB_Input = true;
+
+                // Triggers
+                _playerControls.PlayerActions.RT.performed += i => _RT_Input = true;
+                _playerControls.PlayerActions.RT.performed += i => _RT_Input = true;
+                _playerControls.PlayerActions.HoldRT.performed += i => _holdRT_Input = true;
+                _playerControls.PlayerActions.HoldRT.canceled += i => _holdRT_Input = false;
 
                 // Lock On
                 _playerControls.PlayerActions.LockOn.performed += i => _lockOnInput = true;
                 _playerControls.PlayerActions.SeekLeftLockOnTarget.performed += i => _lockOnLeftInput = true;
                 _playerControls.PlayerActions.SeekRightLockOnTarget.performed += i => _lockOnRightInput = true;
+
+                // Holding the input, sets the bool to true
+                _playerControls.PlayerActions.Jump.performed += i => _jumpInput = true;
+                // Releasing the input, sets the bool to false
+                _playerControls.PlayerActions.Sprint.canceled += i => _sprintInput = false;
             }
             _playerControls.Enable();
         }
@@ -125,6 +142,10 @@ namespace SKD.Character.Player
             HandleSptintInput();
             HandleJumpInput();
             HandleRBInput();
+            HandleRTInput();
+            HandleChargeRTInput();
+            HandleSwitchRightInput();
+            HandleSwitchLeftInput();
         }
         // Lock On
         private void HandleLockOnInput()
@@ -141,7 +162,7 @@ namespace SKD.Character.Player
                 }
                 // Attempt to find new targets
                 // This assures us that the coroutine never runs multiple times overlapping itself
-                if(_lockOnCoroutine!=null)
+                if (_lockOnCoroutine != null)
                     StopCoroutine(_lockOnCoroutine);
 
                 _lockOnCoroutine = StartCoroutine(PlayerCamera.Instance.WaitThenFindNewTarget());
@@ -281,6 +302,47 @@ namespace SKD.Character.Player
                 _playerManager._playerNetworkManager.SetCharacterActionHand(true);
 
                 _playerManager._playerCombatManager.PerformWeaponBasedAction(_playerManager._playerInventoryManager._currentRightHandWeapon._keyboard_RB_Action, _playerManager._playerInventoryManager._currentRightHandWeapon);
+            }
+        }
+        private void HandleRTInput()
+        {
+            if (_RT_Input)
+            {
+                _RT_Input = false;
+                // TODO: If we have UI Window open return and do nothing
+
+                _playerManager._playerNetworkManager.SetCharacterActionHand(true);
+
+                _playerManager._playerCombatManager.PerformWeaponBasedAction(_playerManager._playerInventoryManager._currentRightHandWeapon._keyboard_RT_Action, _playerManager._playerInventoryManager._currentRightHandWeapon);
+            }
+        }
+        private void HandleChargeRTInput()
+        {
+            // we only want to check for a charge if we are in an action thats requires it (attacking)
+            if (_playerManager._isPerfomingAction)
+            {
+                if (_playerManager._playerNetworkManager._isUsingRightHand.Value)
+                {
+                    _playerManager._playerNetworkManager._isCharcgingAttack.Value = _holdRT_Input;
+
+                }
+            }
+        }
+        private void HandleSwitchRightInput()
+        {
+            if (_switchRightWeapon_Input)
+            {
+              
+                _switchRightWeapon_Input = false;
+                _playerManager._playerEquiqmentManager.SwitchRightWeapon();
+            }
+        }
+        private void HandleSwitchLeftInput()
+        {
+            if (_switchLeftWeapon_Input)
+            {
+                _switchLeftWeapon_Input = false;
+                _playerManager._playerEquiqmentManager.SwitchLeftWeapon();
             }
         }
     }

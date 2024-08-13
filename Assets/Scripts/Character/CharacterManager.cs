@@ -15,7 +15,7 @@ namespace SKD.Character
 
         [HideInInspector] public CharacterEffectsManager _characterEffectsManager;
         [HideInInspector] public CharacterNetworkManager _characterNetworkManager;
-        [HideInInspector] public CharacterAnimationManager _characterAnimationManager;
+        [HideInInspector] public CharacterAnimatorManager _characterAnimationManager;
         [HideInInspector] public CharacterCombatManager _characterCombatManager; 
         [HideInInspector] public CharacterSoundFXManager _characterSoundFXManager; 
         [HideInInspector] public CharacterLocamotionManager _characterLocamotionManager;
@@ -36,7 +36,7 @@ namespace SKD.Character
 
             _characterNetworkManager = GetComponent<CharacterNetworkManager>();
             _characterEffectsManager = GetComponent<CharacterEffectsManager>();
-            _characterAnimationManager = GetComponent<CharacterAnimationManager>();
+            _characterAnimationManager = GetComponent<CharacterAnimatorManager>();
             _characterCombatManager = GetComponent<CharacterCombatManager>();
             _characterSoundFXManager = GetComponent<CharacterSoundFXManager>();
             _characterLocamotionManager = GetComponent<CharacterLocamotionManager>();

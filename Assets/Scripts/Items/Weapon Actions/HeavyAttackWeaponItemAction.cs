@@ -1,15 +1,16 @@
-﻿using SKD.Character.Player;
+﻿ using SKD.Character.Player;
 using SKD.Items.WeaponItems;
 using System.Collections;
 using UnityEngine;
 
 namespace SKD.Items.Weapon_Actions
 {
-    [CreateAssetMenu(menuName = "Character Actions/Weapon Actions/Light Attack Action")]
-    public class LightAttackWeaponItemAction : WeaponItemAction
+    [CreateAssetMenu(menuName = "Character Actions/Weapon Actions/Heavy Attack Action")]
+    public class HeavyAttackWeaponItemAction : WeaponItemAction
     {
-        [SerializeField] string _light_Attack_01 = "Main_Light_Attack_01";// Main = main hand
-        [SerializeField] string _light_Attack_02 = "Main_Light_Attack_02";
+
+        [SerializeField] string _heavy_Attack_01 = "Main_Heavy_Attack_01";// Main = main hand
+        [SerializeField] string _heavy_Attack_02 = "Main_Heavy_Attack_02";
         public override void AttampToPerformedAction(PlayerManager playerPerformingAction, WeaponItem weaponPerformingAction)
         {
             base.AttampToPerformedAction(playerPerformingAction, weaponPerformingAction);
@@ -24,9 +25,9 @@ namespace SKD.Items.Weapon_Actions
             if (!playerPerformingAction._isGrounded)
                 return;
 
-            PerformLightAttack(playerPerformingAction, weaponPerformingAction);
+            PerformHeavyAttack(playerPerformingAction, weaponPerformingAction);
         }
-        private void PerformLightAttack(PlayerManager playerPerformingAction, WeaponItem weaponPerformingAction)
+        private void PerformHeavyAttack(PlayerManager playerPerformingAction, WeaponItem weaponPerformingAction)
         {
             // If we are attacking correctly,and we can combo, perform the combo attack
             if (playerPerformingAction._playerCombatManager._canComboWithMainHandWeapon && playerPerformingAction._isPerfomingAction)
@@ -34,16 +35,17 @@ namespace SKD.Items.Weapon_Actions
                 playerPerformingAction._playerCombatManager._canComboWithMainHandWeapon = false;
 
                 // Perform an attack based on the previous attack we just played
-                if (playerPerformingAction._characterCombatManager._lastAttackAnimationPerformed == _light_Attack_01)
-                    playerPerformingAction._playerAnimationManager.PlayTargetAttackActioAnimation(AttackType.LigthAttack02, _light_Attack_02, true);
+                if (playerPerformingAction._characterCombatManager._lastAttackAnimationPerformed == _heavy_Attack_01)
+                    playerPerformingAction._playerAnimationManager.PlayTargetAttackActioAnimation(AttackType.HeavyAttack02, _heavy_Attack_02, true);
                 else
-                    playerPerformingAction._playerAnimationManager.PlayTargetAttackActioAnimation(AttackType.LigthAttack01, _light_Attack_01, true);
+                    playerPerformingAction._playerAnimationManager.PlayTargetAttackActioAnimation(AttackType.HeavyAttack01, _heavy_Attack_01, true);
             }
             // Otherwise, if we are not already attacking just perform a regular attack
             else if (!playerPerformingAction._isPerfomingAction)
             {
-                playerPerformingAction._playerAnimationManager.PlayTargetAttackActioAnimation(AttackType.LigthAttack01, _light_Attack_01, true);
+                playerPerformingAction._playerAnimationManager.PlayTargetAttackActioAnimation(AttackType.HeavyAttack01, _heavy_Attack_01, true);
             }
+
         }
 
     }

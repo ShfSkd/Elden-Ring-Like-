@@ -31,6 +31,7 @@ namespace SKD.Character
         public NetworkVariable<bool> _isLockOn = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<bool> _isSprinting = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<bool> _isJumping = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<bool> _isCharcgingAttack = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
         [Header("Recurses")]
         public NetworkVariable<int> _currentHealth = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
@@ -67,12 +68,16 @@ namespace SKD.Character
             if (!IsOwner)
                 _characterManager._characterCombatManager._currentTarget = NetworkManager.Singleton.SpawnManager.SpawnedObjects[newID].gameObject.GetComponent<CharacterManager>();
         }
-        public void OnIsLockOnChanged(bool old,bool isLockOn)
+        public void OnIsLockOnChanged(bool old, bool isLockOn)
         {
             if (!isLockOn)
             {
-                _characterManager._characterCombatManager._currentTarget = null;     
+                _characterManager._characterCombatManager._currentTarget = null;
             }
+        }
+        public void OnIsCharagingAttackChanged(bool oldStatus, bool newStatus)
+        {
+            _characterManager._animator.SetBool("IsChargingAttack", _isCharcgingAttack.Value);
         }
         // A server RPC is a function called from client, to the server (in our case the host)
         [ServerRpc]

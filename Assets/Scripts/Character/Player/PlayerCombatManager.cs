@@ -10,6 +10,10 @@ namespace SKD.Character.Player
     {
         PlayerManager _playerManager;
         public WeaponItem _currentWeaponBeingUsed;
+
+        [Header("Flags")]
+        public bool _canComboWithMainHandWeapon;
+        // public bool _canComboWithOffHandWeapon;
         protected override void Awake()
         {
             base.Awake();
@@ -58,5 +62,6 @@ namespace SKD.Character.Player
                 PlayerCamera.Instance.SetLockOnCameraHeight();
             }
         }
+  
     }
 }
