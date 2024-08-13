@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using SKD.Character;
+using System.Collections;
 using UnityEngine;
 
 namespace SKD.World_Manager
@@ -33,6 +34,36 @@ namespace SKD.World_Manager
         public LayerMask GetEnviroLayers()
         {
             return _enviroLayers;
+        }
+        public bool CanIDamageThisTarget(CharacterGruop attackingCharacter, CharacterGruop targetCharacter)
+        {
+            if (attackingCharacter == CharacterGruop.Team01)
+            {
+                switch (targetCharacter)
+                {
+                    case CharacterGruop.Team01:
+                        return false;
+                    case CharacterGruop.Team02:
+                        return true;
+                    default:
+                        break;
+
+                }
+            }
+            else if (attackingCharacter == CharacterGruop.Team02)
+            {
+                switch (targetCharacter)
+                {
+                    case CharacterGruop.Team01:
+                        return true;  
+                    case CharacterGruop.Team02:
+                        return false;
+                    default:
+                        break;
+
+                }
+            }
+            return false;
         }
 
     }

@@ -7,7 +7,7 @@ namespace SKD.Character
 {
     public class CharacterCombatManager : NetworkBehaviour
     {
-        private CharacterManager _characterManager;
+        protected    CharacterManager _characterManager;
 
         [Header("last Attack Animation Perform")]
         public string _lastAttackAnimationPerformed;

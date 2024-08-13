@@ -239,6 +239,12 @@ namespace SKD.Character.Player
             // Why do we pass 0 on the horizontal? because we only want non-strafing movement 
             // We use the horizontal when we are strafing or locked on 
             if (_playerManager == null) return;
+
+            if (_moveAmount != 0)
+                _playerManager._playerNetworkManager._isMoving.Value = true;
+            else
+                _playerManager._playerNetworkManager._isMoving.Value = false;
+
             // If we are not locked on, only use the move amount 
             if (!_playerManager._playerNetworkManager._isLockOn.Value || _playerManager._playerNetworkManager._isSprinting.Value)
             {

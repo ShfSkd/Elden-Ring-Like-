@@ -20,6 +20,7 @@ namespace SKD.Character
         public float _networkRotationSmoothTime = 0.1f;
 
         [Header("Animator")]
+        public NetworkVariable<bool> _isMoving = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<float> _horizontalMovement = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<float> _verticalMovement = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<float> _moveAmount = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
@@ -42,6 +43,7 @@ namespace SKD.Character
         [Header("Stats")]
         public NetworkVariable<int> _vitality = new NetworkVariable<int>(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> _endurance = new NetworkVariable<int>(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+
 
         protected virtual void Awake()
         {
@@ -78,6 +80,10 @@ namespace SKD.Character
         public void OnIsCharagingAttackChanged(bool oldStatus, bool newStatus)
         {
             _characterManager._animator.SetBool("IsChargingAttack", _isCharcgingAttack.Value);
+        }
+        public void OnIsMovingChanged(bool oldStatus, bool newStatus)
+        {
+            _characterManager._animator.SetBool("IsMoving", _isMoving.Value);
         }
         // A server RPC is a function called from client, to the server (in our case the host)
         [ServerRpc]

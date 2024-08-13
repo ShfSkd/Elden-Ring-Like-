@@ -20,6 +20,9 @@ namespace SKD.Character
         [HideInInspector] public CharacterSoundFXManager _characterSoundFXManager; 
         [HideInInspector] public CharacterLocamotionManager _characterLocamotionManager;
 
+        [Header("Character Group")]
+        public CharacterGruop _characterGruop;
+
         [Header("Flags")]
         public bool _isPerfomingAction = false;
         public bool _isGrounded = true;
@@ -63,10 +66,25 @@ namespace SKD.Character
                 transform.rotation = Quaternion.Slerp(transform.rotation, _characterNetworkManager._networkRotation.Value, _characterNetworkManager._networkRotationSmoothTime);
             }
         }
+        protected virtual void FixedUpdate()
+        {
+            
+        }
 
         protected virtual void LateUpdate()
         {
 
+        }
+        public override void OnNetworkSpawn()
+        {
+            base.OnNetworkSpawn();
+
+            _characterNetworkManager._isMoving.OnValueChanged += _characterNetworkManager.OnIsMovingChanged;
+        }
+        public override void OnNetworkDespawn()
+        {
+            base.OnNetworkDespawn(); 
+            _characterNetworkManager._isMoving.OnValueChanged -= _characterNetworkManager.OnIsMovingChanged;
         }
 
         public virtual IEnumerator ProcessDeathEvent(bool manuallySelectDeathAnimation = false)
