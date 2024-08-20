@@ -272,14 +272,14 @@ namespace SKD.Character.Player
             {
                 _dodgeInput = false;
 
-                _playerManager._playerLocamotionManager.AttampToPerformDodge();
+                _playerManager._playerLocomotionManager.AttemptToPerformDodge();
             }
         }
         private void HandleSptintInput()
         {
             if (_sprintInput)
             {
-                _playerManager._playerLocamotionManager.HandleSprinting();
+                _playerManager._playerLocomotionManager.HandleSprinting();
             }
             else
             {
@@ -295,7 +295,7 @@ namespace SKD.Character.Player
                 // If we have UI window Open, simply return without doing nothing
 
                 // Attempt to perform jump
-                _playerManager._playerLocamotionManager.AttampToPerformJump();
+                _playerManager._playerLocomotionManager.AttemptToPerformJump();
             }
         }
         private void HandleRBInput()
@@ -325,7 +325,7 @@ namespace SKD.Character.Player
         private void HandleChargeRTInput()
         {
             // we only want to check for a charge if we are in an action thats requires it (attacking)
-            if (_playerManager._isPerfomingAction)
+            if (_playerManager._isPerformingAction)
             {
                 if (_playerManager._playerNetworkManager._isUsingRightHand.Value)
                 {

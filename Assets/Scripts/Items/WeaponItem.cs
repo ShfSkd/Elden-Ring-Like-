@@ -55,6 +55,9 @@ namespace SKD.Items
         public WeaponItemAction _keyboard_RB_Action;// One hand right bumper action
         public WeaponItemAction _keyboard_RT_Action;// One hand right trigger action
 
+        [Header("Whooshes")]
+        public AudioClip[] _whooshes;
+
 
         // Ash of war 
 

@@ -8,6 +8,12 @@ namespace SKD.Character
     {
         private AudioSource _audioSource;
 
+        [Header("Damage Grunts")]
+        [SerializeField] protected AudioClip[] _damageGrunts;
+
+        [Header("Attack Grunts")]
+        [SerializeField] protected AudioClip[] _attackGrunts;
+
         protected virtual void Awake()
         {
             _audioSource = GetComponent<AudioSource>(); 
@@ -25,6 +31,14 @@ namespace SKD.Character
         public void PlayRollSoundFX()
         {
             _audioSource.PlayOneShot(WorldSoundFXManager.instance._rollSFX);
+        }
+        public virtual void PlayDamageGrunts()
+        {
+            PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(_damageGrunts)); 
+        }
+        public virtual void PlayAttackGrunt()
+        {
+            PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(_attackGrunts)); 
         }
     }
 }

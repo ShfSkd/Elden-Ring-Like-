@@ -17,6 +17,7 @@ namespace SKD.Game_Saving
         [Header("Time Played")]
         public float _secondsPlayed;
 
+
         // Question: Why not to use vector3?
         // Answer: we can only use save data from "basic" variables types(float,Int,string etc..)
         [Header("World Coordinates")]
@@ -31,5 +32,15 @@ namespace SKD.Game_Saving
         [Header("Stats")]
         public int _vitality;
         public int _endurance;
+
+        [Header("Bosses")]
+        public SerializableDictionary<int, bool> _bossesAwakened; // the int is the boss ID , The bool is the awaken statues 
+        public SerializableDictionary<int, bool> _bossesDefeated; // the int is the boss ID , The bool is the defeated statues
+        
+        public CharacterSaveData()
+        {
+            _bossesAwakened = new SerializableDictionary<int, bool>();
+            _bossesDefeated = new SerializableDictionary<int, bool>();
+        }
     }
 }

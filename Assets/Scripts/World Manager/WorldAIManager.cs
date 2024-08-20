@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using SKD.Character.AI_Character;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
@@ -11,12 +12,10 @@ namespace SKD.World_Manager
         private static WorldAIManager instance;
         public static WorldAIManager Instance { get { return instance; } }
 
-        [Header("Debug")]
-        [SerializeField] bool _despawnCharacters;
-        [SerializeField] bool _respawnCharacters;
+ 
 
         [Header("Characters")]
-        [SerializeField] GameObject[] _aICharacters;
+        [SerializeField] List<AICharacterSpawner> _aICharacterSpawnerList;
         [SerializeField] List<GameObject> _spawnInCharctersList = new List<GameObject>();
 
         private void Awake()
@@ -26,48 +25,17 @@ namespace SKD.World_Manager
             else
                 Destroy(gameObject);
         }
-        private void Start()
+        public void SpawnCharacters(AICharacterSpawner aICharacterSpawner)
         {
             if (NetworkManager.Singleton.IsServer)
             {
-                // Spawn all AI in the scene
-                StartCoroutine(WaitForSceneToLoadTheSpawnCharacters());
-            }
-        }
-        private void Update()
-        {
-            if (_respawnCharacters)
-            {
-                _respawnCharacters = false;
-                SpawnAllCharacters();
-            }
-
-            if (_despawnCharacters)
-            {
-                _despawnCharacters = false;
-                DespawnAllCharacters();
-            }
-        }
-        private IEnumerator WaitForSceneToLoadTheSpawnCharacters()
-        {
-            while (!SceneManager.GetActiveScene().isLoaded)
-            {
-                yield return null;
-            }
-            SpawnAllCharacters();
-        }
-        private void SpawnAllCharacters()
-        {
-            foreach (var character in _aICharacters)
-            {
-                GameObject instatiateCharacter = Instantiate(character);
-                instatiateCharacter.GetComponent<NetworkObject>().Spawn();
-                _spawnInCharctersList.Add(instatiateCharacter);
+                _aICharacterSpawnerList.Add(aICharacterSpawner);
+                aICharacterSpawner.AttemptToSpawnCharacter();
             }
         }
         private void DespawnAllCharacters()
         {
-            foreach(var character in _spawnInCharctersList)
+            foreach (var character in _spawnInCharctersList)
             {
                 character.GetComponent<NetworkObject>().Despawn();
             }

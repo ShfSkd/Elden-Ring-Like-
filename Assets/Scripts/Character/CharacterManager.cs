@@ -16,19 +16,15 @@ namespace SKD.Character
         [HideInInspector] public CharacterEffectsManager _characterEffectsManager;
         [HideInInspector] public CharacterNetworkManager _characterNetworkManager;
         [HideInInspector] public CharacterAnimatorManager _characterAnimationManager;
-        [HideInInspector] public CharacterCombatManager _characterCombatManager; 
-        [HideInInspector] public CharacterSoundFXManager _characterSoundFXManager; 
-        [HideInInspector] public CharacterLocamotionManager _characterLocamotionManager;
+        [HideInInspector] public CharacterCombatManager _characterCombatManager;
+        [HideInInspector] public CharacterSoundFXManager _characterSoundFXManager;
+        [HideInInspector] public CharacterLocamotionManager _characterLocomotionManager;
 
         [Header("Character Group")]
-        public CharacterGruop _characterGruop;
+        public CharacterGruop _characterGroup;
 
         [Header("Flags")]
-        public bool _isPerfomingAction = false;
-        public bool _isGrounded = true;
-        public bool _applyRootMotion = false;
-        public bool _canRotate = true;
-        public bool _canMove = true;
+        public bool _isPerformingAction = false;
 
         protected virtual void Awake()
         {
@@ -42,7 +38,7 @@ namespace SKD.Character
             _characterAnimationManager = GetComponent<CharacterAnimatorManager>();
             _characterCombatManager = GetComponent<CharacterCombatManager>();
             _characterSoundFXManager = GetComponent<CharacterSoundFXManager>();
-            _characterLocamotionManager = GetComponent<CharacterLocamotionManager>();
+            _characterLocomotionManager = GetComponent<CharacterLocamotionManager>();
         }
         protected virtual void Start()
         {
@@ -50,7 +46,7 @@ namespace SKD.Character
         }
         protected virtual void Update()
         {
-            _animator.SetBool("IsGrounded", _isGrounded);
+            _animator.SetBool("IsGrounded", _characterLocomotionManager._isGrounded);
             //  If this character is being control from our side, then assign its network position to the position of our transform
             if (IsOwner)
             {
@@ -68,7 +64,7 @@ namespace SKD.Character
         }
         protected virtual void FixedUpdate()
         {
-            
+
         }
 
         protected virtual void LateUpdate()
@@ -79,12 +75,18 @@ namespace SKD.Character
         {
             base.OnNetworkSpawn();
 
+            _animator.SetBool("IsMoving", _characterNetworkManager._isMoving.Value);
+            _characterNetworkManager.OnIsActiveChange(false, _characterNetworkManager._isActive.Value);
+
             _characterNetworkManager._isMoving.OnValueChanged += _characterNetworkManager.OnIsMovingChanged;
+            _characterNetworkManager._isActive.OnValueChanged += _characterNetworkManager.OnIsActiveChange;
         }
         public override void OnNetworkDespawn()
         {
-            base.OnNetworkDespawn(); 
+            base.OnNetworkDespawn();
+
             _characterNetworkManager._isMoving.OnValueChanged -= _characterNetworkManager.OnIsMovingChanged;
+            _characterNetworkManager._isActive.OnValueChanged -= _characterNetworkManager.OnIsActiveChange;
         }
 
         public virtual IEnumerator ProcessDeathEvent(bool manuallySelectDeathAnimation = false)

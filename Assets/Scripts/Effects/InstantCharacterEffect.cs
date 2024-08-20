@@ -9,7 +9,7 @@ namespace SKD.Effects
         [Header("Effect ID")]
         public int _instantEffectID;
 
-        public virtual void ProccesEffect(CharacterManager characterManager)
+        public virtual void ProcessesEffect(CharacterManager characterManager)
         {
 
         }

@@ -13,11 +13,11 @@ public class ResetActionFlag : StateMachineBehaviour
             _characterManager = animator.GetComponent<CharacterManager>();
         }
 
-        _characterManager._isPerfomingAction = false;
-        _characterManager._applyRootMotion = false;
-        _characterManager._canRotate = true;
-        _characterManager._canMove = true;
-        _characterManager._characterLocamotionManager._isRolling = false;
+        _characterManager._isPerformingAction = false;
+        _characterManager._characterAnimationManager._applyRootMotion = false;
+        _characterManager._characterLocomotionManager._canRotate = true;
+        _characterManager._characterLocomotionManager._canMove = true;
+        _characterManager._characterLocomotionManager._isRolling = false;
         _characterManager._characterAnimationManager.DisableCanDoCombo();
 
         if (_characterManager.IsOwner)

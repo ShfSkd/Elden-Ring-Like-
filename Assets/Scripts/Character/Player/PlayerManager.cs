@@ -16,18 +16,18 @@ namespace SKD.Character.Player
         [SerializeField] bool _switchRightWeapon = false;
 
         [HideInInspector] public PlayerAnimatorManager _playerAnimationManager;
-        [HideInInspector] public PlayerLocamotionManager _playerLocamotionManager;
+        [HideInInspector] public PlayerLocomotionManager _playerLocomotionManager;
         [HideInInspector] public PlayerNetworkManager _playerNetworkManager;
         [HideInInspector] public PlayerStatsManager _playerStatsManager;
         [HideInInspector] public PlayerInventoryManager _playerInventoryManager;
-        [HideInInspector] public PlayerEquiqmentManager _playerEquiqmentManager;
+        [HideInInspector] public PlayerEquipmentManager _playerEquiqmentManager;
         [HideInInspector] public PlayerCombatManager _playerCombatManager;
 
         protected override void Awake()
         {
             base.Awake();
 
-            _playerLocamotionManager = GetComponent<PlayerLocamotionManager>();
+            _playerLocomotionManager = GetComponent<PlayerLocomotionManager>();
 
             _playerAnimationManager = GetComponent<PlayerAnimatorManager>();
 
@@ -37,7 +37,7 @@ namespace SKD.Character.Player
 
             _playerInventoryManager = GetComponent<PlayerInventoryManager>();
 
-            _playerEquiqmentManager = GetComponent<PlayerEquiqmentManager>();
+            _playerEquiqmentManager = GetComponent<PlayerEquipmentManager>();
 
             _playerCombatManager = GetComponent<PlayerCombatManager>();
         }
@@ -49,7 +49,7 @@ namespace SKD.Character.Player
             if (!IsOwner)
                 return;
 
-            _playerLocamotionManager.HandleAllMovement();
+            _playerLocomotionManager.HandleAllMovement();
             // Regenerate Stamina
             _playerStatsManager.RegenerateStamina();
 

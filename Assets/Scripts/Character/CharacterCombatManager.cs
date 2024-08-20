@@ -17,7 +17,7 @@ namespace SKD.Character
 
 
         [Header("Attack Type")]
-        public AttackType _currentAttacktype;
+        public AttackType _currentAttackType;
 
         [Header("Lock On Transform")]
         public Transform _lockOnTransform;

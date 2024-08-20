@@ -15,7 +15,7 @@ namespace SKD.Effects
         public float _physicalDamage; // In the future will split into "Standard", "Strike", "Slash" end Pierce
         public float _magicDamage;
         public float _fireDamage;
-        public float _lightnigamage;
+        public float _lightingDamage;
         public float _holyDamage;
 
         [Header("Final Damage")]
@@ -23,7 +23,7 @@ namespace SKD.Effects
 
         [Header("Animation")]
         public bool _playDamageAnimation = true;
-        public bool _manualySelectDamageAnimation;
+        public bool _manualSelectDamageAnimation;
         public string _damageAnimation;
 
         [Header("Posie")]
@@ -35,11 +35,11 @@ namespace SKD.Effects
         public AudioClip _elementalDamageSoundSfx; // Used on top of regular SFX there is elemental damage present(Magic/Fire/Lightning/Holy)
         [Header("Direction Damage Taken From")]
         public float _angleHitFrom; // Used to determine what damage animation to play (Move backwards, to the left/right.etc
-        public Vector3 _contantPoint; // Used to determine where the blood FX instantiate)
+        public Vector3 _constantPoint; // Used to determine where the blood FX instantiate)
 
-        public override void ProccesEffect(CharacterManager character)
+        public override void ProcessesEffect(CharacterManager character)
         {
-            base.ProccesEffect(character);
+            base.ProcessesEffect(character);
 
             // If the character is dead no need to add more damage animations
             if (character._isDead.Value)
@@ -75,7 +75,7 @@ namespace SKD.Effects
             // Check for armor absorption, and subtract the percentage from the damage
 
             // Add all of the damage types together, and apply final damage
-            _finalDamageDealt = Mathf.RoundToInt(_holyDamage + _fireDamage + _lightnigamage + _physicalDamage + _holyDamage);
+            _finalDamageDealt = Mathf.RoundToInt(_holyDamage + _fireDamage + _lightingDamage + _physicalDamage + _holyDamage);
 
             if (_finalDamageDealt <= 0)
             {
@@ -91,13 +91,14 @@ namespace SKD.Effects
         private void PlayDamageVFX(CharacterManager character)
         {
             // If we have fire/lightning/magic etc.. damage, play fire/lightning/magic etc
-            character._characterEffectsManager.PlayBloodSplatterVFX(_contantPoint);
+            character._characterEffectsManager.PlayBloodSplatterVFX(_constantPoint);
         }
         private void PlayDamageSFX(CharacterManager character)
         {
             AudioClip physicalDamageSFX = WorldSoundFXManager.instance.ChooseRandomSFXFromArray(WorldSoundFXManager.instance._physicalDamageSFX);
 
             character._characterSoundFXManager.PlaySoundFX(physicalDamageSFX);
+            character._characterSoundFXManager.PlayDamageGrunts();
         }
 
         private void PlayDirectionBasedDamageAnimation(CharacterManager character)
@@ -105,7 +106,7 @@ namespace SKD.Effects
             if (!character.IsOwner)
                 return;
 
-            if (!character._isDead.Value)
+            if (character._isDead.Value)
                 return;
 
             _poiseIsBroken = true;
@@ -113,7 +114,7 @@ namespace SKD.Effects
             if (_angleHitFrom >= 145 && _angleHitFrom <= 180)
             {
                 // Play front animation
-                _damageAnimation = character._characterAnimationManager.GetRandomAnimationFromList(character._characterAnimationManager._forward_Medium_Damage_List); 
+                _damageAnimation = character._characterAnimationManager.GetRandomAnimationFromList(character._characterAnimationManager._forward_Medium_Damage_List);
 
             }
             else if (_angleHitFrom <= -145 && _angleHitFrom >= -180)
@@ -128,8 +129,8 @@ namespace SKD.Effects
                 _damageAnimation = character._characterAnimationManager.GetRandomAnimationFromList(character._characterAnimationManager._backeard_Medium_damage_List);
 
             }
-            else if (_angleHitFrom >= -144 && _angleHitFrom <= -45)
-            {
+            else if (_angleHitFrom >= -144 && _angleHitFrom <= -45) 
+            { 
                 // Play left animation
                 _damageAnimation = character._characterAnimationManager.GetRandomAnimationFromList(character._characterAnimationManager._left_Medium_damage_List);
 
@@ -137,6 +138,7 @@ namespace SKD.Effects
             }
             else if (_angleHitFrom >= 45 && _angleHitFrom <= 144)
             {
+    
                 // Play right animation
                 _damageAnimation = character._characterAnimationManager.GetRandomAnimationFromList(character._characterAnimationManager._right_Medium_damage_List);
 

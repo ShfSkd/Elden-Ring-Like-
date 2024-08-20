@@ -17,7 +17,7 @@ namespace SKD.Character.Player
 
         private void OnAnimatorMove()
         {
-            if (_playerManager._applyRootMotion)
+            if (_playerManager._playerAnimationManager._applyRootMotion)
             {
                 Vector3 velocity = _playerManager._animator.deltaPosition;
                 _playerManager._characterController.Move(velocity);

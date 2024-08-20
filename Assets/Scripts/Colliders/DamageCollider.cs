@@ -15,7 +15,7 @@ namespace SKD.Colliders
         public float _physicalDamage;
         public float _magicDamage;
         public float _fireDamage;
-        public float _lightnigamage;
+        public float _lightningDamage;
         public float _holyDamage;
 
         [Header("Contact Point")]
@@ -40,7 +40,7 @@ namespace SKD.Colliders
             if (damagetarget != null)
             {
                 _contactPoint = other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
-                Debug.Log(other.gameObject.GetComponent<Collider>().transform.ToString());
+      
             }
             DamageTarget(damagetarget);
         }
@@ -57,7 +57,7 @@ namespace SKD.Colliders
             damageEffect._magicDamage = _magicDamage;
             damageEffect._fireDamage = _fireDamage;
             damageEffect._holyDamage = _holyDamage;
-            damageEffect._contantPoint = _contactPoint;
+            damageEffect._constantPoint = _contactPoint;
 
             damageTarget._characterEffectsManager.ProceesInstanceEffect(damageEffect);
         }

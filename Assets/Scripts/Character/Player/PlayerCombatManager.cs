@@ -42,7 +42,7 @@ namespace SKD.Character.Player
 
             float staminaDetucted = 0f;
 
-            switch (_currentAttacktype)
+            switch (_currentAttackType)
             {
                 case AttackType.LigthAttack01:
                     staminaDetucted = _currentWeaponBeingUsed._baseStaminaCost * _currentWeaponBeingUsed._lightAttackStaminaCostMultiplier;

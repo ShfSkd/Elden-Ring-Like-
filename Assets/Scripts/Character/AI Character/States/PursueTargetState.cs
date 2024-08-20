@@ -1,0 +1,50 @@
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.AI;
+
+namespace SKD.Character.AI_Character.States
+{
+    [CreateAssetMenu(menuName = "AI/States/Pursue Target")]
+    public class PursueTargetState : AIState
+    {
+        public override AIState Tick(AICharacterManager aICharacter)
+        {
+            // Check if we are performing an action (if so do nothing until action is complete)
+            if (aICharacter._isPerformingAction)
+                return this;
+
+            // Check if our target is null, if we do not have a target, return to idle state 
+            if (aICharacter._aICharcterCombatManager._currentTarget == null)
+                return SwitchState(aICharacter, aICharacter._idle);
+
+            // Make sure our navmesh agent is active, if its not enable it 
+            if (!aICharacter._navMeshAgent.enabled)
+                aICharacter._navMeshAgent.enabled = true;
+
+            // if our target goes outside if the character F.O.V pivot to face them
+            if (aICharacter._aICharcterCombatManager._viewableAngle < aICharacter._aICharcterCombatManager._minimumFieldOfView || aICharacter._aICharcterCombatManager._viewableAngle > aICharacter._aICharcterCombatManager._maximumFieldOfView)
+            {
+                aICharacter._aICharcterCombatManager.PivotTowardsTarget(aICharacter);
+            }
+
+
+            aICharacter._aICharacterLocomotionManager.RotateTowardAgent(aICharacter);
+
+            // If we are within the combat range of target, switch state to combat stance state
+            if (aICharacter._aICharcterCombatManager._distanceFromTarget <= aICharacter._navMeshAgent.stoppingDistance)
+                return SwitchState(aICharacter, aICharacter._combatStance);
+
+                // Pursue the target
+                // Option 1
+                //  aICharacter._navMeshAgent.SetDestination(aICharacter._aICharcterCombatManager._currentTarget.transform.position);
+
+                // Option 2
+                NavMeshPath path = new NavMeshPath();
+            aICharacter._navMeshAgent.CalculatePath(aICharacter._aICharcterCombatManager._currentTarget.transform.position, path);
+            aICharacter._navMeshAgent.SetPath(path);
+
+            return this;
+        }
+
+    }
+}

@@ -9,9 +9,9 @@ namespace SKD.Effects
     {
         public float _staminaDamage;
 
-        public override void ProccesEffect(CharacterManager characterManager)
+        public override void ProcessesEffect(CharacterManager characterManager)
         {
-            base.ProccesEffect(characterManager);
+            base.ProcessesEffect(characterManager);
 
             CalculateStaminaDamage(characterManager);
         }

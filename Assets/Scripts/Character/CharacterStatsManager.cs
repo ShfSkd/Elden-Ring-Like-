@@ -41,7 +41,7 @@ namespace SKD.Character
             if (_characterManager._characterNetworkManager._isSprinting.Value)
                 return;
 
-            if (_characterManager._isPerfomingAction)
+            if (_characterManager._isPerformingAction)
                 return;
 
             _staminaRegeneartionTimer += Time.deltaTime;

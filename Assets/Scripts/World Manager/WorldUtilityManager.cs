@@ -1,4 +1,5 @@
 ﻿using SKD.Character;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -66,5 +67,16 @@ namespace SKD.World_Manager
             return false;
         }
 
+        public float GetAngleOfTarget(Transform characterTransform , Vector3 targetDirection)
+        {
+           targetDirection.y = 0f;
+            float vieableAngle = Vector3.Angle(characterTransform.forward, targetDirection);
+            Vector3 cross = Vector3.Cross(characterTransform.forward, targetDirection);
+
+            if (cross.y < 0)
+                vieableAngle = -vieableAngle;
+
+            return vieableAngle; 
+        }
     }
 }

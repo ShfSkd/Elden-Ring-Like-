@@ -55,11 +55,11 @@ namespace SKD.Colliders
             damageEffect._magicDamage = _magicDamage;
             damageEffect._fireDamage = _fireDamage;
             damageEffect._holyDamage = _holyDamage;
-            damageEffect._lightnigamage = _lightnigamage;
-            damageEffect._contantPoint = _contactPoint;
+            damageEffect._lightingDamage = _lightningDamage;
+            damageEffect._constantPoint = _contactPoint;
             damageEffect._angleHitFrom = Vector3.SignedAngle(_characterCausingDamage.transform.forward, damageTarget.transform.forward, Vector3.up);
 
-            switch (_characterCausingDamage._characterCombatManager._currentAttacktype)
+            switch (_characterCausingDamage._characterCombatManager._currentAttackType)
             {
                 case AttackType.LigthAttack01:
                     ApplyDamageModifier(_light_Attack_01_Modofier, damageEffect);
@@ -85,17 +85,17 @@ namespace SKD.Colliders
             if (_characterCausingDamage.IsOwner)
             {
                 // Send a damage request from the server
-                damageTarget._characterNetworkManager.NotifyTheServerofCharacterdamageServerRpc(damageTarget.NetworkObjectId, _characterCausingDamage.NetworkObjectId,
+                damageTarget._characterNetworkManager.NotifyTheServerOfCharacterDamageServerRpc(damageTarget.NetworkObjectId, _characterCausingDamage.NetworkObjectId,
                     damageEffect._physicalDamage,
                     damageEffect._magicDamage,
                     damageEffect._fireDamage,
                     damageEffect._holyDamage,
-                    damageEffect._lightnigamage,
+                    damageEffect._lightingDamage,
                     damageEffect._poiseDamage,
                     damageEffect._angleHitFrom,
-                    damageEffect._contantPoint.x,
-                    damageEffect._contantPoint.y,
-                    damageEffect._contantPoint.z);
+                    damageEffect._constantPoint.x,
+                    damageEffect._constantPoint.y,
+                    damageEffect._constantPoint.z);
             }
 
             //damageTarget._characterEffectsManager.ProceesInstanceEffect(damageEffect);
@@ -106,7 +106,7 @@ namespace SKD.Colliders
             damage._magicDamage *= modifier;
             damage._fireDamage *= modifier;
             damage._holyDamage *= modifier;
-            damage._lightnigamage *= modifier;
+            damage._lightingDamage *= modifier;
             damage._poiseDamage *= modifier;
 
             // If attack is fully charged heavy, multiply by a full charge modifier after normal modifier have been calculate 

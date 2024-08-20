@@ -198,7 +198,6 @@ namespace SKD.Character.Player
                         {
                             // Otherwise, add them to the list
                             _availableTargetsList.Add(lockOnTarget);
-                            Debug.Log("We Made It");
                         }
                     }
                 }
@@ -267,7 +266,7 @@ namespace SKD.Character.Player
 
         public IEnumerator WaitThenFindNewTarget()
         {
-            while (_playerManager._isPerfomingAction)
+            while (_playerManager._isPerformingAction)
             {
                 yield return null;
             }

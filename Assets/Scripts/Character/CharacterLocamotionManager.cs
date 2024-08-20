@@ -19,6 +19,9 @@ namespace SKD.Character
 
         [Header("Flags")]
         public bool _isRolling;
+        public bool _canRotate = true;
+        public bool _canMove = true;
+        public bool _isGrounded = true;
         protected virtual void Awake()
         {
             _characterManger = GetComponent<CharacterManager>();
@@ -27,7 +30,7 @@ namespace SKD.Character
         {
             HandleGroundCheck();
 
-            if (_characterManger._isGrounded)
+            if (_characterManger._characterLocomotionManager._isGrounded)
             {
                 // If we are not attempting to jump or move upward
                 if (_yVelocity.y < 0)
@@ -56,12 +59,20 @@ namespace SKD.Character
         }
         protected void HandleGroundCheck()
         {
-            _characterManger._isGrounded = Physics.CheckSphere(_characterManger.transform.position, _groundCheckSphereRaduis, _groundLayer);
+            _characterManger._characterLocomotionManager._isGrounded = Physics.CheckSphere(_characterManger.transform.position, _groundCheckSphereRaduis, _groundLayer);
         }
         // Draw our ground check sphere in scene view
         protected void OnDrawGizmosSelected()
         {
            // Gizmos.DrawSphere(_characterManger.transform.position, _groundCheckSphereRaduis); 
+        }
+        public void EnableCanRotate()
+        {
+            _canRotate = true;
+        }
+        public void DisableCanRotate()
+        {
+            _canRotate = false;
         }
     }
 }

@@ -25,7 +25,7 @@ namespace SKD.Character
         public virtual void ProceesInstanceEffect(InstantCharacterEffect effects)
         {
             // Take in an effect
-            effects.ProccesEffect(_charcterManager);
+            effects.ProcessesEffect(_charcterManager);
             // Process it 
         }
         public void PlayBloodSplatterVFX(Vector3 contactPoint)

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using SKD.Character.AI_Character.States;
+using SKD.World_Manager;
+using UnityEngine;
 using UnityEngine.AI;
 
 namespace SKD.Character.AI_Character
@@ -6,7 +8,7 @@ namespace SKD.Character.AI_Character
     public class AICharacterManager : CharacterManager
     {
         [HideInInspector] public AICharacterNetworkManager _aICharacterNetworkManager;
-        [HideInInspector] public AICharcterCombatManager _aICharcterCombatManager;
+        [HideInInspector] public AICharterCombatManager _aICharcterCombatManager;
         [HideInInspector] public AICharacterLocomotionManager _aICharacterLocomotionManager;
 
         [Header("Navmesh Agent")]
@@ -18,23 +20,33 @@ namespace SKD.Character.AI_Character
         [Header("States")]
         public IdleState _idle;
         public PursueTargetState _pursueTarget;
+        public CombatStanceState _combatStance;
+        public AttackState _attack;
+
         protected override void Awake()
         {
             base.Awake();
-            _aICharcterCombatManager = GetComponent<AICharcterCombatManager>();
+            _aICharcterCombatManager = GetComponent<AICharterCombatManager>();
             _navMeshAgent = GetComponentInChildren<NavMeshAgent>();
             _aICharacterNetworkManager = GetComponent<AICharacterNetworkManager>();
-            _aICharacterLocomotionManager =GetComponent<AICharacterLocomotionManager>(); 
+            _aICharacterLocomotionManager = GetComponent<AICharacterLocomotionManager>();
 
             _idle = Instantiate(_idle);
             _pursueTarget = Instantiate(_pursueTarget);
 
             _currentState = _idle;
         }
+        protected override void Update()
+        {
+            base.Update();
+            _aICharcterCombatManager.HandleActionRecovery(this);
+        }
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
-            ProcessStateMachine();
+
+            if (IsOwner)
+                ProcessStateMachine();
         }
         private void ProcessStateMachine()
         {
@@ -48,6 +60,13 @@ namespace SKD.Character.AI_Character
             // The position/rotation should be reset only after the state machine was processed its tick
             _navMeshAgent.transform.localPosition = Vector3.zero;
             _navMeshAgent.transform.localRotation = Quaternion.identity;
+
+            if (_aICharcterCombatManager._currentTarget != null)
+            {
+                _aICharcterCombatManager._targetDirection = _aICharcterCombatManager._currentTarget.transform.position - transform.position;
+                _aICharcterCombatManager._viewableAngle = WorldUtilityManager.Instance.GetAngleOfTarget(transform, _aICharcterCombatManager._targetDirection);
+                _aICharcterCombatManager._distanceFromTarget = Vector3.Distance(transform.position, _aICharcterCombatManager._currentTarget.transform.position);
+            }
 
             if (_navMeshAgent.enabled)
             {
@@ -66,6 +85,7 @@ namespace SKD.Character.AI_Character
             else
             {
                 _aICharacterNetworkManager._isMoving.Value = false;
+
             }
         }
     }

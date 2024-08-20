@@ -14,7 +14,7 @@ public class ToggleAttackType : StateMachineBehaviour
         if (_characterManager == null)
             _characterManager = animator.GetComponent<CharacterManager>();
 
-        _characterManager._characterCombatManager._currentAttacktype = _attackType;
+        _characterManager._characterCombatManager._currentAttackType = _attackType;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

@@ -70,7 +70,7 @@ namespace SKD.Character.Player
         {
             WeaponItem newWeapon = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(newId));
             _playerManager._playerInventoryManager._currentLeftHandWeapon = newWeapon;
-            _playerManager._playerEquiqmentManager.LoadLeftWepon();
+            _playerManager._playerEquiqmentManager.LoadLeftWeapon();
 
             if (_playerManager.IsOwner)
             {

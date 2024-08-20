@@ -21,7 +21,7 @@ namespace SKD.Items.Weapon_Actions
             if (playerPerformingAction._playerNetworkManager._currentStamina.Value <= 0)
                 return;
 
-            if (!playerPerformingAction._isGrounded)
+            if (!playerPerformingAction._characterLocomotionManager._isGrounded)
                 return;
 
             PerformLightAttack(playerPerformingAction, weaponPerformingAction);
@@ -29,20 +29,20 @@ namespace SKD.Items.Weapon_Actions
         private void PerformLightAttack(PlayerManager playerPerformingAction, WeaponItem weaponPerformingAction)
         {
             // If we are attacking correctly,and we can combo, perform the combo attack
-            if (playerPerformingAction._playerCombatManager._canComboWithMainHandWeapon && playerPerformingAction._isPerfomingAction)
+            if (playerPerformingAction._playerCombatManager._canComboWithMainHandWeapon && playerPerformingAction._isPerformingAction)
             {
                 playerPerformingAction._playerCombatManager._canComboWithMainHandWeapon = false;
 
                 // Perform an attack based on the previous attack we just played
                 if (playerPerformingAction._characterCombatManager._lastAttackAnimationPerformed == _light_Attack_01)
-                    playerPerformingAction._playerAnimationManager.PlayTargetAttackActioAnimation(AttackType.LigthAttack02, _light_Attack_02, true);
+                    playerPerformingAction._playerAnimationManager.PlayTargetAttackActionAnimation(AttackType.LigthAttack02, _light_Attack_02, true);
                 else
-                    playerPerformingAction._playerAnimationManager.PlayTargetAttackActioAnimation(AttackType.LigthAttack01, _light_Attack_01, true);
+                    playerPerformingAction._playerAnimationManager.PlayTargetAttackActionAnimation(AttackType.LigthAttack01, _light_Attack_01, true);
             }
             // Otherwise, if we are not already attacking just perform a regular attack
-            else if (!playerPerformingAction._isPerfomingAction)
+            else if (!playerPerformingAction._isPerformingAction)
             {
-                playerPerformingAction._playerAnimationManager.PlayTargetAttackActioAnimation(AttackType.LigthAttack01, _light_Attack_01, true);
+                playerPerformingAction._playerAnimationManager.PlayTargetAttackActionAnimation(AttackType.LigthAttack01, _light_Attack_01, true);
             }
         }
 

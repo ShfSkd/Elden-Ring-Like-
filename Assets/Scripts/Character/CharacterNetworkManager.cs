@@ -9,6 +9,10 @@ namespace SKD.Character
     {
         CharacterManager _characterManager;
 
+        [Header("Active")]
+        public NetworkVariable<bool> _isActive = new NetworkVariable<bool>(true, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+         
+
         [Header("Position")]
         public NetworkVariable<Vector3> _networkPosition = new NetworkVariable<Vector3>(Vector3.zero, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
@@ -85,6 +89,10 @@ namespace SKD.Character
         {
             _characterManager._animator.SetBool("IsMoving", _isMoving.Value);
         }
+        public virtual void OnIsActiveChange(bool oldStatus, bool newStatus)
+        {
+            gameObject.SetActive(_isActive.Value);
+        }
         // A server RPC is a function called from client, to the server (in our case the host)
         [ServerRpc]
         public void NotifyTheServerofActionAnimationServerRpc(ulong clientId, string animationID, bool applyRootMotion)
@@ -107,12 +115,12 @@ namespace SKD.Character
         }
         private void PerformActionAnimationFromServer(string animationID, bool applyRootMotion)
         {
-            _characterManager._applyRootMotion = applyRootMotion;
+            _characterManager._characterAnimationManager._applyRootMotion = applyRootMotion;
             _characterManager._animator.CrossFade(animationID, 0.2f);
         }
         // Attack Animations
         [ServerRpc]
-        public void NotifyTheServerofActionAttackAnimationServerRpc(ulong clientId, string animationID, bool applyRootMotion)
+        public void NotifyTheServerOfActionAttackAnimationServerRpc(ulong clientId, string animationID, bool applyRootMotion)
         {
             // If this client is the host/server , then activate the client RPC
             if (IsServer)
@@ -133,13 +141,13 @@ namespace SKD.Character
 
         private void PerformActionAttackAnimationFromServer(string animationID, bool applyRootMotion)
         {
-            _characterManager._applyRootMotion = applyRootMotion;
+            _characterManager._characterAnimationManager._applyRootMotion = applyRootMotion;
             _characterManager._animator.CrossFade(animationID, 0.2f);
         }
 
         // Damage
         [ServerRpc(RequireOwnership = false)]
-        public void NotifyTheServerofCharacterdamageServerRpc(ulong damageCharacterID,
+        public void NotifyTheServerOfCharacterDamageServerRpc(ulong damageCharacterID,
             ulong charcterCausingDamageID,
             float physicalDamage,
             float magicDamage,
@@ -154,11 +162,11 @@ namespace SKD.Character
         {
             if (IsServer)
             {
-                NotifyTheServerofCharacterDamageClientClientRpc(damageCharacterID, charcterCausingDamageID, physicalDamage, magicDamage, fireDamage, holyDamage, ligthningDamage, poiseDamage, angleHitPoint, contactPointX, contactPointY, contactPointZ);
+                NotifyTheServerOfCharacterDamageClientClientRpc(damageCharacterID, charcterCausingDamageID, physicalDamage, magicDamage, fireDamage, holyDamage, ligthningDamage, poiseDamage, angleHitPoint, contactPointX, contactPointY, contactPointZ);
             }
         }
         [ClientRpc]
-        public void NotifyTheServerofCharacterDamageClientClientRpc(ulong damageCharacterID,
+        public void NotifyTheServerOfCharacterDamageClientClientRpc(ulong damageCharacterID,
             ulong charcterCausingDamageID,
             float physicalDamage,
             float magicDamage,
@@ -174,12 +182,12 @@ namespace SKD.Character
             ProcessCharacterDamageFromServer(damageCharacterID, charcterCausingDamageID, physicalDamage, magicDamage, fireDamage, holyDamage, ligthningDamage, poiseDamage, angleHitPoint, contactPointX, contactPointY, contactPointZ);
         }
         public void ProcessCharacterDamageFromServer(ulong damageCharacterID,
-           ulong charcterCausingDamageID,
+           ulong characterCausingDamageID,
            float physicalDamage,
            float magicDamage,
            float fireDamage,
            float holyDamage,
-           float ligthningDamage,
+           float lightningDamage,
            float poiseDamage,
            float angleHitPoint,
            float contactPointX,
@@ -187,17 +195,17 @@ namespace SKD.Character
            float contactPointZ)
         {
             CharacterManager damagedCharacter = NetworkManager.Singleton.SpawnManager.SpawnedObjects[damageCharacterID].gameObject.GetComponent<CharacterManager>();
-            CharacterManager characterCausingDamage = NetworkManager.Singleton.SpawnManager.SpawnedObjects[charcterCausingDamageID].gameObject.GetComponent<CharacterManager>();
+            CharacterManager characterCausingDamage = NetworkManager.Singleton.SpawnManager.SpawnedObjects[characterCausingDamageID].gameObject.GetComponent<CharacterManager>();
             TakeDamageEffect damageEffect = Instantiate(WorldCharacterEffectsManager.Instance._takeDamageEffect);
 
             damageEffect._physicalDamage = physicalDamage;
             damageEffect._magicDamage = magicDamage;
             damageEffect._fireDamage = fireDamage;
             damageEffect._holyDamage = holyDamage;
-            damageEffect._lightnigamage = ligthningDamage;
+            damageEffect._lightingDamage = lightningDamage;
             damageEffect._poiseDamage = poiseDamage;
             damageEffect._angleHitFrom = angleHitPoint;
-            damageEffect._contantPoint = new Vector3(contactPointX, contactPointY, contactPointZ);
+            damageEffect._constantPoint = new Vector3(contactPointX, contactPointY, contactPointZ);
             damageEffect._characteCausingDamage = characterCausingDamage;
 
             damagedCharacter._characterEffectsManager.ProceesInstanceEffect(damageEffect);
