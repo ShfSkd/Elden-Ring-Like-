@@ -5,6 +5,6 @@ namespace SKD
 {
     public class LockOnTransform : MonoBehaviour
     {
-        //  This scripts allow our combat manager to petch the lock on transform
+        //  This scripts allow our combat manager to fetch the lock on transform
     }
 }

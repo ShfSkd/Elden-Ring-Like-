@@ -1764,7 +1764,6 @@ GameObject:
   - component: {fileID: 2169755269524836591}
   - component: {fileID: 2169755269524836589}
   - component: {fileID: 2169755269524836588}
-  - component: {fileID: 2169755269524836587}
   - component: {fileID: 2169755269524836586}
   - component: {fileID: 2169755269524836585}
   - component: {fileID: 2169755269524836584}
@@ -1965,57 +1964,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damageGrunts: []
   _attackGrunts: []
---- !u!114 &2169755269524836587
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2169755269524805562}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6867cf55a506264ca400f4e89110a0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _isActive:
-    m_InternalValue: 1
-  _networkPosition:
-    m_InternalValue: {x: 0, y: 0, z: 0}
-  _networkRotation:
-    m_InternalValue: {x: 0, y: 0, z: 0, w: 1}
-  _networkPositionVelocity: {x: 0, y: 0, z: 0}
-  _networkPositionSmoothTime: 0.1
-  _networkRotationSmoothTime: 0.1
-  _isMoving:
-    m_InternalValue: 0
-  _horizontalMovement:
-    m_InternalValue: 0
-  _verticalMovement:
-    m_InternalValue: 0
-  _moveAmount:
-    m_InternalValue: 0
-  _currentTargetNetworkObjectID:
-    m_InternalValue: 0
-  _isLockOn:
-    m_InternalValue: 0
-  _isSprinting:
-    m_InternalValue: 0
-  _isJumping:
-    m_InternalValue: 0
-  _isCharcgingAttack:
-    m_InternalValue: 0
-  _currentHealth:
-    m_InternalValue: 0
-  _maxHealth:
-    m_InternalValue: 0
-  _currentStamina:
-    m_InternalValue: 0
-  _maxStamina:
-    m_InternalValue: 0
-  _vitality:
-    m_InternalValue: 1
-  _endurance:
-    m_InternalValue: 1
 --- !u!114 &2169755269524836586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2282,6 +2230,9 @@ MonoBehaviour:
   _attack: {fileID: 11400000, guid: fe200bd8e1627a84ebb560c50390f7d1, type: 2}
   _bossID: 0
   _hasBeenDefeted: 0
+  _hasBeenAwaken: 0
+  _fogWallsList: []
+  _wakeUpBoss: 0
 --- !u!1 &2169755269524805564
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ namespace SKD.World_Manager
         public static WorldObjectManager Instance { get { return instance; } }
 
         [Header("Objects")]
-        [SerializeField] List<NetworkObjectSpawner> _nwtworkObjectSpawnerList;
+        [SerializeField] List<NetworkObjectSpawner> _networkObjectSpawnerList;
         [SerializeField] List<GameObject> _spawnInObjects = new List<GameObject>();
 
         [Header("Fog Walls")]
@@ -29,7 +29,7 @@ namespace SKD.World_Manager
         {
             if (NetworkManager.Singleton.IsServer)
             {
-                _nwtworkObjectSpawnerList.Add(objectSpawner);
+                _networkObjectSpawnerList.Add(objectSpawner);
                 objectSpawner.AttemptToSpawnObjects();
             }
         }

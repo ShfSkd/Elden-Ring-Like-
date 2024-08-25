@@ -36,28 +36,28 @@ namespace SKD.World_Manager
         {
             return _enviroLayers;
         }
-        public bool CanIDamageThisTarget(CharacterGruop attackingCharacter, CharacterGruop targetCharacter)
+        public bool CanIDamageThisTarget(CharacterGroup attackingCharacter, CharacterGroup targetCharacter)
         {
-            if (attackingCharacter == CharacterGruop.Team01)
+            if (attackingCharacter == CharacterGroup.Team01)
             {
                 switch (targetCharacter)
                 {
-                    case CharacterGruop.Team01:
+                    case CharacterGroup.Team01:
                         return false;
-                    case CharacterGruop.Team02:
+                    case CharacterGroup.Team02:
                         return true;
                     default:
                         break;
 
                 }
             }
-            else if (attackingCharacter == CharacterGruop.Team02)
+            else if (attackingCharacter == CharacterGroup.Team02)
             {
                 switch (targetCharacter)
                 {
-                    case CharacterGruop.Team01:
+                    case CharacterGroup.Team01:
                         return true;  
-                    case CharacterGruop.Team02:
+                    case CharacterGroup.Team02:
                         return false;
                     default:
                         break;

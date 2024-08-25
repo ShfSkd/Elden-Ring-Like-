@@ -4885,7 +4885,7 @@ MonoBehaviour:
   - {fileID: 7331007605001734252}
   _fogWallID: 0
   _isActive:
-    m_InternalValue: 1
+    m_InternalValue: 0
 --- !u!1 &7331007605001734252
 GameObject:
   m_ObjectHideFlags: 0

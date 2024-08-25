@@ -15,15 +15,15 @@ namespace SKD
         public int _fogWallID;
 
         [Header("Active")]
-        public NetworkVariable<bool> _isActive = new NetworkVariable<bool>(true, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-
+        public NetworkVariable<bool> _isActive = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+         
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
 
             OnIsActiveChange(false,_isActive.Value);
             _isActive.OnValueChanged += OnIsActiveChange;
-            WorldObjectManager.Instance.AddFogWallToList(this);
+            WorldObjectManager.Instance.AddFogWallToList(this); 
         }
         public override void OnNetworkDespawn()
         {

@@ -21,7 +21,7 @@ namespace SKD.Character
         [HideInInspector] public CharacterLocamotionManager _characterLocomotionManager;
 
         [Header("Character Group")]
-        public CharacterGruop _characterGroup;
+        public CharacterGroup _characterGroup;
 
         [Header("Flags")]
         public bool _isPerformingAction = false;

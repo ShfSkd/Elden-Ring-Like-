@@ -11,7 +11,7 @@ namespace SKD
     {
         CharacterSlot_01, CharacterSlot_02, CharacterSlot_03, CharacterSlot_04, CharacterSlot_05, CharacterSlot_06, CharacterSlot_07, CharacterSlot_08, CharacterSlot_09, CharacterSlot_10,No_Slot
     }
-    public enum CharacterGruop
+    public enum CharacterGroup
     {
         Team01,
         Team02
