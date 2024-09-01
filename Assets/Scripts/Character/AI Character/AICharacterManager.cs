@@ -7,15 +7,18 @@ namespace SKD.Character.AI_Character
 {
     public class AICharacterManager : CharacterManager
     {
+        [Header("Character Name")]
+        public string _characterName = "";
+
         [HideInInspector] public AICharacterNetworkManager _aICharacterNetworkManager;
-        [HideInInspector] public AICharterCombatManager _aICharcterCombatManager;
+        [HideInInspector] public AICharterCombatManager _aICharacterCombatManager;
         [HideInInspector] public AICharacterLocomotionManager _aICharacterLocomotionManager;
 
         [Header("Navmesh Agent")]
         public NavMeshAgent _navMeshAgent;
 
         [Header("Current State")]
-        [SerializeField] AIState _currentState;
+        [SerializeField] protected AIState _currentState;
 
         [Header("States")]
         public IdleState _idle;
@@ -26,20 +29,38 @@ namespace SKD.Character.AI_Character
         protected override void Awake()
         {
             base.Awake();
-            _aICharcterCombatManager = GetComponent<AICharterCombatManager>();
-            _navMeshAgent = GetComponentInChildren<NavMeshAgent>();
+
+            _aICharacterCombatManager = GetComponent<AICharterCombatManager>();
             _aICharacterNetworkManager = GetComponent<AICharacterNetworkManager>();
             _aICharacterLocomotionManager = GetComponent<AICharacterLocomotionManager>();
+            _navMeshAgent = GetComponentInChildren<NavMeshAgent>();
 
-            _idle = Instantiate(_idle);
-            _pursueTarget = Instantiate(_pursueTarget);
+        }
+        public override void OnNetworkSpawn()
+        {
+            base.OnNetworkSpawn();
 
-            _currentState = _idle;
+            if (IsOwner)
+            {
+                _idle = Instantiate(_idle);
+                _pursueTarget = Instantiate(_pursueTarget);
+                _combatStance = Instantiate(_combatStance);
+                _attack = Instantiate(_attack);
+
+                _currentState = _idle;
+            }
+            _aICharacterNetworkManager._currentHealth.OnValueChanged += _aICharacterNetworkManager.CheckHP;
+
+        }
+        public override void OnNetworkDespawn()
+        {
+            base.OnNetworkDespawn();
+            _aICharacterNetworkManager._currentHealth.OnValueChanged -= _aICharacterNetworkManager.CheckHP;
         }
         protected override void Update()
         {
             base.Update();
-            _aICharcterCombatManager.HandleActionRecovery(this);
+            _aICharacterCombatManager.HandleActionRecovery(this);
         }
         protected override void FixedUpdate()
         {
@@ -61,11 +82,11 @@ namespace SKD.Character.AI_Character
             _navMeshAgent.transform.localPosition = Vector3.zero;
             _navMeshAgent.transform.localRotation = Quaternion.identity;
 
-            if (_aICharcterCombatManager._currentTarget != null)
+            if (_aICharacterCombatManager._currentTarget != null)
             {
-                _aICharcterCombatManager._targetDirection = _aICharcterCombatManager._currentTarget.transform.position - transform.position;
-                _aICharcterCombatManager._viewableAngle = WorldUtilityManager.Instance.GetAngleOfTarget(transform, _aICharcterCombatManager._targetDirection);
-                _aICharcterCombatManager._distanceFromTarget = Vector3.Distance(transform.position, _aICharcterCombatManager._currentTarget.transform.position);
+                _aICharacterCombatManager._targetDirection = _aICharacterCombatManager._currentTarget.transform.position - transform.position;
+                _aICharacterCombatManager._viewableAngle = WorldUtilityManager.Instance.GetAngleOfTarget(transform, _aICharacterCombatManager._targetDirection);
+                _aICharacterCombatManager._distanceFromTarget = Vector3.Distance(transform.position, _aICharacterCombatManager._currentTarget.transform.position);
             }
 
             if (_navMeshAgent.enabled)

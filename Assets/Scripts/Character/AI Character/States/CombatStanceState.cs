@@ -17,9 +17,9 @@ namespace SKD.Character.AI_Character.States
 
         [Header("Attacks")]
         public List<AICharacterAttackAction> _aICharacterAttacks = new List<AICharacterAttackAction>(); // A list of possible attacks this character can do 
-        protected List<AICharacterAttackAction> _potenialAttacks; // A list that is created during the state, (based on angle, distance etc)
-        private AICharacterAttackAction _chosenAttack;
-        private AICharacterAttackAction _previousAttack;
+        [SerializeField] protected List<AICharacterAttackAction> _potentialAttacks; // A list that is created during the state, (based on angle, distance etc)
+        [SerializeField] AICharacterAttackAction _chosenAttack;
+        [SerializeField] AICharacterAttackAction _previousAttack;
         protected bool _hasAttack;
 
         [Header("Combo")]
@@ -28,7 +28,7 @@ namespace SKD.Character.AI_Character.States
         protected bool _hasRolledForComboChance; // If we have already rolled for the chance during this state 
 
         [Header("Engagement Distance")]
-        [SerializeField] protected float _maximunEngamnetDitance = 5f; // The distance we have to be away from the target before we enter the pursue target state
+        [SerializeField] protected float _maximumEngagementDistance = 5f; // The distance we have to be away from the target before we enter the pursue target state
 
         public override AIState Tick(AICharacterManager aICharacter)
         {
@@ -38,17 +38,20 @@ namespace SKD.Character.AI_Character.States
             if (!aICharacter._navMeshAgent.enabled)
                 aICharacter._navMeshAgent.enabled = true;
 
-            // If you want the AI character to face and turn toward its target when its outside its FOV include this 
-            if (aICharacter._aICharacterNetworkManager._isMoving.Value)
+            // If you want the AI character to face and turn toward its target when its outside its FOV include this
+            if (aICharacter._aICharacterCombatManager._enablePivot)
             {
-                if (aICharacter._aICharcterCombatManager._viewableAngle < -30 || aICharacter._aICharcterCombatManager._viewableAngle > 30)
-                    aICharacter._aICharcterCombatManager.PivotTowardsTarget(aICharacter);
+                if (aICharacter._aICharacterNetworkManager._isMoving.Value)
+                {
+                    if (aICharacter._aICharacterCombatManager._viewableAngle < -30 || aICharacter._aICharacterCombatManager._viewableAngle > 30)
+                        aICharacter._aICharacterCombatManager.PivotTowardsTarget(aICharacter);
+                }
             }
             //  Rotate to face our target
-            aICharacter._aICharcterCombatManager.RotateTowardsAgent(aICharacter);
+            aICharacter._aICharacterCombatManager.RotateTowardsAgent(aICharacter);
 
             // if our target is no longer present, switch back to idle
-            if (aICharacter._aICharcterCombatManager._currentTarget == null)
+            if (aICharacter._aICharacterCombatManager._currentTarget == null)
                 return SwitchState(aICharacter, aICharacter._idle);
 
             // If we don't have an attack, get one 
@@ -67,11 +70,11 @@ namespace SKD.Character.AI_Character.States
             }
 
             // If we are outside of the combat engagement distance, switch to pursue target state
-            if (aICharacter._aICharcterCombatManager._distanceFromTarget > _maximunEngamnetDitance)
+            if (aICharacter._aICharacterCombatManager._distanceFromTarget > _maximumEngagementDistance)
                 return SwitchState(aICharacter, aICharacter._pursueTarget);
 
             NavMeshPath path = new NavMeshPath();
-            aICharacter._navMeshAgent.CalculatePath(aICharacter._aICharcterCombatManager._currentTarget.transform.position, path);
+            aICharacter._navMeshAgent.CalculatePath(aICharacter._aICharacterCombatManager._currentTarget.transform.position, path);
             aICharacter._navMeshAgent.SetPath(path);
 
             return this;
@@ -79,38 +82,38 @@ namespace SKD.Character.AI_Character.States
         }
         protected virtual void GetNewAttack(AICharacterManager aICharacter)
         {
-            _potenialAttacks = new List<AICharacterAttackAction>();
+            _potentialAttacks = new List<AICharacterAttackAction>();
 
             // 1. Sort through all possible attacks
             // 2. Remove attacks that can be used in this situation (based on angle and distance)
             foreach (var potenialAttack in _aICharacterAttacks)
             {
                 // The target is too close to perform this attack, check the next 
-                if (potenialAttack._minimumAttackDistance > aICharacter._aICharcterCombatManager._distanceFromTarget)
+                if (potenialAttack._minimumAttackDistance > aICharacter._aICharacterCombatManager._distanceFromTarget)
                     continue;
 
                 // The target is too Far to perform this attack, check the next
-                if (potenialAttack._maximumAttackDistance < aICharacter._aICharcterCombatManager._distanceFromTarget)
+                if (potenialAttack._maximumAttackDistance < aICharacter._aICharacterCombatManager._distanceFromTarget)
                     continue;
 
                 // If the target is outside minimum field of view for this attack, check the next 
-                if (potenialAttack._minimumAttackAngle > aICharacter._aICharcterCombatManager._viewableAngle)
+                if (potenialAttack._minimumAttackAngle > aICharacter._aICharacterCombatManager._viewableAngle)
                     continue;
 
                 // If the target is outside maximum field of view for this attack, check the next 
-                if (potenialAttack._maximumAttackAngle < aICharacter._aICharcterCombatManager._viewableAngle)
+                if (potenialAttack._maximumAttackAngle < aICharacter._aICharacterCombatManager._viewableAngle)
                     continue;
 
                 // 3. place renaming attacks into a list 
-                _potenialAttacks.Add(potenialAttack);
+                _potentialAttacks.Add(potenialAttack);
 
             }
-            if (_potenialAttacks.Count <= 0)
+            if (_potentialAttacks.Count <= 0)
                 return;
 
             var totoalweight = 0;
 
-            foreach (var attack in _potenialAttacks)
+            foreach (var attack in _potentialAttacks)
             {
                 totoalweight += attack._attackWeight;
             }
@@ -118,7 +121,7 @@ namespace SKD.Character.AI_Character.States
             var randomWeightValue = Random.Range(1, totoalweight + 1);
             var proccesedWeight = 0;
 
-            foreach (var attack in _potenialAttacks)
+            foreach (var attack in _potentialAttacks)
             {
                 proccesedWeight += attack._attackWeight;
 

@@ -14,16 +14,19 @@ namespace SKD.Character
         [Header("Attack Grunts")]
         [SerializeField] protected AudioClip[] _attackGrunts;
 
+        [Header("FootSteps")]
+        [SerializeField] protected AudioClip[] _footStep;
+
         protected virtual void Awake()
         {
-            _audioSource = GetComponent<AudioSource>(); 
+            _audioSource = GetComponent<AudioSource>();
         }
         public void PlaySoundFX(AudioClip soundFX, float volume = 1, bool randomizePitch = true, float pitchRandom = 0.1f)
         {
             _audioSource.PlayOneShot(soundFX, volume);
             // Reset the pitch
             _audioSource.pitch = 1;
-            if(randomizePitch )
+            if (randomizePitch)
             {
                 _audioSource.pitch += Random.Range(-pitchRandom, pitchRandom);
             }
@@ -34,11 +37,20 @@ namespace SKD.Character
         }
         public virtual void PlayDamageGrunts()
         {
-            PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(_damageGrunts)); 
+            if (_damageGrunts.Length > 0)
+                PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(_damageGrunts));
         }
         public virtual void PlayAttackGrunt()
         {
-            PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(_attackGrunts)); 
+            if (_damageGrunts.Length > 0)
+                PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(_attackGrunts));
+        }
+
+        public virtual void PlayFootStepSFX()
+        {
+            if (_footStep.Length > 0)
+                PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray
+                    (_footStep));
         }
     }
 }

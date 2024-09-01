@@ -15,7 +15,8 @@ namespace SKD.Character.AI_Character
         }
         private void Start()
         {
-             WorldAIManager.Instance.SpawnCharacters(this);
+            WorldAIManager.Instance.SpawnCharacters(this);
+
             gameObject.SetActive(false);
         }
         public void AttemptToSpawnCharacter()
@@ -25,7 +26,8 @@ namespace SKD.Character.AI_Character
                 _instaniateGameObject = Instantiate(_characterGameObject);
                 _instaniateGameObject.transform.position = transform.position;
                 _instaniateGameObject.transform.rotation = transform.rotation;
-                _instaniateGameObject.GetComponent<NetworkObject>().Spawn(); 
+                _instaniateGameObject.GetComponent<NetworkObject>().Spawn();
+                WorldAIManager.Instance.AddCharacterToSpawnCharactersList(_instaniateGameObject.GetComponent<AICharacterManager>());
             }
         }
     }

@@ -1,9 +1,8 @@
 ﻿using SKD.Character.AI_Character;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace SKD.World_Manager
 {
@@ -12,11 +11,12 @@ namespace SKD.World_Manager
         private static WorldAIManager instance;
         public static WorldAIManager Instance { get { return instance; } }
 
- 
-
         [Header("Characters")]
         [SerializeField] List<AICharacterSpawner> _aICharacterSpawnerList;
-        [SerializeField] List<GameObject> _spawnInCharctersList = new List<GameObject>();
+        [SerializeField] List<AICharacterManager> _spawnInCharctersList;
+
+        [Header("Bosses")]
+        [SerializeField] List<AIBossCharacterManager> _spawnInBossesList;
 
         private void Awake()
         {
@@ -32,6 +32,27 @@ namespace SKD.World_Manager
                 _aICharacterSpawnerList.Add(aICharacterSpawner);
                 aICharacterSpawner.AttemptToSpawnCharacter();
             }
+        }
+        public void AddCharacterToSpawnCharactersList(AICharacterManager aICharacterManager)
+        {
+            if (_spawnInCharctersList.Contains(aICharacterManager))
+                return;
+
+            _spawnInCharctersList.Add(aICharacterManager);
+
+            AIBossCharacterManager bossCharacter = aICharacterManager as AIBossCharacterManager;
+
+            if(bossCharacter != null)
+            {
+                if (_spawnInBossesList.Contains(bossCharacter))
+                    return;
+
+                _spawnInBossesList.Add(bossCharacter);
+            }
+        }
+        public AIBossCharacterManager GetBossCharacterByID(int id)
+        {
+            return _spawnInBossesList.FirstOrDefault(boss=>boss._bossID == id);
         }
         private void DespawnAllCharacters()
         {

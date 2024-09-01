@@ -21,7 +21,10 @@ public class ResetActionFlag : StateMachineBehaviour
         _characterManager._characterAnimationManager.DisableCanDoCombo();
 
         if (_characterManager.IsOwner)
+        {
             _characterManager._characterNetworkManager._isJumping.Value = false;
+            _characterManager._characterNetworkManager._isInvulnerable.Value = false;
+        }
 
     }
 

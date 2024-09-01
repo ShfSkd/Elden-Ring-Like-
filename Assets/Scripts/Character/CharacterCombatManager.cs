@@ -7,7 +7,7 @@ namespace SKD.Character
 {
     public class CharacterCombatManager : NetworkBehaviour
     {
-        protected    CharacterManager _characterManager;
+        protected CharacterManager _characterManager;
 
         [Header("last Attack Animation Perform")]
         public string _lastAttackAnimationPerformed;
@@ -39,6 +39,17 @@ namespace SKD.Character
                     _currentTarget = null;
                 }
             }
+        }
+        public void EnableIsInvulnerable()
+        {
+            if (_characterManager.IsOwner)
+                _characterManager._characterNetworkManager._isInvulnerable.Value = true;
+        }
+        public void DisableIsInvulnerable()
+        {
+            if (_characterManager.IsOwner)
+                _characterManager._characterNetworkManager._isInvulnerable.Value = false;
+
         }
     }
 }

@@ -1,4 +1,4 @@
-using SKD.Character;
+ using SKD.Character;
 using SKD.Effects;
 using SKD.WorldManager;
 using System.Collections;
@@ -32,17 +32,17 @@ namespace SKD.Colliders
         {
             CharacterManager damagetarget = other.GetComponentInParent<CharacterManager>();
 
-            // If you want to search on both the damageable character colliders & the character collider just check for null here and do the following
-            /* if (damagetarget == null)
+         /*   // If you want to search on both the damageable character colliders & the character collider just check for null here and do the following
+            *//* if (damagetarget == null)
              {
                  damagetarget = other.GetComponent<CharacterManager>();
              }*/
             if (damagetarget != null)
             {
                 _contactPoint = other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
-      
+
+                DamageTarget(damagetarget);
             }
-            DamageTarget(damagetarget);
         }
         protected virtual void DamageTarget(CharacterManager damageTarget)
         {

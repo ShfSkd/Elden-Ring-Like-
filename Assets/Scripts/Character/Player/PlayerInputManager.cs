@@ -329,7 +329,7 @@ namespace SKD.Character.Player
             {
                 if (_playerManager._playerNetworkManager._isUsingRightHand.Value)
                 {
-                    _playerManager._playerNetworkManager._isCharcgingAttack.Value = _holdRT_Input;
+                    _playerManager._playerNetworkManager._isChargingAttack.Value = _holdRT_Input;
 
                 }
             }

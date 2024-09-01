@@ -17,7 +17,7 @@ namespace SKD.Character.AI_Character.States
             else
             {
                 // Return this state, to continually search for a target (keep the state here, until a target is found
-                aICharacter._aICharcterCombatManager.FindATargetViaLineOfSight(aICharacter);
+                aICharacter._aICharacterCombatManager.FindATargetViaLineOfSight(aICharacter);
                 return this;
             }
         }

@@ -11,6 +11,9 @@ namespace SKD.Character.AI_Character
         [Header("Action Recovery")]
         public float _actionRecoveryTime;
 
+        [Header("Pivot")]
+        public bool _enablePivot = true;
+
         [Header("Target Information")]
         public float _distanceFromTarget;
         public float _viewableAngle;
@@ -68,13 +71,15 @@ namespace SKD.Character.AI_Character
                             targetDirection = targetCharacter.transform.position - transform.position;
                             _viewableAngle = WorldUtilityManager.Instance.GetAngleOfTarget(transform, targetDirection);
                             aICharacter._characterCombatManager.SetTarget(targetCharacter);
-                            PivotTowardsTarget(aICharacter);
+
+                            if (_enablePivot)
+                                PivotTowardsTarget(aICharacter);
                         }
                     }
                 }
             }
         }
-        public void PivotTowardsTarget(AICharacterManager aiCharacter)
+        public virtual void PivotTowardsTarget(AICharacterManager aiCharacter)
         {
             // Play A pivot animation depending on viewable angle of target
             if (aiCharacter._isPerformingAction)

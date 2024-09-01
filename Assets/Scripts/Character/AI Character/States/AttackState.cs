@@ -26,8 +26,10 @@ namespace SKD.Character.AI_Character.States
             if (aICharacter._characterCombatManager._currentTarget._isDead.Value)
                 return SwitchState(aICharacter, aICharacter._idle);
 
-            aICharacter._aICharcterCombatManager.RotateTowardsAgent(aICharacter);
+            aICharacter._aICharacterCombatManager.RotateTowardsAgent(aICharacter);
 
+            //  ROTATE TOWARDS THE TARGET WHILST ATTACKING
+            aICharacter._aICharacterCombatManager.RotateTowardsTargetWhilstAttacking(aICharacter);
             // Set Movement Values to 0
             aICharacter._characterAnimationManager.UpdateAnimatorMovementParameters(0, 0, false);
 
@@ -48,7 +50,7 @@ namespace SKD.Character.AI_Character.States
             if (!_hasPerformAttack)
             {
                 // If we are still recovering from an action, wait before performing another
-                if (aICharacter._aICharcterCombatManager._actionRecoveryTime > 0)
+                if (aICharacter._aICharacterCombatManager._actionRecoveryTime > 0)
                     return this;
 
                 PerformAttack(aICharacter);
@@ -57,7 +59,7 @@ namespace SKD.Character.AI_Character.States
                 return this;
             }
             if (_pivotAfterAttack)
-                aICharacter._aICharcterCombatManager.PivotTowardsTarget(aICharacter);
+                aICharacter._aICharacterCombatManager.PivotTowardsTarget(aICharacter);
 
             return SwitchState(aICharacter, aICharacter._combatStance);
         }
@@ -65,7 +67,7 @@ namespace SKD.Character.AI_Character.States
         {
             _hasPerformAttack = true;
             _currentAttack.AttempToPerformAction(aICharacter);
-            aICharacter._aICharcterCombatManager._actionRecoveryTime = _currentAttack._actionRecoveryTime;
+            aICharacter._aICharacterCombatManager._actionRecoveryTime = _currentAttack._actionRecoveryTime;
         }
         protected override void ResetStateFlags(AICharacterManager aICharacter)
         {

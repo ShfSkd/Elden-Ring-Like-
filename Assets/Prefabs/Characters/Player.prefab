@@ -1474,7 +1474,7 @@ MonoBehaviour:
   _characterCombatManager: {fileID: 0}
   _characterSoundFXManager: {fileID: 0}
   _characterLocomotionManager: {fileID: 0}
-  _characterGroup: 1
+  _characterGroup: 0
   _isPerformingAction: 0
   _respawnCharacter: 0
   _switchRightWeapon: 1
@@ -1574,6 +1574,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 162e3516b9a3bed47ae8d43b977d7e30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isActive:
+    m_InternalValue: 1
   _networkPosition:
     m_InternalValue: {x: 0, y: 0, z: 0}
   _networkRotation:

@@ -39,6 +39,9 @@ namespace SKD.Effects
 
         public override void ProcessesEffect(CharacterManager character)
         {
+            if (character._characterNetworkManager._isInvulnerable.Value)
+                return;
+
             base.ProcessesEffect(character);
 
             // If the character is dead no need to add more damage animations
@@ -81,8 +84,6 @@ namespace SKD.Effects
             {
                 _finalDamageDealt = 1;
             }
-
-            Debug.Log("Final Damage Given: " + _finalDamageDealt);
             characterManager._characterNetworkManager._currentHealth.Value -= _finalDamageDealt;
 
             // Calculate Pose damage to determine if the character will be stunned
@@ -129,8 +130,8 @@ namespace SKD.Effects
                 _damageAnimation = character._characterAnimationManager.GetRandomAnimationFromList(character._characterAnimationManager._backeard_Medium_damage_List);
 
             }
-            else if (_angleHitFrom >= -144 && _angleHitFrom <= -45) 
-            { 
+            else if (_angleHitFrom >= -144 && _angleHitFrom <= -45)
+            {
                 // Play left animation
                 _damageAnimation = character._characterAnimationManager.GetRandomAnimationFromList(character._characterAnimationManager._left_Medium_damage_List);
 
@@ -138,7 +139,7 @@ namespace SKD.Effects
             }
             else if (_angleHitFrom >= 45 && _angleHitFrom <= 144)
             {
-    
+
                 // Play right animation
                 _damageAnimation = character._characterAnimationManager.GetRandomAnimationFromList(character._characterAnimationManager._right_Medium_damage_List);
 
@@ -146,7 +147,7 @@ namespace SKD.Effects
             // If Poise is broken, play a staggering damage animation
             if (_poiseIsBroken)
             {
-                character._characterAnimationManager._lastDamageAniumationPlayed = _damageAnimation;
+                character._characterAnimationManager._lastDamageAnimationPlayed = _damageAnimation;
                 character._characterAnimationManager.PlayTargetActionAnimation(_damageAnimation, true);
             }
         }

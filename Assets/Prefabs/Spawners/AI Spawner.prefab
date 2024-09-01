@@ -1197,7 +1197,7 @@ GameObject:
   - component: {fileID: 4691233656928364189}
   - component: {fileID: 1727887966299208935}
   - component: {fileID: 5084605050482786680}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AI Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1254,7 +1254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c5d75db848f0e54e94416488d41dd83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _characterGameObject: {fileID: 8023739156023064548, guid: b8080570cfb18b04ba5cb385966cf55d, type: 3}
+  _characterGameObject: {fileID: 2169755269524805562, guid: 264f1902b5585794e9054f840cb5f0ca, type: 3}
   _instaniateGameObject: {fileID: 0}
 --- !u!1 &5362145351309853746
 GameObject:

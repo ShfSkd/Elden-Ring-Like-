@@ -17,7 +17,7 @@ namespace SKD.Character
         public bool _applyRootMotion = false;
 
         [Header("Damage Animations")]
-        public string _lastDamageAniumationPlayed;
+        public string _lastDamageAnimationPlayed;
         [SerializeField] string _hit_Forward_Medium_01 = "Hit_Forward_Medium_01";
         [SerializeField] string _hit_Forward_Medium_02 = "Hit_Forward_Medium_02";
 
@@ -73,7 +73,7 @@ namespace SKD.Character
                 finalList.Add(animation);
             }
             // Check if we already played this damage animation so it doesn't repeat 
-            finalList.Remove(_lastDamageAniumationPlayed);
+            finalList.Remove(_lastDamageAnimationPlayed);
 
             // Check the list for null entries,and remove them
             for (int i = finalList.Count - 1; i < -1; i--)
@@ -139,6 +139,7 @@ namespace SKD.Character
 
             _applyRootMotion = applyRootMotion;
             _characterManager._characterAnimationManager._applyRootMotion = applyRootMotion;
+     
             _characterManager._animator.CrossFade(targetAnimationName, 0.2f);
             // Can be used to stop character from attempting new actions
             // for example:If you get damaged, and begin performing a damage animation this flag will turn true if you are stunned  

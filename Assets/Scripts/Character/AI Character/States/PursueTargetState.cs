@@ -14,7 +14,7 @@ namespace SKD.Character.AI_Character.States
                 return this;
 
             // Check if our target is null, if we do not have a target, return to idle state 
-            if (aICharacter._aICharcterCombatManager._currentTarget == null)
+            if (aICharacter._aICharacterCombatManager._currentTarget == null)
                 return SwitchState(aICharacter, aICharacter._idle);
 
             // Make sure our navmesh agent is active, if its not enable it 
@@ -22,27 +22,31 @@ namespace SKD.Character.AI_Character.States
                 aICharacter._navMeshAgent.enabled = true;
 
             // if our target goes outside if the character F.O.V pivot to face them
-            if (aICharacter._aICharcterCombatManager._viewableAngle < aICharacter._aICharcterCombatManager._minimumFieldOfView || aICharacter._aICharcterCombatManager._viewableAngle > aICharacter._aICharcterCombatManager._maximumFieldOfView)
+            if (aICharacter._aICharacterCombatManager._enablePivot)
             {
-                aICharacter._aICharcterCombatManager.PivotTowardsTarget(aICharacter);
+                if (aICharacter._aICharacterCombatManager._viewableAngle < aICharacter._aICharacterCombatManager._minimumFieldOfView || aICharacter._aICharacterCombatManager._viewableAngle > aICharacter._aICharacterCombatManager._maximumFieldOfView)
+                {
+                    aICharacter._aICharacterCombatManager.PivotTowardsTarget(aICharacter);
+                }
             }
 
 
             aICharacter._aICharacterLocomotionManager.RotateTowardAgent(aICharacter);
 
             // If we are within the combat range of target, switch state to combat stance state
-            if (aICharacter._aICharcterCombatManager._distanceFromTarget <= aICharacter._navMeshAgent.stoppingDistance)
+            if (aICharacter._aICharacterCombatManager._distanceFromTarget <= aICharacter._navMeshAgent.stoppingDistance)
                 return SwitchState(aICharacter, aICharacter._combatStance);
 
-                // Pursue the target
-                // Option 1
-                //  aICharacter._navMeshAgent.SetDestination(aICharacter._aICharcterCombatManager._currentTarget.transform.position);
+            // Pursue the target
+            // Option 1
+            //  aICharacter._navMeshAgent.SetDestination(aICharacter._aICharacterCombatManager._currentTarget.transform.position);
 
-                // Option 2
-                NavMeshPath path = new NavMeshPath();
-            aICharacter._navMeshAgent.CalculatePath(aICharacter._aICharcterCombatManager._currentTarget.transform.position, path);
+            // Option 2
+            NavMeshPath path = new NavMeshPath();
+            aICharacter._navMeshAgent.CalculatePath(aICharacter._aICharacterCombatManager._currentTarget.transform.position, path);
             aICharacter._navMeshAgent.SetPath(path);
 
+            Debug.Log(aICharacter._aICharacterCombatManager._currentTarget);
             return this;
         }
 

@@ -1,5 +1,5 @@
-﻿using SKD.Character.Player.PlayerUI;
-using SKD.Game_Saving;
+﻿using SKD.Game_Saving;
+using SKD.UI.PlayerUI;
 using SKD.World_Manager;
 using SKD.WorldManager;
 using System.Collections;
@@ -100,7 +100,7 @@ namespace SKD.Character.Player
             _playerNetworkManager._currentWeaponBeingUsed.OnValueChanged += _playerNetworkManager.OnCurrentWeaponBeingUsedIDChange;
 
             // Flags
-            _playerNetworkManager._isCharcgingAttack.OnValueChanged += _playerNetworkManager.OnIsCharagingAttackChanged;
+            _playerNetworkManager._isChargingAttack.OnValueChanged += _playerNetworkManager.OnIsCharagingAttackChanged;
 
             // Upon connecting, If we are the owner of this character, But we are not the server, reload our character data to this newly instantiated character
             // We don't run it if we are the server, because since they are the host, they are already loaded in and don't need to reload their data
@@ -141,7 +141,7 @@ namespace SKD.Character.Player
             _playerNetworkManager._currentWeaponBeingUsed.OnValueChanged -= _playerNetworkManager.OnCurrentWeaponBeingUsedIDChange;
 
             // Flags
-            _playerNetworkManager._isCharcgingAttack.OnValueChanged -= _playerNetworkManager.OnIsCharagingAttackChanged;
+            _playerNetworkManager._isChargingAttack.OnValueChanged -= _playerNetworkManager.OnIsCharagingAttackChanged;
         }
         private void OnClientConnectedCallback(ulong clientID)
         {
