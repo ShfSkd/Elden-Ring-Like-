@@ -1,4 +1,4 @@
-﻿using SKD.Game_Saving;
+﻿using SKD.GameSaving;
 using SKD.UI.PlayerUI;
 using SKD.World_Manager;
 using SKD.WorldManager;
@@ -20,8 +20,9 @@ namespace SKD.Character.Player
         [HideInInspector] public PlayerNetworkManager _playerNetworkManager;
         [HideInInspector] public PlayerStatsManager _playerStatsManager;
         [HideInInspector] public PlayerInventoryManager _playerInventoryManager;
-        [HideInInspector] public PlayerEquipmentManager _playerEquiqmentManager;
+        [HideInInspector] public PlayerEquipmentManager _playerEquipmentManager;
         [HideInInspector] public PlayerCombatManager _playerCombatManager;
+        [HideInInspector] public PlayerInteractionManager _playerInteractionManager;
 
         protected override void Awake()
         {
@@ -37,9 +38,18 @@ namespace SKD.Character.Player
 
             _playerInventoryManager = GetComponent<PlayerInventoryManager>();
 
-            _playerEquiqmentManager = GetComponent<PlayerEquipmentManager>();
+            _playerEquipmentManager = GetComponent<PlayerEquipmentManager>();
 
             _playerCombatManager = GetComponent<PlayerCombatManager>();
+            _playerInteractionManager = GetComponent<PlayerInteractionManager>();
+        }
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+        }
+        protected override void OnDisable()
+        {
+            base.OnDisable();
         }
         protected override void Update()
         {
@@ -53,7 +63,7 @@ namespace SKD.Character.Player
             // Regenerate Stamina
             _playerStatsManager.RegenerateStamina();
 
-          //  DebugMenu();
+            //  DebugMenu();
         }
         protected override void LateUpdate()
         {
@@ -87,6 +97,11 @@ namespace SKD.Character.Player
                 _playerNetworkManager._currentStamina.OnValueChanged += _playerStatsManager.ResetStaminaReganTimer;
 
             }
+
+            // Only Update Hp bar if this character is not the local players character
+            if (!IsOwner)
+                _characterNetworkManager._currentHealth.OnValueChanged += _characterUIManager.OnHPChanged;
+
             // Stats 
             _playerNetworkManager._currentHealth.OnValueChanged += _playerNetworkManager.CheckHP;
 
@@ -128,6 +143,10 @@ namespace SKD.Character.Player
                 _playerNetworkManager._currentStamina.OnValueChanged -= _playerStatsManager.ResetStaminaReganTimer;
 
             }
+
+            if (!IsOwner)
+                _characterNetworkManager._currentHealth.OnValueChanged -= _characterUIManager.OnHPChanged;
+
             // Stats 
             _playerNetworkManager._currentHealth.OnValueChanged -= _playerNetworkManager.CheckHP;
 
@@ -175,7 +194,7 @@ namespace SKD.Character.Player
         {
             if (IsOwner)
             {
-                PlayerUIManger.instance._playerUIPopUpmanager.SendYouDiedPopUp();
+                PlayerUIManger.instance._playerUIPopUpManager.SendYouDiedPopUp();
             }
 
 
@@ -230,9 +249,9 @@ namespace SKD.Character.Player
 
 
             // Lock On 
-            if(_playerNetworkManager._isLockOn.Value)
+            if (_playerNetworkManager._isLockOn.Value)
             {
-                _playerNetworkManager.OnLockOnTargetIDChange(0,_playerNetworkManager._currentTargetNetworkObjectID.Value);
+                _playerNetworkManager.OnLockOnTargetIDChange(0, _playerNetworkManager._currentTargetNetworkObjectID.Value);
             }
         }
 
@@ -246,7 +265,7 @@ namespace SKD.Character.Player
             if (_switchRightWeapon)
             {
                 _switchRightWeapon = false;
-                _playerEquiqmentManager.SwitchRightWeapon();
+                _playerEquipmentManager.SwitchRightWeapon();
             }
         }
         private void PlayDamageSFX()

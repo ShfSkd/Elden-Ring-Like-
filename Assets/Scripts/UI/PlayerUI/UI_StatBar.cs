@@ -7,17 +7,21 @@ namespace SKD.UI.PlayerUI
 {
     public class UI_StatBar : MonoBehaviour
     {
-        private Slider _slider;
-        private RectTransform _rectTransform;
+        protected Slider _slider;
+        protected RectTransform _rectTransform;
 
         [Header("Bar Options")]
-        [SerializeField] protected bool _scaleBarLeangthWithStats = true;
+        [SerializeField] protected bool _scaleBarLengthWithStats = true;
         [SerializeField] protected float _widthScaleMultiplier = 1f;
 
         protected virtual void Awake()
         {
             _slider = GetComponent<Slider>();
             _rectTransform = GetComponent<RectTransform>();
+        }
+        protected virtual void Start()
+        {
+
         }
         public virtual void SetStat(int newValue)
         {
@@ -28,7 +32,7 @@ namespace SKD.UI.PlayerUI
             _slider.maxValue = maxValue;
             _slider.value = maxValue;
 
-            if (_scaleBarLeangthWithStats)
+            if (_scaleBarLengthWithStats)
             {
                 // Scale the transform of this object
                 _rectTransform.sizeDelta = new Vector2(maxValue * _widthScaleMultiplier, _rectTransform.sizeDelta.y);

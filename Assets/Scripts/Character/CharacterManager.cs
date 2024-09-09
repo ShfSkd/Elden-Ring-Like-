@@ -1,3 +1,5 @@
+using SKD.UI;
+using SKD.UI.PlayerUI;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -19,6 +21,7 @@ namespace SKD.Character
         [HideInInspector] public CharacterCombatManager _characterCombatManager;
         [HideInInspector] public CharacterSoundFXManager _characterSoundFXManager;
         [HideInInspector] public CharacterLocamotionManager _characterLocomotionManager;
+        [HideInInspector] public CharacterUIManager _characterUIManager;
 
         [Header("Character Group")]
         public CharacterGroup _characterGroup;
@@ -39,6 +42,7 @@ namespace SKD.Character
             _characterCombatManager = GetComponent<CharacterCombatManager>();
             _characterSoundFXManager = GetComponent<CharacterSoundFXManager>();
             _characterLocomotionManager = GetComponent<CharacterLocamotionManager>();
+            _characterUIManager = GetComponent<CharacterUIManager>();
         }
         protected virtual void Start()
         {
@@ -68,6 +72,14 @@ namespace SKD.Character
         }
 
         protected virtual void LateUpdate()
+        {
+
+        }
+        protected virtual void OnEnable()
+        {
+
+        }
+        protected virtual void OnDisable()
         {
 
         }

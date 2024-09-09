@@ -1,8 +1,6 @@
-﻿using SKD.MenuScreen;
-using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace SKD.Menu_Screen
+namespace SKD.MenuScreen
 {
     public class TitleScreenLoadMenuInputManager : MonoBehaviour
     {

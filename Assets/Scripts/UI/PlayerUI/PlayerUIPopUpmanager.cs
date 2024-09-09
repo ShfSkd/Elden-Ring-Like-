@@ -1,23 +1,40 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
 namespace SKD.UI.PlayerUI
 {
-    public class PlayerUIPopUpmanager : MonoBehaviour
+    public class PlayerUIPopUpManager : MonoBehaviour
     {
+        [Header("Message Pop-up")]
+        [SerializeField] TextMeshProUGUI _popUpMessageText;
+        [SerializeField] GameObject _popUpMessageGameObject;
+
         [Header("You Died Pop-up")]
         [SerializeField] GameObject _youDiedpopUpGameObject;
         [SerializeField] TextMeshProUGUI _youDiedpopUpBackgroundText;
         [SerializeField] TextMeshProUGUI _youDiedPopUpText;
         [SerializeField] CanvasGroup _youDiedpopUpCanvasGroup; // Allows us to set the alpha to fade over time
 
-        [Header("You Died Pop-up")]
+        [Header("Boss Defeated Pop-up")]
         [SerializeField] GameObject _bossDefetedPopUpGameObject;
         [SerializeField] TextMeshProUGUI _bossDefetedPopUpBackgroundText;
         [SerializeField] TextMeshProUGUI _bossDefetedPopUpText;
         [SerializeField] CanvasGroup _bossDefetedPopUpCanvasGroup;
+        public void CloseAllPopUpsWindows()
+        {
+            _popUpMessageGameObject.SetActive(false);
 
+            PlayerUIManger.instance._popUpWindowIsOpen = false;
+        }
+        public void SendPlayerMessagePopUp(string messageText)
+        {
+            PlayerUIManger.instance._popUpWindowIsOpen = true;
+            _popUpMessageText.text = messageText;
+            _popUpMessageGameObject.SetActive(true);
+
+        }
         public void SendYouDiedPopUp()
         {
             // Active post processing effects
@@ -30,7 +47,7 @@ namespace SKD.UI.PlayerUI
 
         public void SendBossDefeatedPopUp(string bossDefeatedMessage)
         {
-           _bossDefetedPopUpText.text = bossDefeatedMessage;
+            _bossDefetedPopUpText.text = bossDefeatedMessage;
             _bossDefetedPopUpBackgroundText.text = bossDefeatedMessage;
             _bossDefetedPopUpGameObject.SetActive(true);
             _bossDefetedPopUpText.characterSpacing = 0;
@@ -102,5 +119,7 @@ namespace SKD.UI.PlayerUI
 
             yield return null;
         }
+
+
     }
 }

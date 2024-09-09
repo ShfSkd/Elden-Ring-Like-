@@ -1,13 +1,10 @@
 ﻿using SKD.Character.AI_Character.States;
-using SKD.Game_Saving;
 using SKD.UI.DurkUI;
 using SKD.UI.PlayerUI;
 using SKD.World_Manager;
 using SKD.WorldManager;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -92,7 +89,7 @@ namespace SKD.Character.AI_Character
 
             if (!_hasBeenAwaken.Value)
             {
-                _characterAnimationManager.PlayTargetActionAnimation(_sleepAnimation, true);
+                _animator.Play(_sleepAnimation);
             }
         }
         public override void OnNetworkDespawn()
@@ -118,7 +115,7 @@ namespace SKD.Character.AI_Character
         }
         public override IEnumerator ProcessDeathEvent(bool manuallySelectDeathAnimation = false)
         {
-            PlayerUIManger.instance._playerUIPopUpmanager.SendBossDefeatedPopUp("Great Enemy Felled");
+            PlayerUIManger.instance._playerUIPopUpManager.SendBossDefeatedPopUp("Great Enemy Felled");
             if (IsOwner)
             {
                 _characterNetworkManager._currentHealth.Value = 0;
@@ -197,7 +194,10 @@ namespace SKD.Character.AI_Character
                 UI_Boss_HP_Bar bossHPBar = bossHealthBar.GetComponentInChildren<UI_Boss_HP_Bar>();
 
                 bossHPBar.EnableBossHPBar(this);
-
+            }
+            else
+            {
+                WorldSoundFXManager.instance.StopBossMusic();
             }
         }
         public void PhaseShift()

@@ -1,7 +1,8 @@
 using SKD.Character.Player;
-using SKD.Game_Saving;
+using SKD.GameSaving;
 using SKD.MenuScreen;
 using System.Collections;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -238,7 +239,7 @@ namespace SKD.WorldManager
             _playerManager._playerNetworkManager._endurance.Value = 10;
 
             SaveGame();
-            StartCoroutine(LoadWorldScene());
+            LoadWorldScene(_worldSceneIndex);
         }
         public void LoadGame()
         {
@@ -252,7 +253,7 @@ namespace SKD.WorldManager
             _saveFileDataWriter._saveFileName = _saveFileName;
             _currentCharacterData = _saveFileDataWriter.LoadSaveFile();
 
-            StartCoroutine(LoadWorldScene());
+            LoadWorldScene(_worldSceneIndex);
         }
         public void SaveGame()
         {
@@ -315,17 +316,12 @@ namespace SKD.WorldManager
             _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_10);
             _characterSlot10 = _saveFileDataWriter.LoadSaveFile();
         }
-        public IEnumerator LoadWorldScene()
+        public void LoadWorldScene(int buildIndex)
         {
-            // If you just want 1 world scene use this 
-            AsyncOperation loadOperation = SceneManager.LoadSceneAsync(_worldSceneIndex);
-
-            // If you want to use different scenes for levels in your project use this
-            //  AsyncOperation loadOperation = SceneManager.LoadSceneAsync(_currentCharacterData._sceneIndex);
+            string worldScene = SceneUtility.GetScenePathByBuildIndex(buildIndex);
+            NetworkManager.Singleton.SceneManager.LoadScene(worldScene, LoadSceneMode.Single);
 
             _playerManager.LoadGameDataFromCurrentCharacterData(ref _currentCharacterData);
-
-            yield return null;
         }
         // If you want to use a multi scene setup, there is no current scene index om a new character
         /*private IEnumerator LoadWorldSceneNewGame()

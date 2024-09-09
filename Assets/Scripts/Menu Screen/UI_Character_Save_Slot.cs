@@ -1,10 +1,10 @@
-﻿using SKD.Game_Saving;
+﻿using SKD.GameSaving;
 using SKD.MenuScreen;
 using SKD.WorldManager;
 using TMPro;
 using UnityEngine;
 
-namespace SKD.Menu_Screen
+namespace SKD.MenuScreen
 {
     public class UI_Character_Save_Slot : MonoBehaviour
     {

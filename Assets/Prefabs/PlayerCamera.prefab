@@ -80,6 +80,7 @@ MonoBehaviour:
   _playerManager: {fileID: 0}
   _cameraObject: {fileID: 6578955995295023865}
   _cameraPivotTransform: {fileID: 3810547780213364990}
+  _cameraSmoothSpeed: 0.2
   _leftAndRightRotationSpeed: 75
   _upAndDownRotationSpeed: 75
   _minimumPivot: -30

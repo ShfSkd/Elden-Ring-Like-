@@ -1,4 +1,6 @@
+using SKD.UI.PlayerUI;
 using SKD.WorldManager;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,6 +37,14 @@ namespace SKD.Character.Player
         [SerializeField] bool _jumpInput;
         [SerializeField] bool _switchRightWeapon_Input;
         [SerializeField] bool _switchLeftWeapon_Input;
+        [SerializeField] bool _interactInput;
+
+        [Header("Qued Inputs")]
+        private bool _input_Que_IsActive;
+        [SerializeField] float _default_Que_Input_Time = 0.35f;
+        [SerializeField] float _que_Input_Timer;
+        [SerializeField] bool _que_RB_Input;
+        [SerializeField] bool _que_RT_Input;
 
         [Header("Bumper Inputs")]
         [SerializeField] bool _RB_Input;
@@ -90,7 +100,8 @@ namespace SKD.Character.Player
                 _playerControls.PlayerActions.Sprint.performed += i => _sprintInput = true;
                 _playerControls.PlayerActions.SwitchRightWeapon.performed += i => _switchRightWeapon_Input = true;
                 _playerControls.PlayerActions.SwitchLeftWeapon.performed += i => _switchLeftWeapon_Input = true;
-                
+                _playerControls.PlayerActions.Interact.performed += i => _interactInput = true;
+
                 // Bumpers
                 _playerControls.PlayerActions.RB.performed += i => _RB_Input = true;
 
@@ -109,9 +120,14 @@ namespace SKD.Character.Player
                 _playerControls.PlayerActions.Jump.performed += i => _jumpInput = true;
                 // Releasing the input, sets the bool to false
                 _playerControls.PlayerActions.Sprint.canceled += i => _sprintInput = false;
+
+                // Qued Inputs
+                _playerControls.PlayerActions.QueRB.performed += i => QueInput(ref _que_RB_Input);
+                _playerControls.PlayerActions.QueRT.performed += i => QueInput(ref _que_RT_Input);
             }
             _playerControls.Enable();
         }
+
         private void OnDestroy()
         {
             SceneManager.activeSceneChanged -= OnSceneChange;
@@ -146,6 +162,8 @@ namespace SKD.Character.Player
             HandleChargeRTInput();
             HandleSwitchRightInput();
             HandleSwitchLeftInput();
+            HanleQueInputs();
+            HandleInteractInput();
         }
         // Lock On
         private void HandleLockOnInput()
@@ -338,9 +356,9 @@ namespace SKD.Character.Player
         {
             if (_switchRightWeapon_Input)
             {
-              
+
                 _switchRightWeapon_Input = false;
-                _playerManager._playerEquiqmentManager.SwitchRightWeapon();
+                _playerManager._playerEquipmentManager.SwitchRightWeapon();
             }
         }
         private void HandleSwitchLeftInput()
@@ -348,9 +366,66 @@ namespace SKD.Character.Player
             if (_switchLeftWeapon_Input)
             {
                 _switchLeftWeapon_Input = false;
-                _playerManager._playerEquiqmentManager.SwitchLeftWeapon();
+                _playerManager._playerEquipmentManager.SwitchLeftWeapon();
             }
         }
+        private void QueInput(ref bool que_RB_Input)// Passing a reference means we pass a specific bool, and not the value of the bool(true, false)
+        {
+            // Reset all qued inputs so only one can que at a time
+            _que_RB_Input = false;
+            _que_RT_Input = false;
+
+            //_que_LB_Input = false;
+            //_que_LT_Input = false;
+
+            if (_playerManager._isPerformingAction || _playerManager._playerNetworkManager._isJumping.Value)
+            {
+                que_RB_Input = true;
+                _que_Input_Timer = _default_Que_Input_Time;
+                _input_Que_IsActive = true;
+
+            }
+        }
+        private void ProcessQuedInputs()
+        {
+            if (_playerManager._isDead.Value)
+                return;
+
+            if (_que_RB_Input)
+                _RB_Input = true;
+
+            if (_que_RT_Input)
+                _RT_Input = true;
+        }
+        private void HanleQueInputs()
+        {
+            if (_input_Que_IsActive)
+            {
+                if (_que_Input_Timer > 0)
+                {
+                    _que_Input_Timer -= Time.deltaTime;
+                    ProcessQuedInputs();
+                }
+                else
+                {
+                    _que_RB_Input = false;
+                    _que_RT_Input = false;
+                    _input_Que_IsActive = false;
+                    _que_Input_Timer = 0;
+                }
+            }
+        }
+        private void HandleInteractInput()
+        {
+            if (_interactInput)
+            {
+                _interactInput = false;
+
+                _playerManager._playerInteractionManager.Interact();
+                
+            }
+        }
+
     }
 
 }

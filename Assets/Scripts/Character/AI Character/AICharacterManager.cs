@@ -36,6 +36,20 @@ namespace SKD.Character.AI_Character
             _navMeshAgent = GetComponentInChildren<NavMeshAgent>();
 
         }
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+
+            if(_characterUIManager._hasFloatingHPBar)
+            _characterNetworkManager._currentHealth.OnValueChanged += _characterUIManager.OnHPChanged;
+        }
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+
+            if(_characterUIManager._hasFloatingHPBar)
+            _characterNetworkManager._currentHealth.OnValueChanged -= _characterUIManager.OnHPChanged;
+        }
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();

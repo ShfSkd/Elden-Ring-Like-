@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace SKD.Game_Saving
+namespace SKD.GameSaving
 {
     [System.Serializable]
     // Since we want to reference this data for every save file, this script in not MonoBehavoiur and instead Serializable

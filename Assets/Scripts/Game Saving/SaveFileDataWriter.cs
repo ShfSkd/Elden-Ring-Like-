@@ -3,7 +3,7 @@ using System.Collections;
 using System.IO;
 using UnityEngine;
 
-namespace SKD.Game_Saving
+namespace SKD.GameSaving
 {
     public class SaveFileDataWriter 
     {

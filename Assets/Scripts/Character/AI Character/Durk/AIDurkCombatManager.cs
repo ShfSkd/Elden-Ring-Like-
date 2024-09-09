@@ -1,10 +1,5 @@
-﻿using SKD.Character.Player;
-using SKD.Colliders;
-using SKD.Effects;
+﻿using SKD.Colliders;
 using SKD.World_Manager;
-using SKD.WorldManager;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace SKD.Character.AI_Character.Durk

@@ -16,7 +16,7 @@ namespace SKD.Character.Player
         [SerializeField] Transform _cameraPivotTransform;
 
         [Header("Camera Settings")]
-        private float _cameraSmoothSpeed = 1f; // The bigger this number, the longer for the camera to reach its position during movement
+        [SerializeField] float _cameraSmoothSpeed = 1f; // The bigger this number, the longer for the camera to reach its position during movement
         [SerializeField] float _leftAndRightRotationSpeed = 220f;
         [SerializeField] float _upAndDownRotationSpeed = 220f;
         [SerializeField] float _minimumPivot = -30f; // The lowest point to look down
@@ -70,7 +70,7 @@ namespace SKD.Character.Player
         }
         private void HandleFollowTarget()
         {
-            Vector3 targetCameraPosition = Vector3.SmoothDamp(transform.position, _playerManager.transform.position, ref _cameraVelocity, _cameraSmoothSpeed * Time.deltaTime);
+            Vector3 targetCameraPosition = Vector3.SmoothDamp(transform.position, _playerManager.transform.position, ref _cameraVelocity, _cameraSmoothSpeed);
 
             transform.position = targetCameraPosition;
         }

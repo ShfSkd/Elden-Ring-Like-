@@ -1,3 +1,4 @@
+using System;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -11,7 +12,11 @@ namespace SKD.UI.PlayerUI
         [SerializeField] bool startGameAsClient;
 
         [HideInInspector] public PlayerUIHUDManager _playerUIHUDManager;
-        [HideInInspector]public PlayerUIPopUpmanager _playerUIPopUpmanager;
+        [HideInInspector]public PlayerUIPopUpManager _playerUIPopUpManager;
+
+        [Header("UI Flags")]
+        public bool _menuWindowIsOpen; // Inventory Screen , Equipment menu, Shop,etc.
+        public bool _popUpWindowIsOpen;// Item pick ups,dialogged pop up etc
 
         private void Awake()
         {
@@ -21,7 +26,7 @@ namespace SKD.UI.PlayerUI
                 Destroy(gameObject);
 
             _playerUIHUDManager = GetComponentInChildren<PlayerUIHUDManager>();
-            _playerUIPopUpmanager = GetComponentInChildren<PlayerUIPopUpmanager>();
+            _playerUIPopUpManager = GetComponentInChildren<PlayerUIPopUpManager>();
         }
         private void Start()
         {
@@ -38,7 +43,6 @@ namespace SKD.UI.PlayerUI
                 NetworkManager.Singleton.StartClient();
             }
         }
-
     }
 
 }

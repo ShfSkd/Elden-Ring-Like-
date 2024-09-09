@@ -58,7 +58,7 @@ namespace SKD.Character.Player
         {
             WeaponItem newWeapon = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(newId));
             _playerManager._playerInventoryManager._currentRightHandWeapon = newWeapon;
-            _playerManager._playerEquiqmentManager.LoadRightWepon();
+            _playerManager._playerEquipmentManager.LoadRightWepon();
 
             if (_playerManager.IsOwner)
             {
@@ -69,7 +69,7 @@ namespace SKD.Character.Player
         {
             WeaponItem newWeapon = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(newId));
             _playerManager._playerInventoryManager._currentLeftHandWeapon = newWeapon;
-            _playerManager._playerEquiqmentManager.LoadLeftWeapon();
+            _playerManager._playerEquipmentManager.LoadLeftWeapon();
 
             if (_playerManager.IsOwner)
             {

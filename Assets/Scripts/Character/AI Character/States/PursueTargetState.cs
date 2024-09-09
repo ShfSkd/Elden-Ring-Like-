@@ -46,7 +46,6 @@ namespace SKD.Character.AI_Character.States
             aICharacter._navMeshAgent.CalculatePath(aICharacter._aICharacterCombatManager._currentTarget.transform.position, path);
             aICharacter._navMeshAgent.SetPath(path);
 
-            Debug.Log(aICharacter._aICharacterCombatManager._currentTarget);
             return this;
         }
 

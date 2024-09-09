@@ -133,9 +133,27 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Que RB",
+                    "type": "Button",
+                    "id": "cb91fb2e-1888-4302-bfe8-8b62d6839bc9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Tap",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "RT",
                     "type": "Button",
                     "id": "16138c1f-afb2-48a5-8c4e-b6ea064e0f2f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Que RT",
+                    "type": "Button",
+                    "id": "cb078081-d238-449c-a983-e13f8880fe4f",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -199,6 +217,15 @@
                     "name": "Seek Right Lock On Target",
                     "type": "Button",
                     "id": "0aa8b9b6-debc-407a-9334-5fdb68d9816d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "110c4e27-895f-4481-9b76-5e204e6f2acf",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -324,6 +351,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "Switch Left Weapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cd63ea5b-1258-4234-bd5e-8b4746343184",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Que RB",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "be2b9a3b-eaa3-4fb0-8d47-9ceb541045e0",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Que RT",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9f06eaca-81c3-4044-97ba-b75664858e8a",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
