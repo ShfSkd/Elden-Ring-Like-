@@ -18,7 +18,11 @@ namespace SKD
     }
     public enum WeaponModelSlot
     {
-        RightHand, LeftHand
+        RightHandWeaponSlot, LeftHandWeaponSlot,LeftHandShieldSlot,
+    }
+    public enum WeaponModelType
+    {
+        Weapon,Shield
     }
     // This is used to calculate damage based on attack type
     public enum AttackType
@@ -28,6 +32,13 @@ namespace SKD
         HeavyAttack01,
         HeavyAttack02,
         ChargedAttack01,
-        ChargedAttack02
+        ChargedAttack02,
+        RunningAttack01,
+        RollingAttack01,
+        BackstepAttack01
+    }
+    public enum DamageIntensity
+    {
+        Ping,Light,Meduim,Heavy,Colossal 
     }
 }

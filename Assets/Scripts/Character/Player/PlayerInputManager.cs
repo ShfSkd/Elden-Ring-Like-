@@ -48,6 +48,7 @@ namespace SKD.Character.Player
 
         [Header("Bumper Inputs")]
         [SerializeField] bool _RB_Input;
+        [SerializeField] bool _LB_Input;
 
         [Header("Trigger Inputs")]
         [SerializeField] bool _RT_Input;
@@ -104,6 +105,8 @@ namespace SKD.Character.Player
 
                 // Bumpers
                 _playerControls.PlayerActions.RB.performed += i => _RB_Input = true;
+                _playerControls.PlayerActions.LB.performed += i => _LB_Input = true;
+                _playerControls.PlayerActions.LB.canceled += i => _playerManager._playerNetworkManager._isBlocking.Value = false;
 
                 // Triggers
                 _playerControls.PlayerActions.RT.performed += i => _RT_Input = true;
@@ -158,6 +161,7 @@ namespace SKD.Character.Player
             HandleSptintInput();
             HandleJumpInput();
             HandleRBInput();
+            HandleLBInput();
             HandleRTInput();
             HandleChargeRTInput();
             HandleSwitchRightInput();
@@ -328,6 +332,18 @@ namespace SKD.Character.Player
                 _playerManager._playerCombatManager.PerformWeaponBasedAction(_playerManager._playerInventoryManager._currentRightHandWeapon._keyboard_RB_Action, _playerManager._playerInventoryManager._currentRightHandWeapon);
             }
         }
+        private void HandleLBInput()
+        {
+            if (_LB_Input)
+            {
+                _LB_Input = false;
+                // TODO: If we have UI Window open return and do nothing
+
+                _playerManager._playerNetworkManager.SetCharacterActionHand(false);
+
+                _playerManager._playerCombatManager.PerformWeaponBasedAction(_playerManager._playerInventoryManager._currentLeftHandWeapon._keyboard_LB_Action, _playerManager._playerInventoryManager._currentLeftHandWeapon);
+            }
+        }
         private void HandleRTInput()
         {
             if (_RT_Input)
@@ -422,7 +438,7 @@ namespace SKD.Character.Player
                 _interactInput = false;
 
                 _playerManager._playerInteractionManager.Interact();
-                
+
             }
         }
 

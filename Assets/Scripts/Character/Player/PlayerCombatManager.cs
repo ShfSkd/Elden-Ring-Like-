@@ -13,6 +13,9 @@ namespace SKD.Character.Player
 
         [Header("Flags")]
         public bool _canComboWithMainHandWeapon;
+      /*  public bool _canPerformRollingAttack;
+        public bool _canPerformBackstopAttack;*/
+
         // public bool _canComboWithOffHandWeapon;
         protected override void Awake()
         {
@@ -25,7 +28,7 @@ namespace SKD.Character.Player
             if (_playerManager.IsOwner)
             {
                 // perform the action
-                weaponAction.AttampToPerformedAction(_playerManager, weaponPerformingAction);
+                weaponAction.AttampToPerformedAction(_playerManager, weaponPerformingAction);    
 
                 // Notify the server we have performed the action, so we perform it from their perspective also 
                 _playerManager._playerNetworkManager.NotifyTheServerOfWeaponActionServerRpc(NetworkManager.Singleton.LocalClientId, weaponAction._actionID, weaponPerformingAction._itemID);

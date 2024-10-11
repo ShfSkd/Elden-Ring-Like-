@@ -43,12 +43,19 @@ Locomotion Sets include...
 > Jumping
 
 *************************************
+Bonus Animations...
+*************************************
+
+> Parry Charge
+> Parry Release
+
+*************************************
 Package Includes
 *************************************
 
-217 Unique Animations
+186 Unique Animations
 Low Poly Man Model
-Sword Model
+Shield Model
 
 *************************************
 CONTACT

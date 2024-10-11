@@ -113,6 +113,7 @@ namespace SKD.Character.Player
             _playerNetworkManager._currentRightWeaponID.OnValueChanged += _playerNetworkManager.OnCurrentRightHandWeaponIDChange;
             _playerNetworkManager._currentLeftWeaponID.OnValueChanged += _playerNetworkManager.OnCurrentLeftHandWeaponIDChange;
             _playerNetworkManager._currentWeaponBeingUsed.OnValueChanged += _playerNetworkManager.OnCurrentWeaponBeingUsedIDChange;
+            _playerNetworkManager._isBlocking.OnValueChanged += _playerNetworkManager.OnIsBlockingChanged;
 
             // Flags
             _playerNetworkManager._isChargingAttack.OnValueChanged += _playerNetworkManager.OnIsCharagingAttackChanged;
@@ -158,6 +159,7 @@ namespace SKD.Character.Player
             _playerNetworkManager._currentRightWeaponID.OnValueChanged -= _playerNetworkManager.OnCurrentRightHandWeaponIDChange;
             _playerNetworkManager._currentLeftWeaponID.OnValueChanged -= _playerNetworkManager.OnCurrentLeftHandWeaponIDChange;
             _playerNetworkManager._currentWeaponBeingUsed.OnValueChanged -= _playerNetworkManager.OnCurrentWeaponBeingUsedIDChange;
+            _playerNetworkManager._isBlocking.OnValueChanged -= _playerNetworkManager.OnIsBlockingChanged;
 
             // Flags
             _playerNetworkManager._isChargingAttack.OnValueChanged -= _playerNetworkManager.OnIsCharagingAttackChanged;
@@ -246,6 +248,9 @@ namespace SKD.Character.Player
             // Sync weapons 
             _playerNetworkManager.OnCurrentRightHandWeaponIDChange(0, _playerNetworkManager._currentRightWeaponID.Value);
             _playerNetworkManager.OnCurrentLeftHandWeaponIDChange(0, _playerNetworkManager._currentLeftWeaponID.Value);
+
+            // Sync blocking
+            _playerNetworkManager.OnIsBlockingChanged(false, _playerNetworkManager._isBlocking.Value);
 
 
             // Lock On 

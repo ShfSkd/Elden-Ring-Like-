@@ -14,6 +14,8 @@ namespace SKD.WorldManager
 
         [Header("Damage")]
         public TakeDamageEffect _takeDamageEffect;
+        public TakeBlockedDamageEffect _takeBlockedDamageEffect;
+
         [SerializeField] List<InstantCharacterEffect> _instantEffects;
 
         private void Awake()

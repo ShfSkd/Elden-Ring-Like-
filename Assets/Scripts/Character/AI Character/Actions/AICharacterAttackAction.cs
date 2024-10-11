@@ -23,7 +23,7 @@ namespace SKD.Character.AI_Character.Actions
 
         public void AttempToPerformAction(AICharacterManager aICharacter)
         {
-            aICharacter._characterAnimationManager.PlayTargetAttackActionAnimation(_attackType, _attackAnimation, true);
+            aICharacter._characterAnimationManager.PlayTargetActionAnimation(_attackAnimation, true);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace SKD.UI.PlayerUI
         [SerializeField] bool startGameAsClient;
 
         [HideInInspector] public PlayerUIHUDManager _playerUIHUDManager;
-        [HideInInspector]public PlayerUIPopUpManager _playerUIPopUpManager;
+        [HideInInspector] public PlayerUIPopUpManager _playerUIPopUpManager;
 
         [Header("UI Flags")]
         public bool _menuWindowIsOpen; // Inventory Screen , Equipment menu, Shop,etc.

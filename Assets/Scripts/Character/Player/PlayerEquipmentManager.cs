@@ -9,8 +9,9 @@ namespace SKD.Character.Player
     {
         PlayerManager _playerManager;
 
-        public WeaponModelInstantationSlot _rightHandSlot;
-        public WeaponModelInstantationSlot _leftHandSlot;
+        public WeaponModelInstantiationSlot _rightHandSlot;
+        public WeaponModelInstantiationSlot _leftHandWeaponSlot;
+        public WeaponModelInstantiationSlot _leftHandShieldSlot;
 
         [SerializeField] WeaponManager _rightWeaponManager;
         [SerializeField] WeaponManager _leftWeaponManager;
@@ -35,17 +36,21 @@ namespace SKD.Character.Player
         }
         private void InitializeWeaponSlots()
         {
-            WeaponModelInstantationSlot[] weaponsSlots = GetComponentsInChildren<WeaponModelInstantationSlot>();
+            WeaponModelInstantiationSlot[] weaponsSlots = GetComponentsInChildren<WeaponModelInstantiationSlot>();
 
             foreach (var weaponSlot in weaponsSlots)
             {
-                if (weaponSlot._weaponSlot == WeaponModelSlot.RightHand)
+                if (weaponSlot._weaponSlot == WeaponModelSlot.RightHandWeaponSlot)
                 {
                     _rightHandSlot = weaponSlot;
                 }
-                else if (weaponSlot._weaponSlot == WeaponModelSlot.LeftHand)
+                else if (weaponSlot._weaponSlot == WeaponModelSlot.LeftHandWeaponSlot)
                 {
-                    _leftHandSlot = weaponSlot;
+                    _leftHandWeaponSlot = weaponSlot;
+                }
+                else if (weaponSlot._weaponSlot == WeaponModelSlot.LeftHandShieldSlot)
+                {
+                    _leftHandShieldSlot = weaponSlot;
                 }
             }
         }
@@ -67,6 +72,7 @@ namespace SKD.Character.Player
                 _rightHandSlot.LoadWeaponModel(_rightHandWeaponModel);
                 _rightWeaponManager = _rightHandWeaponModel.GetComponent<WeaponManager>();
                 _rightWeaponManager.SetWeaponDamage(_playerManager, _playerManager._playerInventoryManager._currentRightHandWeapon);
+                _playerManager._playerAnimationManager.UpdateAnimatorController(_playerManager._playerInventoryManager._currentRightHandWeapon._weaponAnimator);
                 // Assign weapons damage, to its collider 
             }
         }
@@ -145,11 +151,27 @@ namespace SKD.Character.Player
             if (_playerManager._playerInventoryManager._currentLeftHandWeapon != null)
             {
                 // Remove the old weapon
-                _leftHandSlot.UnloadWeaponModel();
+                if (_leftHandWeaponSlot._currentWeaponModel != null)
+                    _leftHandWeaponSlot.UnloadWeaponModel();
+
+                if (_leftHandShieldSlot._currentWeaponModel != null)
+                    _leftHandShieldSlot.UnloadWeaponModel();
 
                 // Bring in the new weapon
                 _leftHandWeaponModel = Instantiate(_playerManager._playerInventoryManager._currentLeftHandWeapon._weaponModel);
-                _leftHandSlot.LoadWeaponModel(_leftHandWeaponModel);
+
+                switch (_playerManager._playerInventoryManager._currentLeftHandWeapon._weaponModelType)
+                {
+                    case WeaponModelType.Weapon:
+                        _leftHandWeaponSlot.LoadWeaponModel(_leftHandWeaponModel);
+                        break;
+                    case WeaponModelType.Shield:
+                        _leftHandShieldSlot.LoadWeaponModel(_leftHandWeaponModel);
+                        break;
+                    default:
+                        break;
+                }
+
                 _leftWeaponManager = _leftHandWeaponModel.GetComponent<WeaponManager>();
                 _leftWeaponManager.SetWeaponDamage(_playerManager, _playerManager._playerInventoryManager._currentLeftHandWeapon);
                 // Assign weapons damage, to its collider 

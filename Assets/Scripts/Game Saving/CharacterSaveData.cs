@@ -31,12 +31,16 @@ namespace SKD.GameSaving
         public int _vitality;
         public int _endurance;
 
+        [Header("Sites Of Grace")]
+        public SerializableDictionary<int, bool> _siteOfGrace; // The int is in the site if grace ID, the bool is the "Activated" statues
+
         [Header("Bosses")]
         public SerializableDictionary<int, bool> _bossesAwakened; // the int is the boss ID , The bool is the awaken statues 
         public SerializableDictionary<int, bool> _bossesDefeated; // the int is the boss ID , The bool is the defeated statues
         
         public CharacterSaveData()
         {
+            _siteOfGrace = new SerializableDictionary<int, bool>();
             _bossesAwakened = new SerializableDictionary<int, bool>();
             _bossesDefeated = new SerializableDictionary<int, bool>();
         }

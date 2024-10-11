@@ -528,18 +528,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: World Action Manager
       objectReference: {fileID: 0}
-    - target: {fileID: 7497426219049941590, guid: 999c3a20b760af848bb2992add973623, type: 3}
-      propertyPath: _weaponItemAction.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7497426219049941590, guid: 999c3a20b760af848bb2992add973623, type: 3}
-      propertyPath: _weaponItemAction.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 94c2437632bda3e49954af8d6bc9cf34, type: 2}
-    - target: {fileID: 7497426219049941590, guid: 999c3a20b760af848bb2992add973623, type: 3}
-      propertyPath: _weaponItemAction.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: ecc5776eb24786e4a9e1200ad0cd7bc0, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 999c3a20b760af848bb2992add973623, type: 3}
 --- !u!1001 &2056343930925072624

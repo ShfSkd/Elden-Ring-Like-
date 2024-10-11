@@ -13,6 +13,13 @@ namespace SKD.Character
         private float _staminaTickTimer = 0f;
         [SerializeField] float _staminaRegenarationDelay = 2f;
 
+        [Header("Blocking Absorptions")]
+        public float _blockingPhysicalAbsorption;
+        public float _blockingFireAbsorption;
+        public float _blockingMagicAbsorption;
+        public float _blockingLightningAbsorption;
+        public float _blockingHolyAbsorption;
+
         protected virtual void Awake()
         {
             _characterManager = GetComponent<CharacterManager>();

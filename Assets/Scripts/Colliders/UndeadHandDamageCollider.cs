@@ -18,6 +18,11 @@ namespace SKD.Colliders
             _damageCollider = GetComponent<Collider>();
             _undeadCharacter = GetComponentInParent<AICharacterManager>();
         }
+        protected override void GetBlockingDotValues(CharacterManager damageTarget)
+        {
+            _directionFromAttackToDamageTarget = _undeadCharacter.transform.position - damageTarget.transform.position;
+            _dotValueFromAttackToDamageTarget = Vector3.Dot(_directionFromAttackToDamageTarget, damageTarget.transform.forward);
+        }
         protected override void DamageTarget(CharacterManager damageTarget)
         {
             // We don't want to damage the same target more then once in a single attack. So we add them to a list that check before applying damage 

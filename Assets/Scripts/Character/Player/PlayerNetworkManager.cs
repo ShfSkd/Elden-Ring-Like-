@@ -21,7 +21,6 @@ namespace SKD.Character.Player
         public NetworkVariable<bool> _isUsingRightHand = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<bool> _isUsingLeftHand = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
-
         protected override void Awake()
         {
             base.Awake();
@@ -81,6 +80,26 @@ namespace SKD.Character.Player
             WeaponItem newWeapon = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(newId));
             _playerManager._playerCombatManager._currentWeaponBeingUsed = newWeapon;
 
+            if (_playerManager.IsOwner)
+                return;
+
+            if (_playerManager._playerCombatManager._currentWeaponBeingUsed != null)
+                _playerManager._playerAnimationManager.UpdateAnimatorController(_playerManager._playerCombatManager._currentWeaponBeingUsed._weaponAnimator);
+
+        }
+        public override void OnIsBlockingChanged(bool oldStatus, bool newStatus)
+        {
+            base.OnIsBlockingChanged(oldStatus, newStatus);
+
+            if (IsOwner)
+            {
+                _playerManager._playerStatsManager._blockingPhysicalAbsorption = _playerManager._playerCombatManager._currentWeaponBeingUsed._physicalBaseDamageAbsorption;
+                _playerManager._playerStatsManager._blockingMagicAbsorption = _playerManager._playerCombatManager._currentWeaponBeingUsed._magicBaseDamageAbsorption;
+                _playerManager._playerStatsManager._blockingFireAbsorption = _playerManager._playerCombatManager._currentWeaponBeingUsed._fireBaseDamageAbsorption;
+                _playerManager._playerStatsManager._blockingLightningAbsorption = _playerManager._playerCombatManager._currentWeaponBeingUsed._lightingBaseDamageAbsorption;
+                _playerManager._playerStatsManager._blockingHolyAbsorption = _playerManager._playerCombatManager._currentWeaponBeingUsed._holyBaseDamageAbsorption;
+
+            }
         }
         // Item Actions
         [ServerRpc]
@@ -104,9 +123,9 @@ namespace SKD.Character.Player
         {
             WeaponItemAction weaponAction = WorldActionManager.Instance.GetWeponActionItemByID(weaponID);
 
-            if(weaponAction != null)
+            if (weaponAction != null)
             {
-                weaponAction.AttampToPerformedAction(_playerManager,WorldItemDatabase.Instance.GetWeaponByID(weaponID));
+                weaponAction.AttampToPerformedAction(_playerManager, WorldItemDatabase.Instance.GetWeaponByID(weaponID));
             }
             else
             {

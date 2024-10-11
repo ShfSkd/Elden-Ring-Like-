@@ -67,6 +67,13 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: 0
+        functionName: EnableCanDoRollingAttack
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.24404761
         functionName: PlayRollSoundFX
         data: 
@@ -76,6 +83,13 @@ ModelImporter:
         messageOptions: 0
       - time: 0.5331492
         functionName: DisableIsInvulnerable
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.98892045
+        functionName: DisableCanDoRollingAttack
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

@@ -33,6 +33,8 @@ namespace SKD.Character
         public NetworkVariable<ulong> _currentTargetNetworkObjectID = new NetworkVariable<ulong>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
         [Header("Flags")]
+        public NetworkVariable<bool> _isBlocking = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<bool> _isAttacking = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<bool> _isInvulnerable = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<bool> _isLockOn = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<bool> _isSprinting = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
@@ -92,6 +94,10 @@ namespace SKD.Character
         public virtual void OnIsActiveChange(bool oldStatus, bool newStatus)
         {
             gameObject.SetActive(_isActive.Value);
+        }
+        public virtual void OnIsBlockingChanged(bool oldStatus, bool newStatus)
+        {
+            _characterManager._animator.SetBool("IsBlocking", _isBlocking.Value);
         }
         // A server RPC is a function called from client, to the server (in our case the host)
         [ServerRpc]

@@ -1,4 +1,5 @@
 ﻿using SKD.Character.Player;
+using SKD.Items;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -125,7 +126,7 @@ namespace SKD.Character
             {
                 snappedVertical = 2f;
             }
-            
+
             _characterManager._animator.SetFloat(_horizontal, snappedHorizontal, 0.1f, Time.deltaTime);
             _characterManager._animator.SetFloat(_vertical, snappedVertical, 0.1f, Time.deltaTime);
         }
@@ -139,7 +140,7 @@ namespace SKD.Character
 
             _applyRootMotion = applyRootMotion;
             _characterManager._characterAnimationManager._applyRootMotion = applyRootMotion;
-     
+
             _characterManager._animator.CrossFade(targetAnimationName, 0.2f);
             // Can be used to stop character from attempting new actions
             // for example:If you get damaged, and begin performing a damage animation this flag will turn true if you are stunned  
@@ -151,7 +152,7 @@ namespace SKD.Character
             // Tell the server/host we played an animation, and to play that animation for everybody else present
             _characterManager._characterNetworkManager.NotifyTheServerofActionAnimationServerRpc(NetworkManager.Singleton.LocalClientId, targetAnimationName, applyRootMotion);
         }
-        public void PlayTargetAttackActionAnimation(AttackType attackType, string targetAnimationName,
+        public void PlayTargetAttackActionAnimation(WeaponItem weapon, AttackType attackType, string targetAnimationName,
             bool isPerformingAction,
             bool applyRootMotion = true,
             bool canRotate = false,
@@ -164,6 +165,7 @@ namespace SKD.Character
             // Tell the network our "IsAttacking" flag
             _characterManager._characterCombatManager._currentAttackType = attackType;
             _characterManager._characterCombatManager._lastAttackAnimationPerformed = targetAnimationName;
+            UpdateAnimatorController(weapon._weaponAnimator);
             _characterManager._characterAnimationManager._applyRootMotion = applyRootMotion;
             _characterManager._animator.CrossFade(targetAnimationName, 0.2f);
             _characterManager._isPerformingAction = isPerformingAction;
@@ -174,5 +176,9 @@ namespace SKD.Character
             _characterManager._characterNetworkManager.NotifyTheServerOfActionAttackAnimationServerRpc(NetworkManager.Singleton.LocalClientId, targetAnimationName, applyRootMotion);
         }
 
+        public void UpdateAnimatorController(AnimatorOverrideController weaponController)
+        {
+            _characterManager._animator.runtimeAnimatorController = weaponController;
+        }
     }
 }

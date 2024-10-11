@@ -78,5 +78,25 @@ namespace SKD.World_Manager
 
             return vieableAngle; 
         }
+
+        public DamageIntensity GetDamageIntensityBasedOnPoiseDamage(float poiseDamage)
+        {
+            DamageIntensity damageIntensity = DamageIntensity.Ping;
+
+            if (poiseDamage >= 10)
+                damageIntensity = DamageIntensity.Light;
+
+            if (poiseDamage >= 30)
+                damageIntensity = DamageIntensity.Meduim;
+
+            if (poiseDamage >= 70)
+                damageIntensity = DamageIntensity.Heavy;
+
+            if (poiseDamage >= 120)
+                damageIntensity = DamageIntensity.Colossal;
+
+
+            return damageIntensity;
+        }
     }
 }

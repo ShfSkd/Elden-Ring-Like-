@@ -22,6 +22,7 @@ namespace SKD.Character
         [HideInInspector] public CharacterSoundFXManager _characterSoundFXManager;
         [HideInInspector] public CharacterLocamotionManager _characterLocomotionManager;
         [HideInInspector] public CharacterUIManager _characterUIManager;
+        [HideInInspector] public CharacterStatsManager _characterStatsManager;
 
         [Header("Character Group")]
         public CharacterGroup _characterGroup;
@@ -43,6 +44,7 @@ namespace SKD.Character
             _characterSoundFXManager = GetComponent<CharacterSoundFXManager>();
             _characterLocomotionManager = GetComponent<CharacterLocamotionManager>();
             _characterUIManager = GetComponent<CharacterUIManager>();
+            _characterStatsManager = GetComponent<CharacterStatsManager>();
         }
         protected virtual void Start()
         {

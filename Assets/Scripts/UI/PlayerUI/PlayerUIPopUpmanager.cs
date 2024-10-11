@@ -22,6 +22,12 @@ namespace SKD.UI.PlayerUI
         [SerializeField] TextMeshProUGUI _bossDefetedPopUpBackgroundText;
         [SerializeField] TextMeshProUGUI _bossDefetedPopUpText;
         [SerializeField] CanvasGroup _bossDefetedPopUpCanvasGroup;
+
+        [Header("Grace Restored Pop-up")]
+        [SerializeField] GameObject _graceRestoredPopUpGameObject;
+        [SerializeField] TextMeshProUGUI _graceRestoredPopUpBackgroundText;
+        [SerializeField] TextMeshProUGUI _graceRestoredPopUpText;
+        [SerializeField] CanvasGroup _graceRestoredPopUpCanvasGroup;
         public void CloseAllPopUpsWindows()
         {
             _popUpMessageGameObject.SetActive(false);
@@ -54,6 +60,17 @@ namespace SKD.UI.PlayerUI
             StartCoroutine(StretchPopUpTextOverTime(_bossDefetedPopUpBackgroundText, 8f, 8.32f));
             StartCoroutine(FadeInPopUpOverTime(_bossDefetedPopUpCanvasGroup, 5f));
             StartCoroutine(WaitThenFadeOutPopUpOverTime(_bossDefetedPopUpCanvasGroup, 2f, 5f));
+        }
+
+        public void SendGraceRestoredPopUp(string graceRestoredMessage)
+        {
+            _graceRestoredPopUpText.text = graceRestoredMessage;
+            _graceRestoredPopUpBackgroundText.text = graceRestoredMessage;
+            _graceRestoredPopUpGameObject.SetActive(true);
+            _graceRestoredPopUpText.characterSpacing = 0;
+            StartCoroutine(StretchPopUpTextOverTime(_graceRestoredPopUpBackgroundText, 8f, 8.32f));
+            StartCoroutine(FadeInPopUpOverTime(_graceRestoredPopUpCanvasGroup, 5f));
+            StartCoroutine(WaitThenFadeOutPopUpOverTime(_graceRestoredPopUpCanvasGroup, 2f, 5f));
         }
 
         private IEnumerator StretchPopUpTextOverTime(TextMeshProUGUI text, float duration, float stretchAmount)

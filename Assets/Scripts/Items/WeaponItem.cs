@@ -4,10 +4,15 @@ using UnityEngine;
 
 namespace SKD.Items
 {
-    [CreateAssetMenu(menuName ="Items/Weapons/Melee Weapons")]
+    [CreateAssetMenu(menuName = "Items/Weapons/Melee Weapons")]
     public class WeaponItem : Item
     {
         // Animator controller overdrive (Change attack animations based on weapon you are currently using)
+        [Header("Animations")]
+        public AnimatorOverrideController _weaponAnimator;
+
+        [Header("Model Instantiation")]
+        public WeaponModelType _weaponModelType;
 
         [Header("Weapon Model")]
         public GameObject _weaponModel;
@@ -41,6 +46,14 @@ namespace SKD.Items
         public float _heavy_Attack_02_modifier = 1.6f;
         public float _charge_Attack_01_Modofier = 2.0f;
         public float _charge_Attack_02_Modofier = 2.2f;
+        public float _running_Attack_01_Modifier = 1.1f;
+        public float _rolling_Attack_01_Modifier = 1.1f;
+        public float _backstep_Attack_01_Modifier = 1.1f;
+        public float _heavyAttackStaminaCostMultiplier = 1.3f;
+        public float _chargedAttackStaminaCostMultiplier = 1.5f;
+        public float _runningAttackStaminaCostMultiplier = 1.1f;
+        public float _rollingAttackStaminaCostMultiplier = 1.1f;
+        public float _backstepAttackStaminaCostMultiplier = 1.1f;
         // Critical Damage Modifier etc..
 
         [Header("Stamina Cost Modifiers")]
@@ -50,10 +63,19 @@ namespace SKD.Items
         // Light stamina cost modifier 
         // Heavy stamina cost modifier ETC
 
+        [Header("Weapon Blocking Absorption")]
+        public float _physicalBaseDamageAbsorption = 50f;
+        public float _magicBaseDamageAbsorption = 50f;
+        public float _fireBaseDamageAbsorption = 50f;
+        public float _holyBaseDamageAbsorption = 50f;
+        public float _lightingBaseDamageAbsorption = 50f;
+        public float _stability = 50f; // Reduce Stamina lost from block
+
         // Item base Action(RB,RT,LB,LT)
         [Header("Actions")]
         public WeaponItemAction _keyboard_RB_Action;// One hand right bumper action
         public WeaponItemAction _keyboard_RT_Action;// One hand right trigger action
+        public WeaponItemAction _keyboard_LB_Action;// One hand left bumper  action
 
         [Header("Whooshes")]
         public AudioClip[] _whooshes;

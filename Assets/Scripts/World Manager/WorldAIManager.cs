@@ -54,12 +54,22 @@ namespace SKD.World_Manager
         {
             return _spawnInBossesList.FirstOrDefault(boss=>boss._bossID == id);
         }
+        public void ResetAllCharacters()
+        {
+            DespawnAllCharacters();
+
+            foreach (var spawner in _aICharacterSpawnerList)
+            {
+                spawner.AttemptToSpawnCharacter();
+            }
+        }
         private void DespawnAllCharacters()
         {
             foreach (var character in _spawnInCharctersList)
             {
                 character.GetComponent<NetworkObject>().Despawn();
             }
+            _spawnInCharctersList.Clear();
         }
         private void DisableAllCharacters()
         {
