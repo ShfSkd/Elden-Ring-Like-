@@ -23,6 +23,7 @@ namespace SKD.Items
             _meleeDamageCollider._fireDamage = weapon._fireDamage;
             _meleeDamageCollider._lightningDamage = weapon._lightningDamage;
             _meleeDamageCollider._holyDamage = weapon._holyDamage;
+            _meleeDamageCollider._poiseDamage = weapon._posieDamage;
 
             _meleeDamageCollider._light_Attack_01_Modofier = weapon._light_Attack_01_modifier;
             _meleeDamageCollider._light_Attack_02_Modofier = weapon._light_Attack_02_modifier;

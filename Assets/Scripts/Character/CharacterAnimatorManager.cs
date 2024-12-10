@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace SKD.Character
 {
@@ -17,9 +18,32 @@ namespace SKD.Character
         [Header("Flags")]
         public bool _applyRootMotion = false;
 
-        [Header("Damage Animations")]
+        [Header("Damage Animations")] 
         public string _lastDamageAnimationPlayed;
+
+        [Header("Ping Damage Animations")]
+        [SerializeField] string _hit_Forward_Ping_01 = "Hit_Forward_Ping_01";
+
+        [SerializeField] string _hit_Forward_Ping_02 = "Hit_Forward_Ping_02";
+
+        [SerializeField] string _hit_Backward_Ping_01 = "Hit_Backward_Ping_01";
+        [SerializeField] string _hit_Backward_Ping_02 = "Hit_Backward_Ping_02";
+
+        [SerializeField] string _hit_Left_Ping_01 = "Hit_Left_Ping_01";
+        [SerializeField] string _hit_Left_Ping_02 = "Hit_Left_Ping_02";
+
+        [SerializeField] string _hit_Right_Ping_01 = "Hit_Right_Ping_01";
+        [SerializeField] string _hit_Right_Ping_02 = "Hit_Right_Ping_02";
+
+        public List<string> _forward_Oing_Damage_List;
+        public List<string> _forward_Ping_Damage_List;
+        public List<string> _left_Ping_damage_List;
+        public List<string> _right_Ping_damage_List;
+        public List<string> _backeard_Ping_damage_List;
+
+        [Header("Medium Damage Animations")] 
         [SerializeField] string _hit_Forward_Medium_01 = "Hit_Forward_Medium_01";
+
         [SerializeField] string _hit_Forward_Medium_02 = "Hit_Forward_Medium_02";
 
         [SerializeField] string _hit_Backward_Medium_01 = "Hit_Backward_Medium_01";
@@ -35,6 +59,8 @@ namespace SKD.Character
         public List<string> _backeard_Medium_damage_List = new List<string>();
         public List<string> _left_Medium_damage_List = new List<string>();
         public List<string> _right_Medium_damage_List = new List<string>();
+
+
         protected virtual void Awake()
         {
             _characterManager = GetComponent<CharacterManager>();
@@ -44,6 +70,7 @@ namespace SKD.Character
 
         protected virtual void Start()
         {
+            // Medium
             _forward_Medium_Damage_List.Add(_hit_Forward_Medium_01);
             _forward_Medium_Damage_List.Add(_hit_Forward_Medium_02);
 
@@ -55,16 +82,29 @@ namespace SKD.Character
 
             _right_Medium_damage_List.Add(_hit_Right_Medium_01);
             _right_Medium_damage_List.Add(_hit_Right_Medium_02);
+            
+            // Ping
+            _forward_Ping_Damage_List.Add(_hit_Forward_Ping_01);
+            _forward_Ping_Damage_List.Add(_hit_Forward_Ping_02);
 
+            _backeard_Ping_damage_List.Add(_hit_Backward_Ping_01);
+            _backeard_Ping_damage_List.Add(_hit_Backward_Ping_02);
+
+            _left_Ping_damage_List.Add(_hit_Left_Ping_01);
+            _left_Ping_damage_List.Add(_hit_Left_Ping_02);
+
+            _right_Ping_damage_List.Add(_hit_Right_Ping_01);
+            _right_Ping_damage_List.Add(_hit_Right_Ping_02);
         }
+
         public virtual void EnableCanDoCombo()
         {
-
         }
+
         public virtual void DisableCanDoCombo()
         {
-
         }
+
         public string GetRandomAnimationFromList(List<string> animationList)
         {
             List<string> finalList = new List<string>();
@@ -73,6 +113,7 @@ namespace SKD.Character
             {
                 finalList.Add(animation);
             }
+
             // Check if we already played this damage animation so it doesn't repeat 
             finalList.Remove(_lastDamageAnimationPlayed);
 
@@ -82,10 +123,12 @@ namespace SKD.Character
                 if (finalList[i] == null)
                     finalList.RemoveAt(i);
             }
+
             int ranomValue = UnityEngine.Random.Range(0, finalList.Count);
 
             return finalList[ranomValue];
         }
+
         public void UpdateAnimatorMovementParameters(float horizontalMovement, float verticalMovement, bool isSprinting)
         {
             float snappedHorizontal;
@@ -137,7 +180,6 @@ namespace SKD.Character
             bool canRotate = false,
             bool canMove = false)
         {
-
             _applyRootMotion = applyRootMotion;
             _characterManager._characterAnimationManager._applyRootMotion = applyRootMotion;
 
@@ -150,9 +192,12 @@ namespace SKD.Character
             _characterManager._characterLocomotionManager._canMove = canMove;
 
             // Tell the server/host we played an animation, and to play that animation for everybody else present
-            _characterManager._characterNetworkManager.NotifyTheServerofActionAnimationServerRpc(NetworkManager.Singleton.LocalClientId, targetAnimationName, applyRootMotion);
+            _characterManager._characterNetworkManager.NotifyTheServerofActionAnimationServerRpc(
+                NetworkManager.Singleton.LocalClientId, targetAnimationName, applyRootMotion);
         }
-        public void PlayTargetAttackActionAnimation(WeaponItem weapon, AttackType attackType, string targetAnimationName,
+
+        public void PlayTargetAttackActionAnimation(WeaponItem weapon, AttackType attackType,
+            string targetAnimationName,
             bool isPerformingAction,
             bool applyRootMotion = true,
             bool canRotate = false,
@@ -173,7 +218,8 @@ namespace SKD.Character
             _characterManager._characterLocomotionManager._canMove = canMove;
 
             // Tell the server/host we played an animation, and to play that animation for everybody else present
-            _characterManager._characterNetworkManager.NotifyTheServerOfActionAttackAnimationServerRpc(NetworkManager.Singleton.LocalClientId, targetAnimationName, applyRootMotion);
+            _characterManager._characterNetworkManager.NotifyTheServerOfActionAttackAnimationServerRpc(
+                NetworkManager.Singleton.LocalClientId, targetAnimationName, applyRootMotion);
         }
 
         public void UpdateAnimatorController(AnimatorOverrideController weaponController)

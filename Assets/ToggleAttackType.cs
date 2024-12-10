@@ -7,9 +7,12 @@ using UnityEngine;
 public class ToggleAttackType : StateMachineBehaviour
 {
     CharacterManager _characterManager;
-    [SerializeField] AttackType _attackType;
+
+    [SerializeField]  
+    AttackType _attackType;
+
     //OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (_characterManager == null)
             _characterManager = animator.GetComponent<CharacterManager>();

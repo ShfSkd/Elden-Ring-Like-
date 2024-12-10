@@ -10,34 +10,33 @@ namespace SKD.Colliders
 {
     public class DamageCollider : MonoBehaviour
     {
-        [Header("Collider")]
-        [SerializeField] protected Collider _damageCollider;
-        [Header("Damage")]
-        public float _physicalDamage;
+        [Header("Collider")] [SerializeField] protected Collider _damageCollider;
+        [Header("Damage")] public float _physicalDamage;
         public float _magicDamage;
         public float _fireDamage;
         public float _lightningDamage;
         public float _holyDamage;
 
-        [Header("Contact Point")]
-        protected Vector3 _contactPoint;
+        [Header("Posie")] public float _poiseDamage;
+
+        [Header("Contact Point")] protected Vector3 _contactPoint;
 
         [Header("Characters Damaged")]
         protected List<CharacterManager> _charactersDamagedList = new List<CharacterManager>();
 
-        [Header("Block")]
-        protected Vector3 _directionFromAttackToDamageTarget;
+        [Header("Block")] protected Vector3 _directionFromAttackToDamageTarget;
         protected float _dotValueFromAttackToDamageTarget;
+
         protected virtual void Awake()
         {
-
         }
+
         protected virtual void OnTriggerEnter(Collider other)
         {
             CharacterManager damagetarget = other.GetComponentInParent<CharacterManager>();
 
             /*   // If you want to search on both the damageable character colliders & the character collider just check for null here and do the following
-               *//* if (damagetarget == null)
+               */ /* if (damagetarget == null)
                 {
                     damagetarget = other.GetComponent<CharacterManager>();
                 }*/
@@ -49,6 +48,7 @@ namespace SKD.Colliders
                 DamageTarget(damagetarget);
             }
         }
+
         protected virtual void CheckForBlock(CharacterManager damageTarget)
         {
             // If this character has already damaged
@@ -60,23 +60,26 @@ namespace SKD.Colliders
             if (damageTarget._characterNetworkManager._isBlocking.Value && _dotValueFromAttackToDamageTarget > 0.3f)
             {
                 _charactersDamagedList.Add(damageTarget);
-                TakeBlockedDamageEffect damageEffect = Instantiate(WorldCharacterEffectsManager.Instance._takeBlockedDamageEffect);
+                TakeBlockedDamageEffect damageEffect =
+                    Instantiate(WorldCharacterEffectsManager.Instance._takeBlockedDamageEffect);
 
                 damageEffect._physicalDamage = _physicalDamage;
                 damageEffect._magicDamage = _magicDamage;
                 damageEffect._fireDamage = _fireDamage;
                 damageEffect._holyDamage = _holyDamage;
+                damageEffect._poiseDamage = _poiseDamage;
+                damageEffect._staminaDamage = _poiseDamage;
                 damageEffect._constantPoint = _contactPoint;
 
                 damageTarget._characterEffectsManager.ProceesInstanceEffect(damageEffect);
             }
-
         }
 
         protected virtual void GetBlockingDotValues(CharacterManager damageTarget)
         {
             _directionFromAttackToDamageTarget = transform.position - damageTarget.transform.position;
-            _dotValueFromAttackToDamageTarget = Vector3.Dot(_directionFromAttackToDamageTarget, damageTarget.transform.forward);
+            _dotValueFromAttackToDamageTarget =
+                Vector3.Dot(_directionFromAttackToDamageTarget, damageTarget.transform.forward);
         }
 
         protected virtual void DamageTarget(CharacterManager damageTarget)
@@ -92,6 +95,7 @@ namespace SKD.Colliders
             damageEffect._magicDamage = _magicDamage;
             damageEffect._fireDamage = _fireDamage;
             damageEffect._holyDamage = _holyDamage;
+            damageEffect._poiseDamage = _poiseDamage;
             damageEffect._constantPoint = _contactPoint;
 
             damageTarget._characterEffectsManager.ProceesInstanceEffect(damageEffect);
@@ -101,11 +105,12 @@ namespace SKD.Colliders
         {
             _damageCollider.enabled = true;
         }
+
         public virtual void DisableDamageCollider()
         {
             _damageCollider.enabled = false;
-            _charactersDamagedList.Clear(); // We rests the characters that have been hit when we reset the collider, so they may be hit again
+            _charactersDamagedList
+                .Clear(); // We rests the characters that have been hit when we reset the collider, so they may be hit again
         }
-
     }
 }

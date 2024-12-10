@@ -74,34 +74,6 @@
             ]
         },
         {
-            "name": "Player Camera",
-            "id": "0d569593-1e93-4c29-becb-e6da39aec42d",
-            "actions": [
-                {
-                    "name": "Movement",
-                    "type": "PassThrough",
-                    "id": "9876b3ba-827d-410e-847d-6dcb852053b9",
-                    "expectedControlType": "Delta",
-                    "processors": "ScaleVector2",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "a98b84ac-2e07-4a33-8361-2cd9b70081fc",
-                    "path": "<Mouse>/delta",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
             "name": "Player Actions",
             "id": "653340f8-99cf-4bc5-af58-e9b86b2f9c9a",
             "actions": [
@@ -136,6 +108,33 @@
                     "name": "LB",
                     "type": "Button",
                     "id": "0e6b2acb-4557-4819-961e-ff9b1f80eb7b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Two Handed Weapon",
+                    "type": "PassThrough",
+                    "id": "02e738b5-e7f4-4e3b-9058-78afd7105ee5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold(duration=0.15,pressPoint=0.5)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Two Hand Right Weapon",
+                    "type": "Button",
+                    "id": "531469cb-56d6-4b08-80e5-a7745689b348",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Tap",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Two Hand Left Weapon",
+                    "type": "Button",
+                    "id": "6517d0eb-f559-47ba-868b-6fafd0a7f52b",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -404,6 +403,67 @@
                     "processors": "",
                     "groups": "",
                     "action": "LB",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3d142a00-3538-48a1-9192-c104352089ce",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Two Hand Left Weapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c7707e71-f562-42ae-a5dd-1a36f0bd806a",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Two Handed Weapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "51800b50-eb1c-4e38-9984-bb20eeeb5ba3",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Two Hand Right Weapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Player Camera",
+            "id": "0d569593-1e93-4c29-becb-e6da39aec42d",
+            "actions": [
+                {
+                    "name": "Movement",
+                    "type": "PassThrough",
+                    "id": "9876b3ba-827d-410e-847d-6dcb852053b9",
+                    "expectedControlType": "Delta",
+                    "processors": "ScaleVector2",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a98b84ac-2e07-4a33-8361-2cd9b70081fc",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

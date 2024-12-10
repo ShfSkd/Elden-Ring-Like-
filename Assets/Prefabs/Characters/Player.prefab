@@ -176,6 +176,52 @@ Transform:
   m_Father: {fileID: 5695059062265057366}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1502434835678822978
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5892047776166650444}
+  - component: {fileID: 8345075656169388849}
+  m_Layer: 7
+  m_Name: Back Slot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5892047776166650444
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1502434835678822978}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1740525175848010608}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8345075656169388849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1502434835678822978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f12d31b3b7b844f448a02961dcd4e071, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weaponSlot: 3
+  _currentWeaponModel: {fileID: 0}
 --- !u!1 &1502727102818897468
 GameObject:
   m_ObjectHideFlags: 0
@@ -964,14 +1010,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3608410518728788270}
-  m_LocalRotation: {x: 0.27590236, y: -0.21024948, z: -0.923916, w: 0.16140737}
-  m_LocalPosition: {x: -0.016, y: 0.038, z: 0.02}
+  m_LocalRotation: {x: 0.11666176, y: 0.7827527, z: 0.25380763, w: 0.5561204}
+  m_LocalPosition: {x: 0.21, y: 0.103, z: 0.063}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8576228141538194277}
   m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: -17.424, y: 322.737, z: 205.734}
+  m_LocalEulerAnglesHint: {x: -15.52, y: 105.2, z: 28.85}
 --- !u!114 &4518175865840120387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1659,6 +1705,14 @@ MonoBehaviour:
     m_InternalValue: 0
   _isUsingLeftHand:
     m_InternalValue: 0
+  _currentWeaponBeingTwoHanded:
+    m_InternalValue: 0
+  _isTwoHandingWeapon:
+    m_InternalValue: 0
+  _isTwoHandingRightWepoen:
+    m_InternalValue: 0
+  _isTwoLefHandingWeapon:
+    m_InternalValue: 0
 --- !u!114 &-4884708022747012816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1692,12 +1746,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b6a019ab9ae5de4f9bc514efdd44694, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gravityForce: -5.55
+  _gravityForce: -40
   _groundLayer:
     serializedVersion: 2
     m_Bits: 1
-  _groundCheckSphereRaduis: 1
-  _yVelocity: {x: 0, y: 0, z: 0}
+  _groundCheckSphereRaduis: 0.3
+  _yVelocity: {x: 0, y: -20, z: 0}
   _groundedYVelocity: -20
   _fallStartYVelocity: -5
   _isRolling: 0
@@ -1759,6 +1813,13 @@ MonoBehaviour:
   _blockingMagicAbsorption: 0
   _blockingLightningAbsorption: 0
   _blockingHolyAbsorption: 0
+  _stabiltyRating: 0
+  _blockingStability: 0
+  _totalPoiseDamage: 0
+  _offensivePoiseDamage: 0
+  _basePoiseDefence: 0
+  _defualtPoiseRestTimer: 8
+  _poiseResetTimer: 0
 --- !u!114 &-6041495927640839322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1788,6 +1849,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentRightHandWeapon: {fileID: 11400000, guid: 14c3281558bbad84baaefea5fb58e2cf, type: 2}
   _currentLeftHandWeapon: {fileID: 11400000, guid: 14c3281558bbad84baaefea5fb58e2cf, type: 2}
+  _currentTwoHandWeapon: {fileID: 0}
   _weaponInRigthHandSlots:
   - {fileID: 11400000, guid: 8e5375d83986e634ab25c2bfe42a5769, type: 2}
   - {fileID: 11400000, guid: 973e05087bb4ff04583611472546faad, type: 2}
@@ -1813,10 +1875,11 @@ MonoBehaviour:
   _rightHandSlot: {fileID: 0}
   _leftHandWeaponSlot: {fileID: 0}
   _leftHandShieldSlot: {fileID: 0}
-  _rightWeaponManager: {fileID: 0}
-  _leftWeaponManager: {fileID: 0}
+  _backSlot: {fileID: 0}
   _rightHandWeaponModel: {fileID: 0}
   _leftHandWeaponModel: {fileID: 0}
+  _rightWeaponManager: {fileID: 0}
+  _leftWeaponManager: {fileID: 0}
 --- !u!114 &5343010605841613971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1831,6 +1894,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _applyRootMotion: 0
   _lastDamageAnimationPlayed: 
+  _hit_Forward_Ping_01: Hit_Forward_Ping_01
+  _hit_Forward_Ping_02: Hit_Forward_Ping_02
+  _hit_Backward_Ping_01: Hit_Backward_Ping_01
+  _hit_Backward_Ping_02: Hit_Backward_Ping_02
+  _hit_Left_Ping_01: Hit_Left_Ping_01
+  _hit_Left_Ping_02: Hit_Left_Ping_02
+  _hit_Right_Ping_01: Hit_Right_Ping_01
+  _hit_Right_Ping_02: Hit_Right_Ping_02
+  _forward_Oing_Damage_List: []
+  _forward_Ping_Damage_List: []
+  _left_Ping_damage_List: []
+  _right_Ping_damage_List: []
+  _backeard_Ping_damage_List: []
   _hit_Forward_Medium_01: Hit_Forward_Medium_01
   _hit_Forward_Medium_02: Hit_Forward_Medium_02
   _hit_Backward_Medium_01: Hit_Backward_Medium_01
@@ -2172,6 +2248,7 @@ Transform:
   - {fileID: 6398963109980101054}
   - {fileID: 578385244354637334}
   - {fileID: 6520069013015240758}
+  - {fileID: 5892047776166650444}
   m_Father: {fileID: 6759393352583900978}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

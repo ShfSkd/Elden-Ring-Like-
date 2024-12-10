@@ -1,9 +1,7 @@
 using SKD.Character.Player;
 using SKD.Interacts;
 using SKD.World_Manager;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -22,7 +20,7 @@ namespace SKD
 
         [Header("Sound")]
         private AudioSource _fogwallAudioSource;
-        [SerializeField]AudioClip _fogwallSFX;
+        [SerializeField] AudioClip _fogwallSFX;
 
         [Header("Active")]
         public NetworkVariable<bool> _isActive = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);

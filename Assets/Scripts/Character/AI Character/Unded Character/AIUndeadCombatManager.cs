@@ -12,6 +12,7 @@ namespace SKD.Character.AI_Character.UndeadCharacter
 
         [Header("Damage")]
         [SerializeField] int _baseDamage = 25;
+        [SerializeField] int _poiseBaseDamage = 25;
         [SerializeField] float _attack01DamageModifier = 1f;
         [SerializeField] float _attack02DamageModifier = 1.4f;
  
@@ -19,11 +20,17 @@ namespace SKD.Character.AI_Character.UndeadCharacter
         {
             _rightHandDamageCollider._physicalDamage = _baseDamage * _attack01DamageModifier;
             _leftHandDamageCollider._physicalDamage = _baseDamage * _attack01DamageModifier;
+            
+            _rightHandDamageCollider._poiseDamage = _poiseBaseDamage * _attack01DamageModifier;
+            _leftHandDamageCollider._poiseDamage = _poiseBaseDamage * _attack01DamageModifier;
         }
         public void SetAttack02Damage()
         {
             _rightHandDamageCollider._physicalDamage = _baseDamage * _attack02DamageModifier;
             _leftHandDamageCollider._physicalDamage = _baseDamage * _attack02DamageModifier;
+            
+            _rightHandDamageCollider._poiseDamage = _poiseBaseDamage * _attack02DamageModifier;
+            _leftHandDamageCollider._poiseDamage = _poiseBaseDamage * _attack02DamageModifier;
         }
         public void OpenRightHandCollider()
         {

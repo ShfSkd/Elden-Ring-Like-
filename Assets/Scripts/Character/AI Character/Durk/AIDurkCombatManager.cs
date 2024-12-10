@@ -8,20 +8,21 @@ namespace SKD.Character.AI_Character.Durk
     {
         AIDurkCharacterManager _durkCharacterManager;
 
-        [Header("Damage Collider")]
-        [SerializeField] DurkClubDamageCollider _clubDamageCollider;
+        [Header("Damage Collider")] [SerializeField]
+        DurkClubDamageCollider _clubDamageCollider;
+
         [SerializeField] DurkStompCollider _durkStompCollider;
         public float _stompAttackAOERadius = 1.5f;
 
-        [Header("Damage")]
+        [Header("Damage")] 
         [SerializeField] int _baseDamage = 25;
+        [SerializeField] int _basePoiseDamage = 25;
         [SerializeField] float _attack01DamageModifier = 1f;
         [SerializeField] float _attack02DamageModifier = 1.4f;
         [SerializeField] float _attack03DamageModifier = 1.6f;
         [SerializeField] float _stompDamage = 25f;
 
-        [Header("VFX")]
-        public GameObject _durkImpactVFX;
+        [Header("VFX")] public GameObject _durkImpactVFX;
 
         protected override void Awake()
         {
@@ -29,31 +30,41 @@ namespace SKD.Character.AI_Character.Durk
 
             _durkCharacterManager = GetComponent<AIDurkCharacterManager>();
         }
+
         public void SetAttack01Damage()
         {
             _aICharacterManager._characterSoundFXManager.PlayAttackGrunt();
             _clubDamageCollider._physicalDamage = _baseDamage * _attack01DamageModifier;
+            _clubDamageCollider._poiseDamage = _basePoiseDamage * _attack01DamageModifier;
         }
+
         public void SetAttack02Damage()
         {
             _aICharacterManager._characterSoundFXManager.PlayAttackGrunt();
             _clubDamageCollider._physicalDamage = _baseDamage * _attack02DamageModifier;
+            _clubDamageCollider._poiseDamage = _basePoiseDamage * _attack02DamageModifier;
         }
+
         public void SetAttack03Damage()
         {
             _aICharacterManager._characterSoundFXManager.PlayAttackGrunt();
             _clubDamageCollider._physicalDamage = _baseDamage * _attack03DamageModifier;
+            _clubDamageCollider._poiseDamage = _basePoiseDamage * _attack03DamageModifier;
         }
+
         public void OpenClubDamageCollider()
         {
             _clubDamageCollider.EnableDamageCollider();
-            _durkCharacterManager._characterSoundFXManager.PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(_durkCharacterManager._aIDurkSoundFXManager._clubWhooshes));
-
+            _durkCharacterManager._characterSoundFXManager.PlaySoundFX(
+                WorldSoundFXManager.instance.ChooseRandomSFXFromArray(_durkCharacterManager._aIDurkSoundFXManager
+                    ._clubWhooshes));
         }
+
         public void CloseClubDamageCollider()
         {
             _clubDamageCollider.DisableDamageCollider();
         }
+
         public void ActivateDurkStomp()
         {
             _durkStompCollider.StompAttack();
@@ -77,6 +88,7 @@ namespace SKD.Character.AI_Character.Durk
             else if (_viewableAngle <= -146 && _viewableAngle >= -180)
                 aiCharacter._characterAnimationManager.PlayTargetActionAnimation("Left Turn 180", true);
         }
+
         public float GetStompDamage()
         {
             return _stompDamage;

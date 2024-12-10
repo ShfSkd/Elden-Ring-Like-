@@ -19,6 +19,7 @@ namespace SKD
     public enum WeaponModelSlot
     {
         RightHandWeaponSlot, LeftHandWeaponSlot,LeftHandShieldSlot,
+        BackSlot
     }
     public enum WeaponModelType
     {
@@ -40,5 +41,10 @@ namespace SKD
     public enum DamageIntensity
     {
         Ping,Light,Meduim,Heavy,Colossal 
+    }
+
+    public enum WeaponClass
+    {
+        StraightSword,Spear,MediumShield
     }
 }

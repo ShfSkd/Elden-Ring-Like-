@@ -19,6 +19,8 @@ public class ResetActionFlag : StateMachineBehaviour
         _characterManager._characterLocomotionManager._canMove = true;
         _characterManager._characterLocomotionManager._isRolling = false;
         _characterManager._characterAnimationManager.DisableCanDoCombo();
+        _characterManager._characterCombatManager.DisableCanDoRollingAttack();
+        _characterManager._characterCombatManager.DisableCanDoBackstepAttack();
 
         if (_characterManager.IsOwner)
         {

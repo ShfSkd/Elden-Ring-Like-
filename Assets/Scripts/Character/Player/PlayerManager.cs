@@ -84,7 +84,7 @@ namespace SKD.Character.Player
             if (IsOwner)
             {
                 PlayerCamera.Instance._playerManager = this;
-                PlayerInputManager.Instance._playerManager = this;
+                PlayerInputManager.Instance._player = this;
                 WorldSaveGameManager.Instance._playerManager = this;
 
                 // Update the total amount of health or stamina when the stat linked to either changes
@@ -114,6 +114,11 @@ namespace SKD.Character.Player
             _playerNetworkManager._currentLeftWeaponID.OnValueChanged += _playerNetworkManager.OnCurrentLeftHandWeaponIDChange;
             _playerNetworkManager._currentWeaponBeingUsed.OnValueChanged += _playerNetworkManager.OnCurrentWeaponBeingUsedIDChange;
             _playerNetworkManager._isBlocking.OnValueChanged += _playerNetworkManager.OnIsBlockingChanged;
+            
+            // Two Hand
+            _playerNetworkManager._isTwoHandingWeapon.OnValueChanged += _playerNetworkManager.OnIsTwoHandingWeaponChanged;
+            _playerNetworkManager._isTwoHandingRightWepoen.OnValueChanged += _playerNetworkManager.OnIsTwoHandingRightWeaponChanged;
+            _playerNetworkManager._isTwoHandingLeftWeapon.OnValueChanged += _playerNetworkManager.OnIsTwoHandingLeftWeaponChanged;
 
             // Flags
             _playerNetworkManager._isChargingAttack.OnValueChanged += _playerNetworkManager.OnIsCharagingAttackChanged;
@@ -160,7 +165,12 @@ namespace SKD.Character.Player
             _playerNetworkManager._currentLeftWeaponID.OnValueChanged -= _playerNetworkManager.OnCurrentLeftHandWeaponIDChange;
             _playerNetworkManager._currentWeaponBeingUsed.OnValueChanged -= _playerNetworkManager.OnCurrentWeaponBeingUsedIDChange;
             _playerNetworkManager._isBlocking.OnValueChanged -= _playerNetworkManager.OnIsBlockingChanged;
-
+            
+            // Two Hand
+            _playerNetworkManager._isTwoHandingWeapon.OnValueChanged -= _playerNetworkManager.OnIsTwoHandingWeaponChanged;
+            _playerNetworkManager._isTwoHandingRightWepoen.OnValueChanged -= _playerNetworkManager.OnIsTwoHandingRightWeaponChanged;
+            _playerNetworkManager._isTwoHandingLeftWeapon.OnValueChanged -= _playerNetworkManager.OnIsTwoHandingLeftWeaponChanged;
+            
             // Flags
             _playerNetworkManager._isChargingAttack.OnValueChanged -= _playerNetworkManager.OnIsCharagingAttackChanged;
         }
@@ -248,6 +258,10 @@ namespace SKD.Character.Player
             // Sync weapons 
             _playerNetworkManager.OnCurrentRightHandWeaponIDChange(0, _playerNetworkManager._currentRightWeaponID.Value);
             _playerNetworkManager.OnCurrentLeftHandWeaponIDChange(0, _playerNetworkManager._currentLeftWeaponID.Value);
+            
+            // Sync two hand status 
+            _playerNetworkManager.OnIsTwoHandingRightWeaponChanged(false,_playerNetworkManager._isTwoHandingRightWepoen.Value);
+            _playerNetworkManager.OnIsTwoHandingLeftWeaponChanged(false,_playerNetworkManager._isTwoHandingLeftWeapon.Value);
 
             // Sync blocking
             _playerNetworkManager.OnIsBlockingChanged(false, _playerNetworkManager._isBlocking.Value);

@@ -96,34 +96,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             ]
         },
         {
-            ""name"": ""Player Camera"",
-            ""id"": ""0d569593-1e93-4c29-becb-e6da39aec42d"",
-            ""actions"": [
-                {
-                    ""name"": ""Movement"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""9876b3ba-827d-410e-847d-6dcb852053b9"",
-                    ""expectedControlType"": ""Delta"",
-                    ""processors"": ""ScaleVector2"",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""a98b84ac-2e07-4a33-8361-2cd9b70081fc"",
-                    ""path"": ""<Mouse>/delta"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
             ""name"": ""Player Actions"",
             ""id"": ""653340f8-99cf-4bc5-af58-e9b86b2f9c9a"",
             ""actions"": [
@@ -158,6 +130,33 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""LB"",
                     ""type"": ""Button"",
                     ""id"": ""0e6b2acb-4557-4819-961e-ff9b1f80eb7b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Two Handed Weapon"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""02e738b5-e7f4-4e3b-9058-78afd7105ee5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold(duration=0.15,pressPoint=0.5)"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Two Hand Right Weapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""531469cb-56d6-4b08-80e5-a7745689b348"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Tap"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Two Hand Left Weapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""6517d0eb-f559-47ba-868b-6fafd0a7f52b"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -428,6 +427,67 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""LB"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3d142a00-3538-48a1-9192-c104352089ce"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Two Hand Left Weapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c7707e71-f562-42ae-a5dd-1a36f0bd806a"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Two Handed Weapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""51800b50-eb1c-4e38-9984-bb20eeeb5ba3"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Two Hand Right Weapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Player Camera"",
+            ""id"": ""0d569593-1e93-4c29-becb-e6da39aec42d"",
+            ""actions"": [
+                {
+                    ""name"": ""Movement"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""9876b3ba-827d-410e-847d-6dcb852053b9"",
+                    ""expectedControlType"": ""Delta"",
+                    ""processors"": ""ScaleVector2"",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""a98b84ac-2e07-4a33-8361-2cd9b70081fc"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -465,15 +525,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         // Player Movement
         m_PlayerMovement = asset.FindActionMap("Player Movement", throwIfNotFound: true);
         m_PlayerMovement_Movment = m_PlayerMovement.FindAction("Movment", throwIfNotFound: true);
-        // Player Camera
-        m_PlayerCamera = asset.FindActionMap("Player Camera", throwIfNotFound: true);
-        m_PlayerCamera_Movement = m_PlayerCamera.FindAction("Movement", throwIfNotFound: true);
         // Player Actions
         m_PlayerActions = asset.FindActionMap("Player Actions", throwIfNotFound: true);
         m_PlayerActions_Dodge = m_PlayerActions.FindAction("Dodge", throwIfNotFound: true);
         m_PlayerActions_Jump = m_PlayerActions.FindAction("Jump", throwIfNotFound: true);
         m_PlayerActions_RB = m_PlayerActions.FindAction("RB", throwIfNotFound: true);
         m_PlayerActions_LB = m_PlayerActions.FindAction("LB", throwIfNotFound: true);
+        m_PlayerActions_TwoHandedWeapon = m_PlayerActions.FindAction("Two Handed Weapon", throwIfNotFound: true);
+        m_PlayerActions_TwoHandRightWeapon = m_PlayerActions.FindAction("Two Hand Right Weapon", throwIfNotFound: true);
+        m_PlayerActions_TwoHandLeftWeapon = m_PlayerActions.FindAction("Two Hand Left Weapon", throwIfNotFound: true);
         m_PlayerActions_QueRB = m_PlayerActions.FindAction("Que RB", throwIfNotFound: true);
         m_PlayerActions_RT = m_PlayerActions.FindAction("RT", throwIfNotFound: true);
         m_PlayerActions_QueRT = m_PlayerActions.FindAction("Que RT", throwIfNotFound: true);
@@ -485,6 +545,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_PlayerActions_SeekLeftLockOnTarget = m_PlayerActions.FindAction("Seek Left Lock On Target", throwIfNotFound: true);
         m_PlayerActions_SeekRightLockOnTarget = m_PlayerActions.FindAction("Seek Right Lock On Target", throwIfNotFound: true);
         m_PlayerActions_Interact = m_PlayerActions.FindAction("Interact", throwIfNotFound: true);
+        // Player Camera
+        m_PlayerCamera = asset.FindActionMap("Player Camera", throwIfNotFound: true);
+        m_PlayerCamera_Movement = m_PlayerCamera.FindAction("Movement", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Delete = m_UI.FindAction("Delete", throwIfNotFound: true);
@@ -592,52 +655,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     }
     public PlayerMovementActions @PlayerMovement => new PlayerMovementActions(this);
 
-    // Player Camera
-    private readonly InputActionMap m_PlayerCamera;
-    private List<IPlayerCameraActions> m_PlayerCameraActionsCallbackInterfaces = new List<IPlayerCameraActions>();
-    private readonly InputAction m_PlayerCamera_Movement;
-    public struct PlayerCameraActions
-    {
-        private @PlayerControls m_Wrapper;
-        public PlayerCameraActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Movement => m_Wrapper.m_PlayerCamera_Movement;
-        public InputActionMap Get() { return m_Wrapper.m_PlayerCamera; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(PlayerCameraActions set) { return set.Get(); }
-        public void AddCallbacks(IPlayerCameraActions instance)
-        {
-            if (instance == null || m_Wrapper.m_PlayerCameraActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_PlayerCameraActionsCallbackInterfaces.Add(instance);
-            @Movement.started += instance.OnMovement;
-            @Movement.performed += instance.OnMovement;
-            @Movement.canceled += instance.OnMovement;
-        }
-
-        private void UnregisterCallbacks(IPlayerCameraActions instance)
-        {
-            @Movement.started -= instance.OnMovement;
-            @Movement.performed -= instance.OnMovement;
-            @Movement.canceled -= instance.OnMovement;
-        }
-
-        public void RemoveCallbacks(IPlayerCameraActions instance)
-        {
-            if (m_Wrapper.m_PlayerCameraActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        public void SetCallbacks(IPlayerCameraActions instance)
-        {
-            foreach (var item in m_Wrapper.m_PlayerCameraActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_PlayerCameraActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    public PlayerCameraActions @PlayerCamera => new PlayerCameraActions(this);
-
     // Player Actions
     private readonly InputActionMap m_PlayerActions;
     private List<IPlayerActionsActions> m_PlayerActionsActionsCallbackInterfaces = new List<IPlayerActionsActions>();
@@ -645,6 +662,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerActions_Jump;
     private readonly InputAction m_PlayerActions_RB;
     private readonly InputAction m_PlayerActions_LB;
+    private readonly InputAction m_PlayerActions_TwoHandedWeapon;
+    private readonly InputAction m_PlayerActions_TwoHandRightWeapon;
+    private readonly InputAction m_PlayerActions_TwoHandLeftWeapon;
     private readonly InputAction m_PlayerActions_QueRB;
     private readonly InputAction m_PlayerActions_RT;
     private readonly InputAction m_PlayerActions_QueRT;
@@ -664,6 +684,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_PlayerActions_Jump;
         public InputAction @RB => m_Wrapper.m_PlayerActions_RB;
         public InputAction @LB => m_Wrapper.m_PlayerActions_LB;
+        public InputAction @TwoHandedWeapon => m_Wrapper.m_PlayerActions_TwoHandedWeapon;
+        public InputAction @TwoHandRightWeapon => m_Wrapper.m_PlayerActions_TwoHandRightWeapon;
+        public InputAction @TwoHandLeftWeapon => m_Wrapper.m_PlayerActions_TwoHandLeftWeapon;
         public InputAction @QueRB => m_Wrapper.m_PlayerActions_QueRB;
         public InputAction @RT => m_Wrapper.m_PlayerActions_RT;
         public InputAction @QueRT => m_Wrapper.m_PlayerActions_QueRT;
@@ -696,6 +719,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @LB.started += instance.OnLB;
             @LB.performed += instance.OnLB;
             @LB.canceled += instance.OnLB;
+            @TwoHandedWeapon.started += instance.OnTwoHandedWeapon;
+            @TwoHandedWeapon.performed += instance.OnTwoHandedWeapon;
+            @TwoHandedWeapon.canceled += instance.OnTwoHandedWeapon;
+            @TwoHandRightWeapon.started += instance.OnTwoHandRightWeapon;
+            @TwoHandRightWeapon.performed += instance.OnTwoHandRightWeapon;
+            @TwoHandRightWeapon.canceled += instance.OnTwoHandRightWeapon;
+            @TwoHandLeftWeapon.started += instance.OnTwoHandLeftWeapon;
+            @TwoHandLeftWeapon.performed += instance.OnTwoHandLeftWeapon;
+            @TwoHandLeftWeapon.canceled += instance.OnTwoHandLeftWeapon;
             @QueRB.started += instance.OnQueRB;
             @QueRB.performed += instance.OnQueRB;
             @QueRB.canceled += instance.OnQueRB;
@@ -745,6 +777,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @LB.started -= instance.OnLB;
             @LB.performed -= instance.OnLB;
             @LB.canceled -= instance.OnLB;
+            @TwoHandedWeapon.started -= instance.OnTwoHandedWeapon;
+            @TwoHandedWeapon.performed -= instance.OnTwoHandedWeapon;
+            @TwoHandedWeapon.canceled -= instance.OnTwoHandedWeapon;
+            @TwoHandRightWeapon.started -= instance.OnTwoHandRightWeapon;
+            @TwoHandRightWeapon.performed -= instance.OnTwoHandRightWeapon;
+            @TwoHandRightWeapon.canceled -= instance.OnTwoHandRightWeapon;
+            @TwoHandLeftWeapon.started -= instance.OnTwoHandLeftWeapon;
+            @TwoHandLeftWeapon.performed -= instance.OnTwoHandLeftWeapon;
+            @TwoHandLeftWeapon.canceled -= instance.OnTwoHandLeftWeapon;
             @QueRB.started -= instance.OnQueRB;
             @QueRB.performed -= instance.OnQueRB;
             @QueRB.canceled -= instance.OnQueRB;
@@ -796,6 +837,52 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     }
     public PlayerActionsActions @PlayerActions => new PlayerActionsActions(this);
 
+    // Player Camera
+    private readonly InputActionMap m_PlayerCamera;
+    private List<IPlayerCameraActions> m_PlayerCameraActionsCallbackInterfaces = new List<IPlayerCameraActions>();
+    private readonly InputAction m_PlayerCamera_Movement;
+    public struct PlayerCameraActions
+    {
+        private @PlayerControls m_Wrapper;
+        public PlayerCameraActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Movement => m_Wrapper.m_PlayerCamera_Movement;
+        public InputActionMap Get() { return m_Wrapper.m_PlayerCamera; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(PlayerCameraActions set) { return set.Get(); }
+        public void AddCallbacks(IPlayerCameraActions instance)
+        {
+            if (instance == null || m_Wrapper.m_PlayerCameraActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_PlayerCameraActionsCallbackInterfaces.Add(instance);
+            @Movement.started += instance.OnMovement;
+            @Movement.performed += instance.OnMovement;
+            @Movement.canceled += instance.OnMovement;
+        }
+
+        private void UnregisterCallbacks(IPlayerCameraActions instance)
+        {
+            @Movement.started -= instance.OnMovement;
+            @Movement.performed -= instance.OnMovement;
+            @Movement.canceled -= instance.OnMovement;
+        }
+
+        public void RemoveCallbacks(IPlayerCameraActions instance)
+        {
+            if (m_Wrapper.m_PlayerCameraActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IPlayerCameraActions instance)
+        {
+            foreach (var item in m_Wrapper.m_PlayerCameraActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_PlayerCameraActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public PlayerCameraActions @PlayerCamera => new PlayerCameraActions(this);
+
     // UI
     private readonly InputActionMap m_UI;
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
@@ -845,16 +932,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     {
         void OnMovment(InputAction.CallbackContext context);
     }
-    public interface IPlayerCameraActions
-    {
-        void OnMovement(InputAction.CallbackContext context);
-    }
     public interface IPlayerActionsActions
     {
         void OnDodge(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnRB(InputAction.CallbackContext context);
         void OnLB(InputAction.CallbackContext context);
+        void OnTwoHandedWeapon(InputAction.CallbackContext context);
+        void OnTwoHandRightWeapon(InputAction.CallbackContext context);
+        void OnTwoHandLeftWeapon(InputAction.CallbackContext context);
         void OnQueRB(InputAction.CallbackContext context);
         void OnRT(InputAction.CallbackContext context);
         void OnQueRT(InputAction.CallbackContext context);
@@ -866,6 +952,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnSeekLeftLockOnTarget(InputAction.CallbackContext context);
         void OnSeekRightLockOnTarget(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+    }
+    public interface IPlayerCameraActions
+    {
+        void OnMovement(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

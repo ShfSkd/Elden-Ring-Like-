@@ -60,6 +60,7 @@ namespace SKD.Colliders
             damageEffect._magicDamage = _magicDamage;
             damageEffect._fireDamage = _fireDamage;
             damageEffect._holyDamage = _holyDamage;
+            damageEffect._poiseDamage = _poiseDamage; 
             damageEffect._lightingDamage = _lightningDamage;
             damageEffect._constantPoint = _contactPoint;
             damageEffect._angleHitFrom = Vector3.SignedAngle(_characterCausingDamage.transform.forward, damageTarget.transform.forward, Vector3.up);

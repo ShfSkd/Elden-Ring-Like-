@@ -52,5 +52,10 @@ namespace SKD.Character
                 PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray
                     (_footStep));
         }
+
+        public virtual void PlayBlockingSFX()
+        {
+            
+        }
     }
 }

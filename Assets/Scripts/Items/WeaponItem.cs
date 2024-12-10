@@ -13,10 +13,13 @@ namespace SKD.Items
 
         [Header("Model Instantiation")]
         public WeaponModelType _weaponModelType;
-
+        
         [Header("Weapon Model")]
         public GameObject _weaponModel;
 
+        [Header("Weapon Class")]
+        public WeaponClass _weaponClass;
+        
         [Header("Weapon Requirements")]
         public int _weaponRequirement = 0;
         public int _dexRequirement = 0; // Dexterity- skill in performing tasks, especially with the hands. 
@@ -77,8 +80,9 @@ namespace SKD.Items
         public WeaponItemAction _keyboard_RT_Action;// One hand right trigger action
         public WeaponItemAction _keyboard_LB_Action;// One hand left bumper  action
 
-        [Header("Whooshes")]
+        [Header("SFX")]
         public AudioClip[] _whooshes;
+        public AudioClip[] _blocking;
 
 
         // Ash of war 

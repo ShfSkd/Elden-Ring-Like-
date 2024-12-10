@@ -54,4 +54,12 @@ MonoBehaviour:
   _keyboard_RB_Action: {fileID: 11400000, guid: 94c2437632bda3e49954af8d6bc9cf34, type: 2}
   _keyboard_RT_Action: {fileID: 11400000, guid: ecc5776eb24786e4a9e1200ad0cd7bc0, type: 2}
   _keyboard_LB_Action: {fileID: 11400000, guid: 466471ed187b1524883fdc52b017725e, type: 2}
-  _whooshes: []
+  _whooshes:
+  - {fileID: 8300000, guid: 0e9bca6dd55d7e541a865752da6415f5, type: 3}
+  - {fileID: 8300000, guid: 28406bf68add30e4e89d6cd063fb84e6, type: 3}
+  - {fileID: 8300000, guid: c266e86e5ec11e344bf66dede26cbc46, type: 3}
+  - {fileID: 8300000, guid: 90fb91c5d9f18df4183363d36d921429, type: 3}
+  _blocking:
+  - {fileID: 8300000, guid: 5c25a8b6c2ef9624caf832fe0d756bbd, type: 3}
+  - {fileID: 8300000, guid: 616758222d84f6f47b8b9dd6a3e5d3b8, type: 3}
+  - {fileID: 8300000, guid: 7ed99645cac6f06438be178db3df164c, type: 3}

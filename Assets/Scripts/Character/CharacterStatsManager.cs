@@ -19,6 +19,16 @@ namespace SKD.Character
         public float _blockingMagicAbsorption;
         public float _blockingLightningAbsorption;
         public float _blockingHolyAbsorption;
+        public float _stabiltyRating;
+        public float _blockingStability;
+        
+        [Header("Poise")]
+        public float _totalPoiseDamage; // how much poise damage we have taken
+        public float _offensivePoiseDamage; // The posie bonus gained from using weapons (heavy weapon or much large bonus)
+        public float _basePoiseDefence;    // The poise bonus gained from armor/talisman etc..
+        public float _defualtPoiseRestTimer = 8f; // The time it takes for poise to reset (must not be hit in time or will reset)
+        public float _poiseResetTimer;
+
 
         protected virtual void Awake()
         {
@@ -26,7 +36,12 @@ namespace SKD.Character
         }
         protected virtual void Start()
         {
+            HandlePoiseResetTimer();    
+        }
 
+        protected virtual void Update()
+        {
+            HandlePoiseResetTimer();
         }
         public int CalculateHealthBasedOnVitalityLevel(int vitality)
         {
@@ -73,6 +88,14 @@ namespace SKD.Character
             // We don't want to reset the regeneration if we are already regenerating stamina
             if (currentStaminaAmount < previousStaminaAmount)
                 _staminaRegeneartionTimer = 0;
+        }
+
+        protected virtual void HandlePoiseResetTimer()
+        {
+            if (_poiseResetTimer > 0)
+                _poiseResetTimer -= Time.deltaTime;
+            else
+                _totalPoiseDamage = 0;
         }
     }
 }
