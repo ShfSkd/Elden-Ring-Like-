@@ -47,7 +47,10 @@ MonoBehaviour:
   _bloodSplatterVFX: {fileID: 0}
   _takeDamageEffect: {fileID: 11400000, guid: a2600a8637ee2e5479c77ed2ba3b0184, type: 2}
   _takeBlockedDamageEffect: {fileID: 11400000, guid: 624be3bd5329f6741a764069d99acef1, type: 2}
+  _twoHandingEffect: {fileID: 11400000, guid: 4d376f9bce3184e488b16deefdd05580, type: 2}
   _instantEffects:
   - {fileID: 11400000, guid: e4552ddebe8b46841a0f48625815ef94, type: 2}
   - {fileID: 11400000, guid: a2600a8637ee2e5479c77ed2ba3b0184, type: 2}
   - {fileID: 11400000, guid: 624be3bd5329f6741a764069d99acef1, type: 2}
+  _staticEffects:
+  - {fileID: 11400000, guid: 4d376f9bce3184e488b16deefdd05580, type: 2}

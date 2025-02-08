@@ -1524,7 +1524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2443456200
+  GlobalObjectIdHash: 853681870
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -1569,6 +1569,7 @@ MonoBehaviour:
   _playerEquipmentManager: {fileID: 0}
   _playerCombatManager: {fileID: 0}
   _playerInteractionManager: {fileID: 0}
+  _playerEffectsManager: {fileID: 0}
 --- !u!114 &-828183766973365821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1626,6 +1627,10 @@ MonoBehaviour:
     m_InternalValue: 10
   _endurance:
     m_InternalValue: 10
+  _streangth:
+    m_InternalValue: 1
+  _streangthModifier:
+    m_InternalValue: 1
   _characterName:
     m_InternalValue:
       utf8LengthInBytes: 9
@@ -1711,7 +1716,7 @@ MonoBehaviour:
     m_InternalValue: 0
   _isTwoHandingRightWepoen:
     m_InternalValue: 0
-  _isTwoLefHandingWeapon:
+  _isTwoHandingLeftWeapon:
     m_InternalValue: 0
 --- !u!114 &-4884708022747012816
 MonoBehaviour:
@@ -1833,6 +1838,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bloodSplatterVFX: {fileID: 3548738708314695399, guid: 13bdfb963274d4742a1e33fd72088c6b, type: 3}
+  _staticCEffects: []
   _effectToTest: {fileID: 11400000, guid: e4552ddebe8b46841a0f48625815ef94, type: 2}
   _proccesEffect: 1
 --- !u!114 &4498521549953450294
@@ -1872,7 +1878,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a2f5e2b6acf7154c8be5dccf2144e06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rightHandSlot: {fileID: 0}
+  _rightHandWeaponSlot: {fileID: 0}
   _leftHandWeaponSlot: {fileID: 0}
   _leftHandShieldSlot: {fileID: 0}
   _backSlot: {fileID: 0}

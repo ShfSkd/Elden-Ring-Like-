@@ -17,5 +17,11 @@ namespace SKD.UI.PlayerUI
         public int _rightHandWeaponIndex;
         public WeaponItem[] _weaponInLefthHandSlot = new WeaponItem[3];
         public int _leftHandWeaponIndex;
+        
+        [Header("Armor")]
+        public HeadEquipmentItem _headEquipment;
+        public BodyEquipmentItem _bodyEquipment;
+        public LegEquipmentItem _legEquipment;
+        public HandEquipmentItem _handEquipment;
     }
 }

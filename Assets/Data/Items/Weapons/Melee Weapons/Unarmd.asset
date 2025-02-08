@@ -17,7 +17,9 @@ MonoBehaviour:
   _itemDescription: 
   _itemID: 0
   _weaponAnimator: {fileID: 22100000, guid: 8bf23a3a1ca79b4489d71cbfd80076fd, type: 2}
+  _weaponModelType: 0
   _weaponModel: {fileID: 491000889957314042, guid: 1c03136346792d24b9208f5cf29ff915, type: 3}
+  _weaponClass: 3
   _weaponRequirement: 8
   _dexRequirement: 0
   _intelligentRequirement: 0
@@ -44,6 +46,14 @@ MonoBehaviour:
   _backstepAttackStaminaCostMultiplier: 1.1
   _baseStaminaCost: 5
   _lightAttackStaminaCostMultiplier: 0.9
+  _physicalBaseDamageAbsorption: 50
+  _magicBaseDamageAbsorption: 50
+  _fireBaseDamageAbsorption: 50
+  _holyBaseDamageAbsorption: 50
+  _lightingBaseDamageAbsorption: 50
+  _stability: 50
   _keyboard_RB_Action: {fileID: 11400000, guid: 41222f16db26c0b44bfe914370783d0c, type: 2}
   _keyboard_RT_Action: {fileID: 0}
+  _keyboard_LB_Action: {fileID: 0}
   _whooshes: []
+  _blocking: []

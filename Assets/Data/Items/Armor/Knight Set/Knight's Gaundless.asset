@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1794ce807c04a4486c8e4bea9e1aa9b, type: 3}
+  m_Name: Knight's Gaundless
+  m_EditorClassIdentifier: 
+  _itemName: Knight Gaundless
+  _itemIcon: {fileID: 0}
+  _itemDescription: 
+  _itemID: 0
+  _itemWeight: 3.5
+  _physicalDamageAbsorption: 3.1
+  _magicDamageAbsorption: 2.7
+  _fireDamageAbsorption: 2.7
+  _ligthningDamageAbsorption: 2.3
+  _holyDamageAbsorption: 2.1
+  _immunity: 9
+  _robustness: 17
+  _focus: 6
+  _vitsality: 6
+  _poise: 5

@@ -1,4 +1,5 @@
-﻿using SKD.Items;
+﻿using System;
+using SKD.Items;
 using SKD.World_Manager;
 using System.Collections;
 using UnityEngine;
@@ -26,6 +27,9 @@ namespace SKD.Character.Player
 
         [SerializeField] WeaponManager _leftWeaponManager;
 
+        [Header("Debug")]
+        [SerializeField] bool _equipNewItems;
+
         protected override void Awake()
         {
             base.Awake();
@@ -42,7 +46,80 @@ namespace SKD.Character.Player
 
             LoadWeaponsOnBothhands();
         }
+        void Update()
+        {
+            if (_equipNewItems)
+            {
+                _equipNewItems = false;
+                DebugNewItems();
+            }
+        }
+        private void DebugNewItems()
+        {
+            Debug.Log("Equipping New Items ");
 
+            if (_player._playerInventoryManager._headEquipment != null)
+                LoadHeadEquipment(_player._playerInventoryManager._headEquipment);
+
+            if (_player._playerInventoryManager._bodyEquipment != null)
+                LoadBodyEquipment(_player._playerInventoryManager._bodyEquipment);
+
+            if (_player._playerInventoryManager._handEquipment != null)
+                LoadHandEquipment(_player._playerInventoryManager._handEquipment);
+
+            if (_player._playerInventoryManager._legEquipment != null)
+                LoadLegEquipment(_player._playerInventoryManager._legEquipment);
+        }
+
+        // Equipment 
+        public void LoadHeadEquipment(HeadEquipmentItem equipment)
+        {
+            // 1. Unload old head equipment(if any)
+            // 2. If you have an "OnItemEquipped" call on your equipment, run it now 
+            // 3. If equipment is NULL simply set equipment in inventory to null and return  
+            // 4. Set current head equipment in player inventory to the equipment that is passed to this function 
+            // 5. if you need to check for head equipment type to disable certain body features (hood disabling hair etc, full helms disabling heads) Do it now
+            // 6. Load head equipment models
+            // 7. Calculate total equipment load (weight of all of your equipment. This impact roll speed and at extreme weight, movement speed)
+            // 8. Calculate total armor absorption 
+            _player._playerStatsManager.CalculateTotalArmorAbsorption();
+        }
+        public void LoadBodyEquipment(BodyEquipmentItem equipment)
+        {
+            // 1. Unload old head equipment(if any)
+            // 2. If you have an "OnItemEquipped" call on your equipment, run it now 
+            // 3. If equipment is NULL simply set equipment in inventory to null and return  
+            // 4. Set current head equipment in player inventory to the equipment that is passed to this function 
+            // 5. if you need to check for head equipment type to disable certain body features (hood disabling hair etc, full helms disabling heads) Do it now
+            // 6. Load head equipment models
+            // 7. Calculate total equipment load (weight of all of your equipment. This impact roll speed and at extreme weight, movement speed)
+            // 8. Calculate total armor absorption 
+            _player._playerStatsManager.CalculateTotalArmorAbsorption();
+        }
+        public void LoadLegEquipment(LegEquipmentItem equipment)
+        {
+            // 1. Unload old head equipment(if any)
+            // 2. If you have an "OnItemEquipped" call on your equipment, run it now 
+            // 3. If equipment is NULL simply set equipment in inventory to null and return  
+            // 4. Set current head equipment in player inventory to the equipment that is passed to this function 
+            // 5. if you need to check for head equipment type to disable certain body features (hood disabling hair etc, full helms disabling heads) Do it now
+            // 6. Load head equipment models
+            // 7. Calculate total equipment load (weight of all of your equipment. This impact roll speed and at extreme weight, movement speed)
+            // 8. Calculate total armor absorption 
+            _player._playerStatsManager.CalculateTotalArmorAbsorption();
+        }
+        public void LoadHandEquipment(HandEquipmentItem equipment)
+        {
+            // 1. Unload old head equipment(if any)
+            // 2. If you have an "OnItemEquipped" call on your equipment, run it now 
+            // 3. If equipment is NULL simply set equipment in inventory to null and return  
+            // 4. Set current head equipment in player inventory to the equipment that is passed to this function 
+            // 5. if you need to check for head equipment type to disable certain body features (hood disabling hair etc, full helms disabling heads) Do it now
+            // 6. Load head equipment models
+            // 7. Calculate total equipment load (weight of all of your equipment. This impact roll speed and at extreme weight, movement speed)
+            // 8. Calculate total armor absorption 
+            _player._playerStatsManager.CalculateTotalArmorAbsorption();
+        }
         private void InitializeWeaponSlots()
         {
             WeaponModelInstantiationSlot[] weaponsSlots = GetComponentsInChildren<WeaponModelInstantiationSlot>();
@@ -370,7 +447,7 @@ namespace SKD.Character.Player
                 _player._playerInventoryManager._currentRightHandWeapon._weaponClass, _player);
             //  place the handed weapon model in the main (Right hand)
             _rightHandWeaponSlot.PlaceWeaponModelIntoSlot(_leftHandWeaponModel);
-            
+
             //  if you are two handed the right weapon, place the left weapon model in the character left hand
             _rightWeaponManager.SetWeaponDamage(_player, _player._playerInventoryManager._currentRightHandWeapon);
             _leftWeaponManager.SetWeaponDamage(_player, _player._playerInventoryManager._currentLeftHandWeapon);

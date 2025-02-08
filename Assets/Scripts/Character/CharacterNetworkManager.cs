@@ -2,6 +2,7 @@
 using SKD.WorldManager;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace SKD.Character
 {
@@ -50,7 +51,11 @@ namespace SKD.Character
         [Header("Stats")]
         public NetworkVariable<int> _vitality = new NetworkVariable<int>(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> _endurance = new NetworkVariable<int>(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-
+        public NetworkVariable<int> _strength = new NetworkVariable<int>(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        
+        [Header("Stats Modifiers")]
+        public NetworkVariable<int> _strengthModifier = new NetworkVariable<int>(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        
         protected virtual void Awake()
         {
             _characterManager = GetComponent<CharacterManager>();
@@ -66,7 +71,7 @@ namespace SKD.Character
             {
                 if (_currentHealth.Value <= 0)
                 {
-
+                    
                 }
             }
         }

@@ -15,14 +15,14 @@ namespace SKD.Character.Player
         PlayerControls _playerControls;
         [FormerlySerializedAs("_playerManager")] public PlayerManager _player;
 
-        [Header("Player Movement Input")] 
+        [Header("Player Movement Input")]
         [SerializeField] Vector2 _movementInput;
 
         public float _verticalInput;
         public float _horizontalInput;
         public float _moveAmount;
 
-        [Header("Camera Movement Input")] 
+        [Header("Camera Movement Input")]
         [SerializeField] Vector2 _cameraInput;
 
         public float _cameraVerticalInput;
@@ -34,35 +34,32 @@ namespace SKD.Character.Player
         [SerializeField] bool _lockOnRightInput;
         private Coroutine _lockOnCoroutine;
 
-        [Header("Player Actions Inputs")] 
-        [SerializeField]
-        bool _dodgeInput;
-
+        [Header("Player Actions Inputs")]
+        [SerializeField] bool _dodgeInput;
         [SerializeField] bool _sprintInput;
         [SerializeField] bool _jumpInput;
         [SerializeField] bool _switchRightWeapon_Input;
         [SerializeField] bool _switchLeftWeapon_Input;
         [SerializeField] bool _interactInput;
 
-        [Header("Qued Inputs")] private bool _input_Que_IsActive;
+        [Header("Qued Inputs")]
+        private bool _input_Que_IsActive;
         [SerializeField] float _default_Que_Input_Time = 0.35f;
         [SerializeField] float _que_Input_Timer;
         [SerializeField] bool _que_RB_Input;
         [SerializeField] bool _que_RT_Input;
 
-        [Header("Bumper Inputs")] [SerializeField]
-        bool _RB_Input;
-
+        [Header("Bumper Inputs")]
+        [SerializeField] bool _RB_Input;
         [SerializeField] bool _LB_Input;
 
-        [Header("Two Handed Inputs")] [SerializeField]
-        bool _two_Hand_Input;
-
-        [SerializeField] bool _two_Hand_Right_Input;
+        [Header("Two Handed Inputs")]
+        [SerializeField] bool _two_Hand_Input;
+        [SerializeField] bool _two_Hand_Right_Weapon_Input;
         [SerializeField] bool _two_Hand_Left_Input;
 
-        [Header("Trigger Inputs")] [SerializeField]
-        bool _RT_Input;
+        [Header("Trigger Inputs")]
+        [SerializeField] bool _RT_Input;
 
         [SerializeField] bool _holdRT_Input;
 
@@ -133,8 +130,8 @@ namespace SKD.Character.Player
                 // Two Hand
                 _playerControls.PlayerActions.TwoHandedWeapon.performed += i => _two_Hand_Input = true;
                 _playerControls.PlayerActions.TwoHandedWeapon.canceled += i => _two_Hand_Input = false;
-                _playerControls.PlayerActions.TwoHandRightWeapon.performed += i => _two_Hand_Right_Input = true;
-                _playerControls.PlayerActions.TwoHandRightWeapon.canceled += i => _two_Hand_Right_Input = false;
+                _playerControls.PlayerActions.TwoHandRightWeapon.performed += i => _two_Hand_Right_Weapon_Input = true;
+                _playerControls.PlayerActions.TwoHandRightWeapon.canceled += i => _two_Hand_Right_Weapon_Input = false;
                 _playerControls.PlayerActions.TwoHandLeftWeapon.performed += i => _two_Hand_Left_Input = true;
                 _playerControls.PlayerActions.TwoHandLeftWeapon.canceled += i => _two_Hand_Left_Input = false;
 
@@ -204,11 +201,11 @@ namespace SKD.Character.Player
             if (!_two_Hand_Input)
                 return;
 
-            if (_two_Hand_Right_Input)
+            if (_two_Hand_Right_Weapon_Input)
             {
                 // If we are using the two hand input and pressing the right two hand button we want to stop the regular RB input (Or else we should attack)
                 _RB_Input = false;
-                _two_Hand_Right_Input = false;
+                _two_Hand_Right_Weapon_Input = false;
                 _player._playerNetworkManager._isBlocking.Value = false;
 
                 if (_player._playerNetworkManager._isTwoHandingWeapon.Value)
@@ -408,7 +405,7 @@ namespace SKD.Character.Player
         {
             if (_two_Hand_Input)
                 return;
-            
+
             if (_RB_Input && Application.isPlaying)
             {
                 _RB_Input = false;
@@ -426,7 +423,7 @@ namespace SKD.Character.Player
         {
             if (_two_Hand_Input)
                 return;
-            
+
             if (_LB_Input)
             {
                 _LB_Input = false;
@@ -485,8 +482,7 @@ namespace SKD.Character.Player
             }
         }
 
-        private void
-            QueInput(ref bool que_RB_Input) // Passing a reference means we pass a specific bool, and not the value of the bool(true, false)
+        private void QueInput(ref bool que_RB_Input)// Passing a reference means we pass a specific bool, and not the value of the bool(true, false)
         {
             // Reset all qued inputs so only one can que at a time
             _que_RB_Input = false;

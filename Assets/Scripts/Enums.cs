@@ -45,6 +45,6 @@ namespace SKD
 
     public enum WeaponClass
     {
-        StraightSword,Spear,MediumShield
+        StraightSword,Spear,MediumShield,Fist
     }
 }

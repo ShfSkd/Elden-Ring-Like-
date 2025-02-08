@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5e835c615384910aa9de903fd8b6d21, type: 3}
+  m_Name: Knight's Legging
+  m_EditorClassIdentifier: 
+  _itemName: 'Knight Graveses '
+  _itemIcon: {fileID: 0}
+  _itemDescription: 
+  _itemID: 0
+  _itemWeight: 6.6
+  _physicalDamageAbsorption: 7.1
+  _magicDamageAbsorption: 6.2
+  _fireDamageAbsorption: 6.2
+  _ligthningDamageAbsorption: 5.4
+  _holyDamageAbsorption: 5
+  _immunity: 17
+  _robustness: 31
+  _focus: 11
+  _vitsality: 11
+  _poise: 14

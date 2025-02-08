@@ -141,7 +141,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""id"": ""02e738b5-e7f4-4e3b-9058-78afd7105ee5"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold(duration=0.15,pressPoint=0.5)"",
+                    ""interactions"": ""Hold(duration=0.5,pressPoint=0.15)"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -442,7 +442,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""c7707e71-f562-42ae-a5dd-1a36f0bd806a"",
-                    ""path"": ""<Keyboard>/shift"",
+                    ""path"": ""<Keyboard>/c"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

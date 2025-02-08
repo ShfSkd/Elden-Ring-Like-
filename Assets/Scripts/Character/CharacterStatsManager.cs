@@ -22,6 +22,20 @@ namespace SKD.Character
         public float _stabiltyRating;
         public float _blockingStability;
         
+        [Header("Armor Absorption")]
+        [Header("Equipment Absorption Bonus")]
+        public float _armorPhysicalDamageAbsorption;
+        public float _armorMagicDamageAbsorption;
+        public float _armorFireDamageAbsorption;
+        public float _armorLigthningDamageAbsorption;
+        public float _armorHolyDamageAbsorption;
+
+        [Header("Armor Resistances")]
+        public float _armorImmunity;// Resistance to ROT and poision
+        public float _armorRobustness;// Resistance to bleed and frost 
+        public float _armorFocus;// Resistance to madness and sleep
+        public float _armorVitsality;// Resistance to death course
+        
         [Header("Poise")]
         public float _totalPoiseDamage; // how much poise damage we have taken
         public float _offensivePoiseDamage; // The posie bonus gained from using weapons (heavy weapon or much large bonus)

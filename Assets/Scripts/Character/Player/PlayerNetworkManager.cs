@@ -1,7 +1,9 @@
-﻿using SKD.Items;
+﻿using SKD.Effects;
+using SKD.Items;
 using SKD.Items.WeaponItems;
 using SKD.UI.PlayerUI;
 using SKD.World_Manager;
+using SKD.WorldManager;
 using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
@@ -11,12 +13,14 @@ namespace SKD.Character.Player
 {
     public class PlayerNetworkManager : CharacterNetworkManager
     {
+        static readonly int IsTwoHandedWeapon = Animator.StringToHash("IsTwoHandedWeapon");
         PlayerManager _player;
 
         public NetworkVariable<FixedString64Bytes> _characterName = new NetworkVariable<FixedString64Bytes>("Character",
             NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
-        [Header("Equipment")] public NetworkVariable<int> _currentWeaponBeingUsed =
+        [Header("Equipment")]
+        public NetworkVariable<int> _currentWeaponBeingUsed =
             new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
         public NetworkVariable<int> _currentRightWeaponID = new NetworkVariable<int>(0,
@@ -31,18 +35,11 @@ namespace SKD.Character.Player
         public NetworkVariable<bool> _isUsingLeftHand = new NetworkVariable<bool>(false,
             NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
-        [Header("Two Handed Weapons")] public NetworkVariable<int> _currentWeaponBeingTwoHanded =
-            new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-
-        public NetworkVariable<bool> _isTwoHandingWeapon = new NetworkVariable<bool>(false,
-            NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-
-        public NetworkVariable<bool> _isTwoHandingRightWepoen = new NetworkVariable<bool>(false,
-            NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-
-        [FormerlySerializedAs("_isTwoLefHandingWeapon")] [FormerlySerializedAs("_isTwoLefHandingtweapon")]
-        public NetworkVariable<bool> _isTwoHandingLeftWeapon = new NetworkVariable<bool>(false,
-            NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        [Header("Two Handed Weapons")]
+        public NetworkVariable<int> _currentWeaponBeingTwoHanded = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<bool> _isTwoHandingWeapon = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<bool> _isTwoHandingRightWepoen = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<bool> _isTwoHandingLeftWeapon = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
         protected override void Awake()
         {
@@ -126,7 +123,15 @@ namespace SKD.Character.Player
                     _isTwoHandingRightWepoen.Value = false;
                 }
                 _player._playerEquipmentManager.UnTwoHandWeapon();
+                _player._playerEffectsManager.RemoveStaticEffect(WorldCharacterEffectsManager.Instance._twoHandingEffect._staticEffectID);
             }
+            else
+            {
+                StaticCharacterEffect twoHandEffect = Instantiate(WorldCharacterEffectsManager.Instance._twoHandingEffect);
+                _player._playerEffectsManager.AddStaticEffect(twoHandEffect);
+            }
+
+            _player._animator.SetBool(IsTwoHandedWeapon, _isTwoHandingWeapon.Value);
         }
 
         public void OnIsTwoHandingRightWeaponChanged(bool oldValue, bool newValue)
@@ -149,8 +154,11 @@ namespace SKD.Character.Player
             if (!_isTwoHandingLeftWeapon.Value)
                 return;
 
-            _currentWeaponBeingTwoHanded.Value = _currentLeftWeaponID.Value;
-            _isTwoHandingWeapon.Value = true;
+            if (IsOwner)
+            {
+                _currentWeaponBeingTwoHanded.Value = _currentLeftWeaponID.Value;
+                _isTwoHandingWeapon.Value = true;
+            }
             _player._playerInventoryManager._currentTwoHandWeapon =
                 _player._playerInventoryManager._currentLeftHandWeapon;
             _player._playerEquipmentManager.TwoHandLeftWeapon();

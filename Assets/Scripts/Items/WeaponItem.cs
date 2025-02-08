@@ -5,7 +5,7 @@ using UnityEngine;
 namespace SKD.Items
 {
     [CreateAssetMenu(menuName = "Items/Weapons/Melee Weapons")]
-    public class WeaponItem : Item
+    public class WeaponItem : EquipmentItem
     {
         // Animator controller overdrive (Change attack animations based on weapon you are currently using)
         [Header("Animations")]
