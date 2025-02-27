@@ -116,6 +116,10 @@ namespace SKD.Character.Player
             _playerNetworkManager._currentLeftWeaponID.OnValueChanged += _playerNetworkManager.OnCurrentLeftHandWeaponIDChange;
             _playerNetworkManager._currentWeaponBeingUsed.OnValueChanged += _playerNetworkManager.OnCurrentWeaponBeingUsedIDChange;
             _playerNetworkManager._isBlocking.OnValueChanged += _playerNetworkManager.OnIsBlockingChanged;
+            _playerNetworkManager._headEquipmentID.OnValueChanged += _playerNetworkManager.OnHeadEquipmentChanged;
+            _playerNetworkManager._bodyEquipmentID.OnValueChanged += _playerNetworkManager.OnBodyEquipmentChanged;
+            _playerNetworkManager._legEquipmentID.OnValueChanged += _playerNetworkManager.OnLegEquipmentChanged;
+            _playerNetworkManager._handEquipmentID.OnValueChanged += _playerNetworkManager.OnHandEquipmentChanged;
 
             // Two Hand
             _playerNetworkManager._isTwoHandingWeapon.OnValueChanged += _playerNetworkManager.OnIsTwoHandingWeaponChanged;
@@ -167,6 +171,10 @@ namespace SKD.Character.Player
             _playerNetworkManager._currentLeftWeaponID.OnValueChanged -= _playerNetworkManager.OnCurrentLeftHandWeaponIDChange;
             _playerNetworkManager._currentWeaponBeingUsed.OnValueChanged -= _playerNetworkManager.OnCurrentWeaponBeingUsedIDChange;
             _playerNetworkManager._isBlocking.OnValueChanged -= _playerNetworkManager.OnIsBlockingChanged;
+            _playerNetworkManager._headEquipmentID.OnValueChanged -= _playerNetworkManager.OnHeadEquipmentChanged;
+            _playerNetworkManager._bodyEquipmentID.OnValueChanged -= _playerNetworkManager.OnBodyEquipmentChanged;
+            _playerNetworkManager._legEquipmentID.OnValueChanged -= _playerNetworkManager.OnLegEquipmentChanged;
+            _playerNetworkManager._handEquipmentID.OnValueChanged - = _playerNetworkManager.OnHandEquipmentChanged;
 
             // Two Hand
             _playerNetworkManager._isTwoHandingWeapon.OnValueChanged -= _playerNetworkManager.OnIsTwoHandingWeaponChanged;
@@ -261,6 +269,12 @@ namespace SKD.Character.Player
             _playerNetworkManager.OnCurrentRightHandWeaponIDChange(0, _playerNetworkManager._currentRightWeaponID.Value);
             _playerNetworkManager.OnCurrentLeftHandWeaponIDChange(0, _playerNetworkManager._currentLeftWeaponID.Value);
 
+            // Sync armor 
+            _playerNetworkManager.OnHeadEquipmentChanged(0, _playerNetworkManager._headEquipmentID.Value);
+            _playerNetworkManager.OnBodyEquipmentChanged(0, _playerNetworkManager._bodyEquipmentID.Value);
+            _playerNetworkManager.OnLegEquipmentChanged(0, _playerNetworkManager._legEquipmentID.Value);
+            _playerNetworkManager.OnHandEquipmentChanged(0, _playerNetworkManager._handEquipmentID.Value);
+            
             // Sync two hand status 
             _playerNetworkManager.OnIsTwoHandingRightWeaponChanged(false, _playerNetworkManager._isTwoHandingRightWepoen.Value);
             _playerNetworkManager.OnIsTwoHandingLeftWeaponChanged(false, _playerNetworkManager._isTwoHandingLeftWeapon.Value);

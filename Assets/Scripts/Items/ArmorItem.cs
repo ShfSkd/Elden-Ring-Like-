@@ -1,4 +1,6 @@
+using SKD.Items.Equipment_Models;
 using UnityEngine;
+using UnityEngine.Serialization;
 namespace SKD.Items
 {
     public class ArmorItem : EquipmentItem
@@ -20,6 +22,8 @@ namespace SKD.Items
         public float _poise;
 
         // Armor models 
+        [FormerlySerializedAs("_EquipmentModels")]
+        public EquipmentModel[] _equipmentModels;
 
     }
 }

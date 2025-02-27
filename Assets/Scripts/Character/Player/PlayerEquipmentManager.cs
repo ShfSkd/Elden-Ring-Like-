@@ -2,6 +2,7 @@
 using SKD.Items;
 using SKD.World_Manager;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -30,6 +31,10 @@ namespace SKD.Character.Player
         [Header("Debug")]
         [SerializeField] bool _equipNewItems;
 
+        [Header("Male Equipment Models")]
+        public GameObject _maleFullHelmetObject;
+        public GameObject[] _maleHeadFullHelmets;
+
         protected override void Awake()
         {
             base.Awake();
@@ -38,6 +43,14 @@ namespace SKD.Character.Player
 
             // Get our slots 
             InitializeWeaponSlots();
+
+            List<GameObject> maleFullHelmetsList = new List<GameObject>();
+
+            foreach (Transform child in _maleFullHelmetObject.transform)
+            {
+                maleFullHelmetsList.Add(child.gameObject);
+            }
+            _maleHeadFullHelmets = maleFullHelmetsList.ToArray();
         }
 
         protected override void Start()
@@ -57,9 +70,8 @@ namespace SKD.Character.Player
         private void DebugNewItems()
         {
             Debug.Log("Equipping New Items ");
-
-            if (_player._playerInventoryManager._headEquipment != null)
-                LoadHeadEquipment(_player._playerInventoryManager._headEquipment);
+             
+            LoadHeadEquipment(_player._playerInventoryManager._headEquipment);
 
             if (_player._playerInventoryManager._bodyEquipment != null)
                 LoadBodyEquipment(_player._playerInventoryManager._bodyEquipment);
@@ -75,14 +87,40 @@ namespace SKD.Character.Player
         public void LoadHeadEquipment(HeadEquipmentItem equipment)
         {
             // 1. Unload old head equipment(if any)
+            UnloadHeadEquipmentModels();
             // 2. If you have an "OnItemEquipped" call on your equipment, run it now 
+            if (equipment == null)
+            {
+                if (_player.IsOwner)
+                    _player._playerNetworkManager._handEquipmentID.Value = -1; // -1 will never be an Item ID, so it will always ne null
+
+                _player._playerInventoryManager._headEquipment = null;
+                return;
+            }
             // 3. If equipment is NULL simply set equipment in inventory to null and return  
             // 4. Set current head equipment in player inventory to the equipment that is passed to this function 
+            _player._playerInventoryManager._headEquipment = equipment;
             // 5. if you need to check for head equipment type to disable certain body features (hood disabling hair etc, full helms disabling heads) Do it now
             // 6. Load head equipment models
+            foreach (var model in equipment._equipmentModels)
+            {
+                model.LoadModel(_player, true);
+            }
             // 7. Calculate total equipment load (weight of all of your equipment. This impact roll speed and at extreme weight, movement speed)
             // 8. Calculate total armor absorption 
             _player._playerStatsManager.CalculateTotalArmorAbsorption();
+            
+            if (_player.IsOwner)
+                _player._playerNetworkManager._headEquipmentID.Value = equipment._itemID;
+        }
+
+        private void UnloadHeadEquipmentModels()
+        {
+            foreach (var model in _maleHeadFullHelmets)
+            {
+                model.SetActive(false);
+            }
+            // Re-enable head,hair 
         }
         public void LoadBodyEquipment(BodyEquipmentItem equipment)
         {

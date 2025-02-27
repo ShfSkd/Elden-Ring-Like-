@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb3796dae6e14bed966e439ad986997d, type: 3}
+  m_Name: Knight's Helm B
+  m_EditorClassIdentifier: 
+  _itemName: Knight Helm
+  _itemIcon: {fileID: 0}
+  _itemDescription: 
+  _itemID: 0
+  _itemWeight: 4.6
+  _physicalDamageAbsorption: 4.4
+  _magicDamageAbsorption: 3.8
+  _fireDamageAbsorption: 3.8
+  _ligthningDamageAbsorption: 3.4
+  _holyDamageAbsorption: 3.1
+  _immunity: 12
+  _robustness: 22
+  _focus: 8
+  _vitsality: 8
+  _poise: 8

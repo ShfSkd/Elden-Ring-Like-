@@ -41,6 +41,12 @@ namespace SKD.Character.Player
         public NetworkVariable<bool> _isTwoHandingRightWepoen = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<bool> _isTwoHandingLeftWeapon = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
+        [Header("Armor")]
+        public NetworkVariable<bool> _isMale = new NetworkVariable<bool>(true, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<int> _headEquipmentID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<int> _bodyEquipmentID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<int> _legEquipmentID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<int> _handEquipmentID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         protected override void Awake()
         {
             base.Awake();
@@ -163,7 +169,70 @@ namespace SKD.Character.Player
                 _player._playerInventoryManager._currentLeftHandWeapon;
             _player._playerEquipmentManager.TwoHandLeftWeapon();
         }
+        public void OnHeadEquipmentChanged(int oldValue, int newValue)
+        {
+            // we already run the logic on the owner side, so there no point in running it again 
+            if (!IsOwner) return;
 
+            HeadEquipmentItem equipment = WorldItemDatabase.Instance.GetHeadEquipmentByID(_headEquipmentID.Value);
+
+            if (equipment != null)
+            {
+                _player._playerEquipmentManager.LoadHeadEquipment(Instantiate(equipment));
+            }
+            else
+            {
+                _player._playerEquipmentManager.LoadHeadEquipment(null);
+            }
+        }
+        public void OnBodyEquipmentChanged(int oldValue, int newValue)
+        {
+            // we already run the logic on the owner side, so there no point in running it again 
+            if (!IsOwner) return;
+
+            BodyEquipmentItem equipment = WorldItemDatabase.Instance.GetBodyEquipmentByID(_headEquipmentID.Value);
+
+            if (equipment != null)
+            {
+                _player._playerEquipmentManager.LoadBodyEquipment(Instantiate(equipment));
+            }
+            else
+            {
+                _player._playerEquipmentManager.LoadBodyEquipment(null);
+            }
+        }
+        public void OnLegEquipmentChanged(int oldValue, int newValue)
+        {
+            // we already run the logic on the owner side, so there no point in running it again 
+            if (!IsOwner) return;
+
+            LegEquipmentItem equipment = WorldItemDatabase.Instance.GetLegEquipmentByID(_headEquipmentID.Value);
+
+            if (equipment != null)
+            {
+                _player._playerEquipmentManager.LoadLegEquipment(Instantiate(equipment));
+            }
+            else
+            {
+                _player._playerEquipmentManager.LoadLegEquipment(null);
+            }
+        }
+        public void OnHandEquipmentChanged(int oldValue, int newValue)
+        {
+            // we already run the logic on the owner side, so there no point in running it again 
+            if (!IsOwner) return;
+
+            HandEquipmentItem equipment = WorldItemDatabase.Instance.GetHandEquipmentByID(_headEquipmentID.Value);
+
+            if (equipment != null)
+            {
+                _player._playerEquipmentManager.LoadHandEquipment(Instantiate(equipment));
+            }
+            else
+            {
+                _player._playerEquipmentManager.LoadHandEquipment(null);
+            }
+        }
         public override void OnIsBlockingChanged(bool oldStatus, bool newStatus)
         {
             base.OnIsBlockingChanged(oldStatus, newStatus);
