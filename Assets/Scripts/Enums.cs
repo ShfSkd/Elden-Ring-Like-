@@ -27,9 +27,16 @@ namespace SKD
     }
     public enum EquipmentModelType
     {
-        FullHelmet,OpenHelmet,Hood,HelmetAcessorie,FaceCover,Torso,Back,RightShoulder,
+        FullHelmet,Hat,Hood,HelmetAcessorie,FaceCover,Torso,Back,RightShoulder,
         RightUpperArm,RightElbow,RightLowerArm,RightHand,LeftShoulder,LeftUpperArm,LeftElbow,LeftLowerArm,LeftHand,
         Hips,HipsAttachment,RightLeg,RightKnee,LeftLeg,LeftKnee
+    }
+    public enum HeadEquipmentType
+    {
+        FullHelmet,
+        Hat,
+        Hood,
+        FaceCover
     }
     // This is used to calculate damage based on attack type
     public enum AttackType

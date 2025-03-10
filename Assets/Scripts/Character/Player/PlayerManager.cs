@@ -24,6 +24,7 @@ namespace SKD.Character.Player
         [HideInInspector] public PlayerCombatManager _playerCombatManager;
         [HideInInspector] public PlayerInteractionManager _playerInteractionManager;
         [HideInInspector] public PlayerEffectsManager _playerEffectsManager;
+        [HideInInspector] public PlayerBodyManager _playerBodyManager;
 
         protected override void Awake()
         {
@@ -44,6 +45,7 @@ namespace SKD.Character.Player
             _playerCombatManager = GetComponent<PlayerCombatManager>();
             _playerInteractionManager = GetComponent<PlayerInteractionManager>();
             _playerEffectsManager = GetComponent<PlayerEffectsManager>();
+            _playerBodyManager = GetComponent<PlayerBodyManager>();
         }
         protected override void OnEnable()
         {
@@ -174,7 +176,7 @@ namespace SKD.Character.Player
             _playerNetworkManager._headEquipmentID.OnValueChanged -= _playerNetworkManager.OnHeadEquipmentChanged;
             _playerNetworkManager._bodyEquipmentID.OnValueChanged -= _playerNetworkManager.OnBodyEquipmentChanged;
             _playerNetworkManager._legEquipmentID.OnValueChanged -= _playerNetworkManager.OnLegEquipmentChanged;
-            _playerNetworkManager._handEquipmentID.OnValueChanged - = _playerNetworkManager.OnHandEquipmentChanged;
+            _playerNetworkManager._handEquipmentID.OnValueChanged -= _playerNetworkManager.OnHandEquipmentChanged;
 
             // Two Hand
             _playerNetworkManager._isTwoHandingWeapon.OnValueChanged -= _playerNetworkManager.OnIsTwoHandingWeaponChanged;

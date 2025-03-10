@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb3796dae6e14bed966e439ad986997d, type: 3}
-  m_Name: Knight's Helm B
+  m_Name: Open Face Helm
   m_EditorClassIdentifier: 
   _itemName: Knight Helm
   _itemIcon: {fileID: 0}
   _itemDescription: 
-  _itemID: 0
+  _itemID: 5
   _itemWeight: 4.6
   _physicalDamageAbsorption: 4.4
   _magicDamageAbsorption: 3.8
@@ -27,3 +27,5 @@ MonoBehaviour:
   _focus: 8
   _vitsality: 8
   _poise: 8
+  _equipmentModels:
+  - {fileID: 11400000, guid: c41cc2f79dda1144c99efe12a17ce2a8, type: 2}

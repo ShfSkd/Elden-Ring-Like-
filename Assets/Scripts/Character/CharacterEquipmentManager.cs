@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SKD.Character
 {
-    public class CharacterEqiqmentManager : MonoBehaviour
+    public class CharacterEquipmentManager : MonoBehaviour
     {
         protected virtual void Awake()
         {

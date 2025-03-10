@@ -15,7 +15,7 @@ MonoBehaviour:
   _itemName: Knight Helm
   _itemIcon: {fileID: 0}
   _itemDescription: 
-  _itemID: 0
+  _itemID: 4
   _itemWeight: 4.6
   _physicalDamageAbsorption: 4.4
   _magicDamageAbsorption: 3.8
@@ -27,3 +27,5 @@ MonoBehaviour:
   _focus: 8
   _vitsality: 8
   _poise: 8
+  _equipmentModels:
+  - {fileID: 11400000, guid: e50f23667e6f4f84986d20116deac9f0, type: 2}

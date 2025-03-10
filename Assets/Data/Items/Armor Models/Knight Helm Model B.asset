@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Knight Helm Model B
   m_EditorClassIdentifier: 
   _equipmentModelType: 0
-  _maleEquipmentName: 
-  _femaleEquipmentName: 
+  _maleEquipmentName: Sphere Helmet
+  _femaleEquipmentName: Sphere Helmet

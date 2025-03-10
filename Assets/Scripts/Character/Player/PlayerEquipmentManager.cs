@@ -8,33 +8,100 @@ using UnityEngine.Serialization;
 
 namespace SKD.Character.Player
 {
-    public class PlayerEquipmentManager : CharacterEqiqmentManager
+    public class PlayerEquipmentManager : CharacterEquipmentManager
     {
         PlayerManager _player;
 
         [Header("Weapon Model Instantiation Slot ")]
-        public WeaponModelInstantiationSlot _rightHandWeaponSlot;
-
-        public WeaponModelInstantiationSlot _leftHandWeaponSlot;
-        public WeaponModelInstantiationSlot _leftHandShieldSlot;
-        public WeaponModelInstantiationSlot _backSlot;
+        [HideInInspector] public WeaponModelInstantiationSlot _rightHandWeaponSlot;
+        [HideInInspector] public WeaponModelInstantiationSlot _leftHandWeaponSlot;
+        [HideInInspector] public WeaponModelInstantiationSlot _leftHandShieldSlot;
+        [HideInInspector] public WeaponModelInstantiationSlot _backSlot;
 
         [Header("Weapon Model")]
-        public GameObject _rightHandWeaponModel;
-        public GameObject _leftHandWeaponModel;
+        [HideInInspector] public GameObject _rightHandWeaponModel;
+        [HideInInspector] public GameObject _leftHandWeaponModel;
 
-        [Header("Weapon Manager")] [SerializeField]
-        WeaponManager _rightWeaponManager;
-
+        [Header("Weapon Manager")]
+        [SerializeField] WeaponManager _rightWeaponManager;
         [SerializeField] WeaponManager _leftWeaponManager;
 
         [Header("Debug")]
         [SerializeField] bool _equipNewItems;
 
+        [Header("General Equipment Models")]
+        public GameObject _hatsObject;
+        [HideInInspector] public GameObject[] _hats;
+        public GameObject _hoodObject;
+        [HideInInspector] public GameObject[] _hoods;
+        public GameObject _faceCoverObject;
+        [HideInInspector] public GameObject[] _faceCovers;
+        public GameObject _helmetAccessoriesObject;
+        [HideInInspector] public GameObject[] _helmetAccessories;
+        public GameObject _backAccessoriesObject;
+        [HideInInspector] public GameObject[] _backAccessories;
+        public GameObject _hipAccessoriesObject;
+        [HideInInspector] public GameObject[] _hipAccessories;
+        public GameObject _rightShoulderObject;
+        [HideInInspector] public GameObject[] _rightShoulders;
+        public GameObject _rightElbowObject;
+        [HideInInspector] public GameObject[] _rightElbows;
+        public GameObject _rightKneeObject;
+        [HideInInspector] public GameObject[] _rightKnees;
+        public GameObject _leftShoulderObject;
+        [HideInInspector] public GameObject[] _leftShoulders;
+        public GameObject _leftElbowObject;
+        [HideInInspector] public GameObject[] _leftElbows;
+        public GameObject _leftKneeObject;
+        [HideInInspector] public GameObject[] _leftKnees;
+
         [Header("Male Equipment Models")]
         public GameObject _maleFullHelmetObject;
-        public GameObject[] _maleHeadFullHelmets;
+        [HideInInspector] public GameObject[] _maleHeadFullHelmets;
+        public GameObject _maleFullBodyObject;
+        [HideInInspector] public GameObject[] _maleBodies;
+        public GameObject _maleRightUpperArmObject;
+        [HideInInspector] public GameObject[] _maleRightUpperArms;
+        public GameObject _maleRightLowerArmObject;
+        [HideInInspector] public GameObject[] _maleRightLowerArms;
+        public GameObject _maleRightHandObject;
+        [HideInInspector] public GameObject[] _maleRightHands;
+        public GameObject _maleLeftUpperArmObject;
+        [HideInInspector] public GameObject[] _maleLeftUpperArms;
+        public GameObject _maleLeftLowerArmObject;
+        [HideInInspector] public GameObject[] _maleLeftLowerArms;
+        public GameObject _maleLeftHandObject;
+        [HideInInspector] public GameObject[] _maleLeftHands;
+        public GameObject _maleHipObject;
+        [HideInInspector] public GameObject[] _maleHips;
+        public GameObject _maleRightLegObject;
+        [HideInInspector] public GameObject[] _maleRightLegs;
+        public GameObject _maleLeftLegObject;
+        [HideInInspector] public GameObject[] _maleLeftLegs;
 
+        [Header("Female Equipment Models")]
+        public GameObject _femaleFullHelmetObject;
+        [HideInInspector] public GameObject[] _femaleHeadFullHelmets;
+        public GameObject _femaleFullBodyObject;
+        [HideInInspector] public GameObject[] _femaleBodies;
+        public GameObject _femaleRightUpperArmObject;
+        [HideInInspector] public GameObject[] _femaleRightUpperArms;
+        public GameObject _femaleRightLowerArmObject;
+        [HideInInspector] public GameObject[] _femaleRightLowerArms;
+        public GameObject _femaleRightHandObject;
+        [HideInInspector] public GameObject[] _femaleRightHands;
+        public GameObject _femaleLeftUpperArmObject;
+        [HideInInspector] public GameObject[] _femaleLeftUpperArms;
+        public GameObject _femaleLeftLowerArmObject;
+        [HideInInspector] public GameObject[] _femaleLeftLowerArms;
+        public GameObject _femaleLeftHandObject;
+        [HideInInspector] public GameObject[] _femaleLeftHands;
+        public GameObject _femaleHipObject;
+        [HideInInspector] public GameObject[] _femaleHips;
+        public GameObject _femaleRightLegObject;
+        [HideInInspector] public GameObject[] _femaleRightLegs;
+        public GameObject _femaleLeftLegObject;
+        [HideInInspector] public GameObject[] _femaleLeftLegs;
         protected override void Awake()
         {
             base.Awake();
@@ -44,13 +111,97 @@ namespace SKD.Character.Player
             // Get our slots 
             InitializeWeaponSlots();
 
+            List<GameObject>hoodsList=new List<GameObject>();
+            foreach (Transform child in _hoodObject.transform)
+            {
+                hoodsList.Add(child.gameObject);
+            }
+            _hoods = hoodsList.ToArray();
+            
             List<GameObject> maleFullHelmetsList = new List<GameObject>();
-
             foreach (Transform child in _maleFullHelmetObject.transform)
             {
                 maleFullHelmetsList.Add(child.gameObject);
             }
             _maleHeadFullHelmets = maleFullHelmetsList.ToArray();
+            
+            List<GameObject> faceCoverList = new List<GameObject>();
+            foreach (Transform child in _faceCoverObject.transform)
+            {
+                faceCoverList.Add(child.gameObject);
+            }
+            _faceCovers = faceCoverList.ToArray();
+            
+               
+            List<GameObject> helmetAccessoriesList = new List<GameObject>();
+            foreach (Transform child in _helmetAccessoriesObject.transform)
+            {
+                helmetAccessoriesList.Add(child.gameObject);
+            }
+            _helmetAccessories = helmetAccessoriesList.ToArray();
+            
+            List<GameObject> maleBodiesList = new List<GameObject>();
+            foreach (Transform child in _maleFullHelmetObject.transform)
+            {
+                maleBodiesList.Add(child.gameObject);
+            }
+            _maleBodies = maleBodiesList.ToArray();
+            
+            List<GameObject> backAccessoriesList = new List<GameObject>();
+            foreach (Transform child in _backAccessoriesObject.transform)
+            {
+                backAccessoriesList.Add(child.gameObject);
+            }
+            _backAccessories = backAccessoriesList.ToArray();
+            
+            List<GameObject> hipsAccessoriesList = new List<GameObject>();
+            foreach (Transform child in _hipAccessoriesObject.transform)
+            {
+                hipsAccessoriesList.Add(child.gameObject);
+            }
+            _hipAccessories = hipsAccessoriesList.ToArray();
+            
+            List<GameObject> rightShoulderList = new List<GameObject>();
+            foreach (Transform child in _rightShoulderObject.transform)
+            {
+                rightShoulderList.Add(child.gameObject);
+            }
+            _rightShoulders = rightShoulderList.ToArray();
+            
+            List<GameObject> rightElbowList = new List<GameObject>();
+            foreach (Transform child in _rightElbowObject.transform)
+            {
+                rightElbowList.Add(child.gameObject);
+            }
+            _rightElbows = rightElbowList.ToArray();
+            
+            List<GameObject> rightKneeList = new List<GameObject>();
+            foreach (Transform child in _rightKneeObject.transform)
+            {
+                rightKneeList.Add(child.gameObject);
+            }
+            _rightKnees = rightKneeList.ToArray();
+            
+            List<GameObject> leftShoulderList = new List<GameObject>();
+            foreach (Transform child in _leftShoulderObject.transform)
+            {
+                leftShoulderList.Add(child.gameObject);
+            }
+            _leftShoulders = leftShoulderList.ToArray();
+            
+            List<GameObject> leftElbowList = new List<GameObject>();
+            foreach (Transform child in _leftElbowObject.transform)
+            {
+                leftElbowList.Add(child.gameObject);
+            }
+            _leftElbows = leftElbowList.ToArray();
+            
+            List<GameObject> leftKneeList = new List<GameObject>();
+            foreach (Transform child in _leftKneeObject.transform)
+            {
+                leftKneeList.Add(child.gameObject);
+            }
+            _leftKnees = leftKneeList.ToArray();
         }
 
         protected override void Start()
@@ -70,7 +221,7 @@ namespace SKD.Character.Player
         private void DebugNewItems()
         {
             Debug.Log("Equipping New Items ");
-             
+
             LoadHeadEquipment(_player._playerInventoryManager._headEquipment);
 
             if (_player._playerInventoryManager._bodyEquipment != null)
@@ -92,7 +243,7 @@ namespace SKD.Character.Player
             if (equipment == null)
             {
                 if (_player.IsOwner)
-                    _player._playerNetworkManager._handEquipmentID.Value = -1; // -1 will never be an Item ID, so it will always ne null
+                    _player._playerNetworkManager._handEquipmentID.Value = -1;// -1 will never be an Item ID, so it will always ne null
 
                 _player._playerInventoryManager._headEquipment = null;
                 return;
@@ -101,6 +252,24 @@ namespace SKD.Character.Player
             // 4. Set current head equipment in player inventory to the equipment that is passed to this function 
             _player._playerInventoryManager._headEquipment = equipment;
             // 5. if you need to check for head equipment type to disable certain body features (hood disabling hair etc, full helms disabling heads) Do it now
+
+            switch (equipment._HeadEquipmentType)
+            {
+                case HeadEquipmentType.FullHelmet:
+                    _player._playerBodyManager.DisableHair();
+                    _player._playerBodyManager.DisableHead();
+                    break;
+                case HeadEquipmentType.Hat:
+                    break;
+                case HeadEquipmentType.Hood:
+                    _player._playerBodyManager.DisableHair();
+                    break;
+                case HeadEquipmentType.FaceCover:
+                    _player._playerBodyManager.DisableFacialHair();
+                    break;
+                default:
+                    break;
+            }
             // 6. Load head equipment models
             foreach (var model in equipment._equipmentModels)
             {
@@ -109,7 +278,7 @@ namespace SKD.Character.Player
             // 7. Calculate total equipment load (weight of all of your equipment. This impact roll speed and at extreme weight, movement speed)
             // 8. Calculate total armor absorption 
             _player._playerStatsManager.CalculateTotalArmorAbsorption();
-            
+
             if (_player.IsOwner)
                 _player._playerNetworkManager._headEquipmentID.Value = equipment._itemID;
         }
@@ -120,19 +289,102 @@ namespace SKD.Character.Player
             {
                 model.SetActive(false);
             }
+            foreach (var model in _femaleHeadFullHelmets)
+            {
+                model.SetActive(false);
+            }
+            foreach (var model in _hats)
+            {
+                model.SetActive(false);
+            }
+            foreach (var model in _faceCovers)
+            {
+                model.SetActive(false);
+            }
+            foreach (var model in _hoods)
+            {
+                model.SetActive(false);
+            }
+            foreach (var model in _helmetAccessories)
+            {
+                model.SetActive(false);
+            }
             // Re-enable head,hair 
+            _player._playerBodyManager.EnableHead();
+            _player._playerBodyManager.EnableHair();
         }
+
         public void LoadBodyEquipment(BodyEquipmentItem equipment)
         {
             // 1. Unload old head equipment(if any)
+            UnloadBodyEquipmentModels();
             // 2. If you have an "OnItemEquipped" call on your equipment, run it now 
+            if (equipment == null)
+            {
+                if(_player.IsOwner)
+                    _player._playerNetworkManager._bodyEquipmentID.Value = -1;
+                
+                _player._playerInventoryManager._bodyEquipment = null;
+            }
             // 3. If equipment is NULL simply set equipment in inventory to null and return  
             // 4. Set current head equipment in player inventory to the equipment that is passed to this function 
+            _player._playerInventoryManager._bodyEquipment = equipment;
             // 5. if you need to check for head equipment type to disable certain body features (hood disabling hair etc, full helms disabling heads) Do it now
             // 6. Load head equipment models
             // 7. Calculate total equipment load (weight of all of your equipment. This impact roll speed and at extreme weight, movement speed)
             // 8. Calculate total armor absorption 
             _player._playerStatsManager.CalculateTotalArmorAbsorption();
+            
+            if(_player.IsOwner)
+                _player._playerNetworkManager._bodyEquipmentID.Value = equipment._itemID;
+        }
+        private void UnloadBodyEquipmentModels()
+        {
+            foreach (var model in _rightShoulders)
+            {
+                model.SetActive(false);
+            }
+            foreach (var model in _rightElbows)
+            {
+                model.SetActive(false);
+            }
+            foreach (var model in _leftShoulders)
+            {
+                model.SetActive(false);
+            }
+            foreach (var model in _leftElbows)
+            {
+                model.SetActive(false);
+            }
+            foreach (var model in _backAccessories)
+            {
+                model.SetActive(false); 
+            }
+            foreach (var model in _maleBodies)
+            {
+                model.SetActive(false);
+            }
+            foreach (var model in _maleRightUpperArms)
+            {
+                model.SetActive(false);
+            }
+            foreach (var model in _maleLeftUpperArms)
+            {
+                model.SetActive(false);
+            }
+            foreach (var model  in _femaleBodies)
+            {
+                model.SetActive(false);
+            }
+            foreach (var model in _femaleRightUpperArms)
+            {
+                model.SetActive(false);
+            }
+            foreach (var model in _femaleLeftUpperArms)
+            {
+                model.SetActive(false);
+            }
+            _player._playerBodyManager.EnableBody();
         }
         public void LoadLegEquipment(LegEquipmentItem equipment)
         {
@@ -158,6 +410,9 @@ namespace SKD.Character.Player
             // 8. Calculate total armor absorption 
             _player._playerStatsManager.CalculateTotalArmorAbsorption();
         }
+
+        // Enable Body Fetures
+
         private void InitializeWeaponSlots()
         {
             WeaponModelInstantiationSlot[] weaponsSlots = GetComponentsInChildren<WeaponModelInstantiationSlot>();
