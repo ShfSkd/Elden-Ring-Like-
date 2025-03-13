@@ -3,6 +3,7 @@ using SKD.UI.PlayerUI;
 using SKD.World_Manager;
 using SKD.WorldManager;
 using System.Collections;
+using SKD.Items;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -105,7 +106,10 @@ namespace SKD.Character.Player
             // Only Update Hp bar if this character is not the local players character
             if (!IsOwner)
                 _characterNetworkManager._currentHealth.OnValueChanged += _characterUIManager.OnHPChanged;
-
+            
+            // Body types
+            _playerNetworkManager._isMale.OnValueChanged += _playerNetworkManager.OnIsMaleChanged;
+            
             // Stats 
             _playerNetworkManager._currentHealth.OnValueChanged += _playerNetworkManager.CheckHP;
 
@@ -160,6 +164,9 @@ namespace SKD.Character.Player
 
             if (!IsOwner)
                 _characterNetworkManager._currentHealth.OnValueChanged -= _characterUIManager.OnHPChanged;
+
+            // Body types
+            _playerNetworkManager._isMale.OnValueChanged -= _playerNetworkManager.OnIsMaleChanged;
 
             // Stats 
             _playerNetworkManager._currentHealth.OnValueChanged -= _playerNetworkManager.CheckHP;
@@ -229,7 +236,8 @@ namespace SKD.Character.Player
             currenCharacterSaveData._sceneIndex = SceneManager.GetActiveScene().buildIndex;
 
             currenCharacterSaveData._characterName = _playerNetworkManager._characterName.Value.ToString();
-
+            currenCharacterSaveData._isMale = _playerNetworkManager._isMale.Value;
+            
             currenCharacterSaveData._xPosition = transform.position.x;
             currenCharacterSaveData._yPosition = transform.position.y;
             currenCharacterSaveData._zPosition = transform.position.z;
@@ -238,14 +246,31 @@ namespace SKD.Character.Player
             currenCharacterSaveData._currentStamina = _playerNetworkManager._currentStamina.Value;
 
             currenCharacterSaveData._vitality = _playerNetworkManager._vitality.Value;
-
             currenCharacterSaveData._endurance = _playerNetworkManager._endurance.Value;
+
+            // Equipment
+            currenCharacterSaveData._headEquipment = _playerNetworkManager._headEquipmentID.Value;
+            currenCharacterSaveData._bodyEquipment = _playerNetworkManager._bodyEquipmentID.Value;
+            currenCharacterSaveData._legEquipment = _playerNetworkManager._legEquipmentID.Value;
+            currenCharacterSaveData._handEquipment = _playerNetworkManager._handEquipmentID.Value;
+
+            currenCharacterSaveData._rightWeaponIndex = _playerInventoryManager._rightHandWeaponIndex;
+            currenCharacterSaveData._rightWeapon01 = _playerInventoryManager._weaponInRigthHandSlots[0]._itemID;
+            currenCharacterSaveData._rightWeapon02 = _playerInventoryManager._weaponInRigthHandSlots[1]._itemID;
+            currenCharacterSaveData._rightWeapon03 = _playerInventoryManager._weaponInRigthHandSlots[2]._itemID;
+
+            currenCharacterSaveData._leftWeaponIndex = _playerInventoryManager._leftHandWeaponIndex ;
+            currenCharacterSaveData._leftWeapon01 = _playerInventoryManager._weaponInLefthHandSlots[0]._itemID;
+            currenCharacterSaveData._leftWeapon02 = _playerInventoryManager._weaponInLefthHandSlots[1]._itemID;
+            currenCharacterSaveData._leftWeapon03 = _playerInventoryManager._weaponInLefthHandSlots[2]._itemID;
+            
         }
         public void LoadGameDataFromCurrentCharacterData(ref CharacterSaveData currenCharacterSaveData)
         {
             _playerNetworkManager._characterName.Value = currenCharacterSaveData._characterName;
-
-            Vector3 myPosition = new Vector3(currenCharacterSaveData._xPosition, currenCharacterSaveData._yPosition, currenCharacterSaveData._zPosition);
+            _playerNetworkManager._isMale.Value = currenCharacterSaveData._isMale;
+            _playerBodyManager.ToggleBodyType(currenCharacterSaveData._isMale); // Toggle in case the value is the same as default (OnValueChanged only works when the value is changed)
+              Vector3 myPosition = new Vector3(currenCharacterSaveData._xPosition, currenCharacterSaveData._yPosition, currenCharacterSaveData._zPosition);
             transform.position = myPosition;
 
             _playerNetworkManager._vitality.Value = currenCharacterSaveData._vitality;
@@ -254,19 +279,125 @@ namespace SKD.Character.Player
 
             // This will be moved when saving and loading is added
             _playerNetworkManager._maxHealth.Value = _playerStatsManager.CalculateHealthBasedOnVitalityLevel(_playerNetworkManager._vitality.Value);
-
-
             _playerNetworkManager._maxStamina.Value = _playerStatsManager.CalculateStaminaBasedOnEnduraceLevel(_playerNetworkManager._endurance.Value);
-
             _playerNetworkManager._currentHealth.Value = currenCharacterSaveData._currentHealth;
-
             _playerNetworkManager._currentStamina.Value = currenCharacterSaveData._currentStamina;
-
             PlayerUIManger.instance._playerUIHUDManager.SetMaxStaminaValue(_playerNetworkManager._maxStamina.Value);
 
+            // Equipment
+            if (WorldItemDatabase.Instance.GetHeadEquipmentByID(currenCharacterSaveData._headEquipment))
+            {
+                HeadEquipmentItem headEquipment = Instantiate(WorldItemDatabase.Instance.GetHeadEquipmentByID(currenCharacterSaveData._headEquipment));
+                _playerInventoryManager._headEquipment = headEquipment;
+            }
+            else
+            {
+                _playerInventoryManager._headEquipment = null;
+            }
+
+            if (WorldItemDatabase.Instance.GetBodyEquipmentByID(currenCharacterSaveData._bodyEquipment))
+            {
+                BodyEquipmentItem bodyEquipment = Instantiate(WorldItemDatabase.Instance.GetBodyEquipmentByID(currenCharacterSaveData._bodyEquipment));
+                _playerInventoryManager._bodyEquipment = bodyEquipment;
+            }
+            else
+            {
+                _playerInventoryManager._bodyEquipment = null;
+            }
+            if (WorldItemDatabase.Instance.GetLegEquipmentByID(currenCharacterSaveData._legEquipment))
+            {
+                LegEquipmentItem legEquipment = Instantiate(WorldItemDatabase.Instance.GetLegEquipmentByID(currenCharacterSaveData._legEquipment));
+                _playerInventoryManager._legEquipment = legEquipment;
+            }
+            else
+            {
+                _playerInventoryManager._legEquipment = null;
+            }
+
+            if (WorldItemDatabase.Instance.GetHandEquipmentByID(currenCharacterSaveData._handEquipment))
+            {
+                HandEquipmentItem handEquipment = Instantiate(WorldItemDatabase.Instance.GetHandEquipmentByID(currenCharacterSaveData._handEquipment));
+                _playerInventoryManager._handEquipment = handEquipment;
+            }
+            else
+            {
+                _playerInventoryManager._handEquipment = null;
+            }
+
+            if (WorldItemDatabase.Instance.GetWeaponByID(currenCharacterSaveData._rightWeapon01))
+            {
+                WeaponItem rightWeapon01 = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(currenCharacterSaveData._rightWeapon01));
+                _playerInventoryManager._weaponInRigthHandSlots[0] = rightWeapon01;
+            }
+            else
+            {
+                _playerInventoryManager._weaponInRigthHandSlots[0] = null;
+
+            }
+            if (WorldItemDatabase.Instance.GetWeaponByID(currenCharacterSaveData._rightWeapon02))
+            {
+                WeaponItem rightWeapon02 = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(currenCharacterSaveData._rightWeapon02));
+                _playerInventoryManager._weaponInRigthHandSlots[1] = rightWeapon02;
+            }
+            else
+            {
+                _playerInventoryManager._weaponInRigthHandSlots[1] = null;
+            }
+
+            if (WorldItemDatabase.Instance.GetWeaponByID(currenCharacterSaveData._rightWeapon03))
+            {
+                WeaponItem rightWeapon03 = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(currenCharacterSaveData._rightWeapon03));
+                _playerInventoryManager._weaponInRigthHandSlots[2] = rightWeapon03;
+            }
+            else
+            {
+                _playerInventoryManager._weaponInRigthHandSlots[2] = null;
+            }
+
+            if (WorldItemDatabase.Instance.GetWeaponByID(currenCharacterSaveData._leftWeapon01))
+            {
+                WeaponItem leftWeapon01 = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(currenCharacterSaveData._leftWeapon01));
+                _playerInventoryManager._weaponInLefthHandSlots[0] = leftWeapon01;
+            }
+            else
+            {
+                _playerInventoryManager._weaponInLefthHandSlots[0] = null;
+            }
+
+            if (WorldItemDatabase.Instance.GetWeaponByID(currenCharacterSaveData._leftWeapon02))
+            {
+                WeaponItem leftWeapon02 = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(currenCharacterSaveData._leftWeapon02));
+                _playerInventoryManager._weaponInLefthHandSlots[1] = leftWeapon02;
+            }
+            else
+            {
+                _playerInventoryManager._weaponInLefthHandSlots[1] = null;
+            }
+
+            if (WorldItemDatabase.Instance.GetWeaponByID(currenCharacterSaveData._leftWeapon03))
+            {
+                WeaponItem leftWeapon03 = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(currenCharacterSaveData._leftWeapon03));
+                _playerInventoryManager._weaponInLefthHandSlots[2] = leftWeapon03;
+            }
+            else
+            {
+                _playerInventoryManager._weaponInLefthHandSlots[2] = null;      
+            }
+
+             _playerEquipmentManager.EquipArmor();
+             
+             _playerInventoryManager._rightHandWeaponIndex = currenCharacterSaveData._rightWeaponIndex;
+             _playerNetworkManager._currentRightWeaponID.Value = _playerInventoryManager._weaponInRigthHandSlots[currenCharacterSaveData._rightWeaponIndex]._itemID;
+             _playerInventoryManager._leftHandWeaponIndex = currenCharacterSaveData._leftWeaponIndex;
+             _playerNetworkManager._currentLeftWeaponID.Value = _playerInventoryManager._weaponInLefthHandSlots[currenCharacterSaveData._leftWeaponIndex]._itemID;
+
+             _playerBodyManager.ToggleBodyType(currenCharacterSaveData._isMale);
         }
         private void LoadOtherCharacterPlayerCharaceterWhenJoininigServer()
         {
+            // Sync body types
+            _playerNetworkManager.OnIsMaleChanged(false, _playerNetworkManager._isMale.Value);
+            
             // Sync weapons 
             _playerNetworkManager.OnCurrentRightHandWeaponIDChange(0, _playerNetworkManager._currentRightWeaponID.Value);
             _playerNetworkManager.OnCurrentLeftHandWeaponIDChange(0, _playerNetworkManager._currentLeftWeaponID.Value);
@@ -276,7 +407,7 @@ namespace SKD.Character.Player
             _playerNetworkManager.OnBodyEquipmentChanged(0, _playerNetworkManager._bodyEquipmentID.Value);
             _playerNetworkManager.OnLegEquipmentChanged(0, _playerNetworkManager._legEquipmentID.Value);
             _playerNetworkManager.OnHandEquipmentChanged(0, _playerNetworkManager._handEquipmentID.Value);
-            
+
             // Sync two hand status 
             _playerNetworkManager.OnIsTwoHandingRightWeaponChanged(false, _playerNetworkManager._isTwoHandingRightWepoen.Value);
             _playerNetworkManager.OnIsTwoHandingLeftWeaponChanged(false, _playerNetworkManager._isTwoHandingLeftWeapon.Value);

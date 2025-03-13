@@ -15,7 +15,8 @@ namespace SKD.UI.PlayerUI
         [Header("Quick Slots")]
         public WeaponItem[] _weaponInRigthHandSlots = new WeaponItem[3];
         public int _rightHandWeaponIndex;
-        public WeaponItem[] _weaponInLefthHandSlot = new WeaponItem[3];
+        [FormerlySerializedAs("_weaponInLefthHandSlot")]
+        public WeaponItem[] _weaponInLefthHandSlots = new WeaponItem[3];
         public int _leftHandWeaponIndex;
         
         [Header("Armor")]

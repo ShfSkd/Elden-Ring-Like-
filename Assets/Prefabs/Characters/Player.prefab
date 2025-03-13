@@ -1597,6 +1597,7 @@ GameObject:
   - component: {fileID: 4286529109380951767}
   - component: {fileID: 8140698195621242878}
   - component: {fileID: 3246310727059049294}
+  - component: {fileID: 6963168221755649284}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -1701,6 +1702,7 @@ MonoBehaviour:
   _playerCombatManager: {fileID: 0}
   _playerInteractionManager: {fileID: 0}
   _playerEffectsManager: {fileID: 0}
+  _playerBodyManager: {fileID: 0}
 --- !u!114 &-828183766973365821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1747,17 +1749,17 @@ MonoBehaviour:
   _isChargingAttack:
     m_InternalValue: 0
   _currentHealth:
-    m_InternalValue: 0
+    m_InternalValue: 400
   _maxHealth:
-    m_InternalValue: 0
+    m_InternalValue: 400
   _currentStamina:
     m_InternalValue: 0
   _maxStamina:
     m_InternalValue: 0
   _vitality:
-    m_InternalValue: 10
+    m_InternalValue: 1
   _endurance:
-    m_InternalValue: 10
+    m_InternalValue: 1
   _strength:
     m_InternalValue: 1
   _strengthModifier:
@@ -1849,6 +1851,16 @@ MonoBehaviour:
     m_InternalValue: 0
   _isTwoHandingLeftWeapon:
     m_InternalValue: 0
+  _isMale:
+    m_InternalValue: 1
+  _headEquipmentID:
+    m_InternalValue: -1
+  _bodyEquipmentID:
+    m_InternalValue: -1
+  _legEquipmentID:
+    m_InternalValue: -1
+  _handEquipmentID:
+    m_InternalValue: -1
 --- !u!114 &-4884708022747012816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2031,8 +2043,74 @@ MonoBehaviour:
   _rightWeaponManager: {fileID: 0}
   _leftWeaponManager: {fileID: 0}
   _equipNewItems: 0
+  _hatsObject: {fileID: 0}
+  _hats: []
+  _hoodObject: {fileID: 0}
+  _hoods: []
+  _faceCoverObject: {fileID: 0}
+  _faceCovers: []
+  _helmetAccessoriesObject: {fileID: 0}
+  _helmetAccessories: []
+  _backAccessoriesObject: {fileID: 0}
+  _backAccessories: []
+  _hipAccessoriesObject: {fileID: 0}
+  _hipAccessories: []
+  _rightShoulderObject: {fileID: 0}
+  _rightShoulders: []
+  _rightElbowObject: {fileID: 0}
+  _rightElbows: []
+  _rightKneeObject: {fileID: 0}
+  _rightKnees: []
+  _leftShoulderObject: {fileID: 0}
+  _leftShoulders: []
+  _leftElbowObject: {fileID: 0}
+  _leftElbows: []
+  _leftKneeObject: {fileID: 0}
+  _leftKnees: []
   _maleFullHelmetObject: {fileID: 4632498714124595869}
   _maleHeadFullHelmets: []
+  _maleFullBodyObject: {fileID: 0}
+  _maleBodies: []
+  _maleRightUpperArmObject: {fileID: 0}
+  _maleRightUpperArms: []
+  _maleRightLowerArmObject: {fileID: 0}
+  _maleRightLowerArms: []
+  _maleRightHandObject: {fileID: 0}
+  _maleRightHands: []
+  _maleLeftUpperArmObject: {fileID: 0}
+  _maleLeftUpperArms: []
+  _maleLeftLowerArmObject: {fileID: 0}
+  _maleLeftLowerArms: []
+  _maleLeftHandObject: {fileID: 0}
+  _maleLeftHands: []
+  _maleHipObject: {fileID: 0}
+  _maleHips: []
+  _maleRightLegObject: {fileID: 0}
+  _maleRightLegs: []
+  _maleLeftLegObject: {fileID: 0}
+  _maleLeftLegs: []
+  _femaleFullHelmetObject: {fileID: 0}
+  _femaleHeadFullHelmets: []
+  _femaleFullBodyObject: {fileID: 0}
+  _femaleBodies: []
+  _femaleRightUpperArmObject: {fileID: 0}
+  _femaleRightUpperArms: []
+  _femaleRightLowerArmObject: {fileID: 0}
+  _femaleRightLowerArms: []
+  _femaleRightHandObject: {fileID: 0}
+  _femaleRightHands: []
+  _femaleLeftUpperArmObject: {fileID: 0}
+  _femaleLeftUpperArms: []
+  _femaleLeftLowerArmObject: {fileID: 0}
+  _femaleLeftLowerArms: []
+  _femaleLeftHandObject: {fileID: 0}
+  _femaleLeftHands: []
+  _femaleHipObject: {fileID: 0}
+  _femaleHips: []
+  _femaleRightLegObject: {fileID: 0}
+  _femaleRightLegs: []
+  _femaleLeftLegObject: {fileID: 0}
+  _femaleLeftLegs: []
 --- !u!114 &5343010605841613971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2228,6 +2306,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e57d0fe64b9c0824695bc4a26ebb108a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6963168221755649284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5745942221255067093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 144a03ba1085495d89669e5e0870c7aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hair: {fileID: 0}
+  _facialHair: {fileID: 0}
+  _maleHead: {fileID: 0}
+  _maleBody: []
+  _maleArms: []
+  _maleLegs: []
+  _maleEyebrows: {fileID: 0}
+  _maleFacialHair: {fileID: 0}
+  _femaleHead: {fileID: 0}
+  _femaleBody: []
+  _femaleArms: []
+  _femaleLegs: []
+  _femaleEyebrows: {fileID: 0}
 --- !u!1 &5772165799223377349
 GameObject:
   m_ObjectHideFlags: 0

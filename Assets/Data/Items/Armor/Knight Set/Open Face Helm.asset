@@ -29,3 +29,4 @@ MonoBehaviour:
   _poise: 8
   _equipmentModels:
   - {fileID: 11400000, guid: c41cc2f79dda1144c99efe12a17ce2a8, type: 2}
+  _HeadEquipmentType: 2

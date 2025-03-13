@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abc96f66ebf14db1a133ede583aec428, type: 3}
   m_Name: Knight Helm Model B
   m_EditorClassIdentifier: 
-  _equipmentModelType: 0
+  _equipmentModelType: 2
   _maleEquipmentName: Sphere Helmet
   _femaleEquipmentName: Sphere Helmet

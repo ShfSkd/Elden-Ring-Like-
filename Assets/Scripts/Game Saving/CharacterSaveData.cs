@@ -11,6 +11,9 @@ namespace SKD.GameSaving
 
         [Header("Character Name")]
         public string _characterName = "Character";
+        
+        [Header("Body Type")]
+        public bool _isMale = true;
 
         [Header("Time Played")]
         public float _secondsPlayed;
@@ -37,6 +40,23 @@ namespace SKD.GameSaving
         [Header("Bosses")]
         public SerializableDictionary<int, bool> _bossesAwakened; // the int is the boss ID , The bool is the awaken statues 
         public SerializableDictionary<int, bool> _bossesDefeated; // the int is the boss ID , The bool is the defeated statues
+        
+        [Header("Equipment")]
+        public int _headEquipment;
+        public int _bodyEquipment;
+        public int _legEquipment;
+        public int _handEquipment;
+
+        public int _rightWeaponIndex;
+        public int _rightWeapon01;
+        public int _rightWeapon02;
+        public int _rightWeapon03;
+
+        public int _leftWeaponIndex;
+        public int _leftWeapon01;
+        public int _leftWeapon02;
+        public int _leftWeapon03;
+        
         
         public CharacterSaveData()
         {
