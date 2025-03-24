@@ -3,57 +3,56 @@
 Package Animation Summary
 *************************************
 
-> Main Hand/Dual Wield locomotion Set
-> Two Hand Locomotion Set
-> Off Hand Blocking Locomotion Set
-> Two Hand Blocking Locomotion Set
+Q: 
+What is "Legacy" Vs "Nephilim"?
 
-> Main Hand action set
-> Two Hand Action Set
-> Dual Wield Action Set
-> Damage Animation Set
+A: 
+The legacy animations were the first versions of the animation set. Since we also use these animations in our very own Dark Fantasy action RPG,
+overtime we continued to modify/polish them to better fit our vision. In short, the "Nephilim" versions of these animations are remastered versions 
+of the original, sometimes replacing the original motion completely. We suggest using those over the original!
+
+Q:
+What is the "Core" folder, and why is it outside of the animation set folders?
+
+A:
+The "Core" folder are motions that are shared with multiple weapon types, usually locomotion.
 
 *************************************
 Action Sets include...
 *************************************
 
-> Light Attacks
-> Charged Attacks
-> Running Attacks
-> Rolling Attacks
+> Light attacks
+> Charged attacks (With split animation variations)
+> Running attacks
+> Rolling attacks
 > Backstepping attacks
-> Jumping Light Attacks
-> Jumping Heavy Attacks
-> Block Ping
-> Block Light
-> Block Medium
-> Block Heavy
+> Jumping light attacks
+> Jumping heavy attacks  (With split animation variations)
+> Block ping
+> Block light
+> Block medium
+> Block heavy
 > Block stun
-> Block Break
+> Block break
+> Parry
 
 *************************************
 Locomotion Sets include...
 *************************************
 
-> 8 Way directional Walking Locomotion
-> 8 Way Directional Running Locomotion
+> 8 Way directional locomotion (walking and running)
+> 8 Way directional crouching locomotion (walking and running)
+> 8 Way directional blocking locomotion (walking and running)
 > Sprinting
 > Rolling
 > Back stepping
 > Jumping
 
 *************************************
-Bonus Animations...
-*************************************
-
-> Parry Charge
-> Parry Release
-
-*************************************
 Package Includes
 *************************************
 
-186 Unique Animations
+254 Unique Animations
 Low Poly Man Model
 Shield Model
 

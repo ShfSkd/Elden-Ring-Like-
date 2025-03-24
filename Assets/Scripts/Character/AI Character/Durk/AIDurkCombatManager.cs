@@ -33,21 +33,21 @@ namespace SKD.Character.AI_Character.Durk
 
         public void SetAttack01Damage()
         {
-            _aICharacterManager._characterSoundFXManager.PlayAttackGrunt();
+            _aICharacter._characterSoundFXManager.PlayAttackGrunt();
             _clubDamageCollider._physicalDamage = _baseDamage * _attack01DamageModifier;
             _clubDamageCollider._poiseDamage = _basePoiseDamage * _attack01DamageModifier;
         }
 
         public void SetAttack02Damage()
         {
-            _aICharacterManager._characterSoundFXManager.PlayAttackGrunt();
+            _aICharacter._characterSoundFXManager.PlayAttackGrunt();
             _clubDamageCollider._physicalDamage = _baseDamage * _attack02DamageModifier;
             _clubDamageCollider._poiseDamage = _basePoiseDamage * _attack02DamageModifier;
         }
 
         public void SetAttack03Damage()
         {
-            _aICharacterManager._characterSoundFXManager.PlayAttackGrunt();
+            _aICharacter._characterSoundFXManager.PlayAttackGrunt();
             _clubDamageCollider._physicalDamage = _baseDamage * _attack03DamageModifier;
             _clubDamageCollider._poiseDamage = _basePoiseDamage * _attack03DamageModifier;
         }

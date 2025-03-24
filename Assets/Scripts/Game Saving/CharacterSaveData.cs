@@ -40,6 +40,9 @@ namespace SKD.GameSaving
         [Header("Bosses")]
         public SerializableDictionary<int, bool> _bossesAwakened; // the int is the boss ID , The bool is the awaken statues 
         public SerializableDictionary<int, bool> _bossesDefeated; // the int is the boss ID , The bool is the defeated statues
+
+        [Header("World Items")]
+        public SerializableDictionary<int, bool> _worldItemLooted; // The int is the Item ID , The bool is the looted statues
         
         [Header("Equipment")]
         public int _headEquipment;
@@ -63,6 +66,7 @@ namespace SKD.GameSaving
             _siteOfGrace = new SerializableDictionary<int, bool>();
             _bossesAwakened = new SerializableDictionary<int, bool>();
             _bossesDefeated = new SerializableDictionary<int, bool>();
+            _worldItemLooted = new SerializableDictionary<int, bool>();
         }
     }
 }

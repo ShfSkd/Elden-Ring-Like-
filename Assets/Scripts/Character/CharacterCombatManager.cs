@@ -7,10 +7,13 @@ namespace SKD.Character
 {
     public class CharacterCombatManager : NetworkBehaviour
     {
-        protected CharacterManager _characterManager;
+        protected CharacterManager _character;
 
         [Header("last Attack Animation Perform")]
         public string _lastAttackAnimationPerformed;
+        
+        [Header("Previous Poise Damage Taken")]
+        public float _previousPoiseDamageTaken;
 
         [Header("Attack Character")]
         public CharacterManager _currentTarget;
@@ -28,16 +31,16 @@ namespace SKD.Character
 
         protected virtual void Awake()
         {
-            _characterManager = GetComponent<CharacterManager>();
+            _character = GetComponent<CharacterManager>();
         }
         public virtual void SetTarget(CharacterManager newTarget)
         {
-            if (_characterManager.IsOwner)
+            if (_character.IsOwner)
             {
                 if (newTarget != null)
                 {
                     _currentTarget = newTarget;
-                    _characterManager._characterNetworkManager._currentTargetNetworkObjectID.Value = newTarget.GetComponent<NetworkObject>().NetworkObjectId;
+                    _character._characterNetworkManager._currentTargetNetworkObjectID.Value = newTarget.GetComponent<NetworkObject>().NetworkObjectId;
                 }
                 else
                 {
@@ -47,14 +50,19 @@ namespace SKD.Character
         }
         public void EnableIsInvulnerable()
         {
-            if (_characterManager.IsOwner)
-                _characterManager._characterNetworkManager._isInvulnerable.Value = true;
+            if (_character.IsOwner)
+                _character._characterNetworkManager._isInvulnerable.Value = true;
         }
         public void DisableIsInvulnerable()
         {
-            if (_characterManager.IsOwner)
-                _characterManager._characterNetworkManager._isInvulnerable.Value = false;
+            if (_character.IsOwner)
+                _character._characterNetworkManager._isInvulnerable.Value = false;
 
+        }
+        public void EnableIsRipostable()
+        {
+            if(_character.IsOwner)
+                _character._characterNetworkManager._isRipostable.Value = true;
         }
         public void EnableCanDoRollingAttack()
         {

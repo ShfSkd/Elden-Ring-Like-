@@ -41,12 +41,13 @@ namespace SKD.Character
         public NetworkVariable<bool> _isSprinting = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<bool> _isJumping = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<bool> _isChargingAttack = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<bool> _isRipostable = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
         [Header("Recurses")]
         public NetworkVariable<int> _currentHealth = new NetworkVariable<int>(400, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> _maxHealth = new NetworkVariable<int>(400, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<float> _currentStamina = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-        public NetworkVariable<int> _maxStamina = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<int> _maxStamina = new NetworkVariable<int>(200, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
         [Header("Stats")]
         public NetworkVariable<int> _vitality = new NetworkVariable<int>(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
@@ -155,7 +156,32 @@ namespace SKD.Character
             _characterManager._characterAnimationManager._applyRootMotion = applyRootMotion;
             _characterManager._animator.CrossFade(animationID, 0.2f);
         }
+        // Attack Animations
+        [ServerRpc]
+        public void NotifyTheServerOfInstantActionAttackAnimationServerRpc(ulong clientId, string animationID, bool applyRootMotion)
+        {
+            // If this client is the host/server , then activate the client RPC
+            if (IsServer)
+            {
+                PlayInstantActionAttackAnimationForAllClientsClientRpc(clientId, animationID, applyRootMotion);
+            }
+        }
 
+        [ClientRpc]
+        public void PlayInstantActionAttackAnimationForAllClientsClientRpc(ulong clientId, string animationID, bool applyRootMotion)
+        {
+            // We make sure to not run the function on the character who sent it (so we don't play the animation twice)
+            if (clientId != NetworkManager.Singleton.LocalClientId)
+            {
+                PerformInstantActionAttackAnimationFromServer(animationID, applyRootMotion);
+            }
+        }
+
+        private void PerformInstantActionAttackAnimationFromServer(string animationID, bool applyRootMotion)
+        {
+            _characterManager._characterAnimationManager._applyRootMotion = applyRootMotion;
+            _characterManager._animator.Play(animationID);
+        }
         // Damage
         [ServerRpc(RequireOwnership = false)]
         public void NotifyTheServerOfCharacterDamageServerRpc(ulong damageCharacterID,
@@ -222,5 +248,6 @@ namespace SKD.Character
             damagedCharacter._characterEffectsManager.ProceesInstanceEffect(damageEffect);
 
         }
+    
     }
 }

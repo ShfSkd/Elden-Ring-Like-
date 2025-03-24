@@ -195,7 +195,28 @@ namespace SKD.Character
             _characterManager._characterNetworkManager.NotifyTheServerofActionAnimationServerRpc(
                 NetworkManager.Singleton.LocalClientId, targetAnimationName, applyRootMotion);
         }
+        public void PlayTargetActionAnimationInstantly(
+            string targetAnimationName,
+            bool isPerformingAction,
+            bool applyRootMotion = true,
+            bool canRotate = false,
+            bool canMove = false)
+        {
+            _applyRootMotion = applyRootMotion;
+            _characterManager._characterAnimationManager._applyRootMotion = applyRootMotion;
 
+            _characterManager._animator.Play(targetAnimationName);
+            // Can be used to stop character from attempting new actions
+            // for example:If you get damaged, and begin performing a damage animation this flag will turn true if you are stunned  
+            // we can them check for this before attempting new actions
+            _characterManager._isPerformingAction = isPerformingAction;
+            _characterManager._characterLocomotionManager._canRotate = canRotate;
+            _characterManager._characterLocomotionManager._canMove = canMove;
+
+            // Tell the server/host we played an animation, and to play that animation for everybody else present
+            _characterManager._characterNetworkManager.NotifyTheServerOfInstantActionAttackAnimationServerRpc(
+                NetworkManager.Singleton.LocalClientId, targetAnimationName, applyRootMotion);
+        }
         public void PlayTargetAttackActionAnimation(WeaponItem weapon, AttackType attackType,
             string targetAnimationName,
             bool isPerformingAction,
@@ -221,10 +242,11 @@ namespace SKD.Character
             _characterManager._characterNetworkManager.NotifyTheServerOfActionAttackAnimationServerRpc(
                 NetworkManager.Singleton.LocalClientId, targetAnimationName, applyRootMotion);
         }
-
+   
         public void UpdateAnimatorController(AnimatorOverrideController weaponController)
         {
             _characterManager._animator.runtimeAnimatorController = weaponController;
         }
+   
     }
 }

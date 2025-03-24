@@ -48,8 +48,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bossIntroPlayer: {fileID: 9163660633888756998}
   _bossLoopPlayer: {fileID: 3408888472727020762}
-  _physicalDamageSFX: []
+  _physicalDamageSFX:
+  - {fileID: 8300000, guid: 3df9bbbc130ccb344af5f3fc793a630f, type: 3}
+  - {fileID: 8300000, guid: 7cbd6cd765888ff418d01d98bd1ce9c2, type: 3}
   _rollSFX: {fileID: 8300000, guid: 71b36098eccd9e74f90d59a1afcc76ca, type: 3}
+  _pickUpItemSFX: {fileID: 8300000, guid: 90fb91c5d9f18df4183363d36d921429, type: 3}
+  _stanceBreakSFX: {fileID: 8300000, guid: 05d0536a3eefc80438f95f9662331f52, type: 3}
 --- !u!82 &9163660633888756998
 AudioSource:
   m_ObjectHideFlags: 0

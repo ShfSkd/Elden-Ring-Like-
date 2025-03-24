@@ -2,7 +2,7 @@
 using UnityEngine;
 
 namespace SKD
-{
+{ 
     public class Enums : MonoBehaviour
     {
     
@@ -31,6 +31,12 @@ namespace SKD
         RightUpperArm,RightElbow,RightLowerArm,RightHand,LeftShoulder,LeftUpperArm,LeftElbow,LeftLowerArm,LeftHand,
         Hips,HipsAttachment,RightLeg,RightKnee,LeftLeg,LeftKnee
     }
+    public enum EquipmentType
+    {
+       RightWeapon01,RightWeapon02,RightWeapon03, // 0-2
+       LeftWeapon01,LeftWeapon02,LeftWeapon03, // 3-5
+       Head,Body,Legs,Hands // 6-9 
+    }
     public enum HeadEquipmentType
     {
         FullHelmet,
@@ -55,9 +61,12 @@ namespace SKD
     {
         Ping,Light,Meduim,Heavy,Colossal 
     }
-
     public enum WeaponClass
     {
         StraightSword,Spear,MediumShield,Fist
+    }
+    public enum ItemPickUpType
+    {
+        WorldSpawn,Character,Drop
     }
 }

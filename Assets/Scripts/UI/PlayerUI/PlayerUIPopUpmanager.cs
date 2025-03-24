@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace SKD.UI.PlayerUI
 {
@@ -10,6 +10,12 @@ namespace SKD.UI.PlayerUI
         [Header("Message Pop-up")]
         [SerializeField] TextMeshProUGUI _popUpMessageText;
         [SerializeField] GameObject _popUpMessageGameObject;
+        
+        [Header("Item Pop-up")]
+        [SerializeField]GameObject _itemPopUPGameObject;
+        [SerializeField] Image _itemIcon;
+        [SerializeField] TextMeshProUGUI _itemName;
+        [SerializeField] TextMeshProUGUI _itemAmount;
 
         [Header("You Died Pop-up")]
         [SerializeField] GameObject _youDiedpopUpGameObject;
@@ -31,6 +37,7 @@ namespace SKD.UI.PlayerUI
         public void CloseAllPopUpsWindows()
         {
             _popUpMessageGameObject.SetActive(false);
+            _itemPopUPGameObject.SetActive(false);
 
             PlayerUIManger.instance._popUpWindowIsOpen = false;
         }
@@ -40,6 +47,20 @@ namespace SKD.UI.PlayerUI
             _popUpMessageText.text = messageText;
             _popUpMessageGameObject.SetActive(true);
 
+        }
+        public void SendItemPopUp(Item item, int amount)
+        {
+            _itemAmount.enabled = false;
+            _itemIcon.sprite = item._itemIcon;
+            _itemName.text = item._itemName;
+
+            if (amount > 0)
+            {
+                _itemAmount.enabled = true;
+                _itemAmount.text = "x" + amount;
+            }
+            _itemPopUPGameObject.SetActive(true);
+            PlayerUIManger.instance._popUpWindowIsOpen = true;
         }
         public void SendYouDiedPopUp()
         {

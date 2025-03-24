@@ -1753,13 +1753,13 @@ MonoBehaviour:
   _maxHealth:
     m_InternalValue: 400
   _currentStamina:
-    m_InternalValue: 0
+    m_InternalValue: 200
   _maxStamina:
-    m_InternalValue: 0
+    m_InternalValue: 200
   _vitality:
     m_InternalValue: 1
   _endurance:
-    m_InternalValue: 1
+    m_InternalValue: 1003
   _strength:
     m_InternalValue: 1
   _strengthModifier:
@@ -2013,7 +2013,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 973e05087bb4ff04583611472546faad, type: 2}
   - {fileID: 11400000, guid: 14c3281558bbad84baaefea5fb58e2cf, type: 2}
   _rightHandWeaponIndex: 0
-  _weaponInLefthHandSlot:
+  _weaponInLefthHandSlots:
   - {fileID: 11400000, guid: 8e5375d83986e634ab25c2bfe42a5769, type: 2}
   - {fileID: 11400000, guid: 973e05087bb4ff04583611472546faad, type: 2}
   - {fileID: 11400000, guid: 14c3281558bbad84baaefea5fb58e2cf, type: 2}
@@ -2022,6 +2022,7 @@ MonoBehaviour:
   _bodyEquipment: {fileID: 0}
   _legEquipment: {fileID: 0}
   _handEquipment: {fileID: 0}
+  _itemInTheInventory: []
 --- !u!114 &-1355481650577912924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2320,12 +2321,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hair: {fileID: 0}
   _facialHair: {fileID: 0}
+  _maleObject: {fileID: 0}
   _maleHead: {fileID: 0}
   _maleBody: []
   _maleArms: []
   _maleLegs: []
   _maleEyebrows: {fileID: 0}
   _maleFacialHair: {fileID: 0}
+  _femaleObject: {fileID: 0}
   _femaleHead: {fileID: 0}
   _femaleBody: []
   _femaleArms: []

@@ -1,6 +1,7 @@
 ﻿using SKD.Character;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace SKD.World_Manager
 {
@@ -17,6 +18,8 @@ namespace SKD.World_Manager
 
         [Header("Action Sounds")]
         public AudioClip _rollSFX;
+        public AudioClip _pickUpItemSFX;
+        public AudioClip _stanceBreakSFX;
 
         private void Awake()
         {

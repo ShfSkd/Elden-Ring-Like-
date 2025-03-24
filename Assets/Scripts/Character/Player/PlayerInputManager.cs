@@ -3,6 +3,7 @@ using SKD.WorldManager;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -60,8 +61,11 @@ namespace SKD.Character.Player
 
         [Header("Trigger Inputs")]
         [SerializeField] bool _RT_Input;
-
         [SerializeField] bool _holdRT_Input;
+
+        [Header("UI Inputs")]
+        [SerializeField] bool _openCharcterMenuInput;
+        [SerializeField] bool _closeMenuInput;
 
 
         private void Awake()
@@ -148,6 +152,10 @@ namespace SKD.Character.Player
                 // Qued Inputs
                 _playerControls.PlayerActions.QueRB.performed += i => QueInput(ref _que_RB_Input);
                 _playerControls.PlayerActions.QueRT.performed += i => QueInput(ref _que_RT_Input);
+
+                // UI Inputs
+                _playerControls.PlayerActions.Dodge.performed += i => _closeMenuInput = true;
+                _playerControls.PlayerActions.OpenCharacterMenu.performed += i => _openCharcterMenuInput = true;
             }
 
             _playerControls.Enable();
@@ -193,6 +201,8 @@ namespace SKD.Character.Player
             HandleSwitchLeftInput();
             HanleQueInputs();
             HandleInteractInput();
+            HandleCloseUIInputs();
+            HandleOpenCharacterMenuInputs();
         }
 
         //Two Hand
@@ -393,8 +403,9 @@ namespace SKD.Character.Player
             if (_jumpInput)
             {
                 _jumpInput = false;
-
                 // If we have UI window Open, simply return without doing nothing
+                if(PlayerUIManger.instance._menuWindowIsOpen)
+                    return;
 
                 // Attempt to perform jump
                 _player._playerLocomotionManager.AttemptToPerformJump();
@@ -469,6 +480,10 @@ namespace SKD.Character.Player
             if (_switchRightWeapon_Input)
             {
                 _switchRightWeapon_Input = false;
+                
+                if(PlayerUIManger.instance._menuWindowIsOpen)
+                    return;
+                
                 _player._playerEquipmentManager.SwitchRightWeapon();
             }
         }
@@ -478,6 +493,10 @@ namespace SKD.Character.Player
             if (_switchLeftWeapon_Input)
             {
                 _switchLeftWeapon_Input = false;
+                
+                if(PlayerUIManger.instance._menuWindowIsOpen)
+                    return;
+                
                 _player._playerEquipmentManager.SwitchLeftWeapon();
             }
         }
@@ -537,6 +556,29 @@ namespace SKD.Character.Player
                 _interactInput = false;
 
                 _player._playerInteractionManager.Interact();
+            }
+        }
+        private void HandleOpenCharacterMenuInputs()
+        {
+            if (_openCharcterMenuInput)
+            {
+                _openCharcterMenuInput = false;
+
+                PlayerUIManger.instance._playerUIPopUpManager.CloseAllPopUpsWindows();
+                PlayerUIManger.instance.ClosAllMenuWindows();
+                PlayerUIManger.instance._playerUICharacterMenuManager.OpenCharacterMenu();
+            }
+        }
+        private void HandleCloseUIInputs()
+        {
+            if (_closeMenuInput)
+            {
+                _closeMenuInput = false;
+
+                if (PlayerUIManger.instance._menuWindowIsOpen)
+                {
+                    PlayerUIManger.instance.ClosAllMenuWindows();
+                }
             }
         }
     }

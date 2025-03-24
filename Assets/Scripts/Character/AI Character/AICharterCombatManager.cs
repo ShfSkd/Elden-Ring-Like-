@@ -1,4 +1,5 @@
-﻿using SKD.World_Manager;
+﻿using System;
+using SKD.World_Manager;
 using System.Collections;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ namespace SKD.Character.AI_Character
 {
     public class AICharterCombatManager : CharacterCombatManager
     {
-        protected AICharacterManager _aICharacterManager;
+        protected AICharacterManager _aICharacter;
 
         [Header("Action Recovery")]
         public float _actionRecoveryTime;
@@ -26,11 +27,85 @@ namespace SKD.Character.AI_Character
 
         [Header("Attack Rotation Speed")]
         public float _attackRotationSpeed = 25f;
+
+        [Header("Stance Setting")]
+        public float _maxStance = 150f;
+        public float _currentStance;
+        [SerializeField] float _stanceRegeneratedPersecond;
+        [SerializeField] bool _ignoreStanceBreak;
+
+        [Header("Stance Timer")]
+        [SerializeField] float _stanceRegenerationTimer;
+        private float _stanceTickTimer;
+        [SerializeField] float _defultTimeUntilStanceRegenerationBegain = 15f;
+
         protected override void Awake()
         {
             base.Awake();
-            _aICharacterManager = GetComponent<AICharacterManager>();
+            _aICharacter = GetComponent<AICharacterManager>();
             _lockOnTransform = GetComponentInChildren<LockOnTransform>().transform;
+        }
+        private void FixedUpdate()
+        {
+            HandleStanceBreak();
+        }
+        private void HandleStanceBreak()
+        {
+            if (!_aICharacter.IsOwner)
+                return;
+
+            if (_aICharacter._isDead.Value)
+                return;
+
+            if (_stanceRegenerationTimer > 0)
+            {
+                _stanceRegenerationTimer -= Time.deltaTime;
+            }
+            else
+            {
+                _stanceRegenerationTimer = 0;
+
+                if (_currentStance < _maxStance)
+                {
+                    // Begin adding stance each tick
+                    _stanceTickTimer += Time.deltaTime;
+
+                    if (_stanceTickTimer >= 1)
+                    {
+                        _stanceTickTimer = 0;
+                        _currentStance += _stanceRegeneratedPersecond;
+                    }
+                }
+                else
+                {
+                    _currentStance = _maxStance;
+                }
+            }
+            if (_currentStance <= 0)
+            {
+                // This would feel less impactful in gameplay 
+                DamageIntensity previousDamageIntensity = WorldUtilityManager.Instance.GetDamageIntensityBasedOnPoiseDamage(_previousPoiseDamageTaken);
+
+                if (previousDamageIntensity == DamageIntensity.Colossal)
+                {
+                    _currentStance = 1;
+                    return;
+                }
+
+                _currentStance = _maxStance;
+
+                if (_ignoreStanceBreak)
+                    return;
+
+                _aICharacter._characterAnimationManager.PlayTargetActionAnimationInstantly("Stance_Break_01",true);
+            }
+        }
+        public void DamageStance(int stanceDamage)
+        {
+            // When stance is damaged, the timer is reset, meaning constant attack give no chance at recovering stance that is lost 
+            _stanceRegenerationTimer = _defultTimeUntilStanceRegenerationBegain;
+
+            _currentStance -= stanceDamage;
         }
         public void FindATargetViaLineOfSight(AICharacterManager aICharacter)
         {

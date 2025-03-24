@@ -1,6 +1,7 @@
 ﻿using SKD.Character;
 using SKD.Items;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -18,11 +19,31 @@ namespace SKD.UI.PlayerUI
         [FormerlySerializedAs("_weaponInLefthHandSlot")]
         public WeaponItem[] _weaponInLefthHandSlots = new WeaponItem[3];
         public int _leftHandWeaponIndex;
-        
+
         [Header("Armor")]
         public HeadEquipmentItem _headEquipment;
         public BodyEquipmentItem _bodyEquipment;
         public LegEquipmentItem _legEquipment;
         public HandEquipmentItem _handEquipment;
+
+        [Header("Inventory")]
+        public List<Item> _itemInTheInventory;
+
+        public void AddItemsToInventory(Item item)
+        {
+            _itemInTheInventory.Add(item);
+        }
+        public void RemoveItemFromInventory(Item item)
+        {
+            _itemInTheInventory.Remove(item);
+
+            for (int i = _itemInTheInventory.Count - 1; i > -1; i--)
+            {
+                if (_itemInTheInventory[i] == null)
+                {
+                    _itemInTheInventory.RemoveAt(i);
+                }
+            }
+        }
     }
 }

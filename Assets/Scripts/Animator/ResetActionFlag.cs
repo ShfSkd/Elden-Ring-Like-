@@ -4,29 +4,30 @@ using UnityEngine;
 
 public class ResetActionFlag : StateMachineBehaviour
 {
-    CharacterManager _characterManager;
+    CharacterManager _character;
     //OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(UnityEngine.Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (_characterManager == null)
+        if (_character == null)
         {
-            _characterManager = animator.GetComponent<CharacterManager>();
+            _character = animator.GetComponent<CharacterManager>();
         }
 
-        _characterManager._isPerformingAction = false;
-        _characterManager._characterAnimationManager._applyRootMotion = false;
-        _characterManager._characterLocomotionManager._canRotate = true;
-        _characterManager._characterLocomotionManager._canMove = true;
-        _characterManager._characterLocomotionManager._isRolling = false;
-        _characterManager._characterAnimationManager.DisableCanDoCombo();
-        _characterManager._characterCombatManager.DisableCanDoRollingAttack();
-        _characterManager._characterCombatManager.DisableCanDoBackstepAttack();
+        _character._isPerformingAction = false;
+        _character._characterAnimationManager._applyRootMotion = false;
+        _character._characterLocomotionManager._canRotate = true;
+        _character._characterLocomotionManager._canMove = true;
+        _character._characterLocomotionManager._isRolling = false;
+        _character._characterAnimationManager.DisableCanDoCombo();
+        _character._characterCombatManager.DisableCanDoRollingAttack();
+        _character._characterCombatManager.DisableCanDoBackstepAttack();
 
-        if (_characterManager.IsOwner)
+        if (_character.IsOwner)
         {
-            _characterManager._characterNetworkManager._isJumping.Value = false;
-            _characterManager._characterNetworkManager._isInvulnerable.Value = false;
-            _characterManager._characterNetworkManager._isAttacking.Value = false;
+            _character._characterNetworkManager._isJumping.Value = false;
+            _character._characterNetworkManager._isInvulnerable.Value = false;
+            _character._characterNetworkManager._isAttacking.Value = false;
+            _character._characterNetworkManager._isRipostable.Value = false;
         }
 
     }

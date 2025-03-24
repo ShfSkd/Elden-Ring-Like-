@@ -1,6 +1,7 @@
 using System;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace SKD.UI.PlayerUI
 {
@@ -13,9 +14,11 @@ namespace SKD.UI.PlayerUI
 
         [HideInInspector] public PlayerUIHUDManager _playerUIHUDManager;
         [HideInInspector] public PlayerUIPopUpManager _playerUIPopUpManager;
+        [HideInInspector] public PlayerUICharacterMenuManager _playerUICharacterMenuManager;
+        [HideInInspector] public PlayerUIEquipmentManager _playerUIEquipmentManager;
 
         [Header("UI Flags")]
-        public bool _menuWindowIsOpen; // Inventory Screen , Equipment menu, Shop,etc.
+        public bool _menuWindowIsOpen;// Inventory Screen , Equipment menu, Shop,etc.
         public bool _popUpWindowIsOpen;// Item pick ups,dialogged pop up etc
 
         private void Awake()
@@ -27,6 +30,8 @@ namespace SKD.UI.PlayerUI
 
             _playerUIHUDManager = GetComponentInChildren<PlayerUIHUDManager>();
             _playerUIPopUpManager = GetComponentInChildren<PlayerUIPopUpManager>();
+            _playerUICharacterMenuManager = GetComponentInChildren<PlayerUICharacterMenuManager>();
+            _playerUIEquipmentManager = GetComponentInChildren<PlayerUIEquipmentManager>();
         }
         private void Start()
         {
@@ -42,6 +47,11 @@ namespace SKD.UI.PlayerUI
                 // We restart as a client
                 NetworkManager.Singleton.StartClient();
             }
+        }
+        public void ClosAllMenuWindows()
+        {
+            _playerUICharacterMenuManager.CloseCharacterMenu();
+            _playerUIEquipmentManager.CloseEquipmentManagerMenu();
         }
     }
 

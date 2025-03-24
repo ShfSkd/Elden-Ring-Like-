@@ -1,6 +1,7 @@
 ﻿using SKD.Character;
 using SKD.World_Manager;
 using System.Collections;
+using SKD.Character.AI_Character;
 using UnityEngine;
 
 namespace SKD.Effects
@@ -9,10 +10,10 @@ namespace SKD.Effects
     public class TakeDamageEffect : InstantCharacterEffect
     {
         [Header("Character Causing Damage")]
-        public CharacterManager _characteCausingDamage; // If the damage is caused by another characters attacks it will be store here 
+        public CharacterManager _characteCausingDamage;// If the damage is caused by another characters attacks it will be store here 
 
         [Header("Damage")]
-        public float _physicalDamage; // In the future will split into "Standard", "Strike", "Slash" end Pierce
+        public float _physicalDamage;// In the future will split into "Standard", "Strike", "Slash" end Pierce
 
         public float _magicDamage;
         public float _fireDamage;
@@ -20,26 +21,26 @@ namespace SKD.Effects
         public float _holyDamage;
 
         [Header("Final Damage")]
-        private int _finalDamageDealt; // The damage the character takes after all calculation have been set
+        private int _finalDamageDealt;// The damage the character takes after all calculation have been set
 
-        [Header("Animation")] 
+        [Header("Animation")]
         public bool _playDamageAnimation = true;
         public bool _manualSelectDamageAnimation;
         public string _damageAnimation;
 
-        [Header("Posie")] 
+        [Header("Posie")]
         public float _poiseDamage;
-        public bool _poiseIsBroken; // If the character poise is broken,  they will "Stunned" and play damage animation
+        public bool _poiseIsBroken;// If the character poise is broken,  they will "Stunned" and play damage animation
 
-        [Header("Sound FX")] 
+        [Header("Sound FX")]
         public bool _willPlayDamageSFX = true;
 
-        public AudioClip _elementalDamageSoundSfx; // Used on top of regular SFX there is elemental damage present(Magic/Fire/Lightning/Holy)
+        public AudioClip _elementalDamageSoundSfx;// Used on top of regular SFX there is elemental damage present(Magic/Fire/Lightning/Holy)
 
         [Header("Direction Damage Taken From")]
-        public float _angleHitFrom; // Used to determine what damage animation to play (Move backwards, to the left/right.etc
+        public float _angleHitFrom;// Used to determine what damage animation to play (Move backwards, to the left/right.etc
 
-        public Vector3 _constantPoint; // Used to determine where the blood FX instantiate)
+        public Vector3 _constantPoint;// Used to determine where the blood FX instantiate)
 
         public override void ProcessesEffect(CharacterManager character)
         {
@@ -53,8 +54,8 @@ namespace SKD.Effects
                 return;
 
             // Check for "Invulnerably"
-            PlayDirectionBasedDamageAnimation(character);
             CalculateDamage(character);
+            PlayDirectionBasedDamageAnimation(character);
             // Check which direction damage came from
             // Play Damage Animation
 
@@ -63,10 +64,23 @@ namespace SKD.Effects
             PlayDamageSFX(character);
             // Play Damage VFX (Blood)
             PlayDamageVFX(character);
+            
+            // Run this after all other function that would attempt to play an animation upon being damaged & after poise/stance damage is calculated
+            CalculateStanceDamage(character);
 
             // If character is A.I , check for new target if character causing damage is present
         }
+        private void CalculateStanceDamage(CharacterManager character)
+        {
+            AICharacterManager aiCharacter = character as AICharacterManager;
 
+            int stanceDamage = Mathf.RoundToInt(_poiseDamage);
+
+            if (aiCharacter != null)
+            {
+                aiCharacter._aICharacterCombatManager.DamageStance(stanceDamage);
+            }
+        }
         private void CalculateDamage(CharacterManager character)
         {
             if (!character.IsOwner)
@@ -93,9 +107,12 @@ namespace SKD.Effects
             character._characterNetworkManager._currentHealth.Value -= _finalDamageDealt;
 
             // Calculate Poise damage to determine if the character will be stunned
-
+            character._characterCombatManager._previousPoiseDamageTaken = _poiseDamage;
             // We subject poise damage from the character total 
             character._characterStatsManager._totalPoiseDamage -= _poiseDamage;
+            // We store the previous poise damage taken from the character total 
+            character._characterCombatManager._previousPoiseDamageTaken = _poiseDamage;
+
 
             float remainingPoise = character._characterStatsManager._basePoiseDefence +
                                    character._characterStatsManager._offensivePoiseDamage +
@@ -211,14 +228,14 @@ namespace SKD.Effects
             }
 
             character._characterAnimationManager._lastDamageAnimationPlayed = _damageAnimation;
-            
+
             if (_poiseIsBroken)
             {
                 character._characterAnimationManager.PlayTargetActionAnimation(_damageAnimation, true);
             }
             else
             {
-                character._characterAnimationManager.PlayTargetActionAnimation(_damageAnimation, false,false,true,true);
+                character._characterAnimationManager.PlayTargetActionAnimation(_damageAnimation, false, false, true, true);
             }
         }
     }

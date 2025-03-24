@@ -23,7 +23,8 @@ namespace SKD.Character.Player
         public NetworkVariable<int> _currentWeaponBeingUsed =
             new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
-        public NetworkVariable<int> _currentRightWeaponID = new NetworkVariable<int>(0,
+        [FormerlySerializedAs("_currentRightWeaponID")]
+        public NetworkVariable<int> _currentRightHandWeaponID = new NetworkVariable<int>(0,
             NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
         public NetworkVariable<int> _currentLeftWeaponID = new NetworkVariable<int>(0,
@@ -147,7 +148,7 @@ namespace SKD.Character.Player
 
             if (IsOwner)
             {
-                _currentWeaponBeingTwoHanded.Value = _currentRightWeaponID.Value;
+                _currentWeaponBeingTwoHanded.Value = _currentRightHandWeaponID.Value;
                 _isTwoHandingWeapon.Value = true;
             }
 

@@ -96,6 +96,7 @@ MonoBehaviour:
   _fireDamage: 0
   _lightningDamage: 0
   _holyDamage: 0
+  _poiseDamage: 0
   _undeadCharacter: {fileID: 0}
 --- !u!1 &825645406942585886
 GameObject:
@@ -220,10 +221,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.14
+  m_Radius: 0.15
   m_Height: 0.44
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.01, z: 0}
 --- !u!1 &1297782008100419838
 GameObject:
   m_ObjectHideFlags: 0
@@ -966,10 +967,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4243281801065162290}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d94f79208bf04d46b77ff38da772f6c, type: 3}
+  m_Script: {fileID: 11500000, guid: f12d31b3b7b844f448a02961dcd4e071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weaponSlot: 1
+  _weaponSlot: 0
   _currentWeaponModel: {fileID: 0}
 --- !u!1 &4261387398594414106
 GameObject:
@@ -1017,11 +1018,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 4261387398594414106}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d94f79208bf04d46b77ff38da772f6c, type: 3}
+  m_Script: {fileID: 11500000, guid: 48be92df5ffe18941a5a9afeafca45e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weaponSlot: 0
-  _currentWeaponModel: {fileID: 0}
+  _damageCollider: {fileID: 8281681728240642103}
+  _physicalDamage: 0
+  _magicDamage: 0
+  _fireDamage: 0
+  _lightningDamage: 0
+  _holyDamage: 0
+  _poiseDamage: 0
+  _undeadCharacter: {fileID: 0}
 --- !u!136 &8281681728240642103
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2213,6 +2220,10 @@ MonoBehaviour:
     m_InternalValue: 0
   _currentTargetNetworkObjectID:
     m_InternalValue: 0
+  _isBlocking:
+    m_InternalValue: 0
+  _isAttacking:
+    m_InternalValue: 0
   _isInvulnerable:
     m_InternalValue: 0
   _isLockOn:
@@ -2222,6 +2233,8 @@ MonoBehaviour:
   _isJumping:
     m_InternalValue: 0
   _isChargingAttack:
+    m_InternalValue: 0
+  _isRipostable:
     m_InternalValue: 0
   _currentHealth:
     m_InternalValue: 400
@@ -2234,6 +2247,10 @@ MonoBehaviour:
   _vitality:
     m_InternalValue: 1
   _endurance:
+    m_InternalValue: 1
+  _strength:
+    m_InternalValue: 1
+  _strengthModifier:
     m_InternalValue: 1
 --- !u!114 &4968042942360955378
 MonoBehaviour:
@@ -2258,6 +2275,7 @@ MonoBehaviour:
   _characterSoundFXManager: {fileID: 0}
   _characterLocomotionManager: {fileID: 0}
   _characterUIManager: {fileID: 0}
+  _characterStatsManager: {fileID: 0}
   _characterGroup: 1
   _isPerformingAction: 0
   _characterName: 
@@ -2328,21 +2346,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lastAttackAnimationPerformed: 
+  _previousPoiseDamageTaken: 0
   _currentTarget: {fileID: 0}
   _currentAttackType: 0
   _lockOnTransform: {fileID: 0}
+  _canPerformRollingAttack: 0
+  _canPerformBackstopAttack: 0
+  _canBlock: 0
   _actionRecoveryTime: 0
   _enablePivot: 1
   _distanceFromTarget: 0
   _viewableAngle: 0
   _targetDirection: {x: 0, y: 0, z: 0}
-  _detectionRaduis: 15
-  _minimumFieldOfView: -35
-  _maximumFieldOfView: 35
+  _detectionRaduis: 5
+  _minimumFieldOfView: -25
+  _maximumFieldOfView: 25
   _attackRotationSpeed: 25
+  _maxStance: 150
+  _currentStance: 0
+  _stanceRegeneratedPersecond: 0
+  _ignoreStanceBreak: 0
+  _stanceRegenerationTimer: 0
+  _defultTimeUntilStanceRegenerationBegain: 15
   _rightHandDamageCollider: {fileID: 6663911018828430630}
   _leftHandDamageCollider: {fileID: 8902203624312396771}
   _baseDamage: 25
+  _poiseBaseDamage: 25
   _attack01DamageModifier: 1
   _attack02DamageModifier: 1.4
 --- !u!114 &9125890069008264597
@@ -2359,6 +2388,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _staminaRegenAmount: 25
   _staminaRegenarationDelay: 2
+  _blockingPhysicalAbsorption: 0
+  _blockingFireAbsorption: 0
+  _blockingMagicAbsorption: 0
+  _blockingLightningAbsorption: 0
+  _blockingHolyAbsorption: 0
+  _stabiltyRating: 0
+  _blockingStability: 0
+  _armorPhysicalDamageAbsorption: 0
+  _armorMagicDamageAbsorption: 0
+  _armorFireDamageAbsorption: 0
+  _armorLigthningDamageAbsorption: 0
+  _armorHolyDamageAbsorption: 0
+  _armorImmunity: 0
+  _armorRobustness: 0
+  _armorFocus: 0
+  _armorVitsality: 0
+  _totalPoiseDamage: 0
+  _offensivePoiseDamage: 0
+  _basePoiseDefence: 0
+  _defualtPoiseRestTimer: 8
+  _poiseResetTimer: 0
 --- !u!114 &923228266243414359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2372,6 +2422,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bloodSplatterVFX: {fileID: 3548738708314695399, guid: 13bdfb963274d4742a1e33fd72088c6b, type: 3}
+  _staticEffectsList: []
 --- !u!114 &2200652465624068871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2410,6 +2461,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _applyRootMotion: 0
   _lastDamageAnimationPlayed: 
+  _hit_Forward_Ping_01: Hit_Forward_Ping_01
+  _hit_Forward_Ping_02: Hit_Forward_Ping_02
+  _hit_Backward_Ping_01: Hit_Backward_Ping_01
+  _hit_Backward_Ping_02: Hit_Backward_Ping_02
+  _hit_Left_Ping_01: Hit_Left_Ping_01
+  _hit_Left_Ping_02: Hit_Left_Ping_02
+  _hit_Right_Ping_01: Hit_Right_Ping_01
+  _hit_Right_Ping_02: Hit_Right_Ping_02
+  _forward_Oing_Damage_List: []
+  _forward_Ping_Damage_List: []
+  _left_Ping_damage_List: []
+  _right_Ping_damage_List: []
+  _backeard_Ping_damage_List: []
   _hit_Forward_Medium_01: Hit_Forward_Medium_01
   _hit_Forward_Medium_02: Hit_Forward_Medium_02
   _hit_Backward_Medium_01: Hit_Backward_Medium_01
@@ -2965,6 +3029,7 @@ MonoBehaviour:
   _fireDamage: 0
   _lightningDamage: 0
   _holyDamage: 0
+  _poiseDamage: 0
   _undeadCharacter: {fileID: 0}
 --- !u!135 &846121481967904961
 SphereCollider:
@@ -2996,6 +3061,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2334415587981453364, guid: 09efa8c360e984045a02a1c1aaf368ef, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4385995428608646500, guid: 09efa8c360e984045a02a1c1aaf368ef, type: 3}
+      propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4620143395317355159, guid: 09efa8c360e984045a02a1c1aaf368ef, type: 3}

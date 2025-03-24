@@ -52,10 +52,13 @@ namespace SKD.Character
                 PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray
                     (_footStep));
         }
-
+        public virtual void PlayStanceBreakSoundFX()
+        {
+            _audioSource.PlayOneShot(WorldSoundFXManager.instance._stanceBreakSFX);
+        }
         public virtual void PlayBlockingSFX()
         {
-            
+
         }
     }
 }

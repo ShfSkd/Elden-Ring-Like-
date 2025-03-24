@@ -107,11 +107,12 @@ namespace SKD.Character.Player
             base.Awake();
 
             _player = GetComponent<PlayerManager>();
-            InitializeArmorModels();
+        //    InitializeArmorModels();
             // Get our slots 
             InitializeWeaponSlots();
 
-            List<GameObject> hoodsList = new List<GameObject>();
+            // TO DO- when we have skins for the player body we can uncomment those line + InitializeArmorModels(
+            /*List<GameObject> hoodsList = new List<GameObject>();
             foreach (Transform child in _hoodObject.transform)
             {
                 hoodsList.Add(child.gameObject);
@@ -201,7 +202,7 @@ namespace SKD.Character.Player
             {
                 leftKneeList.Add(child.gameObject);
             }
-            _leftKnees = leftKneeList.ToArray();
+            _leftKnees = leftKneeList.ToArray();*/
         }
 
         protected override void Start()
@@ -236,7 +237,7 @@ namespace SKD.Character.Player
         }
 
         // Equipment 
-        private void InitializeArmorModels()
+        private void InitializeArmorModels()  
         {
             List<GameObject> maleBodiesList = new List<GameObject>();
             foreach (Transform child in _maleFullBodyObject.transform)
@@ -258,7 +259,14 @@ namespace SKD.Character.Player
                 maleLowerRightHandsList.Add(child.gameObject);
             }
             _maleRightLowerArms = maleLowerRightHandsList.ToArray();
-
+            
+            List<GameObject>maleRightLowerArmList = new List<GameObject>();
+            foreach (Transform child in _maleRightLowerArmObject.transform)
+            {
+                maleRightLowerArmList.Add(child.gameObject);
+            }
+            _maleLeftLowerArms= maleRightLowerArmList.ToArray();
+            
             List<GameObject> maleRightHandList = new List<GameObject>();
             foreach (Transform child in _maleRightHandObject.transform)
             {
@@ -275,7 +283,7 @@ namespace SKD.Character.Player
             _maleLeftUpperArms = maleUpperLeftHandList.ToArray();
 
             List<GameObject> maleLeftLowerArmList = new List<GameObject>();
-            foreach (Transform child in _maleLeftUpperArmObject.transform)
+            foreach (Transform child in _maleLeftLowerArmObject.transform)
             {
                 maleLeftLowerArmList.Add(child.gameObject);
             }
@@ -317,7 +325,7 @@ namespace SKD.Character.Player
             _femaleBodies = femaleBodiesList.ToArray();
 
             List<GameObject> femaleRightUpperHandList = new List<GameObject>();
-            foreach (Transform child in _femaleRightHandObject.transform)
+            foreach (Transform child in _femaleRightUpperArmObject.transform)
             {
                 femaleRightUpperHandList.Add(child.gameObject);
             }
@@ -329,7 +337,7 @@ namespace SKD.Character.Player
                 femaleLowerRightHandsList.Add(child.gameObject);
             }
             _femaleRightLowerArms = femaleLowerRightHandsList.ToArray();
-
+            
             List<GameObject> femaleRightHandList = new List<GameObject>();
             foreach (Transform child in _femaleRightHandObject.transform)
             {
@@ -344,9 +352,16 @@ namespace SKD.Character.Player
                 femaleUpperLeftHandList.Add(child.gameObject);
             }
             _femaleLeftUpperArms = femaleUpperLeftHandList.ToArray();
+            
+            List<GameObject> femaleRightLowerArmList = new List<GameObject>();
+            foreach (Transform child in _femaleRightLowerArmObject.transform)
+            {
+                femaleRightLowerArmList.Add(child.gameObject);
+            }
+            _femaleRightLowerArms = femaleRightLowerArmList.ToArray();
 
             List<GameObject> femaleLeftLowerArmList = new List<GameObject>();
-            foreach (Transform child in _femaleLeftUpperArmObject.transform)
+            foreach (Transform child in _femaleLeftLowerArmObject.transform)
             {
                 femaleLeftLowerArmList.Add(child.gameObject);
             }
@@ -379,6 +394,13 @@ namespace SKD.Character.Player
                 femaleLeftLegList.Add(child.gameObject);
             }
             _femaleLeftLegs = femaleLeftLegList.ToArray();
+            
+            List<GameObject>femaleFullHelmetList = new List<GameObject>();
+            foreach (Transform child in _femaleFullHelmetObject.transform)
+            {
+                femaleFullHelmetList.Add(child.gameObject);
+            }
+            _femaleHeadFullHelmets= femaleFullHelmetList.ToArray();
         }
         public void LoadHeadEquipment(HeadEquipmentItem equipment)
         {
@@ -785,12 +807,12 @@ namespace SKD.Character.Player
                 {
                     _player._playerInventoryManager._rightHandWeaponIndex = -1;
                     selectedWeapon = WorldItemDatabase.Instance._unarmedWeapon;
-                    _player._playerNetworkManager._currentRightWeaponID.Value = selectedWeapon._itemID;
+                    _player._playerNetworkManager._currentRightHandWeaponID.Value = selectedWeapon._itemID;
                 }
                 else
                 {
                     _player._playerInventoryManager._rightHandWeaponIndex = firstWeaponPosition;
-                    _player._playerNetworkManager._currentRightWeaponID.Value = firstWeapon._itemID;
+                    _player._playerNetworkManager._currentRightHandWeaponID.Value = firstWeapon._itemID;
                 }
 
                 return;
@@ -807,7 +829,7 @@ namespace SKD.Character.Player
                         _player._playerInventoryManager._weaponInRigthHandSlots[
                             _player._playerInventoryManager._rightHandWeaponIndex];
                     // Assign the network weapon ID so it switch for all connected clients 
-                    _player._playerNetworkManager._currentRightWeaponID.Value = _player._playerInventoryManager
+                    _player._playerNetworkManager._currentRightHandWeaponID.Value = _player._playerInventoryManager
                         ._weaponInRigthHandSlots[_player._playerInventoryManager._rightHandWeaponIndex]._itemID;
                     return;
                 }

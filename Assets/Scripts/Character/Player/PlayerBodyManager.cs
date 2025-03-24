@@ -129,7 +129,7 @@ namespace SKD.Character.Player
         }
         public void ToggleBodyType(bool isMale)
         {
-            if (isMale)
+            /*if (isMale)
             {
                 _maleObject.SetActive(true);
                 _femaleObject.SetActive(false);
@@ -139,7 +139,7 @@ namespace SKD.Character.Player
                 _maleObject.SetActive(false);
                 _femaleObject.SetActive(true);
             }
-            _player._playerEquipmentManager.EquipArmor();
+            _player._playerEquipmentManager.EquipArmor();*/
         }
     }
 }

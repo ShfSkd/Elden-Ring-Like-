@@ -34,7 +34,7 @@ namespace SKD.Character.AI_Character.UndeadCharacter
         }
         public void OpenRightHandCollider()
         {
-            _aICharacterManager._characterSoundFXManager.PlayAttackGrunt();
+            _aICharacter._characterSoundFXManager.PlayAttackGrunt();
             _rightHandDamageCollider.EnableDamageCollider();
         }
         public void CloseRightHandCollider()
@@ -43,7 +43,7 @@ namespace SKD.Character.AI_Character.UndeadCharacter
         }
         public void OpenLeftHandCollider()
         {
-            _aICharacterManager._characterSoundFXManager.PlayAttackGrunt();
+            _aICharacter._characterSoundFXManager.PlayAttackGrunt();
             _leftHandDamageCollider.EnableDamageCollider();
         }
         public void CloseLeftHandCollider()

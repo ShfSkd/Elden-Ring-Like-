@@ -118,7 +118,7 @@ namespace SKD.Character.Player
             _playerNetworkManager._currentTargetNetworkObjectID.OnValueChanged += _playerNetworkManager.OnLockOnTargetIDChange;
 
             // Equipments
-            _playerNetworkManager._currentRightWeaponID.OnValueChanged += _playerNetworkManager.OnCurrentRightHandWeaponIDChange;
+            _playerNetworkManager._currentRightHandWeaponID.OnValueChanged += _playerNetworkManager.OnCurrentRightHandWeaponIDChange;
             _playerNetworkManager._currentLeftWeaponID.OnValueChanged += _playerNetworkManager.OnCurrentLeftHandWeaponIDChange;
             _playerNetworkManager._currentWeaponBeingUsed.OnValueChanged += _playerNetworkManager.OnCurrentWeaponBeingUsedIDChange;
             _playerNetworkManager._isBlocking.OnValueChanged += _playerNetworkManager.OnIsBlockingChanged;
@@ -176,7 +176,7 @@ namespace SKD.Character.Player
             _playerNetworkManager._currentTargetNetworkObjectID.OnValueChanged -= _playerNetworkManager.OnLockOnTargetIDChange;
 
             // Equipments
-            _playerNetworkManager._currentRightWeaponID.OnValueChanged -= _playerNetworkManager.OnCurrentRightHandWeaponIDChange;
+            _playerNetworkManager._currentRightHandWeaponID.OnValueChanged -= _playerNetworkManager.OnCurrentRightHandWeaponIDChange;
             _playerNetworkManager._currentLeftWeaponID.OnValueChanged -= _playerNetworkManager.OnCurrentLeftHandWeaponIDChange;
             _playerNetworkManager._currentWeaponBeingUsed.OnValueChanged -= _playerNetworkManager.OnCurrentWeaponBeingUsedIDChange;
             _playerNetworkManager._isBlocking.OnValueChanged -= _playerNetworkManager.OnIsBlockingChanged;
@@ -384,14 +384,14 @@ namespace SKD.Character.Player
                 _playerInventoryManager._weaponInLefthHandSlots[2] = null;      
             }
 
-             _playerEquipmentManager.EquipArmor();
+            // _playerEquipmentManager.EquipArmor();
              
              _playerInventoryManager._rightHandWeaponIndex = currenCharacterSaveData._rightWeaponIndex;
-             _playerNetworkManager._currentRightWeaponID.Value = _playerInventoryManager._weaponInRigthHandSlots[currenCharacterSaveData._rightWeaponIndex]._itemID;
+             _playerNetworkManager._currentRightHandWeaponID.Value = _playerInventoryManager._weaponInRigthHandSlots[currenCharacterSaveData._rightWeaponIndex]._itemID;
              _playerInventoryManager._leftHandWeaponIndex = currenCharacterSaveData._leftWeaponIndex;
              _playerNetworkManager._currentLeftWeaponID.Value = _playerInventoryManager._weaponInLefthHandSlots[currenCharacterSaveData._leftWeaponIndex]._itemID;
 
-             _playerBodyManager.ToggleBodyType(currenCharacterSaveData._isMale);
+          //   _playerBodyManager.ToggleBodyType(currenCharacterSaveData._isMale);
         }
         private void LoadOtherCharacterPlayerCharaceterWhenJoininigServer()
         {
@@ -399,7 +399,7 @@ namespace SKD.Character.Player
             _playerNetworkManager.OnIsMaleChanged(false, _playerNetworkManager._isMale.Value);
             
             // Sync weapons 
-            _playerNetworkManager.OnCurrentRightHandWeaponIDChange(0, _playerNetworkManager._currentRightWeaponID.Value);
+            _playerNetworkManager.OnCurrentRightHandWeaponIDChange(0, _playerNetworkManager._currentRightHandWeaponID.Value);
             _playerNetworkManager.OnCurrentLeftHandWeaponIDChange(0, _playerNetworkManager._currentLeftWeaponID.Value);
 
             // Sync armor 

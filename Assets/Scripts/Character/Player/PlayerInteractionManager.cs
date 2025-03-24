@@ -58,6 +58,9 @@ namespace SKD.Character.Player
         }
         public void Interact()
         {
+            // If we press the interact button with or without an interactable, if will clear the pop up windows (item pick up, messages, etc)
+            PlayerUIManger.instance._playerUIPopUpManager.CloseAllPopUpsWindows();
+            
             if (_currentInteractableAction.Count == 0)
                 return;
 
