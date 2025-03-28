@@ -56,6 +56,10 @@ namespace SKD.Character
         {
             _audioSource.PlayOneShot(WorldSoundFXManager.instance._stanceBreakSFX);
         }
+        public void PlayCriticalStrikeSFX()
+        {
+            _audioSource.PlayOneShot(WorldSoundFXManager.instance._criticalStrikeSFX);
+        }
         public virtual void PlayBlockingSFX()
         {
 

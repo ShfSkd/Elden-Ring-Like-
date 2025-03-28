@@ -11,10 +11,12 @@ namespace SKD.WorldManager
 
         [Header("VFX")] 
         public GameObject _bloodSplatterVFX;
+        public GameObject _criticalBloodSplatterVFX;
 
         [Header("Damage")]
         public TakeDamageEffect _takeDamageEffect;
         public TakeBlockedDamageEffect _takeBlockedDamageEffect;
+        public TakeCriticalDamageEffect _takeCriticalDamageEffect;
         
         [Header("Two Hand")]
         public TwoHandingEffect _twoHandingEffect;

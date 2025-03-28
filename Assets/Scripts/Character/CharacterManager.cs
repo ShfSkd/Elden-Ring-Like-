@@ -92,6 +92,7 @@ namespace SKD.Character
             _animator.SetBool("IsMoving", _characterNetworkManager._isMoving.Value);
             _characterNetworkManager.OnIsActiveChange(false, _characterNetworkManager._isActive.Value);
 
+            _isDead.OnValueChanged += _characterNetworkManager.OnisDeadChanged;
             _characterNetworkManager._isMoving.OnValueChanged += _characterNetworkManager.OnIsMovingChanged;
             _characterNetworkManager._isActive.OnValueChanged += _characterNetworkManager.OnIsActiveChange;
         }
@@ -99,6 +100,7 @@ namespace SKD.Character
         {
             base.OnNetworkDespawn();
 
+            _isDead.OnValueChanged -= _characterNetworkManager.OnisDeadChanged;
             _characterNetworkManager._isMoving.OnValueChanged -= _characterNetworkManager.OnIsMovingChanged;
             _characterNetworkManager._isActive.OnValueChanged -= _characterNetworkManager.OnIsActiveChange;
         }

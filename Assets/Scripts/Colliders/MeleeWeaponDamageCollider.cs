@@ -25,7 +25,7 @@ namespace SKD.Colliders
             if (_damageCollider == null)
                 _damageCollider = GetComponent<Collider>();
 
-            _damageCollider.enabled = false; // Melee Weapon colliders should be disables at start , only enabled when animation allow
+            _damageCollider.enabled = false; // Melee Weapon colliders should be disabled at start , only enabled when animation allow
         }
         protected override void OnTriggerEnter(Collider other)
         {

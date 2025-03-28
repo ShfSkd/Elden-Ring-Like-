@@ -2180,8 +2180,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 4219909002
-  InScenePlacedSourceGlobalObjectIdHash: 853681870
+  GlobalObjectIdHash: 476950569
+  InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -2236,14 +2236,16 @@ MonoBehaviour:
     m_InternalValue: 0
   _isRipostable:
     m_InternalValue: 0
+  _isBeingCrititcalDamged:
+    m_InternalValue: 0
   _currentHealth:
-    m_InternalValue: 400
+    m_InternalValue: 4000
   _maxHealth:
-    m_InternalValue: 400
+    m_InternalValue: 4000
   _currentStamina:
-    m_InternalValue: 0
+    m_InternalValue: 200
   _maxStamina:
-    m_InternalValue: 0
+    m_InternalValue: 200
   _vitality:
     m_InternalValue: 1
   _endurance:
@@ -2353,6 +2355,8 @@ MonoBehaviour:
   _canPerformRollingAttack: 0
   _canPerformBackstopAttack: 0
   _canBlock: 0
+  _criticalAttackDistanceCheck: 0.7
+  _pendingCriticalDamage: 0
   _actionRecoveryTime: 0
   _enablePivot: 1
   _distanceFromTarget: 0
@@ -2422,6 +2426,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bloodSplatterVFX: {fileID: 3548738708314695399, guid: 13bdfb963274d4742a1e33fd72088c6b, type: 3}
+  _criticalBloodSplatterVFX: {fileID: 8454313792392851383, guid: 53324987e073f464fad339a8ade67518, type: 3}
   _staticEffectsList: []
 --- !u!114 &2200652465624068871
 MonoBehaviour:

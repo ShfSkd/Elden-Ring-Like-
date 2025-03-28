@@ -71,7 +71,8 @@ namespace SKD.Items.Weapon_Actions
                 PerformBackstepAttack(playerPerformingAction, weaponPerformingAction);
                 return;
             }
-
+            playerPerformingAction._characterCombatManager.AttemptCriticalAttack() ;
+            
             PerformLightAttack(playerPerformingAction, weaponPerformingAction);
         }
         private void PerformLightAttack(PlayerManager playerPerformingAction, WeaponItem weaponPerformingAction)

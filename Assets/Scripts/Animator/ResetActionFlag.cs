@@ -6,7 +6,7 @@ public class ResetActionFlag : StateMachineBehaviour
 {
     CharacterManager _character;
     //OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    override public void OnStateEnter(UnityEngine.Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    public override void OnStateEnter(UnityEngine.Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (_character == null)
         {
@@ -28,6 +28,7 @@ public class ResetActionFlag : StateMachineBehaviour
             _character._characterNetworkManager._isInvulnerable.Value = false;
             _character._characterNetworkManager._isAttacking.Value = false;
             _character._characterNetworkManager._isRipostable.Value = false;
+            _character._characterNetworkManager._isBeingCrititcalDamged.Value = false;
         }
 
     }
@@ -56,4 +57,3 @@ public class ResetActionFlag : StateMachineBehaviour
     //    // Implement code that sets up animation IK (inverse kinematics)
     //}
 }
-

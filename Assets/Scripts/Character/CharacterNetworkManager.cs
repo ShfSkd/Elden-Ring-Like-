@@ -1,4 +1,6 @@
 ﻿using SKD.Effects;
+using SKD.Items;
+using SKD.World_Manager;
 using SKD.WorldManager;
 using Unity.Netcode;
 using UnityEngine;
@@ -8,7 +10,7 @@ namespace SKD.Character
 {
     public class CharacterNetworkManager : NetworkBehaviour
     {
-        CharacterManager _characterManager;
+        CharacterManager _character;
 
         [Header("Active")]
         public NetworkVariable<bool> _isActive = new NetworkVariable<bool>(true, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
@@ -42,6 +44,7 @@ namespace SKD.Character
         public NetworkVariable<bool> _isJumping = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<bool> _isChargingAttack = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<bool> _isRipostable = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<bool> _isBeingCrititcalDamged = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
         [Header("Recurses")]
         public NetworkVariable<int> _currentHealth = new NetworkVariable<int>(400, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
@@ -53,49 +56,52 @@ namespace SKD.Character
         public NetworkVariable<int> _vitality = new NetworkVariable<int>(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> _endurance = new NetworkVariable<int>(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> _strength = new NetworkVariable<int>(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-        
+
         [Header("Stats Modifiers")]
         public NetworkVariable<int> _strengthModifier = new NetworkVariable<int>(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-        
+
         protected virtual void Awake()
         {
-            _characterManager = GetComponent<CharacterManager>();
+            _character = GetComponent<CharacterManager>();
         }
         public virtual void CheckHP(int oldValue, int newValue)
         {
             if (_currentHealth.Value <= 0)
             {
-                StartCoroutine(_characterManager.ProcessDeathEvent());
+                StartCoroutine(_character.ProcessDeathEvent());
             }
             // Prevents us from over-healing 
-            if (_characterManager.IsOwner)
+            if (_character.IsOwner)
             {
                 if (_currentHealth.Value <= 0)
                 {
-                    
+
                 }
             }
         }
-
+        public virtual void OnisDeadChanged(bool oldState, bool newState)
+        {
+            _character._animator.SetBool("IsDead", _character._isDead.Value);
+        }
         public void OnLockOnTargetIDChange(ulong oldID, ulong newID)
         {
             if (!IsOwner)
-                _characterManager._characterCombatManager._currentTarget = NetworkManager.Singleton.SpawnManager.SpawnedObjects[newID].gameObject.GetComponent<CharacterManager>();
+                _character._characterCombatManager._currentTarget = NetworkManager.Singleton.SpawnManager.SpawnedObjects[newID].gameObject.GetComponent<CharacterManager>();
         }
         public void OnIsLockOnChanged(bool old, bool isLockOn)
         {
             if (!isLockOn)
             {
-                _characterManager._characterCombatManager._currentTarget = null;
+                _character._characterCombatManager._currentTarget = null;
             }
         }
         public void OnIsCharagingAttackChanged(bool oldStatus, bool newStatus)
         {
-            _characterManager._animator.SetBool("IsChargingAttack", _isChargingAttack.Value);
+            _character._animator.SetBool("IsChargingAttack", _isChargingAttack.Value);
         }
         public void OnIsMovingChanged(bool oldStatus, bool newStatus)
         {
-            _characterManager._animator.SetBool("IsMoving", _isMoving.Value);
+            _character._animator.SetBool("IsMoving", _isMoving.Value);
         }
         public virtual void OnIsActiveChange(bool oldStatus, bool newStatus)
         {
@@ -103,7 +109,7 @@ namespace SKD.Character
         }
         public virtual void OnIsBlockingChanged(bool oldStatus, bool newStatus)
         {
-            _characterManager._animator.SetBool("IsBlocking", _isBlocking.Value);
+            _character._animator.SetBool("IsBlocking", _isBlocking.Value);
         }
         // A server RPC is a function called from client, to the server (in our case the host)
         [ServerRpc]
@@ -127,8 +133,8 @@ namespace SKD.Character
         }
         private void PerformActionAnimationFromServer(string animationID, bool applyRootMotion)
         {
-            _characterManager._characterAnimationManager._applyRootMotion = applyRootMotion;
-            _characterManager._animator.CrossFade(animationID, 0.2f);
+            _character._characterAnimationManager._applyRootMotion = applyRootMotion;
+            _character._animator.CrossFade(animationID, 0.2f);
         }
         // Attack Animations
         [ServerRpc]
@@ -153,8 +159,8 @@ namespace SKD.Character
 
         private void PerformActionAttackAnimationFromServer(string animationID, bool applyRootMotion)
         {
-            _characterManager._characterAnimationManager._applyRootMotion = applyRootMotion;
-            _characterManager._animator.CrossFade(animationID, 0.2f);
+            _character._characterAnimationManager._applyRootMotion = applyRootMotion;
+            _character._animator.CrossFade(animationID, 0.2f);
         }
         // Attack Animations
         [ServerRpc]
@@ -163,24 +169,24 @@ namespace SKD.Character
             // If this client is the host/server , then activate the client RPC
             if (IsServer)
             {
-                PlayInstantActionAttackAnimationForAllClientsClientRpc(clientId, animationID, applyRootMotion);
+                PlayInstantActionAnimationForAllClientsClientRpc(clientId, animationID, applyRootMotion);
             }
         }
 
         [ClientRpc]
-        public void PlayInstantActionAttackAnimationForAllClientsClientRpc(ulong clientId, string animationID, bool applyRootMotion)
+        public void PlayInstantActionAnimationForAllClientsClientRpc(ulong clientId, string animationID, bool applyRootMotion)
         {
             // We make sure to not run the function on the character who sent it (so we don't play the animation twice)
             if (clientId != NetworkManager.Singleton.LocalClientId)
             {
-                PerformInstantActionAttackAnimationFromServer(animationID, applyRootMotion);
+                PerformInstantActionAnimationFromServer(animationID, applyRootMotion);
             }
         }
 
-        private void PerformInstantActionAttackAnimationFromServer(string animationID, bool applyRootMotion)
+        private void PerformInstantActionAnimationFromServer(string animationID, bool applyRootMotion)
         {
-            _characterManager._characterAnimationManager._applyRootMotion = applyRootMotion;
-            _characterManager._animator.Play(animationID);
+            _character._characterAnimationManager._applyRootMotion = applyRootMotion;
+            _character._animator.Play(animationID);
         }
         // Damage
         [ServerRpc(RequireOwnership = false)]
@@ -199,11 +205,11 @@ namespace SKD.Character
         {
             if (IsServer)
             {
-                NotifyTheServerOfCharacterDamageClientClientRpc(damageCharacterID, charcterCausingDamageID, physicalDamage, magicDamage, fireDamage, holyDamage, ligthningDamage, poiseDamage, angleHitPoint, contactPointX, contactPointY, contactPointZ);
+                NotifyTheServerOfCharacterDamageClientRpc(damageCharacterID, charcterCausingDamageID, physicalDamage, magicDamage, fireDamage, holyDamage, ligthningDamage, poiseDamage, angleHitPoint, contactPointX, contactPointY, contactPointZ);
             }
         }
         [ClientRpc]
-        public void NotifyTheServerOfCharacterDamageClientClientRpc(ulong damageCharacterID,
+        public void NotifyTheServerOfCharacterDamageClientRpc(ulong damageCharacterID,
             ulong charcterCausingDamageID,
             float physicalDamage,
             float magicDamage,
@@ -219,17 +225,17 @@ namespace SKD.Character
             ProcessCharacterDamageFromServer(damageCharacterID, charcterCausingDamageID, physicalDamage, magicDamage, fireDamage, holyDamage, ligthningDamage, poiseDamage, angleHitPoint, contactPointX, contactPointY, contactPointZ);
         }
         public void ProcessCharacterDamageFromServer(ulong damageCharacterID,
-           ulong characterCausingDamageID,
-           float physicalDamage,
-           float magicDamage,
-           float fireDamage,
-           float holyDamage,
-           float lightningDamage,
-           float poiseDamage,
-           float angleHitPoint,
-           float contactPointX,
-           float contactPointY,
-           float contactPointZ)
+            ulong characterCausingDamageID,
+            float physicalDamage,
+            float magicDamage,
+            float fireDamage,
+            float holyDamage,
+            float lightningDamage,
+            float poiseDamage,
+            float angleHitPoint,
+            float contactPointX,
+            float contactPointY,
+            float contactPointZ)
         {
             CharacterManager damagedCharacter = NetworkManager.Singleton.SpawnManager.SpawnedObjects[damageCharacterID].gameObject.GetComponent<CharacterManager>();
             CharacterManager characterCausingDamage = NetworkManager.Singleton.SpawnManager.SpawnedObjects[characterCausingDamageID].gameObject.GetComponent<CharacterManager>();
@@ -248,6 +254,79 @@ namespace SKD.Character
             damagedCharacter._characterEffectsManager.ProceesInstanceEffect(damageEffect);
 
         }
-    
+        // Critical Hit 
+        [ServerRpc(RequireOwnership = false)]
+        public void NotifyTheServerOfRiposteServerRpc(ulong damageCharacterID,
+            ulong charcterCausingDamageID,
+            string criticalDamageAnimation,
+            int weaponID,
+            float physicalDamage,
+            float magicDamage,
+            float fireDamage,
+            float holyDamage,
+            float ligthningDamage,
+            float poiseDamage
+         )
+        {
+            if (IsServer)
+            {
+                NotifyTheServerOfRiposteClientRpc(damageCharacterID, charcterCausingDamageID,
+                    criticalDamageAnimation, weaponID, physicalDamage, magicDamage, fireDamage, holyDamage, ligthningDamage, poiseDamage);
+            }
+        }
+        [ClientRpc]
+        public void NotifyTheServerOfRiposteClientRpc(ulong damageCharacterID,
+            ulong charcterCausingDamageID,
+            string criticalDamageAnimation,
+            int weaponID,
+            float physicalDamage,
+            float magicDamage,
+            float fireDamage,
+            float holyDamage,
+            float ligthningDamage,
+            float poiseDamage
+            )
+        {
+            ProcessRiposteFromServer(
+                damageCharacterID, charcterCausingDamageID,
+                criticalDamageAnimation,weaponID,
+                physicalDamage, magicDamage, fireDamage, holyDamage, ligthningDamage, 
+                poiseDamage);
+        }
+        public void ProcessRiposteFromServer(ulong damageCharacterID,
+            ulong characterCausingDamageID,
+            string criticalDamageAnimation,
+            int weaponID,
+            float physicalDamage,
+            float magicDamage,
+            float fireDamage,
+            float holyDamage,
+            float ligthningDamage,
+            float poiseDamage)
+        {
+            CharacterManager damagedCharacter = NetworkManager.Singleton.SpawnManager.SpawnedObjects[damageCharacterID].gameObject.GetComponent<CharacterManager>();
+            CharacterManager characterCausingDamage = NetworkManager.Singleton.SpawnManager.SpawnedObjects[characterCausingDamageID].gameObject.GetComponent<CharacterManager>();
+            WeaponItem weapon = WorldItemDatabase.Instance.GetWeaponByID(weaponID);
+            TakeCriticalDamageEffect damageEffect = Instantiate(WorldCharacterEffectsManager.Instance._takeCriticalDamageEffect);
+
+            if (damagedCharacter.IsOwner)
+                damagedCharacter._characterNetworkManager._isBeingCrititcalDamged.Value = true;
+            
+            damageEffect._physicalDamage = physicalDamage;
+            damageEffect._magicDamage = magicDamage;
+            damageEffect._fireDamage = fireDamage;
+            damageEffect._holyDamage = holyDamage;
+            damageEffect._lightingDamage = ligthningDamage;
+            damageEffect._poiseDamage = poiseDamage;
+            damageEffect._characteCausingDamage = characterCausingDamage;
+
+            damagedCharacter._characterEffectsManager.ProceesInstanceEffect(damageEffect);
+            damagedCharacter._characterAnimationManager.PlayTargetActionAnimationInstantly(criticalDamageAnimation, true);
+            
+            // Move the enemy to the proper riposte position
+            StartCoroutine(damagedCharacter._characterCombatManager.ForceMoveEnemyCharacterToRipostePosition(characterCausingDamage,
+                WorldUtilityManager.Instance.GetRipostingPositionBasedOnWeaponClass(weapon._weaponClass)));
+
+        }
     }
 }

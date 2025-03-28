@@ -19,6 +19,7 @@ namespace SKD.Character
 
         [Header("VFX")]
         [SerializeField] GameObject _bloodSplatterVFX;
+        [SerializeField] GameObject _criticalBloodSplatterVFX;
         
         [Header("Static Effects")]
         public List<StaticCharacterEffect> _staticEffectsList = new List<StaticCharacterEffect>();
@@ -47,7 +48,20 @@ namespace SKD.Character
 
             }
         }
+        public void PlayCriticalBloodSplatterVFX(Vector3 contactPoint)
+        {
+            // If we have manually have placed a blood splatter VFX on this mode, Play this version
+            if (_charcter != null)
+            {
+                GameObject bloodSplatter = Instantiate(_criticalBloodSplatterVFX, contactPoint, Quaternion.identity);
+            }
+            // Else , use the generic (default version) we have elsewhere
+            else
+            {
+                GameObject bloodSplatter = Instantiate(WorldCharacterEffectsManager.Instance._criticalBloodSplatterVFX, contactPoint, Quaternion.identity);
 
+            }
+        }
         public void AddStaticEffect(StaticCharacterEffect effect)
         {
             // 1. Add static effect to the character
@@ -93,5 +107,6 @@ namespace SKD.Character
                 }
             }
         }
+       
     }
 }

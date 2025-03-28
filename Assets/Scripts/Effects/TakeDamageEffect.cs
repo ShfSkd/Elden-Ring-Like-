@@ -21,7 +21,7 @@ namespace SKD.Effects
         public float _holyDamage;
 
         [Header("Final Damage")]
-        private int _finalDamageDealt;// The damage the character takes after all calculation have been set
+        protected int _finalDamageDealt;// The damage the character takes after all calculation have been set
 
         [Header("Animation")]
         public bool _playDamageAnimation = true;
@@ -70,7 +70,7 @@ namespace SKD.Effects
 
             // If character is A.I , check for new target if character causing damage is present
         }
-        private void CalculateStanceDamage(CharacterManager character)
+        protected void CalculateStanceDamage(CharacterManager character)
         {
             AICharacterManager aiCharacter = character as AICharacterManager;
 
@@ -81,11 +81,10 @@ namespace SKD.Effects
                 aiCharacter._aICharacterCombatManager.DamageStance(stanceDamage);
             }
         }
-        private void CalculateDamage(CharacterManager character)
+        protected virtual void CalculateDamage(CharacterManager character)
         {
             if (!character.IsOwner)
                 return;
-
             if (_characteCausingDamage != null)
             {
                 // Check for damage modifiers and modify base damage (Physical/Elemental,Damage Buff)
@@ -125,13 +124,13 @@ namespace SKD.Effects
             character._characterStatsManager._poiseResetTimer = character._characterStatsManager._defualtPoiseRestTimer;
         }
 
-        private void PlayDamageVFX(CharacterManager character)
+        protected void PlayDamageVFX(CharacterManager character)
         {
             // If we have fire/lightning/magic etc.. damage, play fire/lightning/magic etc
             character._characterEffectsManager.PlayBloodSplatterVFX(_constantPoint);
         }
 
-        private void PlayDamageSFX(CharacterManager character)
+        protected void PlayDamageSFX(CharacterManager character)
         {
             AudioClip physicalDamageSFX =
                 WorldSoundFXManager.instance.ChooseRandomSFXFromArray(WorldSoundFXManager.instance._physicalDamageSFX);
@@ -140,7 +139,7 @@ namespace SKD.Effects
             character._characterSoundFXManager.PlayDamageGrunts();
         }
 
-        private void PlayDirectionBasedDamageAnimation(CharacterManager character)
+        protected void PlayDirectionBasedDamageAnimation(CharacterManager character)
         {
             if (!character.IsOwner)
                 return;

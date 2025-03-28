@@ -1656,7 +1656,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2443456200
+  GlobalObjectIdHash: 853681870
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -1748,18 +1748,22 @@ MonoBehaviour:
     m_InternalValue: 0
   _isChargingAttack:
     m_InternalValue: 0
+  _isRipostable:
+    m_InternalValue: 0
+  _isBeingCrititcalDamged:
+    m_InternalValue: 0
   _currentHealth:
     m_InternalValue: 400
   _maxHealth:
     m_InternalValue: 400
   _currentStamina:
-    m_InternalValue: 200
+    m_InternalValue: 0
   _maxStamina:
     m_InternalValue: 200
   _vitality:
     m_InternalValue: 1
   _endurance:
-    m_InternalValue: 1003
+    m_InternalValue: 1
   _strength:
     m_InternalValue: 1
   _strengthModifier:
@@ -1835,7 +1839,7 @@ MonoBehaviour:
         byte0061: 0
   _currentWeaponBeingUsed:
     m_InternalValue: 0
-  _currentRightWeaponID:
+  _currentRightHandWeaponID:
     m_InternalValue: 0
   _currentLeftWeaponID:
     m_InternalValue: 0
@@ -1874,12 +1878,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lastAttackAnimationPerformed: 
+  _previousPoiseDamageTaken: 0
   _currentTarget: {fileID: 0}
   _currentAttackType: 0
   _lockOnTransform: {fileID: 5372538970158498679}
   _canPerformRollingAttack: 0
   _canPerformBackstopAttack: 0
   _canBlock: 1
+  _criticalAttackDistanceCheck: 0.7
+  _pendingCriticalDamage: 0
   _currentWeaponBeingUsed: {fileID: 0}
   _canComboWithMainHandWeapon: 0
 --- !u!114 &-8975570487359277179
@@ -1955,7 +1962,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _staminaRegenAmount: 25
-  _staminaRegenarationDelay: 2
+  _staminaRegenarationDelay: 1
   _blockingPhysicalAbsorption: 0
   _blockingFireAbsorption: 0
   _blockingMagicAbsorption: 0
@@ -1990,6 +1997,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bloodSplatterVFX: {fileID: 3548738708314695399, guid: 13bdfb963274d4742a1e33fd72088c6b, type: 3}
+  _criticalBloodSplatterVFX: {fileID: 8454313792392851383, guid: 53324987e073f464fad339a8ade67518, type: 3}
   _staticEffectsList: []
   _effectToTest: {fileID: 11400000, guid: e4552ddebe8b46841a0f48625815ef94, type: 2}
   _proccesEffect: 1

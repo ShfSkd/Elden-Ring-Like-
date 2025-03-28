@@ -23,8 +23,8 @@ namespace SKD.Character.Player
         [HideInInspector] public GameObject _leftHandWeaponModel;
 
         [Header("Weapon Manager")]
-        [SerializeField] WeaponManager _rightWeaponManager;
-        [SerializeField] WeaponManager _leftWeaponManager;
+        public WeaponManager _rightWeaponManager;
+        public WeaponManager _leftWeaponManager;
 
         [Header("Debug")]
         [SerializeField] bool _equipNewItems;
