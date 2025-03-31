@@ -60,9 +60,17 @@ namespace SKD.Character.Player
 
             // Check if we are two handing weapon right/left (this will change the riposte weapon
 
+            if (_player._playerNetworkManager._isTwoHandingWeapon.Value)
+            {
+                riposteWeapon = _player._playerInventoryManager._currentLeftHandWeapon as MeleeWeaponItem;
+                riposteCollider = _player._playerEquipmentManager._leftWeaponManager._meleeDamageCollider;
 
-            riposteWeapon = _player._playerInventoryManager._currentRightHandWeapon as MeleeWeaponItem;
-            riposteCollider = _player._playerEquipmentManager._rightWeaponManager._meleeDamageCollider;
+            }
+            else
+            {
+                riposteWeapon = _player._playerInventoryManager._currentRightHandWeapon as MeleeWeaponItem;
+                riposteCollider = _player._playerEquipmentManager._rightWeaponManager._meleeDamageCollider;
+            }
 
             // The riposte animation will change depending on the weapon's animator controller, so the animation can be chosen there, the name will always be the same 
             _character._characterAnimationManager.PlayTargetActionAnimationInstantly("Riposte_01", true);
@@ -93,8 +101,76 @@ namespace SKD.Character.Player
                 damageEffect._poiseDamage *= riposteWeapon._riposte_Attack_01_Modifier;
 
                 // 4. Using a server RPC send the riposte to the target, where the will play the proper animation on their end, and take the damage
-                targetCharacter._characterNetworkManager.NotifyTheServerOfRiposteServerRpc(targetCharacter.NetworkObjectId,_character.NetworkObjectId,
+                targetCharacter._characterNetworkManager.NotifyTheServerOfRiposteServerRpc(targetCharacter.NetworkObjectId, _character.NetworkObjectId,
                     "Riposted_01", riposteWeapon._itemID, damageEffect._physicalDamage,
+                    damageEffect._magicDamage, damageEffect._fireDamage, damageEffect._holyDamage, damageEffect._lightingDamage, damageEffect._poiseDamage);
+            }
+
+        }
+        public override void AttemptBackstab(RaycastHit hit)
+        {
+            CharacterManager targetCharacter = hit.transform.gameObject.GetComponent<CharacterManager>();
+
+            if (targetCharacter == null)
+                return;
+
+            // If some how since the initial check the character can no longer be riposted, return
+            if (!targetCharacter._characterCombatManager._canBackstabbed)
+                return;
+
+            // If somebody else is already performing a critical strike on the character (or we already are) , return
+            if (targetCharacter._characterNetworkManager._isBeingCrititcalDamged.Value)
+                return;
+
+            // You can inly riposte with a melee weapon item 
+            MeleeWeaponItem backstabWeapon;
+            MeleeWeaponDamageCollider backstabCollider;
+
+            // Check if we are two handing weapon right/left (this will change the riposte weapon
+            if (_player._playerNetworkManager._isTwoHandingWeapon.Value)
+            {
+                backstabWeapon = _player._playerInventoryManager._currentLeftHandWeapon as MeleeWeaponItem;
+                backstabCollider = _player._playerEquipmentManager._leftWeaponManager._meleeDamageCollider;
+
+            }
+            else
+            {
+                backstabWeapon = _player._playerInventoryManager._currentRightHandWeapon as MeleeWeaponItem;
+                backstabCollider = _player._playerEquipmentManager._rightWeaponManager._meleeDamageCollider;
+            }
+
+
+            // The riposte animation will change depending on the weapon's animator controller, so the animation can be chosen there, the name will always be the same 
+            _character._characterAnimationManager.PlayTargetActionAnimationInstantly("Backstab_01", true);
+
+            // While performing a critical strike, you cannot be damged 
+            if (_character.IsOwner)
+                _character._characterNetworkManager._isInvulnerable.Value = true;
+
+            // 1. Create a new damage effect for this type of damage  
+            TakeCriticalDamageEffect damageEffect = Instantiate(WorldCharacterEffectsManager.Instance._takeCriticalDamageEffect);
+
+            // 2. Apply all of th e damage states from the collider to the damage effect
+            damageEffect._physicalDamage = backstabCollider._physicalDamage;
+            damageEffect._holyDamage = backstabCollider._holyDamage;
+            damageEffect._fireDamage = backstabCollider._fireDamage;
+            damageEffect._lightingDamage = backstabCollider._lightningDamage;
+            damageEffect._magicDamage = backstabCollider._magicDamage;
+            damageEffect._poiseDamage = backstabCollider._poiseDamage;
+
+            // 3. Multiply damage by weapon riposte modifier
+            if (backstabWeapon != null)
+            {
+                damageEffect._physicalDamage *= backstabWeapon._backstab_Attack_01_Modifier;
+                damageEffect._holyDamage *= backstabWeapon._backstab_Attack_01_Modifier;
+                damageEffect._fireDamage *= backstabWeapon._backstab_Attack_01_Modifier;
+                damageEffect._lightingDamage *= backstabWeapon._backstab_Attack_01_Modifier;
+                damageEffect._magicDamage *= backstabWeapon._backstab_Attack_01_Modifier;
+                damageEffect._poiseDamage *= backstabWeapon._backstab_Attack_01_Modifier;
+
+                // 4. Using a server RPC send the riposte to the target, where the will play the proper animation on their end, and take the damage
+                targetCharacter._characterNetworkManager.NotifyTheServerOfBackstabServerRpc(targetCharacter.NetworkObjectId, _character.NetworkObjectId,
+                    "Backstabed_01", backstabWeapon._itemID, damageEffect._physicalDamage,
                     damageEffect._magicDamage, damageEffect._fireDamage, damageEffect._holyDamage, damageEffect._lightingDamage, damageEffect._poiseDamage);
             }
 
@@ -128,5 +204,13 @@ namespace SKD.Character.Player
             }
         }
 
+        public WeaponItem SelectWeaponToPerformAshOfWar()
+        {
+            WeaponItem selectedWeapon = _player._playerInventoryManager._currentLeftHandWeapon;
+            _player._playerNetworkManager.SetCharacterActionHand(false);
+            _player._playerNetworkManager._currentWeaponBeingUsed.Value = selectedWeapon._itemID;
+
+            return selectedWeapon;
+        }
     }
 }

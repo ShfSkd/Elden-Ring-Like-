@@ -16,6 +16,7 @@ MonoBehaviour:
   _itemIcon: {fileID: 21300004, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
   _itemDescription: 
   _itemID: 3
+  _itemWeight: 0
   _weaponAnimator: {fileID: 22100000, guid: c086d7574f0cc0c4c82eddef3dfe3951, type: 2}
   _weaponModelType: 1
   _weaponModel: {fileID: 4785436569430175925, guid: 415da91d73f38c24885bf907161e393a, type: 3}
@@ -55,6 +56,7 @@ MonoBehaviour:
   _keyboard_RB_Action: {fileID: 11400000, guid: 94c2437632bda3e49954af8d6bc9cf34, type: 2}
   _keyboard_RT_Action: {fileID: 11400000, guid: ecc5776eb24786e4a9e1200ad0cd7bc0, type: 2}
   _keyboard_LB_Action: {fileID: 11400000, guid: 466471ed187b1524883fdc52b017725e, type: 2}
+  _ashesOfWarAction: {fileID: 11400000, guid: 2ceea0332a0c498458ac3f8a4283ff8f, type: 2}
   _whooshes:
   - {fileID: 8300000, guid: 0e9bca6dd55d7e541a865752da6415f5, type: 3}
   - {fileID: 8300000, guid: 28406bf68add30e4e89d6cd063fb84e6, type: 3}
@@ -64,3 +66,5 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5c25a8b6c2ef9624caf832fe0d756bbd, type: 3}
   - {fileID: 8300000, guid: 616758222d84f6f47b8b9dd6a3e5d3b8, type: 3}
   - {fileID: 8300000, guid: 7ed99645cac6f06438be178db3df164c, type: 3}
+  _riposte_Attack_01_Modifier: 3.3
+  _backstab_Attack_01_Modifier: 0

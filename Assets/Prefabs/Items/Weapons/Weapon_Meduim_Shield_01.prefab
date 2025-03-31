@@ -41,7 +41,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 287598971301913022}
-  m_Mesh: {fileID: 121969752749225387, guid: 29983c30fa81aab4182a16939db5691a, type: 3}
+  m_Mesh: {fileID: 121969752749225387, guid: f80573b73bb9b684a870a9135f6bb5da, type: 3}
 --- !u!23 &1800663379591315563
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -226,6 +226,7 @@ MonoBehaviour:
   _fireDamage: 0
   _lightningDamage: 0
   _holyDamage: 0
+  _poiseDamage: 0
   _characterCausingDamage: {fileID: 0}
   _light_Attack_01_Modofier: 0
   _light_Attack_02_Modofier: 0

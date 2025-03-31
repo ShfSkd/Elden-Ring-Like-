@@ -2180,7 +2180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 476950569
+  GlobalObjectIdHash: 4219909002
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -2355,7 +2355,8 @@ MonoBehaviour:
   _canPerformRollingAttack: 0
   _canPerformBackstopAttack: 0
   _canBlock: 0
-  _criticalAttackDistanceCheck: 0.7
+  _canBackstabbed: 1
+  _criticalAttackDistanceCheck: 1
   _pendingCriticalDamage: 0
   _actionRecoveryTime: 0
   _enablePivot: 1
@@ -2366,8 +2367,8 @@ MonoBehaviour:
   _minimumFieldOfView: -25
   _maximumFieldOfView: 25
   _attackRotationSpeed: 25
-  _maxStance: 150
-  _currentStance: 0
+  _maxStance: 25
+  _currentStance: 25
   _stanceRegeneratedPersecond: 0
   _ignoreStanceBreak: 0
   _stanceRegenerationTimer: 0

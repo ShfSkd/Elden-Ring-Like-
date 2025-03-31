@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using SKD.Items.AshesOfWar;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -27,6 +28,9 @@ namespace SKD.World_Manager
 
         [Header("Hand Equipment")]
         [SerializeField] List<HandEquipmentItem> _handEqipment = new List<HandEquipmentItem>();
+        
+        [Header("Ashes Of War")]
+        [SerializeField] List<AshOfWar>_ashOfWar=new List<AshOfWar>();
 
         // A list of every item that we have in the game 
         private List<Item> _items = new List<Item>();
@@ -59,6 +63,10 @@ namespace SKD.World_Manager
             {
                 _items.Add(item);
             }
+            foreach (var item in _ashOfWar)
+            {
+                _items.Add(item);
+            }
             // Assign all of our items a unique  item ID
             for (int i = 0; i < _items.Count; i++)
             {
@@ -85,6 +93,10 @@ namespace SKD.World_Manager
         public HandEquipmentItem GetHandEquipmentByID(int id)
         {
             return _handEqipment.FirstOrDefault(equipment => equipment._itemID == id);
+        }
+        public AshOfWar GetAshOfWarByID(int id)
+        {
+            return _ashOfWar.FirstOrDefault(ash => ash._itemID == id);
         }
     }
 }

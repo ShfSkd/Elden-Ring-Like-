@@ -18,15 +18,25 @@ namespace SKD.UI.PlayerUI
 
         [Header("Weapon Slots")]
         [SerializeField] Image _rightHandSlot01;
+        private Button _rightHandSlot01Button;
         [SerializeField] Image _rightHandSlot02;
+        private Button _rightHandSlot02Button;
         [SerializeField] Image _rightHandSlot03;
+        private Button _rightHandSlot03Button;
         [SerializeField] Image _leftHandSlot01;
+        private Button _leftHandSlot01Button;
         [SerializeField] Image _leftHandSlot02;
+        private Button _leftHandSlot02Button;
         [SerializeField] Image _leftHandSlot03;
+        private Button _leftHandSlot03Button;
         [SerializeField] Image _headEquipmentSlot;
+        private Button _headEquipmentSlotButton;
         [SerializeField] Image _bodyEquipmentSlot;
+        private Button _bodyEquipmentSlotButton;
         [SerializeField] Image _legEquipmentSlot;
+        private Button _legEquipmentSlotButton;
         [SerializeField] Image _handEquipmentSlot;
+        private Button _handEquipmentSlotButton;
 
         // This inventory populate with related items when changing equipment
         [Header("Equipment Inventory")]
@@ -35,9 +45,26 @@ namespace SKD.UI.PlayerUI
         [SerializeField] GameObject _equipmentInventorySlotPrefab;
         [SerializeField] Transform _equipmentInventoryContentWindow;
         [SerializeField] Item _currentSelectedItem;
+
+        private void Awake()
+        {
+            _rightHandSlot01Button = _rightHandSlot01.GetComponentInParent<Button>(true);
+            _rightHandSlot02Button = _rightHandSlot02.GetComponentInParent<Button>(true);
+            _rightHandSlot03Button = _rightHandSlot03.GetComponentInParent<Button>(true);
+
+            _leftHandSlot01Button = _leftHandSlot01.GetComponentInParent<Button>(true);
+            _leftHandSlot02Button = _leftHandSlot02.GetComponentInParent<Button>(true);
+            _leftHandSlot03Button = _leftHandSlot03.GetComponentInParent<Button>(true);
+
+            _headEquipmentSlotButton = _headEquipmentSlot.GetComponentInParent<Button>(true);
+            _bodyEquipmentSlotButton = _bodyEquipmentSlot.GetComponentInParent<Button>(true);
+            _handEquipmentSlotButton = _handEquipmentSlot.GetComponentInParent<Button>(true);
+            _legEquipmentSlotButton = _legEquipmentSlot.GetComponentInParent<Button>(true);
+        }
         public void OpenEquipmentManagerMenu()
         {
             PlayerUIManger.instance._menuWindowIsOpen = true;
+            ToggleEquipmentButtons(true);
             _menu.SetActive(true);
             _equipmentInventoryWindow.SetActive(false);
             ClearEquipmentInventory();
@@ -48,11 +75,28 @@ namespace SKD.UI.PlayerUI
             ClearEquipmentInventory();
             RefreshEquipmentSlotIcons();
         }
+        private void ToggleEquipmentButtons(bool isEnabled)
+        {
+            _rightHandSlot01Button.enabled = isEnabled;
+            _rightHandSlot02Button.enabled = isEnabled;
+            _rightHandSlot03Button.enabled = isEnabled;
+
+            _leftHandSlot01Button.enabled = isEnabled;
+            _leftHandSlot02Button.enabled = isEnabled;
+            _leftHandSlot03Button.enabled = isEnabled;
+
+            _headEquipmentSlotButton.enabled = isEnabled;
+            _bodyEquipmentSlotButton.enabled = isEnabled;
+            _handEquipmentSlotButton.enabled = isEnabled;
+            _legEquipmentSlotButton.enabled = isEnabled;
+
+        }
 
         // This function simply returns you to the last selected button when you are finished equipping a new item 
         public void SelectLastSelectedEquipmentSlot()
         {
             Button lastSelectedButton = null;
+            ToggleEquipmentButtons(true);
             switch (_currentSelectedEquipmentSlot)
             {
                 case EquipmentType.RightWeapon01:
@@ -93,6 +137,7 @@ namespace SKD.UI.PlayerUI
                 lastSelectedButton.Select();
                 lastSelectedButton.OnSelect(null);
             }
+            _equipmentInventoryWindow.SetActive(false);
         }
         public void CloseEquipmentManagerMenu()
         {
@@ -222,6 +267,7 @@ namespace SKD.UI.PlayerUI
         }
         public void LoadEquipmentInventory()
         {
+            ToggleEquipmentButtons(false);
             _equipmentInventoryWindow.SetActive(true);
 
             switch (_currentSelectedEquipmentSlot)
@@ -277,6 +323,8 @@ namespace SKD.UI.PlayerUI
 
             if (headEquipmentInventory.Count <= 0)
             {
+                _equipmentInventoryWindow.SetActive(false);
+                ToggleEquipmentButtons(true);
                 RefreshMenu();
                 return;
             }
@@ -295,7 +343,8 @@ namespace SKD.UI.PlayerUI
                     inventorySlotButton.Select();
                     inventorySlotButton.OnSelect(null);
                 }
-            };
+            }
+            ;
         }
         private void LoadBodyEquipmentInventory()
         {
@@ -314,6 +363,8 @@ namespace SKD.UI.PlayerUI
 
             if (bodyEquipmentInventory.Count <= 0)
             {
+                _equipmentInventoryWindow.SetActive(false);
+                ToggleEquipmentButtons(true);
                 RefreshMenu();
                 return;
             }
@@ -351,6 +402,8 @@ namespace SKD.UI.PlayerUI
 
             if (headEquipmentInventory.Count <= 0)
             {
+                _equipmentInventoryWindow.SetActive(false);
+                ToggleEquipmentButtons(true);
                 RefreshMenu();
                 return;
             }
@@ -388,6 +441,8 @@ namespace SKD.UI.PlayerUI
 
             if (handEquipmentInventory.Count <= 0)
             {
+                _equipmentInventoryWindow.SetActive(false);
+                ToggleEquipmentButtons(true);
                 RefreshMenu();
                 return;
             }
@@ -425,6 +480,8 @@ namespace SKD.UI.PlayerUI
 
             if (weaponsInInventory.Count <= 0)
             {
+                _equipmentInventoryWindow.SetActive(false);
+                ToggleEquipmentButtons(true);
                 RefreshMenu();
                 return;
             }
@@ -434,7 +491,8 @@ namespace SKD.UI.PlayerUI
                 GameObject inventorySlotGameObject = Instantiate(_equipmentInventorySlotPrefab, _equipmentInventoryContentWindow);
                 UI_EquipmentInventorySlot equipmentInventorySlot = inventorySlotGameObject.GetComponent<UI_EquipmentInventorySlot>();
                 equipmentInventorySlot.Additem(weaponsInInventory[i]);
-
+                
+                Debug.Log("1");
                 // This will select the first button in the list 
                 if (!hasSelectedFirstInventorySlot)
                 {

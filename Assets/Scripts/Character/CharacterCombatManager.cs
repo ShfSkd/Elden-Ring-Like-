@@ -30,9 +30,10 @@ namespace SKD.Character
         public bool _canPerformRollingAttack;
         public bool _canPerformBackstopAttack;
         public bool _canBlock = true;
-
+        public bool _canBackstabbed = true;
         [Header("Critical Attack")]
         private Transform _riposteReciverTransform;
+        private Transform _backstabReciverTransform;
         [SerializeField] float _criticalAttackDistanceCheck = 0.7f;
         public int _pendingCriticalDamage;
 
@@ -100,10 +101,30 @@ namespace SKD.Character
                             return;
                         }
                     }
+
+                    // Backstab
+                    if (targetCharacter._characterCombatManager._canBackstabbed)
+                    {
+                        if (targetViewableAngle is <= 180f and >= 145)
+                        {
+                            AttemptBackstab(hit);
+                            return;
+                        }
+                        if (targetViewableAngle is >= -180f and <= -145)
+                        {
+
+                            AttemptBackstab(hit);
+                            return;
+                        }
+                    }
                 }
 
 
             }
+        }
+        public virtual void AttemptBackstab(RaycastHit hit)
+        {
+
         }
         public virtual void AttemptRiposte(RaycastHit hit)
         {
@@ -123,7 +144,7 @@ namespace SKD.Character
         {
             float timer = 0;
 
-            while(timer < 0.5f)
+            while(timer < 0.2f)
             {
                 timer += Time.deltaTime;
 
@@ -137,6 +158,27 @@ namespace SKD.Character
                 _riposteReciverTransform.localPosition = ripostePosition;
                 enemyCharacter.transform.position = _riposteReciverTransform.position;
                 transform.rotation = Quaternion.LookRotation(-enemyCharacter.transform.forward);
+                yield return null;
+            }
+        }
+        public IEnumerator ForceMoveEnemyCharacterToBackstabPosition(CharacterManager enemyCharacter, Vector3 backstabPosition)
+        {
+            float timer = 0;
+
+            while(timer < 0.2f)
+            {
+                timer += Time.deltaTime;
+
+                if (_riposteReciverTransform == null)
+                {
+                    GameObject backstabTransformObject = new GameObject("Backstab Transform");
+                    backstabTransformObject.transform.parent = transform;
+                    backstabTransformObject.transform.position = Vector3.zero;
+                    _backstabReciverTransform = backstabTransformObject.transform;
+                }
+                _backstabReciverTransform.localPosition = backstabPosition;
+                enemyCharacter.transform.position = _backstabReciverTransform.position;
+                transform.rotation = Quaternion.LookRotation(enemyCharacter.transform.forward);
                 yield return null;
             }
         }

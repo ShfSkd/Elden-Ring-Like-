@@ -101,11 +101,28 @@ namespace SKD.World_Manager
 
         public Vector3 GetRipostingPositionBasedOnWeaponClass(WeaponClass weaponClass)
         {
-            Vector3 position = new Vector3(0.11f, 0f, 0.7f);
+            Vector3 position = new Vector3(0.32f, 0f, 0.74f);
             switch (weaponClass)
             {
                 case WeaponClass.StraightSword:// change position here 
-                    position = new Vector3(0.25f, 0, 0.7f);
+                    break;
+                case WeaponClass.Spear:// change position here 
+                    break;
+                case WeaponClass.MediumShield:// change position here 
+                    break;
+                case WeaponClass.Fist:// change position here 
+                    break;
+                default:
+                    break;
+            }
+            return position;
+        }
+        public Vector3 GetBackstapPositionBasedOnWeaponClass(WeaponClass weaponClass)
+        {
+            Vector3 position = new Vector3(0.12f, 0f, 0.74f);
+            switch (weaponClass)
+            {
+                case WeaponClass.StraightSword:// change position here 
                     break;
                 case WeaponClass.Spear:// change position here 
                     break;

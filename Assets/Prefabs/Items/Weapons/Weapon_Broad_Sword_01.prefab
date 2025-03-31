@@ -44,8 +44,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 0.0370786, y: 0.9816073, z: 0.07921488}
-  m_Center: {x: 0.00015612919, y: 0.5908035, z: 0.00015010619}
+  m_Size: {x: 0.0817205, y: 1.1041601, z: 0.07921488}
+  m_Center: {x: -0.0023364392, y: 0.65207994, z: 0.00014994266}
 --- !u!114 &9138328526837153793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,10 +62,16 @@ MonoBehaviour:
   _physicalDamage: 0
   _magicDamage: 0
   _fireDamage: 0
-  _lightnigamage: 0
+  _lightningDamage: 0
   _holyDamage: 0
+  _poiseDamage: 0
   _characterCausingDamage: {fileID: 0}
   _light_Attack_01_Modofier: 0
+  _light_Attack_02_Modofier: 0
+  _heavy_Attack_01_Modofier: 0
+  _heavy_Attack_02_Modofier: 0
+  _charge_Attack_01_Modofier: 0
+  _charge_Attack_02_Modofier: 0
 --- !u!1 &4015484611516152546
 GameObject:
   m_ObjectHideFlags: 0

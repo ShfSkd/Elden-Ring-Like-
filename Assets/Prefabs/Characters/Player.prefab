@@ -612,14 +612,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1874788344696148995}
-  m_LocalRotation: {x: 0.85053056, y: 0.51558346, z: -0.07717576, w: 0.06939313}
-  m_LocalPosition: {x: -0.139, y: -0.085, z: 0.02}
+  m_LocalRotation: {x: -0.10251079, y: -0.9732888, z: 0.2042977, w: 0.021516828}
+  m_LocalPosition: {x: -0.032, y: -0.083, z: -0.022}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8576228141538194277}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 11.398, y: 183.493, z: 117.901}
+  m_LocalEulerAnglesHint: {x: 156.842, y: 5.227997, z: 193.097}
 --- !u!114 &3460428860662741945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1656,7 +1656,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 853681870
+  GlobalObjectIdHash: 2443456200
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -1885,6 +1885,7 @@ MonoBehaviour:
   _canPerformRollingAttack: 0
   _canPerformBackstopAttack: 0
   _canBlock: 1
+  _canBackstabbed: 1
   _criticalAttackDistanceCheck: 0.7
   _pendingCriticalDamage: 0
   _currentWeaponBeingUsed: {fileID: 0}
@@ -2019,18 +2020,22 @@ MonoBehaviour:
   _weaponInRigthHandSlots:
   - {fileID: 11400000, guid: 8e5375d83986e634ab25c2bfe42a5769, type: 2}
   - {fileID: 11400000, guid: 973e05087bb4ff04583611472546faad, type: 2}
-  - {fileID: 11400000, guid: 14c3281558bbad84baaefea5fb58e2cf, type: 2}
-  _rightHandWeaponIndex: 0
+  - {fileID: 11400000, guid: 8e5375d83986e634ab25c2bfe42a5769, type: 2}
+  _rightHandWeaponIndex: 4
   _weaponInLefthHandSlots:
   - {fileID: 11400000, guid: 8e5375d83986e634ab25c2bfe42a5769, type: 2}
   - {fileID: 11400000, guid: 973e05087bb4ff04583611472546faad, type: 2}
-  - {fileID: 11400000, guid: 14c3281558bbad84baaefea5fb58e2cf, type: 2}
-  _leftHandWeaponIndex: 0
+  - {fileID: 11400000, guid: 5461d71d7a191f147ba78236100909fa, type: 2}
+  _leftHandWeaponIndex: 4
   _headEquipment: {fileID: 0}
   _bodyEquipment: {fileID: 0}
   _legEquipment: {fileID: 0}
   _handEquipment: {fileID: 0}
-  _itemInTheInventory: []
+  _itemInTheInventory:
+  - {fileID: 11400000, guid: 8e5375d83986e634ab25c2bfe42a5769, type: 2}
+  - {fileID: 11400000, guid: 973e05087bb4ff04583611472546faad, type: 2}
+  - {fileID: 11400000, guid: 5461d71d7a191f147ba78236100909fa, type: 2}
+  - {fileID: 11400000, guid: 14c3281558bbad84baaefea5fb58e2cf, type: 2}
 --- !u!114 &-1355481650577912924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2076,7 +2081,7 @@ MonoBehaviour:
   _leftElbows: []
   _leftKneeObject: {fileID: 0}
   _leftKnees: []
-  _maleFullHelmetObject: {fileID: 4632498714124595869}
+  _maleFullHelmetObject: {fileID: 0}
   _maleHeadFullHelmets: []
   _maleFullBodyObject: {fileID: 0}
   _maleBodies: []
@@ -2779,7 +2784,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7095301954667518996}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.113, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

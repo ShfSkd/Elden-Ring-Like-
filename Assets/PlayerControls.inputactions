@@ -177,6 +177,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "LT",
+                    "type": "Button",
+                    "id": "cd9a545c-0b6f-4320-862e-45ef1318353c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Que RT",
                     "type": "Button",
                     "id": "cb078081-d238-449c-a983-e13f8880fe4f",
@@ -360,17 +369,6 @@
                 },
                 {
                     "name": "",
-                    "id": "4c2b2abc-98bd-4aa4-9eed-6311bf5e31ac",
-                    "path": "<Gamepad>/rightShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "RT",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "276178a9-b0f6-47bd-84c5-116bb04b78a8",
                     "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
@@ -549,7 +547,7 @@
                     "name": "",
                     "id": "644f1d8f-0d9c-4766-b027-3876e2e353ee",
                     "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
+                    "interactions": "MultiTap",
                     "processors": "",
                     "groups": "",
                     "action": "Dodge",
@@ -608,6 +606,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "X",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a732e4c0-f4e4-45bf-a320-44900375e5b4",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LT",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

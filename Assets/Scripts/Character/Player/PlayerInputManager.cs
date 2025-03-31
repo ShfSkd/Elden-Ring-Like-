@@ -3,6 +3,7 @@ using SKD.WorldManager;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using SKD.Items;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -61,6 +62,7 @@ namespace SKD.Character.Player
 
         [Header("Trigger Inputs")]
         [SerializeField] bool _RT_Input;
+        [SerializeField] bool _LT_Input;
         [SerializeField] bool _holdRT_Input;
 
         [Header("UI Inputs")]
@@ -122,12 +124,11 @@ namespace SKD.Character.Player
                 // Bumpers
                 _playerControls.PlayerActions.RB.performed += i => _RB_Input = true;
                 _playerControls.PlayerActions.LB.performed += i => _LB_Input = true;
-                _playerControls.PlayerActions.LB.canceled +=
-                    i => _player._playerNetworkManager._isBlocking.Value = false;
+                _playerControls.PlayerActions.LB.canceled += i => _player._playerNetworkManager._isBlocking.Value = false;
 
                 // Triggers
                 _playerControls.PlayerActions.RT.performed += i => _RT_Input = true;
-                _playerControls.PlayerActions.RT.performed += i => _RT_Input = true;
+                _playerControls.PlayerActions.LT.performed += i => _LT_Input = true;
                 _playerControls.PlayerActions.HoldRT.performed += i => _holdRT_Input = true;
                 _playerControls.PlayerActions.HoldRT.canceled += i => _holdRT_Input = false;
 
@@ -196,6 +197,7 @@ namespace SKD.Character.Player
             HandleRBInput();
             HandleLBInput();
             HandleRTInput();
+            HandleLTInput();
             HandleChargeRTInput();
             HandleSwitchRightInput();
             HandleSwitchLeftInput();
@@ -404,7 +406,7 @@ namespace SKD.Character.Player
             {
                 _jumpInput = false;
                 // If we have UI window Open, simply return without doing nothing
-                if(PlayerUIManger.instance._menuWindowIsOpen)
+                if (PlayerUIManger.instance._menuWindowIsOpen)
                     return;
 
                 // Attempt to perform jump
@@ -462,7 +464,17 @@ namespace SKD.Character.Player
                     _player._playerInventoryManager._currentRightHandWeapon);
             }
         }
+        private void HandleLTInput()
+        {
+            if (_LT_Input)
+            {
+                _LT_Input = false;
+                
+                WeaponItem weaponPerformingAction = _player._playerCombatManager.SelectWeaponToPerformAshOfWar();
 
+                weaponPerformingAction._ashesOfWarAction.AttemptToPerformAction(_player);
+            }
+        }
         private void HandleChargeRTInput()
         {
             // we only want to check for a charge if we are in an action thats requires it (attacking)
@@ -480,10 +492,10 @@ namespace SKD.Character.Player
             if (_switchRightWeapon_Input)
             {
                 _switchRightWeapon_Input = false;
-                
-                if(PlayerUIManger.instance._menuWindowIsOpen)
+
+                if (PlayerUIManger.instance._menuWindowIsOpen)
                     return;
-                
+
                 _player._playerEquipmentManager.SwitchRightWeapon();
             }
         }
@@ -493,10 +505,10 @@ namespace SKD.Character.Player
             if (_switchLeftWeapon_Input)
             {
                 _switchLeftWeapon_Input = false;
-                
-                if(PlayerUIManger.instance._menuWindowIsOpen)
+
+                if (PlayerUIManger.instance._menuWindowIsOpen)
                     return;
-                
+
                 _player._playerEquipmentManager.SwitchLeftWeapon();
             }
         }

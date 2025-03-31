@@ -115,7 +115,7 @@ namespace SKD.Character
                 // Reset any flags you need to reset
 
                 // If we are not grounded, play an aerial death animation
-                if (!manuallySelectDeathAnimation)
+                if (!manuallySelectDeathAnimation && !_characterNetworkManager._isBeingCrititcalDamged.Value)
                 {
                     _characterAnimationManager.PlayTargetActionAnimation("Dead_01", true);
                 }

@@ -1,6 +1,8 @@
 ﻿using SKD.Items.WeaponItems;
 using System.Collections;
+using SKD.Items.AshesOfWar;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace SKD.Items
 {
@@ -57,7 +59,7 @@ namespace SKD.Items
         public float _runningAttackStaminaCostMultiplier = 1.1f;
         public float _rollingAttackStaminaCostMultiplier = 1.1f;
         public float _backstepAttackStaminaCostMultiplier = 1.1f;
-        public float _riposte_Attack_01_Modifier = 3.3f;
+     
         // Critical Damage Modifier etc..
 
         [Header("Stamina Cost Modifiers")]
@@ -80,6 +82,7 @@ namespace SKD.Items
         public WeaponItemAction _keyboard_RB_Action;// One hand right bumper action
         public WeaponItemAction _keyboard_RT_Action;// One hand right trigger action
         public WeaponItemAction _keyboard_LB_Action;// One hand left bumper  action
+        public AshOfWar _ashesOfWarAction;
 
         [Header("SFX")]
         public AudioClip[] _whooshes;

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿ using System.Collections;
 using UnityEngine;
 
 namespace SKD
@@ -63,7 +63,7 @@ namespace SKD
     }
     public enum WeaponClass
     {
-        StraightSword,Spear,MediumShield,Fist
+        StraightSword,Spear,MediumShield,Fist,LightShield
     }
     public enum ItemPickUpType
     {
