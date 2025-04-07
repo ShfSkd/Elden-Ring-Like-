@@ -79,6 +79,24 @@ namespace SKD.Colliders
 
             //damageTarget._characterEffectsManager.ProceesInstanceEffect(damageEffect);
         }
+        protected override void CheckForParry(CharacterManager damageTarget)
+        {
+            if (_charactersDamagedList.Contains(damageTarget))
+                return;
+
+            if (!_undeadCharacter._characterNetworkManager._isParryable.Value)
+                return;
+            
+            if(!damageTarget.IsOwner)
+                return;
+
+            if (damageTarget._characterNetworkManager._isParrying.Value)
+            {
+                _charactersDamagedList.Add(damageTarget);
+                damageTarget._characterNetworkManager.NotifyTheServerOfParryServerRpc(_undeadCharacter.NetworkObjectId);
+                damageTarget._characterAnimationManager.PlayTargetActionAnimationInstantly("Parry_Land_01",true);
+            }
+        }
 
     }
 }

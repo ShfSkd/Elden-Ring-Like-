@@ -37,6 +37,8 @@ namespace SKD.Character
 
         [Header("Flags")]
         public NetworkVariable<bool> _isBlocking = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<bool> _isParrying = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<bool> _isParryable = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<bool> _isAttacking = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<bool> _isInvulnerable = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<bool> _isLockOn = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
@@ -267,7 +269,7 @@ namespace SKD.Character
             float holyDamage,
             float ligthningDamage,
             float poiseDamage
-         )
+        )
         {
             if (IsServer)
             {
@@ -286,12 +288,12 @@ namespace SKD.Character
             float holyDamage,
             float ligthningDamage,
             float poiseDamage
-            )
+        )
         {
             ProcessRiposteFromServer(
                 damageCharacterID, charcterCausingDamageID,
-                criticalDamageAnimation,weaponID,
-                physicalDamage, magicDamage, fireDamage, holyDamage, ligthningDamage, 
+                criticalDamageAnimation, weaponID,
+                physicalDamage, magicDamage, fireDamage, holyDamage, ligthningDamage,
                 poiseDamage);
         }
         public void ProcessRiposteFromServer(ulong damageCharacterID,
@@ -312,7 +314,7 @@ namespace SKD.Character
 
             if (damagedCharacter.IsOwner)
                 damagedCharacter._characterNetworkManager._isBeingCrititcalDamged.Value = true;
-            
+
             damageEffect._physicalDamage = physicalDamage;
             damageEffect._magicDamage = magicDamage;
             damageEffect._fireDamage = fireDamage;
@@ -323,14 +325,14 @@ namespace SKD.Character
 
             damagedCharacter._characterEffectsManager.ProceesInstanceEffect(damageEffect);
             damagedCharacter._characterAnimationManager.PlayTargetActionAnimationInstantly(criticalDamageAnimation, true);
-            
+
             // Move the enemy to the proper riposte position
             StartCoroutine(damagedCharacter._characterCombatManager.ForceMoveEnemyCharacterToRipostePosition(characterCausingDamage,
                 WorldUtilityManager.Instance.GetRipostingPositionBasedOnWeaponClass(weapon._weaponClass)));
 
         }
-          [ServerRpc(RequireOwnership = false)]
-          // Backstab
+        [ServerRpc(RequireOwnership = false)]
+        // Backstab
         public void NotifyTheServerOfBackstabServerRpc(ulong damageCharacterID,
             ulong charcterCausingDamageID,
             string criticalDamageAnimation,
@@ -341,7 +343,7 @@ namespace SKD.Character
             float holyDamage,
             float ligthningDamage,
             float poiseDamage
-         )
+        )
         {
             if (IsServer)
             {
@@ -360,12 +362,12 @@ namespace SKD.Character
             float holyDamage,
             float ligthningDamage,
             float poiseDamage
-            )
+        )
         {
             ProcessBackstabFromServer(
                 damageCharacterID, charcterCausingDamageID,
-                criticalDamageAnimation,weaponID,
-                physicalDamage, magicDamage, fireDamage, holyDamage, ligthningDamage, 
+                criticalDamageAnimation, weaponID,
+                physicalDamage, magicDamage, fireDamage, holyDamage, ligthningDamage,
                 poiseDamage);
         }
         public void ProcessBackstabFromServer(ulong damageCharacterID,
@@ -386,7 +388,7 @@ namespace SKD.Character
 
             if (damagedCharacter.IsOwner)
                 damagedCharacter._characterNetworkManager._isBeingCrititcalDamged.Value = true;
-            
+
             damageEffect._physicalDamage = physicalDamage;
             damageEffect._magicDamage = magicDamage;
             damageEffect._fireDamage = fireDamage;
@@ -397,11 +399,33 @@ namespace SKD.Character
 
             damagedCharacter._characterEffectsManager.ProceesInstanceEffect(damageEffect);
             damagedCharacter._characterAnimationManager.PlayTargetActionAnimationInstantly(criticalDamageAnimation, true);
-            
+
             // Move the backtaab target to the position pf the backstabber 
             StartCoroutine(characterCausingDamage._characterCombatManager.ForceMoveEnemyCharacterToBackstabPosition(damagedCharacter,
                 WorldUtilityManager.Instance.GetBackstapPositionBasedOnWeaponClass(weapon._weaponClass)));
 
+        }
+        // Parry
+        [ServerRpc(RequireOwnership = false)]
+        public void NotifyTheServerOfParryServerRpc(ulong parriedClientID)
+        {
+            if (IsServer)
+                NotifyTheServerOfParryClientRpc(parriedClientID);
+        }
+        [ClientRpc]
+        protected void NotifyTheServerOfParryClientRpc(ulong parriedClientID)
+        {
+            ProcessParryFromServer(parriedClientID);
+        }
+        protected void ProcessParryFromServer(ulong parriedClientID)
+        {
+            CharacterManager parriedCharacter = NetworkManager.Singleton.SpawnManager.SpawnedObjects[parriedClientID].gameObject.GetComponent<CharacterManager>();
+            
+            if(parriedCharacter==null)
+                return;
+
+            if (parriedCharacter.IsOwner)
+                parriedCharacter._characterAnimationManager.PlayTargetActionAnimationInstantly("Parried_01", true);
         }
     }
 }

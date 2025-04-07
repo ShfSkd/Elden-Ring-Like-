@@ -119,7 +119,7 @@ namespace SKD.Character.AI_Character
             if (IsOwner)
             {
                 _characterNetworkManager._currentHealth.Value = 0;
-                _isDead.Value = false;
+                _isDead.Value = true;
 
                 _bossFightIsActive.Value = false;
 

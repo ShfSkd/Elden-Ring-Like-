@@ -1,11 +1,8 @@
 fileFormatVersion: 2
-guid: d4fcc6da733f1b3458da71ac40af1f46
+guid: 87482c3eac7c1a84f871e37b4b76a3e3
 ModelImporter:
   serializedVersion: 21300
-  internalIDToNameTable:
-  - first:
-      74: -7536146537415446483
-    second: straight_sword_main_charged_attack_01_release
+  internalIDToNameTable: []
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -36,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: straight_sword_main_charged_attack_01_release
-      takeName: straight_sword_main_charged_attack_01_release
-      internalID: 0
+      name: core_off_parry_01_charge_fast
+      takeName: core_off_parry_01_charge_fast
+      internalID: -9095147816654818598
       firstFrame: 0
-      lastFrame: 40
+      lastFrame: 32
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -49,10 +46,10 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
-      loopBlendOrientation: 1
-      loopBlendPositionY: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
       loopBlendPositionXZ: 0
-      keepOriginalOrientation: 1
+      keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
@@ -60,22 +57,15 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0
-        functionName: DrainStaminaBasedOnAttack
+      - time: 0.7570092
+        functionName: DisableIsParrying
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0
-        functionName: OpenDamageCollider
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 1
-        functionName: CloseDamageCollider
+      - time: 0.53097826
+        functionName: EnableIsParrying
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

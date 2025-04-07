@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Undead Attack 02
   m_EditorClassIdentifier: 
   _attackAnimation: Attack_02
+  _isParryable: 1
   _comboAction: {fileID: 0}
   _attackWeight: 50
   _attackType: 0

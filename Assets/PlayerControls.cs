@@ -32,7 +32,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""type"": ""PassThrough"",
                     ""id"": ""cb3efb0d-1ff9-4b80-9ae6-2dbdd75bd1f5"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
+                    ""processors"": ""StickDeadzone"",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 }
@@ -569,7 +569,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""644f1d8f-0d9c-4766-b027-3876e2e353ee"",
                     ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": ""MultiTap"",
+                    ""interactions"": ""Tap"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Dodge"",

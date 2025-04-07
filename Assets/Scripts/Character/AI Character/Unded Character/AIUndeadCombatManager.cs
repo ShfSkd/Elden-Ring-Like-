@@ -50,5 +50,12 @@ namespace SKD.Character.AI_Character.UndeadCharacter
         {
             _leftHandDamageCollider.DisableDamageCollider();
         }
+        protected override void CloseAllDamageColliders()
+        {
+            base.CloseAllDamageColliders();
+            
+            _rightHandDamageCollider.DisableDamageCollider();
+            _leftHandDamageCollider.DisableDamageCollider();
+        }
     }
 }

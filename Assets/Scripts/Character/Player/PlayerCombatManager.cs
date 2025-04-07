@@ -39,6 +39,13 @@ namespace SKD.Character.Player
 
 
         }
+        protected override void CloseAllDamageColliders()
+        {
+            base.CloseAllDamageColliders();
+            
+            _player._playerEquipmentManager._rightWeaponManager._meleeDamageCollider.DisableDamageCollider();
+            _player._playerEquipmentManager._leftWeaponManager._meleeDamageCollider.DisableDamageCollider();
+        }
         public override void AttemptRiposte(RaycastHit hit)
         {
             CharacterManager targetCharacter = hit.transform.gameObject.GetComponent<CharacterManager>();

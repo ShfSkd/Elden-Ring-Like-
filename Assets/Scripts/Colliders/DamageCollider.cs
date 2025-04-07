@@ -33,19 +33,23 @@ namespace SKD.Colliders
 
         protected virtual void OnTriggerEnter(Collider other)
         {
-            CharacterManager damagetarget = other.GetComponentInParent<CharacterManager>();
+            CharacterManager damageTarget = other.GetComponentInParent<CharacterManager>();
 
             /*   // If you want to search on both the damageable character colliders & the character collider just check for null here and do the following
-               */ /* if (damagetarget == null)
+               *//* if (damagetarget == null)
                 {
                     damagetarget = other.GetComponent<CharacterManager>();
                 }*/
-            if (damagetarget != null)
+            if (damageTarget != null)
             {
                 _contactPoint = other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
 
-                CheckForBlock(damagetarget);
-                DamageTarget(damagetarget);
+                CheckForBlock(damageTarget);
+                
+                CheckForParry(damageTarget);
+                
+                if (!damageTarget._characterNetworkManager._isInvulnerable.Value)
+                    DamageTarget(damageTarget);
             }
         }
 
@@ -73,6 +77,10 @@ namespace SKD.Colliders
 
                 damageTarget._characterEffectsManager.ProceesInstanceEffect(damageEffect);
             }
+        }
+        protected virtual void CheckForParry(CharacterManager damageTarget)
+        {
+
         }
 
         protected virtual void GetBlockingDotValues(CharacterManager damageTarget)
@@ -109,8 +117,9 @@ namespace SKD.Colliders
         public virtual void DisableDamageCollider()
         {
             _damageCollider.enabled = false;
-            _charactersDamagedList
-                .Clear(); // We rests the characters that have been hit when we reset the collider, so they may be hit again
+            _charactersDamagedList.Clear();// We rests the characters that have been hit when we reset the collider, so they may be hit again
         }
+
+
     }
 }

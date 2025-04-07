@@ -13,6 +13,8 @@ namespace SKD.World_Manager
         public static WorldItemDatabase Instance;
 
         public WeaponItem _unarmedWeapon;
+        
+        public GameObject _pickUpItemPrefab;
 
         [Header("Weapons")]
         [SerializeField] List<WeaponItem> _weapons = new List<WeaponItem>();
@@ -73,7 +75,10 @@ namespace SKD.World_Manager
                 _items[i]._itemID = i;
             }
         }
-
+        public Item GetItemByID(int ID)
+        {
+            return _items.FirstOrDefault(item => item._itemID == ID);
+        }
         public WeaponItem GetWeaponByID(int id)
         {
             return _weapons.FirstOrDefault(weapon => weapon._itemID == id);
@@ -98,5 +103,6 @@ namespace SKD.World_Manager
         {
             return _ashOfWar.FirstOrDefault(ash => ash._itemID == id);
         }
+      
     }
 }

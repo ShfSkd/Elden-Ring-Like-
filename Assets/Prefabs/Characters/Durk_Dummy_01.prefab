@@ -278,6 +278,7 @@ MonoBehaviour:
   _fireDamage: 0
   _lightningDamage: 0
   _holyDamage: 0
+  _poiseDamage: 0
   _durkCharacter: {fileID: 8251915897288859081}
 --- !u!1 &350113810440150784
 GameObject:
@@ -870,6 +871,7 @@ GameObject:
   - component: {fileID: 2169755269524836596}
   - component: {fileID: 2169755269524836595}
   - component: {fileID: 4568101883345355884}
+  - component: {fileID: -1084055227912482124}
   m_Layer: 6
   m_Name: Durk_Dummy_01
   m_TagString: Untagged
@@ -928,7 +930,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3415298016
+  GlobalObjectIdHash: 2110868519
   InScenePlacedSourceGlobalObjectIdHash: 2110868519
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -968,6 +970,14 @@ MonoBehaviour:
     m_InternalValue: 0
   _currentTargetNetworkObjectID:
     m_InternalValue: 0
+  _isBlocking:
+    m_InternalValue: 0
+  _isParrying:
+    m_InternalValue: 0
+  _isParryable:
+    m_InternalValue: 0
+  _isAttacking:
+    m_InternalValue: 0
   _isInvulnerable:
     m_InternalValue: 0
   _isLockOn:
@@ -977,6 +987,10 @@ MonoBehaviour:
   _isJumping:
     m_InternalValue: 0
   _isChargingAttack:
+    m_InternalValue: 0
+  _isRipostable:
+    m_InternalValue: 0
+  _isBeingCrititcalDamged:
     m_InternalValue: 0
   _currentHealth:
     m_InternalValue: 750
@@ -989,6 +1003,10 @@ MonoBehaviour:
   _vitality:
     m_InternalValue: 1
   _endurance:
+    m_InternalValue: 1
+  _strength:
+    m_InternalValue: 1
+  _strengthModifier:
     m_InternalValue: 1
 --- !u!114 &8251915897288859081
 MonoBehaviour:
@@ -1013,6 +1031,7 @@ MonoBehaviour:
   _characterSoundFXManager: {fileID: 0}
   _characterLocomotionManager: {fileID: 0}
   _characterUIManager: {fileID: 0}
+  _characterStatsManager: {fileID: 0}
   _characterGroup: 1
   _isPerformingAction: 0
   _characterName: Durk, The Lazy Protector!
@@ -1056,9 +1075,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lastAttackAnimationPerformed: 
+  _previousPoiseDamageTaken: 0
   _currentTarget: {fileID: 0}
   _currentAttackType: 0
   _lockOnTransform: {fileID: 4013632504556109211}
+  _canPerformRollingAttack: 0
+  _canPerformBackstopAttack: 0
+  _canBlock: 1
+  _canBackstabbed: 1
+  _criticalAttackDistanceCheck: 0.7
+  _pendingCriticalDamage: 0
   _actionRecoveryTime: 0
   _enablePivot: 1
   _distanceFromTarget: 0
@@ -1068,10 +1094,17 @@ MonoBehaviour:
   _minimumFieldOfView: -25
   _maximumFieldOfView: 25
   _attackRotationSpeed: 25
+  _maxStance: 150
+  _currentStance: 150
+  _stanceRegeneratedPersecond: 0
+  _ignoreStanceBreak: 0
+  _stanceRegenerationTimer: 0
+  _defultTimeUntilStanceRegenerationBegain: 15
   _clubDamageCollider: {fileID: 3815551588749472443}
   _durkStompCollider: {fileID: 5284426661341007659}
   _stompAttackAOERadius: 1.5
   _baseDamage: 25
+  _basePoiseDamage: 25
   _attack01DamageModifier: 1
   _attack02DamageModifier: 1.4
   _attack03DamageModifier: 1.6
@@ -1095,7 +1128,7 @@ MonoBehaviour:
     m_Bits: 1
   _groundCheckSphereRaduis: 1
   _yVelocity: {x: 0, y: 0, z: 0}
-  _groundedYVelocity: -20
+  _groundedYVelocity: -18
   _fallStartYVelocity: -5
   _isRolling: 0
   _canRotate: 1
@@ -1146,6 +1179,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _staminaRegenAmount: 2
   _staminaRegenarationDelay: 2
+  _blockingPhysicalAbsorption: 0
+  _blockingFireAbsorption: 0
+  _blockingMagicAbsorption: 0
+  _blockingLightningAbsorption: 0
+  _blockingHolyAbsorption: 0
+  _stabiltyRating: 0
+  _blockingStability: 0
+  _armorPhysicalDamageAbsorption: 0
+  _armorMagicDamageAbsorption: 0
+  _armorFireDamageAbsorption: 0
+  _armorLigthningDamageAbsorption: 0
+  _armorHolyDamageAbsorption: 0
+  _armorImmunity: 0
+  _armorRobustness: 0
+  _armorFocus: 0
+  _armorVitsality: 0
+  _totalPoiseDamage: 0
+  _offensivePoiseDamage: 0
+  _basePoiseDefence: 0
+  _defualtPoiseRestTimer: 8
+  _poiseResetTimer: 0
 --- !u!114 &2169755269524836585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1159,6 +1213,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bloodSplatterVFX: {fileID: 3548738708314695399, guid: 13bdfb963274d4742a1e33fd72088c6b, type: 3}
+  _criticalBloodSplatterVFX: {fileID: 8454313792392851383, guid: 53324987e073f464fad339a8ade67518, type: 3}
+  _staticEffectsList: []
 --- !u!114 &2169755269524836584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1197,6 +1253,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _applyRootMotion: 0
   _lastDamageAnimationPlayed: 
+  _hit_Forward_Ping_01: Hit_Forward_Ping_01
+  _hit_Forward_Ping_02: Hit_Forward_Ping_02
+  _hit_Backward_Ping_01: Hit_Backward_Ping_01
+  _hit_Backward_Ping_02: Hit_Backward_Ping_02
+  _hit_Left_Ping_01: Hit_Left_Ping_01
+  _hit_Left_Ping_02: Hit_Left_Ping_02
+  _hit_Right_Ping_01: Hit_Right_Ping_01
+  _hit_Right_Ping_02: Hit_Right_Ping_02
+  _forward_Oing_Damage_List: []
+  _forward_Ping_Damage_List: []
+  _left_Ping_damage_List: []
+  _right_Ping_damage_List: []
+  _backeard_Ping_damage_List: []
   _hit_Forward_Medium_01: Hit_Forward_Medium_01
   _hit_Forward_Medium_02: Hit_Forward_Medium_02
   _hit_Backward_Medium_01: Hit_Backward_Medium_01
@@ -1220,7 +1289,7 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 3.7
+  m_Height: 3.48
   m_Radius: 0.33
   m_SlopeLimit: 45
   m_StepOffset: 0.3
@@ -1353,6 +1422,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hasFloatingHPBar: 1
   _characterHPBar: {fileID: 9169679380513308887}
+--- !u!114 &-1084055227912482124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2169755269524805562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c62a150934942318c5109caafbbca7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dropItemChance: 10
+  _droppableItem: []
 --- !u!1 &2617161078798319719
 GameObject:
   m_ObjectHideFlags: 0
@@ -2776,6 +2859,7 @@ MonoBehaviour:
   _fireDamage: 0
   _lightningDamage: 0
   _holyDamage: 0
+  _poiseDamage: 0
   _durkCharacterManager: {fileID: 0}
 --- !u!82 &352466523501701753
 AudioSource:
@@ -3187,6 +3271,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2334415587981453364, guid: 09efa8c360e984045a02a1c1aaf368ef, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4385995428608646500, guid: 09efa8c360e984045a02a1c1aaf368ef, type: 3}
+      propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4620143395317355159, guid: 09efa8c360e984045a02a1c1aaf368ef, type: 3}

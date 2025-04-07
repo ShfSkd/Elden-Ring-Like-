@@ -67,6 +67,6 @@ namespace SKD
     }
     public enum ItemPickUpType
     {
-        WorldSpawn,Character,Drop
+        WorldSpawn,CharacterDrop,Drop
     }
 }

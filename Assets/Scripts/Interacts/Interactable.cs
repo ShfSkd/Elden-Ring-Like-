@@ -23,8 +23,6 @@ namespace SKD.Interacts
         }
         public virtual void Interact(PlayerManager player)
         {
-            Debug.Log("Interact");
-
             if (!player.IsOwner)
                 return;
 

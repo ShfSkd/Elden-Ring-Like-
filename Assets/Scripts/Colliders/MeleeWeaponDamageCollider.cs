@@ -2,6 +2,7 @@
 using SKD.Effects;
 using SKD.WorldManager;
 using System.Collections;
+using SKD.World_Manager;
 using UnityEngine;
 
 namespace SKD.Colliders
@@ -9,7 +10,7 @@ namespace SKD.Colliders
     public class MeleeWeaponDamageCollider : DamageCollider
     {
         [Header("Attacking Character")]
-        public CharacterManager _characterCausingDamage; // When calculation damage is used to check for attackers damage, modifiers etc
+        public CharacterManager _characterCausingDamage;// When calculation damage is used to check for attackers damage, modifiers etc
 
         [Header("Weapon Attack Modifiers")]
         public float _light_Attack_01_Modofier;
@@ -25,22 +26,48 @@ namespace SKD.Colliders
             if (_damageCollider == null)
                 _damageCollider = GetComponent<Collider>();
 
-            _damageCollider.enabled = false; // Melee Weapon colliders should be disabled at start , only enabled when animation allow
+            _damageCollider.enabled = false;// Melee Weapon colliders should be disabled at start , only enabled when animation allow
         }
         protected override void OnTriggerEnter(Collider other)
         {
             CharacterManager damageTarget = other.GetComponentInParent<CharacterManager>();
 
-
             if (damageTarget != null)
             {
+                _contactPoint = other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
+
                 // We do not want to damage ourselves 
                 if (damageTarget == _characterCausingDamage)
                     return;
 
-                _contactPoint = other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
+                if (!WorldUtilityManager.Instance.CanIDamageThisTarget(_characterCausingDamage._characterGroup, damageTarget._characterGroup))
+                    return;
+
+                CheckForParry(damageTarget);
+
+                CheckForBlock(damageTarget);
+
+                if (!damageTarget._characterNetworkManager._isInvulnerable.Value)
+                    DamageTarget(damageTarget);
             }
-            DamageTarget(damageTarget);
+        }
+        protected override void CheckForParry(CharacterManager damageTarget)
+        {
+            if (_charactersDamagedList.Contains(damageTarget))
+                return;
+
+            if (!_characterCausingDamage._characterNetworkManager._isParryable.Value)
+                return;
+            
+            if(!damageTarget.IsOwner)
+                return;
+
+            if (damageTarget._characterNetworkManager._isParrying.Value)
+            {
+                _charactersDamagedList.Add(damageTarget);
+                damageTarget._characterNetworkManager.NotifyTheServerOfParryServerRpc(_characterCausingDamage.NetworkObjectId);
+                damageTarget._characterAnimationManager.PlayTargetActionAnimationInstantly("Parry_Land_01",true);
+            }
         }
         protected override void GetBlockingDotValues(CharacterManager damageTarget)
         {
@@ -60,7 +87,7 @@ namespace SKD.Colliders
             damageEffect._magicDamage = _magicDamage;
             damageEffect._fireDamage = _fireDamage;
             damageEffect._holyDamage = _holyDamage;
-            damageEffect._poiseDamage = _poiseDamage; 
+            damageEffect._poiseDamage = _poiseDamage;
             damageEffect._lightingDamage = _lightningDamage;
             damageEffect._constantPoint = _contactPoint;
             damageEffect._angleHitFrom = Vector3.SignedAngle(_characterCausingDamage.transform.forward, damageTarget.transform.forward, Vector3.up);

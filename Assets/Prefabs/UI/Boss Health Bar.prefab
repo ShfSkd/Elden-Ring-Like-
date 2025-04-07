@@ -217,7 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ebf08cec7c5894e8a7d8f6ebbe4662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scaleBarLeangthWithStats: 0
+  _scaleBarLengthWithStats: 1
   _widthScaleMultiplier: 1
   _bossCharacter: {fileID: 0}
 --- !u!1 &7268963658761007787
@@ -253,10 +253,10 @@ RectTransform:
   m_Father: {fileID: 1229874198644800174}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -3.5, y: 35}
-  m_SizeDelta: {x: 950, y: 50}
+  m_SizeDelta: {x: 0, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6560526265058671348
 CanvasRenderer:

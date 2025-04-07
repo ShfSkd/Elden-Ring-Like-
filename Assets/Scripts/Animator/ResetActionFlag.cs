@@ -29,6 +29,7 @@ public class ResetActionFlag : StateMachineBehaviour
             _character._characterNetworkManager._isAttacking.Value = false;
             _character._characterNetworkManager._isRipostable.Value = false;
             _character._characterNetworkManager._isBeingCrititcalDamged.Value = false;
+            _character._characterNetworkManager._isParrying.Value = false;
         }
 
     }

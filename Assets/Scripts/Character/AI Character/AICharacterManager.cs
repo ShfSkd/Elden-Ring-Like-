@@ -13,7 +13,7 @@ namespace SKD.Character.AI_Character
         [HideInInspector] public AICharacterNetworkManager _aICharacterNetworkManager;
         [HideInInspector] public AICharterCombatManager _aICharacterCombatManager;
         [HideInInspector] public AICharacterLocomotionManager _aICharacterLocomotionManager;
-
+        [HideInInspector]public AICharacterInventoryManager _aICharacterInventoryManager;
         [Header("Navmesh Agent")]
         public NavMeshAgent _navMeshAgent;
 
@@ -33,6 +33,7 @@ namespace SKD.Character.AI_Character
             _aICharacterCombatManager = GetComponent<AICharterCombatManager>();
             _aICharacterNetworkManager = GetComponent<AICharacterNetworkManager>();
             _aICharacterLocomotionManager = GetComponent<AICharacterLocomotionManager>();
+            _aICharacterInventoryManager = GetComponent<AICharacterInventoryManager>();
             _navMeshAgent = GetComponentInChildren<NavMeshAgent>();
 
         }

@@ -2121,6 +2121,7 @@ GameObject:
   - component: {fileID: 1426315112099601969}
   - component: {fileID: 1989310939168742630}
   - component: {fileID: 9198687722835987914}
+  - component: {fileID: 7827100196182134729}
   m_Layer: 6
   m_Name: Dummy_01_Undead
   m_TagString: Untagged
@@ -2180,7 +2181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 4219909002
+  GlobalObjectIdHash: 476950569
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -2222,6 +2223,10 @@ MonoBehaviour:
     m_InternalValue: 0
   _isBlocking:
     m_InternalValue: 0
+  _isParrying:
+    m_InternalValue: 0
+  _isParryable:
+    m_InternalValue: 0
   _isAttacking:
     m_InternalValue: 0
   _isInvulnerable:
@@ -2239,11 +2244,11 @@ MonoBehaviour:
   _isBeingCrititcalDamged:
     m_InternalValue: 0
   _currentHealth:
-    m_InternalValue: 4000
+    m_InternalValue: 400
   _maxHealth:
-    m_InternalValue: 4000
+    m_InternalValue: 400
   _currentStamina:
-    m_InternalValue: 200
+    m_InternalValue: 0
   _maxStamina:
     m_InternalValue: 200
   _vitality:
@@ -2636,6 +2641,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hasFloatingHPBar: 1
   _characterHPBar: {fileID: 255174447653688065}
+--- !u!114 &7827100196182134729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8023739156023064548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c62a150934942318c5109caafbbca7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dropItemChance: 10
+  _droppableItem:
+  - {fileID: 11400000, guid: a4508a16b28ed5d4fa842b512a020182, type: 2}
+  - {fileID: 11400000, guid: 2c0de4184aefa7b4ea340c5a461173bf, type: 2}
 --- !u!1 &8141776365858344948
 GameObject:
   m_ObjectHideFlags: 0

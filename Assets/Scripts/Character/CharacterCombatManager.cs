@@ -193,6 +193,16 @@ namespace SKD.Character
                 _character._characterNetworkManager._isInvulnerable.Value = false;
 
         }
+        public void EnableIsParrying()
+        {
+            if(_character.IsOwner)
+                _character._characterNetworkManager._isParrying.Value = true;
+        }
+        public void DisableIsParrying()
+        {
+            if(_character.IsOwner)
+                _character._characterNetworkManager._isParrying.Value = false;
+        }
         public void EnableIsRipostable()
         {
             if (_character.IsOwner)
@@ -216,6 +226,11 @@ namespace SKD.Character
         public void DisableCanDoBackstepAttack()
         {
             _canPerformBackstopAttack = false;
+        }
+
+        protected virtual void CloseAllDamageColliders()
+        {
+            
         }
 
     }
