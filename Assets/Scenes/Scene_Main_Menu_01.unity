@@ -477,6 +477,63 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 999c3a20b760af848bb2992add973623, type: 3}
+--- !u!1001 &1584910048146253946
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4998581983053125251, guid: ac0860e868c33ab4291c8c92e53ad32a, type: 3}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 4998581983053125251, guid: ac0860e868c33ab4291c8c92e53ad32a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4998581983053125251, guid: ac0860e868c33ab4291c8c92e53ad32a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.9000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4998581983053125251, guid: ac0860e868c33ab4291c8c92e53ad32a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4998581983053125251, guid: ac0860e868c33ab4291c8c92e53ad32a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4998581983053125251, guid: ac0860e868c33ab4291c8c92e53ad32a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4998581983053125251, guid: ac0860e868c33ab4291c8c92e53ad32a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4998581983053125251, guid: ac0860e868c33ab4291c8c92e53ad32a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4998581983053125251, guid: ac0860e868c33ab4291c8c92e53ad32a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4998581983053125251, guid: ac0860e868c33ab4291c8c92e53ad32a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4998581983053125251, guid: ac0860e868c33ab4291c8c92e53ad32a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4998581983053125262, guid: ac0860e868c33ab4291c8c92e53ad32a, type: 3}
+      propertyPath: m_Name
+      value: Spell_Fire_Ball_Impact_01
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ac0860e868c33ab4291c8c92e53ad32a, type: 3}
 --- !u!1001 &1667484244699867311
 PrefabInstance:
   m_ObjectHideFlags: 0

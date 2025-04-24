@@ -11,7 +11,7 @@ namespace SKD.Character
         [Header("Damage Grunts")]
         [SerializeField] protected AudioClip[] _damageGrunts;
 
-        [Header("Attack Grunts")]
+        [Header("Attack Grunts")]   
         [SerializeField] protected AudioClip[] _attackGrunts;
 
         [Header("FootSteps")]

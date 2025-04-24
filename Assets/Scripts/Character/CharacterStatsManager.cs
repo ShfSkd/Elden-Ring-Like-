@@ -67,6 +67,11 @@ namespace SKD.Character
             float stamina = endurance * 10;
             return Mathf.RoundToInt(stamina);
         }
+        public int CalculateFucosPointsBasedOnMindLevel(int mind)
+        {
+            float focusPoints = mind * 10;
+            return Mathf.RoundToInt(focusPoints);
+        }
         public virtual void RegenerateStamina()
         {
             // Only owners can edit their network variables 

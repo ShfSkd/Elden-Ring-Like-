@@ -231,6 +231,7 @@ namespace SKD.Effects
             if (_poiseIsBroken)
             {
                 character._characterAnimationManager.PlayTargetActionAnimation(_damageAnimation, true);
+                character._characterCombatManager.DestroyALlCurrentActionFX();
             }
             else
             {

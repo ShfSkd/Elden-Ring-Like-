@@ -52,6 +52,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a4508a16b28ed5d4fa842b512a020182, type: 2}
   - {fileID: 11400000, guid: 973e05087bb4ff04583611472546faad, type: 2}
   - {fileID: 11400000, guid: 5461d71d7a191f147ba78236100909fa, type: 2}
+  - {fileID: 11400000, guid: b31177fea25b1da4ab40668d281cfdd4, type: 2}
   _headEquipment:
   - {fileID: 11400000, guid: 77605312b74f2454b89495f7a9c2ca88, type: 2}
   - {fileID: 11400000, guid: 59ce752a72d6b0c4098380751f286eb2, type: 2}
@@ -63,3 +64,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3a1ff69a2d45bbc4696c5fa2d0bb280a, type: 2}
   _ashOfWar:
   - {fileID: 11400000, guid: 2ceea0332a0c498458ac3f8a4283ff8f, type: 2}
+  _spells:
+  - {fileID: 11400000, guid: 71160344305d7314f87a8acf0cf64f23, type: 2}
+  - {fileID: 11400000, guid: 6829a2d6f59160848a0226de5f18516e, type: 2}

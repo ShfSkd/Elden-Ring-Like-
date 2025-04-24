@@ -232,6 +232,10 @@ namespace SKD.Character
         {
             
         }
+        public void DestroyALlCurrentActionFX()
+        {
+            _character._characterNetworkManager.DestroyALlCurrentActionFXServerRpc();
+        }
 
     }
 }

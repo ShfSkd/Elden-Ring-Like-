@@ -29,10 +29,12 @@ namespace SKD.GameSaving
         [Header("Resources")]
         public int _currentHealth;
         public float _currentStamina;
+        public int _currentFocusPoints;
 
         [Header("Stats")]
         public int _vitality;
         public int _endurance;
+        public int _mind;
 
         [Header("Sites Of Grace")]
         public SerializableDictionary<int, bool> _siteOfGrace; // The int is in the site if grace ID, the bool is the "Activated" statues
@@ -59,8 +61,8 @@ namespace SKD.GameSaving
         public int _leftWeapon01;
         public int _leftWeapon02;
         public int _leftWeapon03;
-        
-        
+
+        public int _currentSpell;
         public CharacterSaveData()
         {
             _siteOfGrace = new SerializableDictionary<int, bool>();

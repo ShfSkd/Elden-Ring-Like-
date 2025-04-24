@@ -18,7 +18,7 @@ namespace SKD.Character.Player
         [FormerlySerializedAs("_playerManager")] public PlayerManager _player;
 
         [Header("Player Movement Input")]
-        [SerializeField] Vector2 _movementInput;
+            [SerializeField] Vector2 _movementInput;
 
         public float _verticalInput;
         public float _horizontalInput;
@@ -54,6 +54,8 @@ namespace SKD.Character.Player
         [Header("Bumper Inputs")]
         [SerializeField] bool _RB_Input;
         [SerializeField] bool _LB_Input;
+        [SerializeField] bool _hold_RB_Input;
+        [SerializeField] bool _hold_LB_Input;
 
         [Header("Two Handed Inputs")]
         [SerializeField] bool _two_Hand_Input;
@@ -125,6 +127,10 @@ namespace SKD.Character.Player
                 _playerControls.PlayerActions.RB.performed += i => _RB_Input = true;
                 _playerControls.PlayerActions.LB.performed += i => _LB_Input = true;
                 _playerControls.PlayerActions.LB.canceled += i => _player._playerNetworkManager._isBlocking.Value = false;
+                _playerControls.PlayerActions.HoldRB.performed += i => _hold_RB_Input = true;
+                _playerControls.PlayerActions.HoldRB.canceled += i => _hold_RB_Input = false;
+                _playerControls.PlayerActions.HoldLB.performed += i => _hold_LB_Input = true;
+                _playerControls.PlayerActions.HoldLB.canceled += i => _hold_LB_Input = false;
 
                 // Triggers
                 _playerControls.PlayerActions.RT.performed += i => _RT_Input = true;
@@ -192,10 +198,12 @@ namespace SKD.Character.Player
             HandlePlayerMovementInput();
             HandleCameraMovmentInput();
             HandleRoleInput();
-            HandleSptintInput();
+            HandleSprintInput();
             HandleJumpInput();
             HandleRBInput();
+            HandleHoldRBInput();
             HandleLBInput();
+            HandleHoldLBInput();
             HandleRTInput();
             HandleLTInput();
             HandleChargeRTInput();
@@ -345,8 +353,7 @@ namespace SKD.Character.Player
                 _moveAmount = 0.5f;
             else if (_moveAmount > 0.5f && _moveAmount <= 1)
                 _moveAmount = 1;
-
-
+            
             // Why do we pass 0 on the horizontal? because we only want non-strafing movement 
             // We use the horizontal when we are strafing or locked on 
             if (_player == null) return;
@@ -388,7 +395,7 @@ namespace SKD.Character.Player
             }
         }
 
-        private void HandleSptintInput()
+        private void HandleSprintInput()
         {
             if (_sprintInput)
             {
@@ -429,6 +436,28 @@ namespace SKD.Character.Player
                 _player._playerCombatManager.PerformWeaponBasedAction(
                     _player._playerInventoryManager._currentRightHandWeapon._keyboard_RB_Action,
                     _player._playerInventoryManager._currentRightHandWeapon);
+            }
+        }
+        private void HandleHoldRBInput()
+        {
+            if (_hold_RB_Input)
+            {
+                _player._playerNetworkManager._isChargingRightSpell.Value = true;
+            }
+            else
+            {
+                _player._playerNetworkManager._isChargingRightSpell.Value = false;
+            }
+        }
+        private void HandleHoldLBInput()
+        {
+            if (_hold_LB_Input)
+            {
+                _player._playerNetworkManager._isChargingLeftSpell.Value = true;
+            }
+            else
+            {
+                _player._playerNetworkManager._isChargingLeftSpell.Value = false;
             }
         }
 

@@ -10,21 +10,27 @@ namespace SKD.Colliders
 {
     public class DamageCollider : MonoBehaviour
     {
-        [Header("Collider")] [SerializeField] protected Collider _damageCollider;
-        [Header("Damage")] public float _physicalDamage;
+        [Header("Collider")]
+        public Collider _damageCollider;
+
+        [Header("Damage")]
+        public float _physicalDamage;
         public float _magicDamage;
         public float _fireDamage;
         public float _lightningDamage;
         public float _holyDamage;
 
-        [Header("Posie")] public float _poiseDamage;
+        [Header("Posie")] 
+        public float _poiseDamage;
 
-        [Header("Contact Point")] protected Vector3 _contactPoint;
+        [Header("Contact Point")] 
+        protected Vector3 _contactPoint;
 
         [Header("Characters Damaged")]
         protected List<CharacterManager> _charactersDamagedList = new List<CharacterManager>();
 
-        [Header("Block")] protected Vector3 _directionFromAttackToDamageTarget;
+        [Header("Block")] 
+        protected Vector3 _directionFromAttackToDamageTarget;
         protected float _dotValueFromAttackToDamageTarget;
 
         protected virtual void Awake()
@@ -45,9 +51,9 @@ namespace SKD.Colliders
                 _contactPoint = other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
 
                 CheckForBlock(damageTarget);
-                
+
                 CheckForParry(damageTarget);
-                
+
                 if (!damageTarget._characterNetworkManager._isInvulnerable.Value)
                     DamageTarget(damageTarget);
             }

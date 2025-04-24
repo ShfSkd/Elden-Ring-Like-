@@ -4,6 +4,7 @@ using SKD.World_Manager;
 using SKD.WorldManager;
 using System.Collections;
 using SKD.Items;
+using SKD.Spells.Items;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -95,21 +96,24 @@ namespace SKD.Character.Player
                 // Update the total amount of health or stamina when the stat linked to either changes
                 _playerNetworkManager._vitality.OnValueChanged += _playerNetworkManager.SetNewMaxHealthValue;
                 _playerNetworkManager._endurance.OnValueChanged += _playerNetworkManager.SetNewMaxStaminaValue;
+                _playerNetworkManager._mind.OnValueChanged += _playerNetworkManager.SetNewMaxFocusPointsValue;
 
                 // Updated UI stat bars when a stat changes(Health or stamina)
                 _playerNetworkManager._currentHealth.OnValueChanged += PlayerUIManger.instance._playerUIHUDManager.SetNewHealthValue;
                 _playerNetworkManager._currentStamina.OnValueChanged += PlayerUIManger.instance._playerUIHUDManager.SetNewStaminaValue;
                 _playerNetworkManager._currentStamina.OnValueChanged += _playerStatsManager.ResetStaminaReganTimer;
+                _playerNetworkManager._currentFocusPoints.OnValueChanged += PlayerUIManger.instance._playerUIHUDManager.SetNewFocusPointsValue;
+
 
             }
 
             // Only Update Hp bar if this character is not the local players character
             if (!IsOwner)
                 _characterNetworkManager._currentHealth.OnValueChanged += _characterUIManager.OnHPChanged;
-            
+
             // Body types
             _playerNetworkManager._isMale.OnValueChanged += _playerNetworkManager.OnIsMaleChanged;
-            
+
             // Stats 
             _playerNetworkManager._currentHealth.OnValueChanged += _playerNetworkManager.CheckHP;
 
@@ -121,11 +125,16 @@ namespace SKD.Character.Player
             _playerNetworkManager._currentRightHandWeaponID.OnValueChanged += _playerNetworkManager.OnCurrentRightHandWeaponIDChange;
             _playerNetworkManager._currentLeftWeaponID.OnValueChanged += _playerNetworkManager.OnCurrentLeftHandWeaponIDChange;
             _playerNetworkManager._currentWeaponBeingUsed.OnValueChanged += _playerNetworkManager.OnCurrentWeaponBeingUsedIDChange;
+            _playerNetworkManager._currentSpellID.OnValueChanged += _playerNetworkManager.OnCurrentSpellIDChange;
             _playerNetworkManager._isBlocking.OnValueChanged += _playerNetworkManager.OnIsBlockingChanged;
             _playerNetworkManager._headEquipmentID.OnValueChanged += _playerNetworkManager.OnHeadEquipmentChanged;
             _playerNetworkManager._bodyEquipmentID.OnValueChanged += _playerNetworkManager.OnBodyEquipmentChanged;
             _playerNetworkManager._legEquipmentID.OnValueChanged += _playerNetworkManager.OnLegEquipmentChanged;
             _playerNetworkManager._handEquipmentID.OnValueChanged += _playerNetworkManager.OnHandEquipmentChanged;
+
+            // Spells
+            _playerNetworkManager._isChargingRightSpell.OnValueChanged += _playerNetworkManager.OnIsChargingRightSpellChange;
+            _playerNetworkManager._isChargingLeftSpell.OnValueChanged += _playerNetworkManager.OnIsChargingLeftSpellChange;
 
             // Two Hand
             _playerNetworkManager._isTwoHandingWeapon.OnValueChanged += _playerNetworkManager.OnIsTwoHandingWeaponChanged;
@@ -154,10 +163,13 @@ namespace SKD.Character.Player
                 // Update the total amount of health or stamina when the stat linked to either changes
                 _playerNetworkManager._vitality.OnValueChanged -= _playerNetworkManager.SetNewMaxHealthValue;
                 _playerNetworkManager._endurance.OnValueChanged -= _playerNetworkManager.SetNewMaxStaminaValue;
+                _playerNetworkManager._mind.OnValueChanged -= _playerNetworkManager.SetNewMaxFocusPointsValue;
+
 
                 // Updated UI stat bars when a stat changes(Health or stamina)
                 _playerNetworkManager._currentHealth.OnValueChanged -= PlayerUIManger.instance._playerUIHUDManager.SetNewHealthValue;
                 _playerNetworkManager._currentStamina.OnValueChanged -= PlayerUIManger.instance._playerUIHUDManager.SetNewStaminaValue;
+                _playerNetworkManager._currentFocusPoints.OnValueChanged -= PlayerUIManger.instance._playerUIHUDManager.SetNewFocusPointsValue;
                 _playerNetworkManager._currentStamina.OnValueChanged -= _playerStatsManager.ResetStaminaReganTimer;
 
             }
@@ -179,11 +191,16 @@ namespace SKD.Character.Player
             _playerNetworkManager._currentRightHandWeaponID.OnValueChanged -= _playerNetworkManager.OnCurrentRightHandWeaponIDChange;
             _playerNetworkManager._currentLeftWeaponID.OnValueChanged -= _playerNetworkManager.OnCurrentLeftHandWeaponIDChange;
             _playerNetworkManager._currentWeaponBeingUsed.OnValueChanged -= _playerNetworkManager.OnCurrentWeaponBeingUsedIDChange;
+            _playerNetworkManager._currentSpellID.OnValueChanged -= _playerNetworkManager.OnCurrentSpellIDChange;
             _playerNetworkManager._isBlocking.OnValueChanged -= _playerNetworkManager.OnIsBlockingChanged;
             _playerNetworkManager._headEquipmentID.OnValueChanged -= _playerNetworkManager.OnHeadEquipmentChanged;
             _playerNetworkManager._bodyEquipmentID.OnValueChanged -= _playerNetworkManager.OnBodyEquipmentChanged;
             _playerNetworkManager._legEquipmentID.OnValueChanged -= _playerNetworkManager.OnLegEquipmentChanged;
             _playerNetworkManager._handEquipmentID.OnValueChanged -= _playerNetworkManager.OnHandEquipmentChanged;
+
+            // Spells
+            _playerNetworkManager._isChargingRightSpell.OnValueChanged -= _playerNetworkManager.OnIsChargingRightSpellChange;
+            _playerNetworkManager._isChargingLeftSpell.OnValueChanged -= _playerNetworkManager.OnIsChargingLeftSpellChange;
 
             // Two Hand
             _playerNetworkManager._isTwoHandingWeapon.OnValueChanged -= _playerNetworkManager.OnIsTwoHandingWeaponChanged;
@@ -237,16 +254,18 @@ namespace SKD.Character.Player
 
             currenCharacterSaveData._characterName = _playerNetworkManager._characterName.Value.ToString();
             currenCharacterSaveData._isMale = _playerNetworkManager._isMale.Value;
-            
+
             currenCharacterSaveData._xPosition = transform.position.x;
             currenCharacterSaveData._yPosition = transform.position.y;
             currenCharacterSaveData._zPosition = transform.position.z;
 
             currenCharacterSaveData._currentHealth = _playerNetworkManager._currentHealth.Value;
             currenCharacterSaveData._currentStamina = _playerNetworkManager._currentStamina.Value;
+            currenCharacterSaveData._currentFocusPoints = _playerNetworkManager._currentFocusPoints.Value;
 
             currenCharacterSaveData._vitality = _playerNetworkManager._vitality.Value;
             currenCharacterSaveData._endurance = _playerNetworkManager._endurance.Value;
+            currenCharacterSaveData._mind = _playerNetworkManager._mind.Value;
 
             // Equipment
             currenCharacterSaveData._headEquipment = _playerNetworkManager._headEquipmentID.Value;
@@ -259,30 +278,36 @@ namespace SKD.Character.Player
             currenCharacterSaveData._rightWeapon02 = _playerInventoryManager._weaponInRigthHandSlots[1]._itemID;
             currenCharacterSaveData._rightWeapon03 = _playerInventoryManager._weaponInRigthHandSlots[2]._itemID;
 
-            currenCharacterSaveData._leftWeaponIndex = _playerInventoryManager._leftHandWeaponIndex ;
+            currenCharacterSaveData._leftWeaponIndex = _playerInventoryManager._leftHandWeaponIndex;
             currenCharacterSaveData._leftWeapon01 = _playerInventoryManager._weaponInLefthHandSlots[0]._itemID;
             currenCharacterSaveData._leftWeapon02 = _playerInventoryManager._weaponInLefthHandSlots[1]._itemID;
             currenCharacterSaveData._leftWeapon03 = _playerInventoryManager._weaponInLefthHandSlots[2]._itemID;
-            
+
+            if (_playerInventoryManager._currentSpell  != null)
+                currenCharacterSaveData._currentSpell = _playerInventoryManager._currentSpell._itemID;
+
         }
         public void LoadGameDataFromCurrentCharacterData(ref CharacterSaveData currenCharacterSaveData)
         {
             _playerNetworkManager._characterName.Value = currenCharacterSaveData._characterName;
             _playerNetworkManager._isMale.Value = currenCharacterSaveData._isMale;
-            _playerBodyManager.ToggleBodyType(currenCharacterSaveData._isMale); // Toggle in case the value is the same as default (OnValueChanged only works when the value is changed)
-              Vector3 myPosition = new Vector3(currenCharacterSaveData._xPosition, currenCharacterSaveData._yPosition, currenCharacterSaveData._zPosition);
+            _playerBodyManager.ToggleBodyType(currenCharacterSaveData._isMale);// Toggle in case the value is the same as default (OnValueChanged only works when the value is changed)
+            Vector3 myPosition = new Vector3(currenCharacterSaveData._xPosition, currenCharacterSaveData._yPosition, currenCharacterSaveData._zPosition);
             transform.position = myPosition;
 
             _playerNetworkManager._vitality.Value = currenCharacterSaveData._vitality;
-
             _playerNetworkManager._endurance.Value = currenCharacterSaveData._endurance;
+            _playerNetworkManager._mind.Value = currenCharacterSaveData._mind;
 
             // This will be moved when saving and loading is added
             _playerNetworkManager._maxHealth.Value = _playerStatsManager.CalculateHealthBasedOnVitalityLevel(_playerNetworkManager._vitality.Value);
             _playerNetworkManager._maxStamina.Value = _playerStatsManager.CalculateStaminaBasedOnEnduraceLevel(_playerNetworkManager._endurance.Value);
+            _playerNetworkManager._maxFocusPoints.Value = _playerStatsManager.CalculateFucosPointsBasedOnMindLevel(_playerNetworkManager._mind.Value);
             _playerNetworkManager._currentHealth.Value = currenCharacterSaveData._currentHealth;
             _playerNetworkManager._currentStamina.Value = currenCharacterSaveData._currentStamina;
-            PlayerUIManger.instance._playerUIHUDManager.SetMaxStaminaValue(_playerNetworkManager._maxStamina.Value);
+            _playerNetworkManager._currentFocusPoints.Value = currenCharacterSaveData._currentFocusPoints;
+
+            // PlayerUIManger.instance._playerUIHUDManager.SetMaxStaminaValue(_playerNetworkManager._maxStamina.Value);
 
             // Equipment
             if (WorldItemDatabase.Instance.GetHeadEquipmentByID(currenCharacterSaveData._headEquipment))
@@ -381,26 +406,40 @@ namespace SKD.Character.Player
             }
             else
             {
-                _playerInventoryManager._weaponInLefthHandSlots[2] = null;      
+                _playerInventoryManager._weaponInLefthHandSlots[2] = null;
             }
 
-            // _playerEquipmentManager.EquipArmor();
-             
-             _playerInventoryManager._rightHandWeaponIndex = currenCharacterSaveData._rightWeaponIndex;
-             _playerNetworkManager._currentRightHandWeaponID.Value = _playerInventoryManager._weaponInRigthHandSlots[currenCharacterSaveData._rightWeaponIndex]._itemID;
-             _playerInventoryManager._leftHandWeaponIndex = currenCharacterSaveData._leftWeaponIndex;
-             _playerNetworkManager._currentLeftWeaponID.Value = _playerInventoryManager._weaponInLefthHandSlots[currenCharacterSaveData._leftWeaponIndex]._itemID;
 
-          //   _playerBodyManager.ToggleBodyType(currenCharacterSaveData._isMale);
+            if (WorldItemDatabase.Instance.GetSpellByID(currenCharacterSaveData._currentSpell))
+            {
+                SpellItem currentSpell = Instantiate(WorldItemDatabase.Instance.GetSpellByID(currenCharacterSaveData._currentSpell));
+                _playerNetworkManager._currentSpellID.Value = currentSpell._itemID;
+            }
+            else
+            {
+                _playerNetworkManager._currentSpellID.Value = -1;
+
+            }
+
+
+            // _playerEquipmentManager.EquipArmor();
+
+            _playerInventoryManager._rightHandWeaponIndex = currenCharacterSaveData._rightWeaponIndex;
+            _playerNetworkManager._currentRightHandWeaponID.Value = _playerInventoryManager._weaponInRigthHandSlots[currenCharacterSaveData._rightWeaponIndex]._itemID;
+            _playerInventoryManager._leftHandWeaponIndex = currenCharacterSaveData._leftWeaponIndex;
+            _playerNetworkManager._currentLeftWeaponID.Value = _playerInventoryManager._weaponInLefthHandSlots[currenCharacterSaveData._leftWeaponIndex]._itemID;
+
+            //   _playerBodyManager.ToggleBodyType(currenCharacterSaveData._isMale);
         }
         private void LoadOtherCharacterPlayerCharaceterWhenJoininigServer()
         {
             // Sync body types
             _playerNetworkManager.OnIsMaleChanged(false, _playerNetworkManager._isMale.Value);
-            
+
             // Sync weapons 
             _playerNetworkManager.OnCurrentRightHandWeaponIDChange(0, _playerNetworkManager._currentRightHandWeaponID.Value);
             _playerNetworkManager.OnCurrentLeftHandWeaponIDChange(0, _playerNetworkManager._currentLeftWeaponID.Value);
+            _playerNetworkManager.OnCurrentSpellIDChange(0, _playerNetworkManager._currentSpellID.Value);
 
             // Sync armor 
             _playerNetworkManager.OnHeadEquipmentChanged(0, _playerNetworkManager._headEquipmentID.Value);

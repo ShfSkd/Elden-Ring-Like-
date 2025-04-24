@@ -1,4 +1,5 @@
 using SKD.Items;
+using SKD.Spells.Items;
 using SKD.World_Manager;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,10 +13,12 @@ namespace SKD.UI.PlayerUI
         [Header("Stats Bars")]
         [SerializeField] UI_StatBar _healthBar;
         [SerializeField] UI_StatBar _staminaBar;
+        [SerializeField] UI_StatBar _focusPointBar;
 
         [Header("Quick Slots")]
         [SerializeField] Image _rightWeaponQuickSlotIcon;
         [SerializeField] Image _leftWeaponQuickSlotIcon;
+        [SerializeField] Image _spellQuickSlotIcon;
 
         [Header("Boss Health Bar")]
         public Transform _bossHealthBarParent;
@@ -45,6 +48,9 @@ namespace SKD.UI.PlayerUI
 
             _staminaBar.gameObject.SetActive(false);
             _staminaBar.gameObject.SetActive(true);
+            
+            _focusPointBar.gameObject.SetActive(false);
+            _focusPointBar.gameObject.SetActive(true);
 
         }
         public void SetNewHealthValue(int oldValue, int newValue)
@@ -62,6 +68,14 @@ namespace SKD.UI.PlayerUI
         public void SetMaxStaminaValue(int maxStamina)
         {
             _staminaBar.SetMaxStat(maxStamina);
+        }
+        public void SetNewFocusPointsValue(int oldValue, int newValue)
+        {
+            _focusPointBar.SetStat(Mathf.RoundToInt(newValue));
+        }
+        public void SetMaxFocusPointsValue(int maxFocusPoints)
+        {
+            _focusPointBar.SetMaxStat(maxFocusPoints);
         }
         public void SetRightWeaponQuickSlotIcon(int weaponID)
         {
@@ -110,6 +124,30 @@ namespace SKD.UI.PlayerUI
 
             _leftWeaponQuickSlotIcon.sprite = weapon._itemIcon;
             _leftWeaponQuickSlotIcon.enabled = true;
+        }
+        public void SetSpellItemQuickSlotIcon(int spellID)
+        {
+            SpellItem spell = WorldItemDatabase.Instance.GetSpellByID(spellID);
+            if (spell == null)
+            {
+                Debug.Log("Spell is Null");
+              _spellQuickSlotIcon.enabled = false;
+              _spellQuickSlotIcon.sprite = null;
+                return;
+            }
+
+            if (spell._itemIcon == null)
+            {
+                Debug.Log("Item Has No Icon");
+                _spellQuickSlotIcon.enabled = false;
+                _spellQuickSlotIcon.sprite = null;
+                return;
+            }
+            //  This is where you would check to see if you meet the item requirements if you want to create the warning foe not being able to wield it in the UI
+
+
+            _spellQuickSlotIcon.sprite = spell._itemIcon;
+            _spellQuickSlotIcon.enabled = true;
         }
     }
 

@@ -19,6 +19,7 @@ namespace SKD.Character.Player
             // Why calculate it here? When we make a character creation menu, and set the stats depending on the class , this will be calculate there. Until then however, stats are never calculate, so we do it here on start. If a save file exist they will be over written when loading into a scene 
             CalculateHealthBasedOnVitalityLevel(_player._playerNetworkManager._vitality.Value);
             CalculateStaminaBasedOnEnduraceLevel(_player._playerNetworkManager._endurance.Value);
+            CalculateFucosPointsBasedOnMindLevel(_player._playerNetworkManager._mind.Value);
 
         }
         public void CalculateTotalArmorAbsorption()

@@ -65,6 +65,10 @@ namespace SKD
     {
         StraightSword,Spear,MediumShield,Fist,LightShield
     }
+    public enum SpellClass
+    {
+        Incantation,Sorcery
+    }
     public enum ItemPickUpType
     {
         WorldSpawn,CharacterDrop,Drop

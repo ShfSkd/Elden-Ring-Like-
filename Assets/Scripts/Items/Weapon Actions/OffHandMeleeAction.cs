@@ -8,9 +8,9 @@ namespace SKD.Items.Weapon_Actions
     [CreateAssetMenu(menuName = "Character Actions/Weapon Actions/Off Hand Melee  Action")]
     public class OffHandMeleeAction : WeaponItemAction
     {
-        public override void AttampToPerformedAction(PlayerManager playerPerformingAction, WeaponItem weaponPerformingAction)
+        public override void AttemptToPerformedAction(PlayerManager playerPerformingAction, WeaponItem weaponPerformingAction)
         {
-            base.AttampToPerformedAction(playerPerformingAction, weaponPerformingAction);
+            base.AttemptToPerformedAction(playerPerformingAction, weaponPerformingAction);
 
             if (!playerPerformingAction._playerCombatManager._canBlock)
                 return;

@@ -1,6 +1,7 @@
 ﻿using SKD.Effects;
 using SKD.Items;
 using SKD.Items.WeaponItems;
+using SKD.Spells.Items;
 using SKD.UI.PlayerUI;
 using SKD.World_Manager;
 using SKD.WorldManager;
@@ -23,7 +24,6 @@ namespace SKD.Character.Player
         public NetworkVariable<int> _currentWeaponBeingUsed =
             new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
-        [FormerlySerializedAs("_currentRightWeaponID")]
         public NetworkVariable<int> _currentRightHandWeaponID = new NetworkVariable<int>(0,
             NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
@@ -32,6 +32,7 @@ namespace SKD.Character.Player
 
         public NetworkVariable<bool> _isUsingRightHand = new NetworkVariable<bool>(false,
             NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<int> _currentSpellID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
         public NetworkVariable<bool> _isUsingLeftHand = new NetworkVariable<bool>(false,
             NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
@@ -41,6 +42,11 @@ namespace SKD.Character.Player
         public NetworkVariable<bool> _isTwoHandingWeapon = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<bool> _isTwoHandingRightWepoen = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<bool> _isTwoHandingLeftWeapon = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+
+        [Header("Spells")]
+        public NetworkVariable<bool> _isChargingRightSpell = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<bool> _isChargingLeftSpell = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+
 
         [Header("Armor")]
         public NetworkVariable<bool> _isMale = new NetworkVariable<bool>(true, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
@@ -54,7 +60,6 @@ namespace SKD.Character.Player
 
             _player = GetComponent<PlayerManager>();
         }
-
         public void SetCharacterActionHand(bool rightHandedAction)
         {
             if (rightHandedAction)
@@ -68,21 +73,24 @@ namespace SKD.Character.Player
                 _isUsingLeftHand.Value = true;
             }
         }
-
         public void SetNewMaxHealthValue(int oldVitality, int newVitality)
         {
             _maxHealth.Value = _player._playerStatsManager.CalculateHealthBasedOnVitalityLevel(newVitality);
             PlayerUIManger.instance._playerUIHUDManager.SetMaxHealthValue(_maxHealth.Value);
             _currentHealth.Value = _maxHealth.Value;
         }
-
+        public void SetNewMaxFocusPointsValue(int oldMind, int newMind)
+        {
+            _maxFocusPoints.Value = _player._playerStatsManager.CalculateFucosPointsBasedOnMindLevel(newMind);
+            PlayerUIManger.instance._playerUIHUDManager.SetMaxFocusPointsValue(_maxFocusPoints.Value);
+            _currentHealth.Value = _maxFocusPoints.Value;
+        }
         public void SetNewMaxStaminaValue(int oldEndurance, int newEndurance)
         {
             _maxStamina.Value = _player._playerStatsManager.CalculateStaminaBasedOnEnduraceLevel(newEndurance);
             PlayerUIManger.instance._playerUIHUDManager.SetMaxStaminaValue(_maxStamina.Value);
             _currentStamina.Value = _maxStamina.Value;
         }
-
         public void OnCurrentRightHandWeaponIDChange(int oldId, int newId)
         {
             WeaponItem newWeapon = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(newId));
@@ -94,7 +102,34 @@ namespace SKD.Character.Player
                 PlayerUIManger.instance._playerUIHUDManager.SetRightWeaponQuickSlotIcon(newId);
             }
         }
+        public void OnCurrentSpellIDChange(int oldId, int newId)
+        {
+            SpellItem newSpell = null;
 
+            if (WorldItemDatabase.Instance.GetSpellByID(newId))
+                newSpell = Instantiate(WorldItemDatabase.Instance.GetSpellByID(newId));
+            
+            if (newSpell != null)
+                _player._playerInventoryManager._currentSpell = newSpell;
+
+            if (newSpell != null)
+            {
+                _player._playerInventoryManager._currentSpell = newSpell;
+
+                if (_player.IsOwner)
+                    PlayerUIManger.instance._playerUIHUDManager.SetSpellItemQuickSlotIcon(newId);
+            }
+
+
+        }
+        public void OnIsChargingRightSpellChange(bool oldValue, bool newValue)
+        {
+            _player._animator.SetBool("IsChargingRightSpell", _isChargingRightSpell.Value);
+        }
+        public void OnIsChargingLeftSpellChange(bool oldValue, bool newValue)
+        {
+            _player._animator.SetBool("IsChargingLeftSpell", _isChargingLeftSpell.Value);
+        }
         public void OnCurrentLeftHandWeaponIDChange(int oldId, int newId)
         {
             WeaponItem newWeapon = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(newId));
@@ -106,7 +141,6 @@ namespace SKD.Character.Player
                 PlayerUIManger.instance._playerUIHUDManager.SetLeftWeaponQuickSlotIcon(newId);
             }
         }
-
         public void OnCurrentWeaponBeingUsedIDChange(int oldId, int newId)
         {
             WeaponItem newWeapon = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(newId));
@@ -119,7 +153,6 @@ namespace SKD.Character.Player
                 _player._playerAnimationManager.UpdateAnimatorController(_player._playerCombatManager
                     ._currentWeaponBeingUsed._weaponAnimator);
         }
-
         public void OnIsTwoHandingWeaponChanged(bool oldValue, bool newValue)
         {
             if (!_isTwoHandingWeapon.Value)
@@ -140,7 +173,6 @@ namespace SKD.Character.Player
 
             _player._animator.SetBool(IsTwoHandedWeapon, _isTwoHandingWeapon.Value);
         }
-
         public void OnIsTwoHandingRightWeaponChanged(bool oldValue, bool newValue)
         {
             if (_isTwoHandingRightWepoen.Value)
@@ -155,7 +187,6 @@ namespace SKD.Character.Player
             _player._playerInventoryManager._currentTwoHandWeapon = _player._playerInventoryManager._currentRightHandWeapon;
             _player._playerEquipmentManager.TwoHandRightWeapon();
         }
-
         public void OnIsTwoHandingLeftWeaponChanged(bool oldValue, bool newValue)
         {
             if (!_isTwoHandingLeftWeapon.Value)
@@ -285,7 +316,7 @@ namespace SKD.Character.Player
 
             if (weaponAction != null)
             {
-                weaponAction.AttampToPerformedAction(_player, WorldItemDatabase.Instance.GetWeaponByID(weaponID));
+                weaponAction.AttemptToPerformedAction(_player, WorldItemDatabase.Instance.GetWeaponByID(weaponID));
             }
             else
             {

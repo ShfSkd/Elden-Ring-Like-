@@ -15,9 +15,9 @@ namespace SKD.Items.Weapon_Actions
         // Two Hand
         [SerializeField] string _th_heavy_Attack_01 = "TH_Heavy_Attack_01";
         [SerializeField] string _th_heavy_Attack_02 = "TH_Heavy_Attack_02";
-        public override void AttampToPerformedAction(PlayerManager playerPerformingAction, WeaponItem weaponPerformingAction)
+        public override void AttemptToPerformedAction(PlayerManager playerPerformingAction, WeaponItem weaponPerformingAction)
         {
-            base.AttampToPerformedAction(playerPerformingAction, weaponPerformingAction);
+            base.AttemptToPerformedAction(playerPerformingAction, weaponPerformingAction);
 
             if (!playerPerformingAction.IsOwner)
                 return;

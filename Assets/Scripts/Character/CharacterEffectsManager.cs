@@ -16,18 +16,37 @@ namespace SKD.Character
         // Process static effects (adding or removing buffs from rings etc)
 
         CharacterManager _charcter;
+        
+        [Header("Current Active FX")]
+        public GameObject _activeSpellWarmUpFX;
 
         [Header("VFX")]
         [SerializeField] GameObject _bloodSplatterVFX;
         [SerializeField] GameObject _criticalBloodSplatterVFX;
-        
+
         [Header("Static Effects")]
         public List<StaticCharacterEffect> _staticEffectsList = new List<StaticCharacterEffect>();
+
+        /*
+        [Header("Debug Delete Later")]
+        [SerializeField] InstantCharacterEffect _effectToTest;
+        [SerializeField] bool _proccesEffect;
+        */
+
+
         protected virtual void Awake()
         {
             _charcter = GetComponent<CharacterManager>();
         }
-
+        /*private void Update()
+        {
+            if (_proccesEffect)
+            {
+                _proccesEffect = false;
+                InstantCharacterEffect effect = Instantiate(_effectToTest);
+                ProceesInstanceEffect(effect);
+            }
+        }*/
         public virtual void ProceesInstanceEffect(InstantCharacterEffect effects)
         {
             // Take in an effect
@@ -107,6 +126,7 @@ namespace SKD.Character
                 }
             }
         }
+
        
     }
 }

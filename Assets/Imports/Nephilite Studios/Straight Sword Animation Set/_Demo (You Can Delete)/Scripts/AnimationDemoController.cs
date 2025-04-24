@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace SG
@@ -70,8 +71,9 @@ namespace SG
         [SerializeField] Camera cameraObject;
         [SerializeField] ParticleSystem lockOnTransform;
 
+        [FormerlySerializedAs("leftandRightLookAngle")]
         [Header("Camera Debug")]
-        [SerializeField] float leftandRightLookAngle;
+        [SerializeField] float leftAndRightLookAngle;
         [SerializeField] float upAndDownLookAngle;
         private Vector3 cameraFollowVelocity = Vector3.zero;
 
@@ -1022,18 +1024,18 @@ namespace SG
                 eulerAngle.y = 0;
                 playerCameraPivot.transform.localEulerAngles = eulerAngle;
 
-                leftandRightLookAngle = playerCamera.transform.eulerAngles.y;
+                leftAndRightLookAngle = playerCamera.transform.eulerAngles.y;
                 upAndDownLookAngle = playerCameraPivot.transform.localRotation.x;
                 return;
             }
             else
             {
-                leftandRightLookAngle += (mouseX * leftAndRightLookSpeed) * Time.deltaTime;
+                leftAndRightLookAngle += (mouseX * leftAndRightLookSpeed) * Time.deltaTime;
                 upAndDownLookAngle -= (mouseY * upAndDownLookSpeed) * Time.deltaTime;
                 upAndDownLookAngle = Mathf.Clamp(upAndDownLookAngle, minimumPivot, maximumPivot);
 
                 cameraRotation = Vector3.zero;
-                cameraRotation.y = leftandRightLookAngle;
+                cameraRotation.y = leftAndRightLookAngle;
                 targetCameraRotation = Quaternion.Euler(cameraRotation);
                 playerCamera.transform.rotation = targetCameraRotation;
 

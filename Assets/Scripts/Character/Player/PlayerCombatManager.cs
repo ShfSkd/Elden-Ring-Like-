@@ -31,10 +31,8 @@ namespace SKD.Character.Player
             if (_player.IsOwner)
             {
                 // perform the action
-                weaponAction.AttampToPerformedAction(_player, weaponPerformingAction);
-
-                // Notify the server we have performed the action, so we perform it from their perspective also 
-                _player._playerNetworkManager.NotifyTheServerOfWeaponActionServerRpc(NetworkManager.Singleton.LocalClientId, weaponAction._actionID, weaponPerformingAction._itemID);
+                weaponAction.AttemptToPerformedAction(_player, weaponPerformingAction);
+                
             }
 
 
@@ -42,7 +40,7 @@ namespace SKD.Character.Player
         protected override void CloseAllDamageColliders()
         {
             base.CloseAllDamageColliders();
-            
+
             _player._playerEquipmentManager._rightWeaponManager._meleeDamageCollider.DisableDamageCollider();
             _player._playerEquipmentManager._leftWeaponManager._meleeDamageCollider.DisableDamageCollider();
         }
@@ -196,6 +194,16 @@ namespace SKD.Character.Player
                 case AttackType.LigthAttack01:
                     staminaDetucted = _currentWeaponBeingUsed._baseStaminaCost * _currentWeaponBeingUsed._lightAttackStaminaCostMultiplier;
                     break;
+                case AttackType.LigthAttack02:
+                    staminaDetucted = _currentWeaponBeingUsed._baseStaminaCost * _currentWeaponBeingUsed._lightAttackStaminaCostMultiplier;
+                    break;
+                case AttackType.HeavyAttack01:
+                    staminaDetucted = _currentWeaponBeingUsed._baseStaminaCost * _currentWeaponBeingUsed._heavyAttackStaminaCostMultiplier;
+                    break;
+                case AttackType.HeavyAttack02:
+                    staminaDetucted = _currentWeaponBeingUsed._baseStaminaCost * _currentWeaponBeingUsed._heavyAttackStaminaCostMultiplier;
+                    break;
+
                 default:
                     break;
             }
@@ -210,7 +218,28 @@ namespace SKD.Character.Player
                 PlayerCamera.Instance.SetLockOnCameraHeight();
             }
         }
+        public void InstantiateSpellWarmUpFX()
+        {
+            if (_player._playerInventoryManager._currentSpell == null)
+                return;
 
+            _player._playerInventoryManager._currentSpell.InstantiateWarmUpSpellFX(_player);
+        }
+        public void SuccessfullyCastSpell()
+        {
+            if (_player._playerInventoryManager._currentSpell == null)
+                return;
+            
+            _player._playerInventoryManager._currentSpell.SuccessfullyChargeSpell(_player);
+        }
+        public void SuccessfullyCastSpellFullCharge()
+        {
+            
+            if (_player._playerInventoryManager._currentSpell == null)
+                return;
+            
+            _player._playerInventoryManager._currentSpell.SuccessfullyCastSpellFullCharge(_player);
+        }
         public WeaponItem SelectWeaponToPerformAshOfWar()
         {
             WeaponItem selectedWeapon = _player._playerInventoryManager._currentLeftHandWeapon;

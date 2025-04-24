@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using SKD.Items.AshesOfWar;
+using SKD.Spells.Items;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -13,12 +14,12 @@ namespace SKD.World_Manager
         public static WorldItemDatabase Instance;
 
         public WeaponItem _unarmedWeapon;
-        
+
         public GameObject _pickUpItemPrefab;
 
         [Header("Weapons")]
         [SerializeField] List<WeaponItem> _weapons = new List<WeaponItem>();
-        
+
         [Header("Head Equipment")]
         [SerializeField] List<HeadEquipmentItem> _headEquipment = new List<HeadEquipmentItem>();
 
@@ -30,10 +31,14 @@ namespace SKD.World_Manager
 
         [Header("Hand Equipment")]
         [SerializeField] List<HandEquipmentItem> _handEqipment = new List<HandEquipmentItem>();
-        
-        [Header("Ashes Of War")]
-        [SerializeField] List<AshOfWar>_ashOfWar=new List<AshOfWar>();
 
+        [Header("Ashes Of War")]
+        [SerializeField] List<AshOfWar> _ashOfWar = new List<AshOfWar>();
+
+        [Header("Spells")]
+        [SerializeField] List<SpellItem> _spells = new List<SpellItem>();
+
+        [Header("Items")]
         // A list of every item that we have in the game 
         private List<Item> _items = new List<Item>();
 
@@ -66,6 +71,10 @@ namespace SKD.World_Manager
                 _items.Add(item);
             }
             foreach (var item in _ashOfWar)
+            {
+                _items.Add(item);
+            }
+            foreach (var item in _spells)
             {
                 _items.Add(item);
             }
@@ -103,6 +112,10 @@ namespace SKD.World_Manager
         {
             return _ashOfWar.FirstOrDefault(ash => ash._itemID == id);
         }
-      
+        public SpellItem GetSpellByID(int id)
+        {
+            return _spells.FirstOrDefault(spell => spell._itemID == id);
+        }
+
     }
 }

@@ -52,11 +52,14 @@ namespace SKD.Character
         public NetworkVariable<int> _currentHealth = new NetworkVariable<int>(400, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> _maxHealth = new NetworkVariable<int>(400, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<float> _currentStamina = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-        public NetworkVariable<int> _maxStamina = new NetworkVariable<int>(200, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<int> _maxStamina = new NetworkVariable<int>(400, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<int> _currentFocusPoints = new NetworkVariable<int>(200, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<int> _maxFocusPoints = new NetworkVariable<int>(200, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
         [Header("Stats")]
         public NetworkVariable<int> _vitality = new NetworkVariable<int>(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> _endurance = new NetworkVariable<int>(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<int> _mind = new NetworkVariable<int>(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> _strength = new NetworkVariable<int>(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
         [Header("Stats Modifiers")]
@@ -324,7 +327,9 @@ namespace SKD.Character
             damageEffect._characteCausingDamage = characterCausingDamage;
 
             damagedCharacter._characterEffectsManager.ProceesInstanceEffect(damageEffect);
-            damagedCharacter._characterAnimationManager.PlayTargetActionAnimationInstantly(criticalDamageAnimation, true);
+
+            if (damagedCharacter.IsOwner)
+                damagedCharacter._characterAnimationManager.PlayTargetActionAnimationInstantly(criticalDamageAnimation, true);
 
             // Move the enemy to the proper riposte position
             StartCoroutine(damagedCharacter._characterCombatManager.ForceMoveEnemyCharacterToRipostePosition(characterCausingDamage,
@@ -420,12 +425,25 @@ namespace SKD.Character
         protected void ProcessParryFromServer(ulong parriedClientID)
         {
             CharacterManager parriedCharacter = NetworkManager.Singleton.SpawnManager.SpawnedObjects[parriedClientID].gameObject.GetComponent<CharacterManager>();
-            
-            if(parriedCharacter==null)
+
+            if (parriedCharacter == null)
                 return;
 
             if (parriedCharacter.IsOwner)
                 parriedCharacter._characterAnimationManager.PlayTargetActionAnimationInstantly("Parried_01", true);
+        }
+        // Used to cancel FX When poise is broken
+        [ServerRpc]
+        public void DestroyALlCurrentActionFXServerRpc()
+        {
+            if(IsServer)
+                DestroyALlCurrentActionFXClientRpc();
+        }
+        [ClientRpc]
+        public void DestroyALlCurrentActionFXClientRpc()
+        {
+            if (_character._characterEffectsManager._activeSpellWarmUpFX != null)
+                Destroy(_character._characterEffectsManager._activeSpellWarmUpFX);
         }
     }
 }

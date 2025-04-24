@@ -34,9 +34,9 @@ namespace SKD.Items.Weapon_Actions
         [Header("Backstep Attacks")]
         [SerializeField] string _th_backstep_Attack_01 = "TH_Backstep_Attack_01";
 
-        public override void AttampToPerformedAction(PlayerManager playerPerformingAction, WeaponItem weaponPerformingAction)
+        public override void AttemptToPerformedAction(PlayerManager playerPerformingAction, WeaponItem weaponPerformingAction)
         {
-            base.AttampToPerformedAction(playerPerformingAction, weaponPerformingAction);
+            base.AttemptToPerformedAction(playerPerformingAction, weaponPerformingAction);
 
             if (!playerPerformingAction.IsOwner)
                 return;

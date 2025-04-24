@@ -21,6 +21,9 @@ public class ResetActionFlag : StateMachineBehaviour
         _character._characterAnimationManager.DisableCanDoCombo();
         _character._characterCombatManager.DisableCanDoRollingAttack();
         _character._characterCombatManager.DisableCanDoBackstepAttack();
+        
+        if(_character._characterEffectsManager._activeSpellWarmUpFX!=null)
+            Destroy(_character._characterEffectsManager._activeSpellWarmUpFX);
 
         if (_character.IsOwner)
         {
