@@ -2,7 +2,7 @@ using SKD.Character.Player;
 using UnityEngine;
 namespace SKD.Spells.Items
 {
-    [CreateAssetMenu(menuName = "Items/Spells/TestSpell")]
+    [CreateAssetMenu(menuName = "Item/Spells/TestSpell")]
     public class TestSpell : SpellItem
     {
         public override void AttemptToCastSpell(PlayerManager player)

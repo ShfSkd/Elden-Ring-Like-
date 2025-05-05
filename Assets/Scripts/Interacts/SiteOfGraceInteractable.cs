@@ -74,7 +74,7 @@ namespace SKD.Interacts
 
             player._playerAnimationManager.PlayTargetActionAnimation("Activate_Site_Of_Grace_01", true);
 
-            PlayerUIManger.Instance._playerUIPopUpManager.SendGraceRestoredPopUp("Site of Grace Restored");
+            PlayerUIManger.instance._playerUIPopUpManager.SendGraceRestoredPopUp("Site of Grace Restored");
 
             StartCoroutine(WaitForAnimationAndPopUpthenRestoreCollider());
         }

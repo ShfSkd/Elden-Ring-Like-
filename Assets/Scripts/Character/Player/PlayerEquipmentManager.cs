@@ -3,9 +3,6 @@ using SKD.Items;
 using SKD.World_Manager;
 using System.Collections;
 using System.Collections.Generic;
-using SKD.Items.Equipment;
-using SKD.Items.Weapons;
-using SKD.Weapons.Items;
 using UnityEngine;
 using UnityEngine.Serialization;
 

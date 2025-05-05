@@ -2,9 +2,6 @@
 using SKD.Items;
 using System.Collections;
 using System.Collections.Generic;
-using SKD.Items.Equipment;
-using SKD.Items.Weapon_Actions;
-using SKD.Items.Weapons;
 using SKD.Spells.Items;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -30,12 +27,7 @@ namespace SKD.UI.PlayerUI
         public BodyEquipmentItem _bodyEquipment;
         public LegEquipmentItem _legEquipment;
         public HandEquipmentItem _handEquipment;
-        
-        [Header("Projectiles")]
-        public RangedProjectileItem _mainProjectile;
-        [FormerlySerializedAs("_Seconderyrojectile")]
-        public RangedProjectileItem _seconderyrojectile;
-        
+
         [Header("Inventory")]
         public List<Item> _itemInTheInventory;
 

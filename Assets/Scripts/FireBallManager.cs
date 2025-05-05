@@ -27,7 +27,13 @@ namespace SKD
             base.Update();
 
             if (_spellTaregt != null)
-                transform.LookAt(_spellTaregt._characterCombatManager._lockOnTransform);
+                transform.LookAt(_spellTaregt.transform);
+
+            if (_fireBallRigidbody != null)
+            {
+                Vector3 currentVelocity = _fireBallRigidbody.velocity;
+                _fireBallRigidbody.velocity = transform.forward + currentVelocity;
+            }
         }
 
         private void OnCollisionEnter(Collision collision)

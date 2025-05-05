@@ -5,6 +5,7 @@ namespace SKD.Spells.Items
 {
     public class SpellItem : Item
     {
+        [FormerlySerializedAs("spellClass")]
         [Header("Spell Class")]
         public SpellClass _spellClass;
 

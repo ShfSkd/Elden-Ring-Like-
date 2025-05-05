@@ -3,7 +3,6 @@ using SKD.Items;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using SKD.Items.Weapons;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -12,7 +11,7 @@ namespace SKD.Character
 {
     public class CharacterAnimatorManager : MonoBehaviour
     {
-        CharacterManager _character;
+        CharacterManager _characterManager;
         int _vertical;
         int _horizontal;
 
@@ -64,7 +63,7 @@ namespace SKD.Character
 
         protected virtual void Awake()
         {
-            _character = GetComponent<CharacterManager>();
+            _characterManager = GetComponent<CharacterManager>();
             _horizontal = Animator.StringToHash("Horizontal");
             _vertical = Animator.StringToHash("Vertical");
         }
@@ -171,8 +170,8 @@ namespace SKD.Character
                 snappedVertical = 2f;
             }
 
-            _character._animator.SetFloat(_horizontal, snappedHorizontal, 0.1f, Time.deltaTime);
-            _character._animator.SetFloat(_vertical, snappedVertical, 0.1f, Time.deltaTime);
+            _characterManager._animator.SetFloat(_horizontal, snappedHorizontal, 0.1f, Time.deltaTime);
+            _characterManager._animator.SetFloat(_vertical, snappedVertical, 0.1f, Time.deltaTime);
         }
 
         public virtual void PlayTargetActionAnimation(string targetAnimationName,
@@ -182,19 +181,18 @@ namespace SKD.Character
             bool canMove = false)
         {
             _applyRootMotion = applyRootMotion;
-            _character._characterAnimationManager._applyRootMotion = applyRootMotion;
+            _characterManager._characterAnimationManager._applyRootMotion = applyRootMotion;
 
-            _character._animator.CrossFade(targetAnimationName, 0.2f);
+            _characterManager._animator.CrossFade(targetAnimationName, 0.2f);
             // Can be used to stop character from attempting new actions
             // for example:If you get damaged, and begin performing a damage animation this flag will turn true if you are stunned  
             // we can them check for this before attempting new actions
-            _character._isPerformingAction = isPerformingAction;
-            _character._characterLocomotionManager._canRotate = canRotate;
-            _character._characterLocomotionManager._canMove = canMove;
-            _character._characterNetworkManager._isAttacking.Value = true;
+            _characterManager._isPerformingAction = isPerformingAction;
+            _characterManager._characterLocomotionManager._canRotate = canRotate;
+            _characterManager._characterLocomotionManager._canMove = canMove;
 
             // Tell the server/host we played an animation, and to play that animation for everybody else present
-            _character._characterNetworkManager.NotifyTheServerofActionAnimationServerRpc(
+            _characterManager._characterNetworkManager.NotifyTheServerofActionAnimationServerRpc(
                 NetworkManager.Singleton.LocalClientId, targetAnimationName, applyRootMotion);
         }
         public void PlayTargetActionAnimationInstantly(
@@ -205,18 +203,18 @@ namespace SKD.Character
             bool canMove = false)
         {
             _applyRootMotion = applyRootMotion;
-            _character._characterAnimationManager._applyRootMotion = applyRootMotion;
+            _characterManager._characterAnimationManager._applyRootMotion = applyRootMotion;
 
-            _character._animator.Play(targetAnimationName);
+            _characterManager._animator.Play(targetAnimationName);
             // Can be used to stop character from attempting new actions
             // for example:If you get damaged, and begin performing a damage animation this flag will turn true if you are stunned  
             // we can them check for this before attempting new actions
-            _character._isPerformingAction = isPerformingAction;
-            _character._characterLocomotionManager._canRotate = canRotate;
-            _character._characterLocomotionManager._canMove = canMove;
+            _characterManager._isPerformingAction = isPerformingAction;
+            _characterManager._characterLocomotionManager._canRotate = canRotate;
+            _characterManager._characterLocomotionManager._canMove = canMove;
 
             // Tell the server/host we played an animation, and to play that animation for everybody else present
-            _character._characterNetworkManager.NotifyTheServerOfInstantActionAttackAnimationServerRpc(
+            _characterManager._characterNetworkManager.NotifyTheServerOfInstantActionAttackAnimationServerRpc(
                 NetworkManager.Singleton.LocalClientId, targetAnimationName, applyRootMotion);
         }
         public void PlayTargetAttackActionAnimation(WeaponItem weapon, AttackType attackType,
@@ -231,23 +229,23 @@ namespace SKD.Character
             // Update animation set to current weapons animations
             // Deiced if our attack can be parried
             // Tell the network our "IsAttacking" flag
-            _character._characterCombatManager._currentAttackType = attackType;
-            _character._characterCombatManager._lastAttackAnimationPerformed = targetAnimationName;
+            _characterManager._characterCombatManager._currentAttackType = attackType;
+            _characterManager._characterCombatManager._lastAttackAnimationPerformed = targetAnimationName;
             UpdateAnimatorController(weapon._weaponAnimator);
-            _character._characterAnimationManager._applyRootMotion = applyRootMotion;
-            _character._animator.CrossFade(targetAnimationName, 0.2f);
-            _character._isPerformingAction = isPerformingAction;
-            _character._characterLocomotionManager._canRotate = canRotate;
-            _character._characterLocomotionManager._canMove = canMove;
+            _characterManager._characterAnimationManager._applyRootMotion = applyRootMotion;
+            _characterManager._animator.CrossFade(targetAnimationName, 0.2f);
+            _characterManager._isPerformingAction = isPerformingAction;
+            _characterManager._characterLocomotionManager._canRotate = canRotate;
+            _characterManager._characterLocomotionManager._canMove = canMove;
 
             // Tell the server/host we played an animation, and to play that animation for everybody else present
-            _character._characterNetworkManager.NotifyTheServerOfActionAttackAnimationServerRpc(
+            _characterManager._characterNetworkManager.NotifyTheServerOfActionAttackAnimationServerRpc(
                 NetworkManager.Singleton.LocalClientId, targetAnimationName, applyRootMotion);
         }
    
         public void UpdateAnimatorController(AnimatorOverrideController weaponController)
         {
-            _character._animator.runtimeAnimatorController = weaponController;
+            _characterManager._animator.runtimeAnimatorController = weaponController;
         }
    
     }

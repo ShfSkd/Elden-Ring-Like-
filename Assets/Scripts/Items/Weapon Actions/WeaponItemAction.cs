@@ -1,8 +1,8 @@
 ﻿using SKD.Character.Player;
-using SKD.Items.Weapons;
+using System.Collections;
 using UnityEngine;
 
-namespace SKD.Items.Weapon_Actions
+namespace SKD.Items.WeaponItems
 {
     [CreateAssetMenu(menuName = "Character Actions/Weapon Actions/Test.Action")]
     public class WeaponItemAction : ScriptableObject

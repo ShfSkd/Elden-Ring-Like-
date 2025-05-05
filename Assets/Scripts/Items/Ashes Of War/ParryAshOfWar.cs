@@ -1,5 +1,4 @@
 using System;
-using SKD.Items.Weapons;
 using SKD.Character.Player;
 using UnityEngine;
 namespace SKD.Items.AshesOfWar

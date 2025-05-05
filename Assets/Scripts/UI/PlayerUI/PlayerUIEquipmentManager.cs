@@ -1,10 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using SKD.Items.Weapons;
 using SKD.Character.Player;
 using SKD.Items;
-using SKD.Items.Equipment;
 using SKD.World_Manager;
 using Unity.Netcode;
 using UnityEngine;
@@ -65,7 +63,7 @@ namespace SKD.UI.PlayerUI
         }
         public void OpenEquipmentManagerMenu()
         {
-            PlayerUIManger.Instance._menuWindowIsOpen = true;
+            PlayerUIManger.instance._menuWindowIsOpen = true;
             ToggleEquipmentButtons(true);
             _menu.SetActive(true);
             _equipmentInventoryWindow.SetActive(false);
@@ -143,7 +141,7 @@ namespace SKD.UI.PlayerUI
         }
         public void CloseEquipmentManagerMenu()
         {
-            PlayerUIManger.Instance._menuWindowIsOpen = false;
+            PlayerUIManger.instance._menuWindowIsOpen = false;
             _menu.SetActive(false);
         }
         private void RefreshEquipmentSlotIcons()

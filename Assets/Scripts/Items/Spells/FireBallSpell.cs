@@ -3,7 +3,7 @@ using SKD.Utility;
 using UnityEngine;
 namespace SKD.Spells.Items
 {
-    [CreateAssetMenu(menuName = "Items/Spells/Fire Ball")]
+    [CreateAssetMenu(menuName = "Item/Spells/Fire Ball")]
     public class FireBallSpell : SpellItem
     {
         [Header("Projectile Velocity")]

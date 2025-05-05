@@ -4,8 +4,6 @@ using SKD.World_Manager;
 using SKD.WorldManager;
 using System.Collections;
 using SKD.Items;
-using SKD.Items.Equipment;
-using SKD.Items.Weapons;
 using SKD.Spells.Items;
 using Unity.Netcode;
 using UnityEngine;
@@ -91,7 +89,7 @@ namespace SKD.Character.Player
             // If this is the player object owned by this client
             if (IsOwner)
             {
-                PlayerCamera.Instance._player = this;
+                PlayerCamera.Instance._playerManager = this;
                 PlayerInputManager.Instance._player = this;
                 WorldSaveGameManager.Instance._playerManager = this;
 
@@ -101,13 +99,10 @@ namespace SKD.Character.Player
                 _playerNetworkManager._mind.OnValueChanged += _playerNetworkManager.SetNewMaxFocusPointsValue;
 
                 // Updated UI stat bars when a stat changes(Health or stamina)
-                _playerNetworkManager._currentHealth.OnValueChanged += PlayerUIManger.Instance._playerUIHUDManager.SetNewHealthValue;
-                _playerNetworkManager._currentStamina.OnValueChanged += PlayerUIManger.Instance._playerUIHUDManager.SetNewStaminaValue;
+                _playerNetworkManager._currentHealth.OnValueChanged += PlayerUIManger.instance._playerUIHUDManager.SetNewHealthValue;
+                _playerNetworkManager._currentStamina.OnValueChanged += PlayerUIManger.instance._playerUIHUDManager.SetNewStaminaValue;
                 _playerNetworkManager._currentStamina.OnValueChanged += _playerStatsManager.ResetStaminaReganTimer;
-                _playerNetworkManager._currentFocusPoints.OnValueChanged += PlayerUIManger.Instance._playerUIHUDManager.SetNewFocusPointsValue;
-                
-                // Reset camera rotation to a standard when aiming is disabled 
-                _playerNetworkManager._isAiming.OnValueChanged += _playerNetworkManager.OnIsAimingChanged;
+                _playerNetworkManager._currentFocusPoints.OnValueChanged += PlayerUIManger.instance._playerUIHUDManager.SetNewFocusPointsValue;
 
 
             }
@@ -137,11 +132,6 @@ namespace SKD.Character.Player
             _playerNetworkManager._legEquipmentID.OnValueChanged += _playerNetworkManager.OnLegEquipmentChanged;
             _playerNetworkManager._handEquipmentID.OnValueChanged += _playerNetworkManager.OnHandEquipmentChanged;
 
-            // Projectiles
-            _playerNetworkManager._mainProjectileID.OnValueChanged += _playerNetworkManager.OnMainProjectileIDChange;
-            _playerNetworkManager._secondaryProjectileID.OnValueChanged += _playerNetworkManager.OnSecondaryProjectileIDChange;
-            _playerNetworkManager._isHoldingArrow.OnValueChanged += _playerNetworkManager.OnIsHoldingArrowChange;
-
             // Spells
             _playerNetworkManager._isChargingRightSpell.OnValueChanged += _playerNetworkManager.OnIsChargingRightSpellChange;
             _playerNetworkManager._isChargingLeftSpell.OnValueChanged += _playerNetworkManager.OnIsChargingLeftSpellChange;
@@ -153,7 +143,6 @@ namespace SKD.Character.Player
 
             // Flags
             _playerNetworkManager._isChargingAttack.OnValueChanged += _playerNetworkManager.OnIsCharagingAttackChanged;
-
 
             // Upon connecting, If we are the owner of this character, But we are not the server, reload our character data to this newly instantiated character
             // We don't run it if we are the server, because since they are the host, they are already loaded in and don't need to reload their data
@@ -178,13 +167,11 @@ namespace SKD.Character.Player
 
 
                 // Updated UI stat bars when a stat changes(Health or stamina)
-                _playerNetworkManager._currentHealth.OnValueChanged -= PlayerUIManger.Instance._playerUIHUDManager.SetNewHealthValue;
-                _playerNetworkManager._currentStamina.OnValueChanged -= PlayerUIManger.Instance._playerUIHUDManager.SetNewStaminaValue;
-                _playerNetworkManager._currentFocusPoints.OnValueChanged -= PlayerUIManger.Instance._playerUIHUDManager.SetNewFocusPointsValue;
+                _playerNetworkManager._currentHealth.OnValueChanged -= PlayerUIManger.instance._playerUIHUDManager.SetNewHealthValue;
+                _playerNetworkManager._currentStamina.OnValueChanged -= PlayerUIManger.instance._playerUIHUDManager.SetNewStaminaValue;
+                _playerNetworkManager._currentFocusPoints.OnValueChanged -= PlayerUIManger.instance._playerUIHUDManager.SetNewFocusPointsValue;
                 _playerNetworkManager._currentStamina.OnValueChanged -= _playerStatsManager.ResetStaminaReganTimer;
-    
-                // Reset camera rotation to a standard when aiming is disabled 
-                _playerNetworkManager._isAiming.OnValueChanged -= _playerNetworkManager.OnIsAimingChanged;
+
             }
 
             if (!IsOwner)
@@ -211,12 +198,6 @@ namespace SKD.Character.Player
             _playerNetworkManager._legEquipmentID.OnValueChanged -= _playerNetworkManager.OnLegEquipmentChanged;
             _playerNetworkManager._handEquipmentID.OnValueChanged -= _playerNetworkManager.OnHandEquipmentChanged;
 
-            // Projectiles
-            _playerNetworkManager._mainProjectileID.OnValueChanged -= _playerNetworkManager.OnMainProjectileIDChange;
-            _playerNetworkManager._secondaryProjectileID.OnValueChanged -= _playerNetworkManager.OnSecondaryProjectileIDChange;
-            _playerNetworkManager._isHoldingArrow.OnValueChanged = _playerNetworkManager.OnIsHoldingArrowChange;
-
-
             // Spells
             _playerNetworkManager._isChargingRightSpell.OnValueChanged -= _playerNetworkManager.OnIsChargingRightSpellChange;
             _playerNetworkManager._isChargingLeftSpell.OnValueChanged -= _playerNetworkManager.OnIsChargingLeftSpellChange;
@@ -228,7 +209,6 @@ namespace SKD.Character.Player
 
             // Flags
             _playerNetworkManager._isChargingAttack.OnValueChanged -= _playerNetworkManager.OnIsCharagingAttackChanged;
-
         }
         private void OnClientConnectedCallback(ulong clientID)
         {
@@ -262,7 +242,7 @@ namespace SKD.Character.Player
         {
             if (IsOwner)
             {
-                PlayerUIManger.Instance._playerUIPopUpManager.SendYouDiedPopUp();
+                PlayerUIManger.instance._playerUIPopUpManager.SendYouDiedPopUp();
             }
 
 
@@ -303,7 +283,7 @@ namespace SKD.Character.Player
             currenCharacterSaveData._leftWeapon02 = _playerInventoryManager._weaponInLefthHandSlots[1]._itemID;
             currenCharacterSaveData._leftWeapon03 = _playerInventoryManager._weaponInLefthHandSlots[2]._itemID;
 
-            if (_playerInventoryManager._currentSpell != null)
+            if (_playerInventoryManager._currentSpell  != null)
                 currenCharacterSaveData._currentSpell = _playerInventoryManager._currentSpell._itemID;
 
         }
@@ -445,27 +425,9 @@ namespace SKD.Character.Player
             // _playerEquipmentManager.EquipArmor();
 
             _playerInventoryManager._rightHandWeaponIndex = currenCharacterSaveData._rightWeaponIndex;
-
-            if (currenCharacterSaveData._rightWeaponIndex >= 0)
-            {
-                _playerNetworkManager._currentRightHandWeaponID.Value = _playerInventoryManager._weaponInRigthHandSlots[currenCharacterSaveData._rightWeaponIndex]._itemID;
-            }
-            else
-            {
-                _playerNetworkManager._currentRightHandWeaponID.Value = WorldItemDatabase.Instance._unarmedWeapon._itemID;
-            }
-
+            _playerNetworkManager._currentRightHandWeaponID.Value = _playerInventoryManager._weaponInRigthHandSlots[currenCharacterSaveData._rightWeaponIndex]._itemID;
             _playerInventoryManager._leftHandWeaponIndex = currenCharacterSaveData._leftWeaponIndex;
-
-            if (currenCharacterSaveData._leftWeaponIndex >= 0)
-            {
-                _playerNetworkManager._currentLeftWeaponID.Value = _playerInventoryManager._weaponInLefthHandSlots[currenCharacterSaveData._leftWeaponIndex]._itemID;
-            }
-            else
-            {
-                _playerNetworkManager._currentLeftWeaponID.Value = WorldItemDatabase.Instance._unarmedWeapon._itemID;
-            }
-
+            _playerNetworkManager._currentLeftWeaponID.Value = _playerInventoryManager._weaponInLefthHandSlots[currenCharacterSaveData._leftWeaponIndex]._itemID;
 
             //   _playerBodyManager.ToggleBodyType(currenCharacterSaveData._isMale);
         }
@@ -485,17 +447,13 @@ namespace SKD.Character.Player
             _playerNetworkManager.OnLegEquipmentChanged(0, _playerNetworkManager._legEquipmentID.Value);
             _playerNetworkManager.OnHandEquipmentChanged(0, _playerNetworkManager._handEquipmentID.Value);
 
-            // Sync Projectile
-            _playerNetworkManager.OnMainProjectileIDChange(0, _playerNetworkManager._mainProjectileID.Value);
-            _playerNetworkManager.OnSecondaryProjectileIDChange(0, _playerNetworkManager._secondaryProjectileID.Value);
-            _playerNetworkManager.OnIsHoldingArrowChange(false, _playerNetworkManager._isHoldingArrow.Value);
-
             // Sync two hand status 
             _playerNetworkManager.OnIsTwoHandingRightWeaponChanged(false, _playerNetworkManager._isTwoHandingRightWepoen.Value);
             _playerNetworkManager.OnIsTwoHandingLeftWeaponChanged(false, _playerNetworkManager._isTwoHandingLeftWeapon.Value);
 
             // Sync blocking
             _playerNetworkManager.OnIsBlockingChanged(false, _playerNetworkManager._isBlocking.Value);
+
 
             // Lock On 
             if (_playerNetworkManager._isLockOn.Value)

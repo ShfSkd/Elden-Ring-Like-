@@ -1,6 +1,10 @@
 using SKD.UI.PlayerUI;
 using SKD.WorldManager;
-using SKD.Items.Weapons;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using SKD.Items;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -14,7 +18,7 @@ namespace SKD.Character.Player
         [FormerlySerializedAs("_playerManager")] public PlayerManager _player;
 
         [Header("Player Movement Input")]
-        [SerializeField] Vector2 _movementInput;
+            [SerializeField] Vector2 _movementInput;
 
         public float _verticalInput;
         public float _horizontalInput;
@@ -123,7 +127,6 @@ namespace SKD.Character.Player
                 _playerControls.PlayerActions.RB.performed += i => _RB_Input = true;
                 _playerControls.PlayerActions.LB.performed += i => _LB_Input = true;
                 _playerControls.PlayerActions.LB.canceled += i => _player._playerNetworkManager._isBlocking.Value = false;
-                _playerControls.PlayerActions.LB.canceled += i => _player._playerNetworkManager._isAiming.Value = false;
                 _playerControls.PlayerActions.HoldRB.performed += i => _hold_RB_Input = true;
                 _playerControls.PlayerActions.HoldRB.canceled += i => _hold_RB_Input = false;
                 _playerControls.PlayerActions.HoldLB.performed += i => _hold_LB_Input = true;
@@ -350,7 +353,7 @@ namespace SKD.Character.Player
                 _moveAmount = 0.5f;
             else if (_moveAmount > 0.5f && _moveAmount <= 1)
                 _moveAmount = 1;
-
+            
             // Why do we pass 0 on the horizontal? because we only want non-strafing movement 
             // We use the horizontal when we are strafing or locked on 
             if (_player == null) return;
@@ -360,37 +363,19 @@ namespace SKD.Character.Player
             else
                 _player._playerNetworkManager._isMoving.Value = false;
 
-            if (!_player._playerLocomotionManager._canRun)
+            // If we are not locked on, only use the move amount 
+            if (!_player._playerNetworkManager._isLockOn.Value ||
+                _player._playerNetworkManager._isSprinting.Value)
             {
-                if (_moveAmount > 0.5f)
-                    _moveAmount = 0.5f;
-
-                if (_verticalInput > 0.5f)
-                    _verticalInput = 0.5f;
-
-                if (_horizontalInput > 0.5f)
-                    _horizontalInput = 0.5f;
+                _player._playerAnimationManager.UpdateAnimatorMovementParameters(0, _moveAmount,
+                    _player._playerNetworkManager._isSprinting.Value);
             }
-
-            // If we are locked on, only use the move amount 
-            if (_player._playerNetworkManager._isLockOn.Value &&
-                !_player._playerNetworkManager._isSprinting.Value)
+            else
+                // If are locked on pass the horizontal as well 
             {
                 _player._playerAnimationManager.UpdateAnimatorMovementParameters(_horizontalInput,
                     _verticalInput, _player._playerNetworkManager._isSprinting.Value);
-                
-                return;
             }
-            if (_player._playerNetworkManager._isAiming.Value)
-            {
-                _player._playerAnimationManager.UpdateAnimatorMovementParameters(_horizontalInput,
-                    _verticalInput, _player._playerNetworkManager._isSprinting.Value);
-                
-                return;
-            }
-            // If we are not locked on, only use the move amount
-            _player._playerAnimationManager.UpdateAnimatorMovementParameters(0, _moveAmount,
-                _player._playerNetworkManager._isSprinting.Value);
         }
 
         private void HandleCameraMovmentInput()
@@ -428,7 +413,7 @@ namespace SKD.Character.Player
             {
                 _jumpInput = false;
                 // If we have UI window Open, simply return without doing nothing
-                if (PlayerUIManger.Instance._menuWindowIsOpen)
+                if (PlayerUIManger.instance._menuWindowIsOpen)
                     return;
 
                 // Attempt to perform jump
@@ -441,7 +426,7 @@ namespace SKD.Character.Player
             if (_two_Hand_Input)
                 return;
 
-            if (_RB_Input)
+            if (_RB_Input && Application.isPlaying)
             {
                 _RB_Input = false;
                 // TODO: If we have UI Window open return and do nothing
@@ -449,7 +434,7 @@ namespace SKD.Character.Player
                 _player._playerNetworkManager.SetCharacterActionHand(true);
 
                 _player._playerCombatManager.PerformWeaponBasedAction(
-                    _player._playerInventoryManager._currentRightHandWeapon._Oh_RB_Action,
+                    _player._playerInventoryManager._currentRightHandWeapon._keyboard_RB_Action,
                     _player._playerInventoryManager._currentRightHandWeapon);
             }
         }
@@ -458,13 +443,10 @@ namespace SKD.Character.Player
             if (_hold_RB_Input)
             {
                 _player._playerNetworkManager._isChargingRightSpell.Value = true;
-                _player._playerNetworkManager._isHoldingArrow.Value = true;
             }
             else
             {
                 _player._playerNetworkManager._isChargingRightSpell.Value = false;
-                _player._playerNetworkManager._isHoldingArrow.Value = false;
-
             }
         }
         private void HandleHoldLBInput()
@@ -491,21 +473,9 @@ namespace SKD.Character.Player
 
                 _player._playerNetworkManager.SetCharacterActionHand(false);
 
-                // If we are two handing the weapon, use the two-handed action
-                if (_player._playerNetworkManager._isTwoHandingRightWepoen.Value)
-                {
-                    _player._playerCombatManager.PerformWeaponBasedAction(
-                        _player._playerInventoryManager._currentRightHandWeapon._Oh_LB_Action,
-                        _player._playerInventoryManager._currentRightHandWeapon);
-                }
-                else
-                {
-
-                    _player._playerCombatManager.PerformWeaponBasedAction(
-                        _player._playerInventoryManager._currentLeftHandWeapon._Oh_LB_Action,
-                        _player._playerInventoryManager._currentLeftHandWeapon);
-
-                }
+                _player._playerCombatManager.PerformWeaponBasedAction(
+                    _player._playerInventoryManager._currentLeftHandWeapon._keyboard_LB_Action,
+                    _player._playerInventoryManager._currentLeftHandWeapon);
             }
         }
 
@@ -519,7 +489,7 @@ namespace SKD.Character.Player
                 _player._playerNetworkManager.SetCharacterActionHand(true);
 
                 _player._playerCombatManager.PerformWeaponBasedAction(
-                    _player._playerInventoryManager._currentRightHandWeapon._Oh_RT_Action,
+                    _player._playerInventoryManager._currentRightHandWeapon._keyboard_RT_Action,
                     _player._playerInventoryManager._currentRightHandWeapon);
             }
         }
@@ -528,7 +498,7 @@ namespace SKD.Character.Player
             if (_LT_Input)
             {
                 _LT_Input = false;
-
+                
                 WeaponItem weaponPerformingAction = _player._playerCombatManager.SelectWeaponToPerformAshOfWar();
 
                 weaponPerformingAction._ashesOfWarAction.AttemptToPerformAction(_player);
@@ -552,7 +522,7 @@ namespace SKD.Character.Player
             {
                 _switchRightWeapon_Input = false;
 
-                if (PlayerUIManger.Instance._menuWindowIsOpen)
+                if (PlayerUIManger.instance._menuWindowIsOpen)
                     return;
 
                 _player._playerEquipmentManager.SwitchRightWeapon();
@@ -565,7 +535,7 @@ namespace SKD.Character.Player
             {
                 _switchLeftWeapon_Input = false;
 
-                if (PlayerUIManger.Instance._menuWindowIsOpen)
+                if (PlayerUIManger.instance._menuWindowIsOpen)
                     return;
 
                 _player._playerEquipmentManager.SwitchLeftWeapon();
@@ -635,9 +605,9 @@ namespace SKD.Character.Player
             {
                 _openCharcterMenuInput = false;
 
-                PlayerUIManger.Instance._playerUIPopUpManager.CloseAllPopUpsWindows();
-                PlayerUIManger.Instance.ClosAllMenuWindows();
-                PlayerUIManger.Instance._playerUICharacterMenuManager.OpenCharacterMenu();
+                PlayerUIManger.instance._playerUIPopUpManager.CloseAllPopUpsWindows();
+                PlayerUIManger.instance.ClosAllMenuWindows();
+                PlayerUIManger.instance._playerUICharacterMenuManager.OpenCharacterMenu();
             }
         }
         private void HandleCloseUIInputs()
@@ -646,9 +616,9 @@ namespace SKD.Character.Player
             {
                 _closeMenuInput = false;
 
-                if (PlayerUIManger.Instance._menuWindowIsOpen)
+                if (PlayerUIManger.instance._menuWindowIsOpen)
                 {
-                    PlayerUIManger.Instance.ClosAllMenuWindows();
+                    PlayerUIManger.instance.ClosAllMenuWindows();
                 }
             }
         }

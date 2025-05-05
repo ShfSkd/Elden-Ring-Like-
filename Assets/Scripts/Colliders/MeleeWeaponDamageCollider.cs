@@ -19,11 +19,6 @@ namespace SKD.Colliders
         public float _heavy_Attack_02_Modofier;
         public float _charge_Attack_01_Modofier;
         public float _charge_Attack_02_Modofier;
-        public float _running_Attack_01_Modifier;
-        public float _rolling_Attack_01_Modifier;
-        public float _backstep_Attack_01_Modifier;
-        public float _light_Jump_Attack_01_Modofier;
-        public float _heavy_Jump_Attack_01_Modofier;
 
         protected override void Awake()
         {
@@ -63,15 +58,15 @@ namespace SKD.Colliders
 
             if (!_characterCausingDamage._characterNetworkManager._isParryable.Value)
                 return;
-
-            if (!damageTarget.IsOwner)
+            
+            if(!damageTarget.IsOwner)
                 return;
 
             if (damageTarget._characterNetworkManager._isParrying.Value)
             {
                 _charactersDamagedList.Add(damageTarget);
                 damageTarget._characterNetworkManager.NotifyTheServerOfParryServerRpc(_characterCausingDamage.NetworkObjectId);
-                damageTarget._characterAnimationManager.PlayTargetActionAnimationInstantly("Parry_Land_01", true);
+                damageTarget._characterAnimationManager.PlayTargetActionAnimationInstantly("Parry_Land_01",true);
             }
         }
         protected override void GetBlockingDotValues(CharacterManager damageTarget)
@@ -99,10 +94,10 @@ namespace SKD.Colliders
 
             switch (_characterCausingDamage._characterCombatManager._currentAttackType)
             {
-                case AttackType.LightAttack01:
+                case AttackType.LigthAttack01:
                     ApplyDamageModifier(_light_Attack_01_Modofier, damageEffect);
                     break;
-                case AttackType.LightAttack02:
+                case AttackType.LigthAttack02:
                     ApplyDamageModifier(_light_Attack_02_Modofier, damageEffect);
                     break;
                 case AttackType.HeavyAttack01:
@@ -116,21 +111,6 @@ namespace SKD.Colliders
                     break;
                 case AttackType.ChargedAttack02:
                     ApplyDamageModifier(_charge_Attack_02_Modofier, damageEffect);
-                    break;
-                case AttackType.RunningAttack01:
-                    ApplyDamageModifier(_running_Attack_01_Modifier, damageEffect);
-                    break;
-                case AttackType.RollingAttack01:
-                    ApplyDamageModifier(_rolling_Attack_01_Modifier, damageEffect);
-                    break;
-                case AttackType.BackstepAttack01:
-                    ApplyDamageModifier(_backstep_Attack_01_Modifier, damageEffect);
-                    break;
-                case AttackType.LightJumpingAttack01:
-                    ApplyDamageModifier(_light_Jump_Attack_01_Modofier, damageEffect);
-                    break;
-                case AttackType.HeavyJumpAttack01:
-                    ApplyDamageModifier(_heavy_Jump_Attack_01_Modofier, damageEffect);
                     break;
                 default:
                     break;

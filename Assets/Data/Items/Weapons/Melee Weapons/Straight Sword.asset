@@ -16,11 +16,9 @@ MonoBehaviour:
   _itemIcon: {fileID: 21300000, guid: 609776d8ce055b848a087082b1d3f639, type: 3}
   _itemDescription: 'A Straight Sword '
   _itemID: 1
-  _itemWeight: 0
   _weaponAnimator: {fileID: 22100000, guid: dfacd0995d10b804f9822204067a6169, type: 2}
   _weaponModelType: 0
   _weaponModel: {fileID: 4785436569430175925, guid: 1b2b986ce8873834bb306c2e9456930f, type: 3}
-  _weaponClass: 0
   _weaponRequirement: 10
   _dexRequirement: 10
   _intelligentRequirement: 0
@@ -33,10 +31,8 @@ MonoBehaviour:
   _posieDamage: 25
   _light_Attack_01_modifier: 1
   _light_Attack_02_modifier: 1.2
-  _light_Jumping_Attack_01_modifier: 1
   _heavy_Attack_01_modifier: 1.4
   _heavy_Attack_02_modifier: 1.6
-  _heavy_Jumping_Attack_01_modifier: 1.8
   _charge_Attack_01_Modofier: 2
   _charge_Attack_02_Modofier: 2.2
   _running_Attack_01_Modifier: 1.1
@@ -47,8 +43,6 @@ MonoBehaviour:
   _runningAttackStaminaCostMultiplier: 1.1
   _rollingAttackStaminaCostMultiplier: 1.1
   _backstepAttackStaminaCostMultiplier: 1.1
-  _lightJumpAttackStaminaCostMultiplier: 1.5
-  _heavyJumpAttackStaminaCostMultiplier: 2
   _baseStaminaCost: 20
   _lightAttackStaminaCostMultiplier: 0.9
   _physicalBaseDamageAbsorption: 50
@@ -57,10 +51,9 @@ MonoBehaviour:
   _holyBaseDamageAbsorption: 50
   _lightingBaseDamageAbsorption: 50
   _stability: 1
-  _Oh_RB_Action: {fileID: 11400000, guid: 94c2437632bda3e49954af8d6bc9cf34, type: 2}
-  _Oh_RT_Action: {fileID: 11400000, guid: ecc5776eb24786e4a9e1200ad0cd7bc0, type: 2}
-  _Oh_LB_Action: {fileID: 0}
-  _ashesOfWarAction: {fileID: 0}
+  _keyboard_RB_Action: {fileID: 11400000, guid: 94c2437632bda3e49954af8d6bc9cf34, type: 2}
+  _keyboard_RT_Action: {fileID: 11400000, guid: ecc5776eb24786e4a9e1200ad0cd7bc0, type: 2}
+  _keyboard_LB_Action: {fileID: 11400000, guid: 466471ed187b1524883fdc52b017725e, type: 2}
   _whooshes:
   - {fileID: 8300000, guid: 0e9bca6dd55d7e541a865752da6415f5, type: 3}
   - {fileID: 8300000, guid: 28406bf68add30e4e89d6cd063fb84e6, type: 3}
@@ -70,5 +63,3 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5c25a8b6c2ef9624caf832fe0d756bbd, type: 3}
   - {fileID: 8300000, guid: 616758222d84f6f47b8b9dd6a3e5d3b8, type: 3}
   - {fileID: 8300000, guid: 7ed99645cac6f06438be178db3df164c, type: 3}
-  _riposte_Attack_01_Modifier: 3.3
-  _backstab_Attack_01_Modifier: 0
