@@ -7,7 +7,7 @@ namespace SKD.UI.PlayerUI
 {
     public class PlayerUIManger : MonoBehaviour
     {
-        public static PlayerUIManger instance;
+        public static PlayerUIManger Instance;
 
         [Header("Network Join")]
         [SerializeField] bool startGameAsClient;
@@ -23,8 +23,8 @@ namespace SKD.UI.PlayerUI
 
         private void Awake()
         {
-            if (instance == null)
-                instance = this;
+            if (Instance == null)
+                Instance = this;
             else
                 Destroy(gameObject);
 

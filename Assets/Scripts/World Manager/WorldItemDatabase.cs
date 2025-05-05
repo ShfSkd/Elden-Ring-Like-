@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using SKD.Items.Weapons;
 using SKD.Items.AshesOfWar;
+using SKD.Items.Equipment;
 using SKD.Spells.Items;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -37,6 +39,9 @@ namespace SKD.World_Manager
 
         [Header("Spells")]
         [SerializeField] List<SpellItem> _spells = new List<SpellItem>();
+        
+        [Header("Projectiles")]
+        [SerializeField] List<RangedProjectileItem> _projectiles = new List<RangedProjectileItem>();
 
         [Header("Items")]
         // A list of every item that we have in the game 
@@ -78,6 +83,10 @@ namespace SKD.World_Manager
             {
                 _items.Add(item);
             }
+            foreach (var projectile in _projectiles)
+            {
+                _items.Add(projectile);
+            }
             // Assign all of our items a unique  item ID
             for (int i = 0; i < _items.Count; i++)
             {
@@ -116,6 +125,9 @@ namespace SKD.World_Manager
         {
             return _spells.FirstOrDefault(spell => spell._itemID == id);
         }
-
+        public RangedProjectileItem GetProjectileByID(int id)
+        {
+            return _projectiles.FirstOrDefault(projectile => projectile._itemID == id);
+        }
     }
 }

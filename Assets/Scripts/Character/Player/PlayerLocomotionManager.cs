@@ -5,7 +5,7 @@ namespace SKD.Character.Player
 {
     public class PlayerLocomotionManager : CharacterLocamotionManager
     {
-        PlayerManager _playerManager;
+        PlayerManager _player;
 
         // This values will take from the input manager
         [HideInInspector] public float _verticalMovement;
@@ -33,44 +33,44 @@ namespace SKD.Character.Player
         protected override void Awake()
         {
             base.Awake();
-            _playerManager = GetComponent<PlayerManager>();
+            _player = GetComponent<PlayerManager>();
         }
 
         protected override void Update()
         {
             base.Update();
 
-            if (_playerManager.IsOwner)
+            if (_player.IsOwner)
             {
-                _playerManager._characterNetworkManager._verticalMovement.Value = _verticalMovement;
-                _playerManager._characterNetworkManager._horizontalMovement.Value = _horizontalMovement;
-                _playerManager._characterNetworkManager._moveAmount.Value = _moveAmount;
+                _player._characterNetworkManager._verticalMovement.Value = _verticalMovement;
+                _player._characterNetworkManager._horizontalMovement.Value = _horizontalMovement;
+                _player._characterNetworkManager._moveAmount.Value = _moveAmount;
             }
             else
             {
-                _verticalMovement = _playerManager._characterNetworkManager._verticalMovement.Value;
-                _horizontalMovement = _playerManager._characterNetworkManager._horizontalMovement.Value;
-                _moveAmount = _playerManager._characterNetworkManager._moveAmount.Value;
+                _verticalMovement = _player._characterNetworkManager._verticalMovement.Value;
+                _horizontalMovement = _player._characterNetworkManager._horizontalMovement.Value;
+                _moveAmount = _player._characterNetworkManager._moveAmount.Value;
 
                 // If not locked on, pass move amount
-                if (!_playerManager._playerNetworkManager._isLockOn.Value ||
-                    _playerManager._playerNetworkManager._isSprinting.Value)
+                if (!_player._playerNetworkManager._isLockOn.Value ||
+                    _player._playerNetworkManager._isSprinting.Value)
                 {
-                    _playerManager._playerAnimationManager.UpdateAnimatorMovementParameters(0, _moveAmount,
-                        _playerManager._playerNetworkManager._isSprinting.Value);
+                    _player._playerAnimationManager.UpdateAnimatorMovementParameters(0, _moveAmount,
+                        _player._playerNetworkManager._isSprinting.Value);
                 }
                 // if locked on, pass horizontal and vertical
                 else
                 {
-                    _playerManager._playerAnimationManager.UpdateAnimatorMovementParameters(_horizontalMovement,
-                        _verticalMovement, _playerManager._playerNetworkManager._isSprinting.Value);
+                    _player._playerAnimationManager.UpdateAnimatorMovementParameters(_horizontalMovement,
+                        _verticalMovement, _player._playerNetworkManager._isSprinting.Value);
                 }
             }
         }
 
         public void HandleAllMovement()
         {
-            if (_playerManager._isPerformingAction)
+            if (_player._isPerformingAction)
                 return;
 
             HandleGroundedMovement();
@@ -88,48 +88,59 @@ namespace SKD.Character.Player
 
         private void HandleGroundedMovement()
         {
-            if (!_playerManager._playerLocomotionManager._canMove)
+            if (_player._playerLocomotionManager._canMove || _player._playerLocomotionManager._canRotate)
+                GetMovementValues();
+
+            if (!_player._playerLocomotionManager._canMove)
                 return;
 
-            GetMovementValues();
-
-            _moveDirection = PlayerCamera.Instance.transform.forward * _verticalMovement;
-
-            _moveDirection += PlayerCamera.Instance.transform.right * _horizontalMovement;
-
-            _moveDirection.Normalize();
-            _moveDirection.y = 0;
-
-            if (_playerManager._playerNetworkManager._isSprinting.Value)
+            if (_player._playerNetworkManager._isAiming.Value)
             {
-                _playerManager._characterController.Move(_moveDirection * (_sprintingSpeed * Time.deltaTime));
+                _moveDirection = transform.forward * _verticalMovement;
+                _moveDirection += transform.right * _horizontalMovement;
+                _moveDirection.Normalize();
+                _moveDirection.y = 0;
+
+            }
+            else
+            {
+                _moveDirection = PlayerCamera.Instance.transform.forward * _verticalMovement;
+                _moveDirection += PlayerCamera.Instance.transform.right * _horizontalMovement;
+                _moveDirection.Normalize();
+                _moveDirection.y = 0;
+
+            }
+
+            if (_player._playerNetworkManager._isSprinting.Value)
+            {
+                _player._characterController.Move(_moveDirection * (_sprintingSpeed * Time.deltaTime));
             }
             else
             {
                 if (PlayerInputManager.Instance._moveAmount > 0.5f)
                 {
                     // Move at running speed
-                    _playerManager._characterController.Move(_moveDirection * (_runningSpeed * Time.deltaTime));
+                    _player._characterController.Move(_moveDirection * (_runningSpeed * Time.deltaTime));
                 }
                 else if ((PlayerInputManager.Instance._moveAmount <= 0.5f))
                 {
                     // Move at walking speed
-                    _playerManager._characterController.Move(_moveDirection * (_walkingSpeed * Time.deltaTime));
+                    _player._characterController.Move(_moveDirection * (_walkingSpeed * Time.deltaTime));
                 }
             }
         }
 
         private void HandleJumpingMovement()
         {
-            if (_playerManager._playerNetworkManager._isJumping.Value)
+            if (_player._playerNetworkManager._isJumping.Value)
             {
-                _playerManager._characterController.Move(_jumpDirection * (_jumpForwardSpeed * Time.deltaTime));
+                _player._characterController.Move(_jumpDirection * (_jumpForwardSpeed * Time.deltaTime));
             }
         }
 
         private void HandleFreeFallMovment()
         {
-            if (!_playerManager._playerLocomotionManager._isGrounded)
+            if (!_player._playerLocomotionManager._isGrounded)
             {
                 Vector3 freeFallDirection;
 
@@ -140,22 +151,34 @@ namespace SKD.Character.Player
 
                 freeFallDirection.y = 0f;
 
-                _playerManager._characterController.Move(freeFallDirection * (_freeFallSpeed * Time.deltaTime));
+                _player._characterController.Move(freeFallDirection * (_freeFallSpeed * Time.deltaTime));
             }
         }
 
         private void HandleRotation()
         {
-            if (_playerManager._isDead.Value)
+            if (_player._isDead.Value)
                 return;
 
-            if (!_playerManager._playerLocomotionManager._canRotate)
+            if (!_player._playerLocomotionManager._canRotate)
                 return;
 
-            if (_playerManager._playerNetworkManager._isLockOn.Value)
+            if (_player._playerNetworkManager._isAiming.Value)
             {
-                if (_playerManager._playerNetworkManager._isSprinting.Value ||
-                    _playerManager._playerLocomotionManager._isRolling)
+                HandleAimRotation();
+            }
+            else
+            {
+                HandleStandardRotation();
+            }
+
+        }
+        private void HandleStandardRotation()
+        {
+            if (_player._playerNetworkManager._isLockOn.Value)
+            {
+                if (_player._playerNetworkManager._isSprinting.Value ||
+                    _player._playerLocomotionManager._isRolling)
                 {
                     Vector3 targetDirection;
                     targetDirection = PlayerCamera.Instance._cameraObject.transform.forward * _verticalMovement;
@@ -173,11 +196,11 @@ namespace SKD.Character.Player
                 }
                 else
                 {
-                    if (_playerManager._playerCombatManager._currentTarget == null)
+                    if (_player._playerCombatManager._currentTarget == null)
                         return;
 
                     Vector3 targetDirection;
-                    targetDirection = _playerManager._playerCombatManager._currentTarget.transform.position -
+                    targetDirection = _player._playerCombatManager._currentTarget.transform.position -
                                       transform.position;
                     targetDirection.Normalize();
                     targetDirection.y = 0f;
@@ -211,40 +234,52 @@ namespace SKD.Character.Player
                 transform.rotation = targetRotation;
             }
         }
+        private void HandleAimRotation()
+        {
+            Vector3 targetDirection = Vector3.zero;
+            targetDirection = PlayerCamera.Instance._cameraObject.transform.forward;
+            targetDirection.Normalize();
+            targetDirection.y = 0f;
+
+            Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+            Quaternion finalRotation = Quaternion.Slerp(transform.rotation, targetRotation,
+                _rotationSpeed * Time.deltaTime);
+            transform.rotation = finalRotation;
+        }
 
         public void HandleSprinting()
         {
-            if (_playerManager._isPerformingAction)
+            if (_player._isPerformingAction)
             {
                 // Set sprinting to false
-                _playerManager._playerNetworkManager._isSprinting.Value = false;
+                _player._playerNetworkManager._isSprinting.Value = false;
             }
 
             // If we are out of stamina, set sprinting to false
-            if (_playerManager._playerNetworkManager._currentStamina.Value <= 0)
+            if (_player._playerNetworkManager._currentStamina.Value <= 0)
             {
-                _playerManager._playerNetworkManager._isSprinting.Value = false;
+                _player._playerNetworkManager._isSprinting.Value = false;
                 return;
             }
 
             // If we are moving set sprinting to true
             if (_moveAmount >= 0.5f)
-                _playerManager._playerNetworkManager._isSprinting.Value = true;
+                _player._playerNetworkManager._isSprinting.Value = true;
             // if we are stationary set sprinting to false
             else
-                _playerManager._playerNetworkManager._isSprinting.Value = false;
+                _player._playerNetworkManager._isSprinting.Value = false;
 
 
-            if (_playerManager._playerNetworkManager._isSprinting.Value)
-                _playerManager._playerNetworkManager._currentStamina.Value -= _sprintingStaminaCost * Time.deltaTime;
+            if (_player._playerNetworkManager._isSprinting.Value)
+                _player._playerNetworkManager._currentStamina.Value -= _sprintingStaminaCost * Time.deltaTime;
         }
 
         public void AttemptToPerformDodge()
         {
-            if (_playerManager._isPerformingAction)
+            if (_player._isPerformingAction)
                 return;
 
-            if (_playerManager._playerNetworkManager._currentStamina.Value <= 0)
+            if (_player._playerNetworkManager._currentStamina.Value <= 0)
                 return;
             // If we are moving when we attempt to dodge, we perform a roll
             if (_moveAmount > 0)
@@ -257,42 +292,43 @@ namespace SKD.Character.Player
                 _rollDirection.Normalize();
 
                 Quaternion playerRotation = Quaternion.LookRotation(_rollDirection);
-                _playerManager.transform.rotation = playerRotation;
+                _player.transform.rotation = playerRotation;
 
-                _playerManager._playerAnimationManager.PlayTargetActionAnimation("Roll_Forward_01", true, true);
-                _playerManager._playerLocomotionManager._isRolling = true;
+                _player._playerAnimationManager.PlayTargetActionAnimation("Roll_Forward_01", true, true);
+                _player._playerLocomotionManager._isRolling = true;
             }
             //  If we are stationary, we performed a backstep
             else
             {
-                _playerManager._playerAnimationManager.PlayTargetActionAnimation("Back_Step_01", true, true);
+                _player._playerAnimationManager.PlayTargetActionAnimation("Back_Step_01", true, true);
             }
 
-            _playerManager._playerNetworkManager._currentStamina.Value -= _dodgeStaminaCost;
+            _player._playerNetworkManager._currentStamina.Value -= _dodgeStaminaCost;
+            _player._playerNetworkManager.DestroyALlCurrentActionFXServerRpc();
         }
 
         public void AttemptToPerformJump()
         {
             // If we are performing a general action, we do not want to allow a jump (will change when combat is added)
-            if (_playerManager._isPerformingAction)
+            if (_player._isPerformingAction)
                 return;
             // If we are out of stamina, we do not wish to allow a jump
-            if (_playerManager._playerNetworkManager._currentStamina.Value <= 0)
+            if (_player._playerNetworkManager._currentStamina.Value <= 0)
                 return;
 
             // If we are already in a jump, we do not wish to allow a jump again until the current jump has finished
-            if (_playerManager._playerNetworkManager.IsOwner && _playerManager._playerNetworkManager._isJumping.Value)
+            if (_player._playerNetworkManager.IsOwner && _player._playerNetworkManager._isJumping.Value)
                 return;
 
             // If we are not grounded, we do not wish to allow a jump
-            if (!_playerManager._playerLocomotionManager._isGrounded)
+            if (!_player._playerLocomotionManager._isGrounded)
                 return;
             // If we are 2 handed our weapon, play the 2 handed animation , otherwise play the 1 handed animation (TODO) 
-            _playerManager._playerAnimationManager.PlayTargetActionAnimation("Main_Jump_01", false);
+            _player._playerAnimationManager.PlayTargetActionAnimation("Main_Jump_01", false);
 
-            _playerManager._playerNetworkManager._isJumping.Value = true;
+            _player._playerNetworkManager._isJumping.Value = true;
 
-            _playerManager._playerNetworkManager._currentStamina.Value -= _jumpStaminaCost;
+            _player._playerNetworkManager._currentStamina.Value -= _jumpStaminaCost;
 
             _jumpDirection = PlayerCamera.Instance._cameraObject.transform.forward *
                              PlayerInputManager.Instance._verticalInput;
@@ -304,7 +340,7 @@ namespace SKD.Character.Player
             if (_jumpDirection != Vector3.zero)
             {
                 // If we are sprinting,jump direction is at full distance
-                if (_playerManager._playerNetworkManager._isSprinting.Value)
+                if (_player._playerNetworkManager._isSprinting.Value)
                 {
                     _jumpDirection *= 1;
                 }
@@ -325,7 +361,7 @@ namespace SKD.Character.Player
         {
             // Apply An Upward Velocity
             _yVelocity.y = Mathf.Sqrt(_jumpHeight * -2 * _gravityForce);
-            Debug.Log(_playerManager._characterController.velocity); 
+            Debug.Log(_player._characterController.velocity);
         }
     }
 }

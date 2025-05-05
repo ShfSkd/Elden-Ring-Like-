@@ -1,6 +1,8 @@
 using System;
+using SKD.Items.Weapons;
 using SKD.Character.Player;
 using SKD.Items;
+using SKD.Items.Equipment;
 using SKD.UI.PlayerUI;
 using SKD.World_Manager;
 using Unity.Netcode;
@@ -40,7 +42,7 @@ namespace SKD.UI
         {
             PlayerManager player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerManager>();
             Item equippedtItem;
-            switch (PlayerUIManger.instance._playerUIEquipmentManager._currentSelectedEquipmentSlot)
+            switch (PlayerUIManger.Instance._playerUIEquipmentManager._currentSelectedEquipmentSlot)
             {
                 case EquipmentType.RightWeapon01:
                     equippedtItem = player._playerInventoryManager._weaponInRigthHandSlots[0];
@@ -55,7 +57,7 @@ namespace SKD.UI
                     if (player._playerInventoryManager._rightHandWeaponIndex == 0)
                         player._playerNetworkManager._currentRightHandWeaponID.Value = _currentItem._itemID;
 
-                    PlayerUIManger.instance._playerUIEquipmentManager.RefreshMenu();
+                    PlayerUIManger.Instance._playerUIEquipmentManager.RefreshMenu();
                     break;
                 case EquipmentType.RightWeapon02:
                     equippedtItem = player._playerInventoryManager._weaponInRigthHandSlots[1];
@@ -70,7 +72,7 @@ namespace SKD.UI
                     if (player._playerInventoryManager._rightHandWeaponIndex == 1)
                         player._playerNetworkManager._currentRightHandWeaponID.Value = _currentItem._itemID;
 
-                    PlayerUIManger.instance._playerUIEquipmentManager.RefreshMenu();
+                    PlayerUIManger.Instance._playerUIEquipmentManager.RefreshMenu();
                     break;
                 case EquipmentType.RightWeapon03:
                     equippedtItem = player._playerInventoryManager._weaponInRigthHandSlots[2];
@@ -85,7 +87,7 @@ namespace SKD.UI
                     if (player._playerInventoryManager._rightHandWeaponIndex == 2)
                         player._playerNetworkManager._currentRightHandWeaponID.Value = _currentItem._itemID;
 
-                    PlayerUIManger.instance._playerUIEquipmentManager.RefreshMenu();
+                    PlayerUIManger.Instance._playerUIEquipmentManager.RefreshMenu();
                     break;
                 case EquipmentType.LeftWeapon01:
                     equippedtItem = player._playerInventoryManager._weaponInLefthHandSlots[0];
@@ -100,7 +102,7 @@ namespace SKD.UI
                     if (player._playerInventoryManager._leftHandWeaponIndex == 0)
                         player._playerNetworkManager._currentLeftWeaponID.Value = _currentItem._itemID;
 
-                    PlayerUIManger.instance._playerUIEquipmentManager.RefreshMenu();
+                    PlayerUIManger.Instance._playerUIEquipmentManager.RefreshMenu();
                     break;
                 case EquipmentType.LeftWeapon02:
                     equippedtItem = player._playerInventoryManager._weaponInLefthHandSlots[1];
@@ -115,7 +117,7 @@ namespace SKD.UI
                     if (player._playerInventoryManager._leftHandWeaponIndex == 1)
                         player._playerNetworkManager._currentLeftWeaponID.Value = _currentItem._itemID;
 
-                    PlayerUIManger.instance._playerUIEquipmentManager.RefreshMenu();
+                    PlayerUIManger.Instance._playerUIEquipmentManager.RefreshMenu();
                     break;
                 case EquipmentType.LeftWeapon03:
                     // If our Current Equipment is this slot, is not a null item, add it to our inventory
@@ -134,7 +136,7 @@ namespace SKD.UI
                         player._playerNetworkManager._currentLeftWeaponID.Value = _currentItem._itemID;
 
                     // Refresh equipment window
-                    PlayerUIManger.instance._playerUIEquipmentManager.RefreshMenu();
+                    PlayerUIManger.Instance._playerUIEquipmentManager.RefreshMenu();
                     break;
 
                 case EquipmentType.Head:
@@ -153,7 +155,7 @@ namespace SKD.UI
                     // Re-equip new item happen
                     player._playerEquipmentManager.LoadHeadEquipment(player._playerInventoryManager._headEquipment);
                     // Refresh equipment window
-                    PlayerUIManger.instance._playerUIEquipmentManager.RefreshMenu();
+                    PlayerUIManger.Instance._playerUIEquipmentManager.RefreshMenu();
                     break;
                 case EquipmentType.Body:
                     equippedtItem = player._playerInventoryManager._bodyEquipment;
@@ -167,7 +169,7 @@ namespace SKD.UI
 
                     player._playerEquipmentManager.LoadBodyEquipment(player._playerInventoryManager._bodyEquipment);
 
-                    PlayerUIManger.instance._playerUIEquipmentManager.RefreshMenu();
+                    PlayerUIManger.Instance._playerUIEquipmentManager.RefreshMenu();
                     break;
                 case EquipmentType.Legs:
                     equippedtItem = player._playerInventoryManager._legEquipment;
@@ -181,7 +183,7 @@ namespace SKD.UI
 
                     player._playerEquipmentManager.LoadLegEquipment(player._playerInventoryManager._legEquipment);
 
-                    PlayerUIManger.instance._playerUIEquipmentManager.RefreshMenu();
+                    PlayerUIManger.Instance._playerUIEquipmentManager.RefreshMenu();
                     break;
                 case EquipmentType.Hands:
                     equippedtItem = player._playerInventoryManager._handEquipment;
@@ -195,13 +197,13 @@ namespace SKD.UI
 
                     player._playerEquipmentManager.LoadHandEquipment(player._playerInventoryManager._handEquipment);
 
-                    PlayerUIManger.instance._playerUIEquipmentManager.RefreshMenu();
+                    PlayerUIManger.Instance._playerUIEquipmentManager.RefreshMenu();
                     break;
                 default:
                     break;
             }
 
-            PlayerUIManger.instance._playerUIEquipmentManager.SelectLastSelectedEquipmentSlot();
+            PlayerUIManger.Instance._playerUIEquipmentManager.SelectLastSelectedEquipmentSlot();
         }
     }
 }

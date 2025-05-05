@@ -1,5 +1,5 @@
 using UnityEngine;
-namespace SKD.Items
+namespace SKD.Items.Equipment
 {
     [CreateAssetMenu(menuName = "Items/Armor/Head Equipment")]
     public class HeadEquipmentItem : ArmorItem

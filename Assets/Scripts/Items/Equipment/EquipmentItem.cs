@@ -1,5 +1,5 @@
 using UnityEngine;
-namespace SKD.Items
+namespace SKD.Items.Equipment
 {
     public class EquipmentItem : Item
     {

@@ -1,10 +1,11 @@
-﻿using SKD.Items.WeaponItems;
-using System.Collections;
+﻿using SKD;
+using SKD.Items;
 using SKD.Items.AshesOfWar;
+using SKD.Items.Equipment;
+using SKD.Items.Weapon_Actions;
 using UnityEngine;
 using UnityEngine.Serialization;
-
-namespace SKD.Items
+namespace SKD.Items.Weapons
 {
     [CreateAssetMenu(menuName = "Items/Weapons/Melee Weapons")]
     public class WeaponItem : EquipmentItem
@@ -46,9 +47,11 @@ namespace SKD.Items
         // Light Attack Modifier
         public float _light_Attack_01_modifier  = 1.0f;
         public float _light_Attack_02_modifier = 1.2f;
+        public float _light_Jumping_Attack_01_modifier  = 1.0f;
         // Heavy Attack Modifier
         public float _heavy_Attack_01_modifier = 1.4f;
         public float _heavy_Attack_02_modifier = 1.6f;
+        public float _heavy_Jumping_Attack_01_modifier = 1.8f;
         public float _charge_Attack_01_Modofier = 2.0f;
         public float _charge_Attack_02_Modofier = 2.2f;
         public float _running_Attack_01_Modifier = 1.1f;
@@ -59,6 +62,8 @@ namespace SKD.Items
         public float _runningAttackStaminaCostMultiplier = 1.1f;
         public float _rollingAttackStaminaCostMultiplier = 1.1f;
         public float _backstepAttackStaminaCostMultiplier = 1.1f;
+        public float _lightJumpAttackStaminaCostMultiplier = 1.5f;
+        public float _heavyJumpAttackStaminaCostMultiplier = 2f;
      
         // Critical Damage Modifier etc..
 
@@ -79,9 +84,9 @@ namespace SKD.Items
 
         // Item base Action(RB,RT,LB,LT)
         [Header("Actions")]
-        public WeaponItemAction _keyboard_RB_Action;// One hand right bumper action
-        public WeaponItemAction _keyboard_RT_Action;// One hand right trigger action
-        public WeaponItemAction _keyboard_LB_Action;// One hand left bumper  action
+        public WeaponItemAction _Oh_RB_Action;// One hand right bumper action
+        public WeaponItemAction _Oh_RT_Action;// One hand right trigger action
+        public WeaponItemAction _Oh_LB_Action;// One hand left bumper  action
         public AshOfWar _ashesOfWarAction;
 
         [Header("SFX")]

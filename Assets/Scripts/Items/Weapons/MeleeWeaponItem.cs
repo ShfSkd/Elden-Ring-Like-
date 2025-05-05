@@ -1,7 +1,9 @@
 ﻿using System.Collections;
+using SKD.Items;
+using SKD.Items.Weapons;
 using UnityEngine;
 
-namespace SKD.Items
+namespace SKD.Items.Weapons
 {
     public class MeleeWeaponItem : WeaponItem
     {

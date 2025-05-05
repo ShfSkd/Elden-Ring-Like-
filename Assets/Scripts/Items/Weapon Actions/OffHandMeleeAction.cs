@@ -1,6 +1,7 @@
 ﻿using SKD.Character.Player;
-using SKD.Items.WeaponItems;
+using SKD.Items.Weapon_Actions;
 using System.Collections;
+using SKD.Items.Weapons;
 using UnityEngine;
 
 namespace SKD.Items.Weapon_Actions

@@ -20,8 +20,9 @@ namespace SKD.World_Manager
         public AudioClip _rollSFX;
         public AudioClip _pickUpItemSFX;
         public AudioClip _stanceBreakSFX;
-        [FormerlySerializedAs("_criticalSFX")]
         public AudioClip _criticalStrikeSFX;
+        public AudioClip[] _releaseArrowSFX;
+        public AudioClip[] _notchArrowSFX;
 
         private void Awake()
         {

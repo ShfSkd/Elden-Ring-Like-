@@ -1761,12 +1761,18 @@ MonoBehaviour:
   _maxHealth:
     m_InternalValue: 400
   _currentStamina:
-    m_InternalValue: 0
+    m_InternalValue: 300
   _maxStamina:
+    m_InternalValue: 300
+  _currentFocusPoints:
+    m_InternalValue: 200
+  _maxFocusPoints:
     m_InternalValue: 200
   _vitality:
     m_InternalValue: 1
   _endurance:
+    m_InternalValue: 1
+  _mind:
     m_InternalValue: 1
   _strength:
     m_InternalValue: 1
@@ -1861,6 +1867,10 @@ MonoBehaviour:
     m_InternalValue: 0
   _isTwoHandingLeftWeapon:
     m_InternalValue: 0
+  _isChargingRightSpell:
+    m_InternalValue: 0
+  _isChargingLeftSpell:
+    m_InternalValue: 0
   _isMale:
     m_InternalValue: 1
   _headEquipmentID:
@@ -1871,6 +1881,16 @@ MonoBehaviour:
     m_InternalValue: -1
   _handEquipmentID:
     m_InternalValue: -1
+  _mainProjectileID:
+    m_InternalValue: -1
+  _secondaryProjectileID:
+    m_InternalValue: -1
+  _hasArrowNotched:
+    m_InternalValue: 0
+  _isHoldingArrow:
+    m_InternalValue: 0
+  _isAiming:
+    m_InternalValue: 0
 --- !u!114 &-4884708022747012816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1894,7 +1914,8 @@ MonoBehaviour:
   _canBackstabbed: 1
   _criticalAttackDistanceCheck: 0.7
   _pendingCriticalDamage: 0
-  _currentWeaponBeingUsed: {fileID: 11400000, guid: 14c3281558bbad84baaefea5fb58e2cf, type: 2}
+  _currentWeaponBeingUsed: {fileID: 11400000, guid: d55ff151205efd449ba3fdd0f79bb70e, type: 2}
+  _currentProjectileBeingUsed: 0
   _canComboWithMainHandWeapon: 0
 --- !u!114 &-8975570487359277179
 MonoBehaviour:
@@ -1916,9 +1937,11 @@ MonoBehaviour:
   _yVelocity: {x: 0, y: -20, z: 0}
   _groundedYVelocity: -20
   _fallStartYVelocity: -5
+  _inAirTimer: 0
   _isRolling: 0
   _canRotate: 1
   _canMove: 1
+  _canRun: 1
   _isGrounded: 1
   _verticalMovement: 0
   _horizontalMovement: 0
@@ -2004,6 +2027,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _activeSpellWarmUpFX: {fileID: 0}
+  _activeDrawnProjectileFX: {fileID: 0}
   _bloodSplatterVFX: {fileID: 3548738708314695399, guid: 13bdfb963274d4742a1e33fd72088c6b, type: 3}
   _criticalBloodSplatterVFX: {fileID: 8454313792392851383, guid: 53324987e073f464fad339a8ade67518, type: 3}
   _staticEffectsList: []
@@ -2023,18 +2047,23 @@ MonoBehaviour:
   _currentLeftHandWeapon: {fileID: 11400000, guid: 14c3281558bbad84baaefea5fb58e2cf, type: 2}
   _currentTwoHandWeapon: {fileID: 0}
   _weaponInRigthHandSlots:
-  - {fileID: 11400000, guid: 14c3281558bbad84baaefea5fb58e2cf, type: 2}
+  - {fileID: 11400000, guid: d55ff151205efd449ba3fdd0f79bb70e, type: 2}
+  - {fileID: 11400000, guid: d55ff151205efd449ba3fdd0f79bb70e, type: 2}
   _rightHandWeaponIndex: 1
   _weaponInLefthHandSlots:
-  - {fileID: 11400000, guid: 14c3281558bbad84baaefea5fb58e2cf, type: 2}
+  - {fileID: 11400000, guid: d55ff151205efd449ba3fdd0f79bb70e, type: 2}
   _leftHandWeaponIndex: 4
   _currentSpell: {fileID: 11400000, guid: 53deade270e05ce409e1b2fcb95c0d75, type: 2}
   _headEquipment: {fileID: 0}
   _bodyEquipment: {fileID: 0}
   _legEquipment: {fileID: 0}
   _handEquipment: {fileID: 0}
+  _mainProjectile: {fileID: 11400000, guid: 2e09caf1bf5c68e448c5b8611004e53d, type: 2}
+  _seconderyrojectile: {fileID: 0}
   _itemInTheInventory:
   - {fileID: 11400000, guid: 14c3281558bbad84baaefea5fb58e2cf, type: 2}
+  - {fileID: 11400000, guid: 2ceea0332a0c498458ac3f8a4283ff8f, type: 2}
+  - {fileID: 11400000, guid: a4508a16b28ed5d4fa842b512a020182, type: 2}
 --- !u!114 &-1355481650577912924
 MonoBehaviour:
   m_ObjectHideFlags: 0

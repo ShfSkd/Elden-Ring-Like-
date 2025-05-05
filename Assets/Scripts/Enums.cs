@@ -47,15 +47,17 @@ namespace SKD
     // This is used to calculate damage based on attack type
     public enum AttackType
     {
-        LigthAttack01,
-        LigthAttack02,
+        LightAttack01,
+        LightAttack02,
         HeavyAttack01,
         HeavyAttack02,
         ChargedAttack01,
         ChargedAttack02,
         RunningAttack01,
         RollingAttack01,
-        BackstepAttack01
+        BackstepAttack01,
+        LightJumpingAttack01,
+        HeavyJumpAttack01,
     }
     public enum DamageIntensity
     {
@@ -63,11 +65,19 @@ namespace SKD
     }
     public enum WeaponClass
     {
-        StraightSword,Spear,MediumShield,Fist,LightShield
+        StraightSword,Spear,MediumShield,Fist,LightShield,Bow
     }
     public enum SpellClass
     {
         Incantation,Sorcery
+    }
+    public enum ProjectileClass
+    {
+        Arrow,Bolt
+    }
+    public enum ProjectileSlot
+    {
+        Main,Secondary
     }
     public enum ItemPickUpType
     {
