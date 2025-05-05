@@ -4,7 +4,6 @@ using SKD.World_Manager;
 using SKD.WorldManager;
 using Unity.Netcode;
 using UnityEngine;
-using SKD.Items.Weapons;
 using UnityEngine.Serialization;
 
 namespace SKD.Character
@@ -53,7 +52,7 @@ namespace SKD.Character
         public NetworkVariable<int> _currentHealth = new NetworkVariable<int>(400, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> _maxHealth = new NetworkVariable<int>(400, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<float> _currentStamina = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-        public NetworkVariable<int> _maxStamina = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<int> _maxStamina = new NetworkVariable<int>(400, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> _currentFocusPoints = new NetworkVariable<int>(200, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> _maxFocusPoints = new NetworkVariable<int>(200, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
@@ -441,13 +440,10 @@ namespace SKD.Character
                 DestroyALlCurrentActionFXClientRpc();
         }
         [ClientRpc]
-        protected virtual void DestroyALlCurrentActionFXClientRpc()
+        public void DestroyALlCurrentActionFXClientRpc()
         {
             if (_character._characterEffectsManager._activeSpellWarmUpFX != null)
                 Destroy(_character._characterEffectsManager._activeSpellWarmUpFX);
-
-            if (_character._characterEffectsManager._activeDrawnProjectileFX != null)
-                Destroy(_character._characterEffectsManager._activeDrawnProjectileFX);
         }
     }
 }

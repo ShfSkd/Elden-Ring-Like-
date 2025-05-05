@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SKD.Effects
 {
-    [CreateAssetMenu(menuName = "Character Effects  /StaticEffect/Two Handing Effect")]
+    [CreateAssetMenu(menuName = "CharacterEffect/StaticEffect/Two Handing Effect")]
     public class TwoHandingEffect : StaticCharacterEffect
     {
         [SerializeField] int _strengthGainedFromTwoHandingWeapon;

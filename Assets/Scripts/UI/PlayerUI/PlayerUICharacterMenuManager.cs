@@ -9,12 +9,12 @@ namespace SKD.UI.PlayerUI
 
         public void OpenCharacterMenu()
         {
-            PlayerUIManger.Instance._menuWindowIsOpen = true;
+            PlayerUIManger.instance._menuWindowIsOpen = true;
             _menu.SetActive(true);
         }
         public void CloseCharacterMenu()
         {
-            PlayerUIManger.Instance._menuWindowIsOpen = false;
+            PlayerUIManger.instance._menuWindowIsOpen = false;
             _menu.SetActive(false);
         }
 
@@ -26,7 +26,7 @@ namespace SKD.UI.PlayerUI
         {
             yield return new WaitForFixedUpdate();
             
-            PlayerUIManger.Instance._menuWindowIsOpen = false;
+            PlayerUIManger.instance._menuWindowIsOpen = false;
             _menu.SetActive(false);
         }
     }

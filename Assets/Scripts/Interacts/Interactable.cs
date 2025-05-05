@@ -28,7 +28,7 @@ namespace SKD.Interacts
 
             _interactableCollider.enabled = false;
             player._playerInteractionManager.RemoveInteractionList(this);
-            PlayerUIManger.Instance._playerUIPopUpManager.CloseAllPopUpsWindows();
+            PlayerUIManger.instance._playerUIPopUpManager.CloseAllPopUpsWindows();
         }
         public virtual void OnTriggerEnter(Collider other)
         {
@@ -61,7 +61,7 @@ namespace SKD.Interacts
                 // Remove the interaction to the player
                 player._playerInteractionManager.RemoveInteractionList(this);
 
-                PlayerUIManger.Instance._playerUIPopUpManager.CloseAllPopUpsWindows();
+                PlayerUIManger.instance._playerUIPopUpManager.CloseAllPopUpsWindows();
             }
         }
     }

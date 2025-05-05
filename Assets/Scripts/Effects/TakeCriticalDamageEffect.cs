@@ -2,7 +2,7 @@ using SKD.Character;
 using UnityEngine;
 namespace SKD.Effects
 {
-    [CreateAssetMenu(menuName = "Character Effects/Instant Effects/Critical Damage Effect")]
+    [CreateAssetMenu(menuName = "Character Effect/Instant Effects/Critical Damage Effect")]
     public class TakeCriticalDamageEffect : TakeDamageEffect
     {
         public override void ProcessesEffect(CharacterManager character)
