@@ -54,6 +54,13 @@ MonoBehaviour:
   _rollSFX: {fileID: 8300000, guid: 71b36098eccd9e74f90d59a1afcc76ca, type: 3}
   _pickUpItemSFX: {fileID: 8300000, guid: 90fb91c5d9f18df4183363d36d921429, type: 3}
   _stanceBreakSFX: {fileID: 8300000, guid: 05d0536a3eefc80438f95f9662331f52, type: 3}
+  _criticalStrikeSFX: {fileID: 8300000, guid: e5ecc98ff40556543b77c8c2aa090822, type: 3}
+  _releaseArrowSFX:
+  - {fileID: 8300000, guid: 7cbd6cd765888ff418d01d98bd1ce9c2, type: 3}
+  - {fileID: 8300000, guid: 74198389e177d0948b63ca9a3fb22801, type: 3}
+  _notchArrowSFX:
+  - {fileID: 8300000, guid: da396a16a7f24f64cbb0054f5a56b46a, type: 3}
+  - {fileID: 8300000, guid: f1547ad8fbfa4f24d83e5a445aee860d, type: 3}
 --- !u!82 &9163660633888756998
 AudioSource:
   m_ObjectHideFlags: 0

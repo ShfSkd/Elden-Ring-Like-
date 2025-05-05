@@ -1,7 +1,7 @@
 using SKD.Items.Equipment_Models;
 using UnityEngine;
 using UnityEngine.Serialization;
-namespace SKD.Items
+namespace SKD.Items.Equipment
 {
     public class ArmorItem : EquipmentItem
     {

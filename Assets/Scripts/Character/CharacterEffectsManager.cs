@@ -19,6 +19,7 @@ namespace SKD.Character
         
         [Header("Current Active FX")]
         public GameObject _activeSpellWarmUpFX;
+        public GameObject _activeDrawnProjectileFX;
 
         [Header("VFX")]
         [SerializeField] GameObject _bloodSplatterVFX;

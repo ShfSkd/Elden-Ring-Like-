@@ -4,8 +4,10 @@ using SKD.Items;
 using SKD.Items.AshesOfWar;
 using SKD.Items.Equipment;
 using SKD.Items.Quick_Item_Slot;
+using SKD.Items.Weapons;
 using SKD.Spells.Items;
 using UnityEngine;
+
 
 namespace SKD.World_Manager
 {
@@ -37,7 +39,7 @@ namespace SKD.World_Manager
 
         [Header("Spells")]
         [SerializeField] List<SpellItem> _spells = new List<SpellItem>();
-
+        
         [Header("Projectiles")]
         [SerializeField] List<RangedProjectileItem> _projectiles = new List<RangedProjectileItem>();
 
@@ -80,7 +82,9 @@ namespace SKD.World_Manager
 
             foreach (var item in _quickSlotsItem)
                 _items.Add(item);
-
+            
+       
+            // Assign all of our items a unique  item ID
             for (int i = 0; i < _items.Count; i++)
                 _items[i]._itemID = i;
         }

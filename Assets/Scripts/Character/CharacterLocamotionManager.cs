@@ -15,12 +15,13 @@ namespace SKD.Character
         [SerializeField] protected float _groundedYVelocity = -20f;// The force at which our character is sticking to the ground whilst they are grounded
         [SerializeField] protected float _fallStartYVelocity = -5f;// the force at which our character begins to fall when they become underground (Rises as they fall longer)
         protected bool _fallingVelocityhasBeenSet;
-        protected float _inAirTimer = 0f;
+        [SerializeField] protected float _inAirTimer = 0f;
 
         [Header("Flags")]
         public bool _isRolling;
         public bool _canRotate = true;
         public bool _canMove = true;
+        public bool _canRun = true;
         public bool _isGrounded = true;
         protected virtual void Awake()
         {
@@ -64,7 +65,7 @@ namespace SKD.Character
         // Draw our ground check sphere in scene view
         protected void OnDrawGizmosSelected()
         {
-           // Gizmos.DrawSphere(_characterManger.transform.position, _groundCheckSphereRaduis); 
+            // Gizmos.DrawSphere(_characterManger.transform.position, _groundCheckSphereRaduis); 
         }
         public void EnableCanRotate()
         {

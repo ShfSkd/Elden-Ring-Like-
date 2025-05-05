@@ -115,7 +115,7 @@ namespace SKD.Character.AI_Character
         }
         public override IEnumerator ProcessDeathEvent(bool manuallySelectDeathAnimation = false)
         {
-            PlayerUIManger.instance._playerUIPopUpManager.SendBossDefeatedPopUp("Great Enemy Felled");
+            PlayerUIManger.Instance._playerUIPopUpManager.SendBossDefeatedPopUp("Great Enemy Felled");
             if (IsOwner)
             {
                 _characterNetworkManager._currentHealth.Value = 0;
@@ -189,7 +189,7 @@ namespace SKD.Character.AI_Character
 
                 // Create a HP bar for each boss that is in the fight
                 GameObject bossHealthBar =
-                    Instantiate(PlayerUIManger.instance._playerUIHUDManager._bossHealthBarObject, PlayerUIManger.instance._playerUIHUDManager._bossHealthBarParent);
+                    Instantiate(PlayerUIManger.Instance._playerUIHUDManager._bossHealthBarObject, PlayerUIManger.Instance._playerUIHUDManager._bossHealthBarParent);
 
                 UI_Boss_HP_Bar bossHPBar = bossHealthBar.GetComponentInChildren<UI_Boss_HP_Bar>();
 

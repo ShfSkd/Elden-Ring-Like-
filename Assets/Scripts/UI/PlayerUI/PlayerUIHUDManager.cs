@@ -1,4 +1,5 @@
 using SKD.Items;
+using SKD.Items.Weapons;
 using SKD.Spells.Items;
 using SKD.World_Manager;
 using UnityEngine;
@@ -23,6 +24,9 @@ namespace SKD.UI.PlayerUI
         [Header("Boss Health Bar")]
         public Transform _bossHealthBarParent;
         public GameObject _bossHealthBarObject;
+        
+        [Header("Crosshair")]
+        public GameObject _crosshair;
 
         public void ToggleHud(bool status)
         {

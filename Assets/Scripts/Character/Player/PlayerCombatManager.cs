@@ -1,18 +1,30 @@
-﻿using SKD.Items;
-using SKD.Items.WeaponItems;
+﻿using System;
+using SKD.Items;
+using SKD.Items.Weapon_Actions;
 using System.Collections;
+using System.Collections.Generic;
 using SKD.Colliders;
 using SKD.Effects;
+using SKD.Items.Equipment;
+using SKD.Items.Weapon_Actions;
+using SKD.Items.Weapons;
+using SKD.World_Manager;
 using SKD.WorldManager;
 using UnityEngine;
 using Unity.Netcode;
+using Unity.VisualScripting;
 
 namespace SKD.Character.Player
 {
     public class PlayerCombatManager : CharacterCombatManager
     {
         PlayerManager _player;
+
         public WeaponItem _currentWeaponBeingUsed;
+        public ProjectileSlot _currentProjectileBeingUsed;
+
+        [Header("Projectile")]
+        private Vector3 _projectileAimeDirection;
 
         [Header("Flags")]
         public bool _canComboWithMainHandWeapon;
@@ -32,10 +44,9 @@ namespace SKD.Character.Player
             {
                 // perform the action
                 weaponAction.AttemptToPerformedAction(_player, weaponPerformingAction);
-                
+
             }
-
-
+            
         }
         protected override void CloseAllDamageColliders()
         {
@@ -191,10 +202,10 @@ namespace SKD.Character.Player
 
             switch (_currentAttackType)
             {
-                case AttackType.LigthAttack01:
+                case AttackType.LightAttack01:
                     staminaDetucted = _currentWeaponBeingUsed._baseStaminaCost * _currentWeaponBeingUsed._lightAttackStaminaCostMultiplier;
                     break;
-                case AttackType.LigthAttack02:
+                case AttackType.LightAttack02:
                     staminaDetucted = _currentWeaponBeingUsed._baseStaminaCost * _currentWeaponBeingUsed._lightAttackStaminaCostMultiplier;
                     break;
                 case AttackType.HeavyAttack01:
@@ -203,7 +214,27 @@ namespace SKD.Character.Player
                 case AttackType.HeavyAttack02:
                     staminaDetucted = _currentWeaponBeingUsed._baseStaminaCost * _currentWeaponBeingUsed._heavyAttackStaminaCostMultiplier;
                     break;
-
+                case AttackType.ChargedAttack01:
+                    staminaDetucted = _currentWeaponBeingUsed._baseStaminaCost * _currentWeaponBeingUsed._chargedAttackStaminaCostMultiplier;
+                    break;
+                case AttackType.ChargedAttack02:
+                    staminaDetucted = _currentWeaponBeingUsed._baseStaminaCost * _currentWeaponBeingUsed._chargedAttackStaminaCostMultiplier;
+                    break;
+                case AttackType.RunningAttack01:
+                    staminaDetucted = _currentWeaponBeingUsed._baseStaminaCost * _currentWeaponBeingUsed._runningAttackStaminaCostMultiplier;
+                    break;
+                case AttackType.RollingAttack01:
+                    staminaDetucted = _currentWeaponBeingUsed._baseStaminaCost * _currentWeaponBeingUsed._rollingAttackStaminaCostMultiplier;
+                    break;
+                case AttackType.BackstepAttack01:
+                    staminaDetucted = _currentWeaponBeingUsed._baseStaminaCost * _currentWeaponBeingUsed._backstepAttackStaminaCostMultiplier;
+                    break;
+                case AttackType.LightJumpingAttack01:
+                    staminaDetucted = _currentWeaponBeingUsed._baseStaminaCost * _currentWeaponBeingUsed._lightJumpAttackStaminaCostMultiplier;
+                    break;
+                case AttackType.HeavyJumpAttack01:
+                    staminaDetucted = _currentWeaponBeingUsed._baseStaminaCost * _currentWeaponBeingUsed._heavyJumpAttackStaminaCostMultiplier;
+                    break;
                 default:
                     break;
             }
@@ -218,6 +249,122 @@ namespace SKD.Character.Player
                 PlayerCamera.Instance.SetLockOnCameraHeight();
             }
         }
+        // Projectile
+        public void ReleaseArrow()
+        {
+            if (_player.IsOwner)
+                _player._playerNetworkManager._hasArrowNotched.Value = false;
+
+            // Destroy The warm-up Projectile
+            if (_player._playerEffectsManager._activeDrawnProjectileFX != null)
+                Destroy(_player._playerEffectsManager._activeDrawnProjectileFX);
+
+            _player._characterSoundFXManager.PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(WorldSoundFXManager.instance._releaseArrowSFX));
+
+            // Animate the bow
+            Animator bowAnimator;
+
+            if (_player._playerNetworkManager._isTwoHandingLeftWeapon.Value)
+            {
+                bowAnimator = _player._playerEquipmentManager._leftHandWeaponModel.GetComponentInChildren<Animator>();
+            }
+            else
+            {
+                bowAnimator = _player._playerEquipmentManager._rightHandWeaponModel.GetComponentInChildren<Animator>();
+            }
+            bowAnimator.SetBool("IsDrawn", false);
+            bowAnimator.Play("Bow_Fire_01");
+
+            if (!_player.IsOwner)
+                return;
+
+            // The projectile we are firing 
+            RangedProjectileItem projectileItem = null;
+
+            switch (_currentProjectileBeingUsed)
+            {
+                case ProjectileSlot.Main:
+                    projectileItem = _player._playerInventoryManager._mainProjectile;
+                    break;
+                case ProjectileSlot.Secondary:
+                    projectileItem = _player._playerInventoryManager._seconderyrojectile;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            if (projectileItem == null)
+                return;
+
+            if (projectileItem._currentAmmoAmount <= 0)
+                return;
+
+            Transform projectileInstantiationLocation = null;
+            GameObject projectileGameObject = null;
+            Rigidbody projectileRigidbody = null;
+            RangedProjectileDamageCollider projectileDamageCollider = null;
+
+            // Subtract Ammo
+            projectileItem._currentAmmoAmount -= 1;
+
+            projectileInstantiationLocation = _player._playerCombatManager._lockOnTransform;
+            projectileGameObject = Instantiate(projectileItem._releaseProjectileModel, projectileInstantiationLocation);
+            projectileDamageCollider = projectileGameObject.GetComponent<RangedProjectileDamageCollider>();
+            projectileRigidbody = projectileGameObject.GetComponent<Rigidbody>();
+
+            projectileDamageCollider._physicalDamage = 100;
+            projectileDamageCollider._characterShootingProjectile = _player;
+
+            // Fire an arrow based on 1 of 3 variations 
+            // 1. Locked onto target
+            float yRotationDuringFire = _player.transform.localEulerAngles.y;
+            // 2. Aiming
+            if (_player._playerNetworkManager._isAiming.Value)
+            {
+                Ray newRay = new Ray(_lockOnTransform.position, PlayerCamera.Instance._aimDirection);
+                _projectileAimeDirection = newRay.GetPoint(5000);
+                projectileGameObject.transform.LookAt(_projectileAimeDirection);
+            }
+            else
+            {
+                // 3. Locked and not aiming
+
+                if (_player._playerCombatManager._currentTarget != null)
+                {
+                    Quaternion arrowRotation = Quaternion.LookRotation(_player._playerCombatManager._currentTarget._characterCombatManager._lockOnTransform.position -
+                                                                       projectileGameObject.transform.position);
+
+                    projectileGameObject.transform.rotation = arrowRotation;
+                }
+                // 4. Unlocked and not aiming
+                else
+                {
+                    Quaternion arrowRotation = Quaternion.LookRotation(_player.transform.forward);
+                    
+                    projectileGameObject.transform.rotation = arrowRotation;
+                }
+
+            }
+
+
+            // Get all character colliders and ignore self
+            Collider[] characterColliders = _player.GetComponentsInChildren<Collider>();
+            List<Collider> collidersArrowWillIgnored = new List<Collider>();
+
+            foreach (var item in characterColliders)
+                collidersArrowWillIgnored.Add(item);
+
+            foreach (var hitBox in collidersArrowWillIgnored)
+                Physics.IgnoreCollision(projectileDamageCollider._damageCollider, hitBox, true);
+
+            projectileRigidbody.AddForce(projectileGameObject.transform.forward * projectileItem._forwardVelocity);
+            projectileGameObject.transform.parent = null;
+            
+            // Sync arrow fire with serverRpc
+            _player._playerNetworkManager.NotifyServerOfReleasedProjectileServerRpc(_player.OwnerClientId, projectileItem._itemID,
+                _projectileAimeDirection.x, _projectileAimeDirection.y, _projectileAimeDirection.z, yRotationDuringFire);
+
+        }
         public void InstantiateSpellWarmUpFX()
         {
             if (_player._playerInventoryManager._currentSpell == null)
@@ -229,15 +376,15 @@ namespace SKD.Character.Player
         {
             if (_player._playerInventoryManager._currentSpell == null)
                 return;
-            
+
             _player._playerInventoryManager._currentSpell.SuccessfullyChargeSpell(_player);
         }
         public void SuccessfullyCastSpellFullCharge()
         {
-            
+
             if (_player._playerInventoryManager._currentSpell == null)
                 return;
-            
+
             _player._playerInventoryManager._currentSpell.SuccessfullyCastSpellFullCharge(_player);
         }
         public WeaponItem SelectWeaponToPerformAshOfWar()
