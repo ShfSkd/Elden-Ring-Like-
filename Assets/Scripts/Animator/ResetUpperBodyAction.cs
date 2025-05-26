@@ -3,12 +3,12 @@ namespace Skd.Animator
 {
     public class ResetUpperBodyAction : StateMachineBehaviour
     {
-        public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        public override void OnStateEnter(UnityEngine.Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             
         }
 
-        public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        /*public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
         }
 
@@ -22,6 +22,6 @@ namespace Skd.Animator
 
         public override void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-        }
+        }*/
     }
 }

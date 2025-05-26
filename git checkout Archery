@@ -1,0 +1,186 @@
+[33mcommit bc9e161df787b5e0462d7b2d2c1ee9492e9a2d19[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: 079015c cb0c9a9
+Author: Shmuel Fried <68021643+ShfSkd@users.noreply.github.com>
+Date:   Tue May 6 01:10:34 2025 +0300
+
+    Merge pull request #1 from ShfSkd/Archery_revert
+    
+    Revert "Archery"
+
+[33mcommit cb0c9a9023c2421df363ad7670a09fee7dd0f6ee[m[33m ([m[1;31morigin/Archery_revert[m[33m, [m[1;32mArchery_revert[m[33m)[m
+Author: Shmuel Fried <shmuelfried10@gmail.com>
+Date:   Tue May 6 01:01:45 2025 +0300
+
+    Revert "Archery"
+    
+    This reverts commit 079015c3a0ebe5c572297ec5a9d923371abad2e2.
+
+[33mcommit 079015c3a0ebe5c572297ec5a9d923371abad2e2[m
+Author: Shmuel Fried <shmuelfried10@gmail.com>
+Date:   Mon May 5 18:49:22 2025 +0300
+
+    Archery
+
+[33mcommit a1b6e90a490a6a57b79406061d4bd7a7ecb9d332[m
+Author: Shmuel Fried <shmuelfried10@gmail.com>
+Date:   Thu Apr 24 22:31:07 2025 +0300
+
+    Spells
+
+[33mcommit 482b1114c98f701579e9249d8227fe889689e302[m
+Author: Shmuel Fried <shmuelfried10@gmail.com>
+Date:   Mon Apr 7 13:57:11 2025 +0300
+
+    Pick up Item from Creature
+
+[33mcommit 5f682a56b564c3016546d5ffedbf83f312ae221d[m
+Author: Shmuel Fried <shmuelfried10@gmail.com>
+Date:   Mon Mar 31 19:56:48 2025 +0300
+
+    Backstab
+
+[33mcommit 30f9f12156b5fb6a77f976822c57763af72c826d[m
+Author: Shmuel Fried <shmuelfried10@gmail.com>
+Date:   Fri Mar 28 18:33:03 2025 +0300
+
+    Riposte + Critical Damage
+
+[33mcommit e552b2649780b9b7700e15225c46ecddef1c7b5c[m
+Author: Shmuel Fried <shmuelfried10@gmail.com>
+Date:   Mon Mar 24 21:24:51 2025 +0200
+
+    stance
+
+[33mcommit c5dd3e5b81de14a5700bf672b241798b1cb43777[m
+Author: Shmuel Fried <shmuelfried10@gmail.com>
+Date:   Thu Mar 13 14:54:24 2025 +0200
+
+    Equipment body types
+
+[33mcommit 877047baea9d670a9a07fa2d92377a30def8a9f9[m
+Author: Shmuel Fried <shmuelfried10@gmail.com>
+Date:   Mon Mar 10 19:27:02 2025 +0200
+
+    equipment part 3
+
+[33mcommit 6f7437ac244144f999a39c7ff8b9aed1e976133e[m
+Author: Shmuel Fried <shmuelfried10@gmail.com>
+Date:   Thu Feb 27 12:51:20 2025 +0200
+
+    Armor part 2
+
+[33mcommit 5c4638726c137a9aa2a0697a0e45c2db0e501552[m
+Author: Shmuel Fried <shmuelfried10@gmail.com>
+Date:   Sat Feb 8 21:43:59 2025 +0200
+
+    Armor
+
+[33mcommit 009a67c737254bb5e544c298b265f0c9c9df2f48[m
+Author: Shmuel Fried <shmuelfried10@gmail.com>
+Date:   Tue Dec 10 14:44:42 2024 +0200
+
+    Player Back Slots
+    
+    24
+
+[33mcommit 6d764f137655363d8224b8b9f05198dd20b73c40[m
+Author: ShfSkd <shmuelfried10@gmail.com>
+Date:   Fri Oct 11 14:08:55 2024 +0300
+
+    23
+
+[33mcommit e206a38eb097211c5725f401ef35813cb650394a[m
+Author: ShfSkd <shmuelfried10@gmail.com>
+Date:   Mon Sep 9 14:12:49 2024 +0300
+
+    22
+
+[33mcommit 746121b6ace846286ae047b5669276dd9f45a8c4[m
+Author: ShfSkd <shmuelfried10@gmail.com>
+Date:   Mon Sep 2 01:12:28 2024 +0300
+
+    21
+
+[33mcommit 9562dc5bfad882a4160af0aebe3fbb0a0811af44[m
+Author: ShfSkd <shmuelfried10@gmail.com>
+Date:   Sun Aug 25 14:03:40 2024 +0300
+
+    20
+
+[33mcommit 5e3becc3e9407169336bd34c9f53cda4e9c28e85[m
+Author: ShfSkd <shmuelfried10@gmail.com>
+Date:   Tue Aug 20 18:58:47 2024 +0300
+
+    19
+
+[33mcommit e5db12ad1d5abe3afbc9c5068c2ec7ded9637e23[m
+Author: ShfSkd <shmuelfried10@gmail.com>
+Date:   Wed Aug 14 01:04:00 2024 +0300
+
+    18
+
+[33mcommit 788c0099a9aa739cfc664fb815f2bdc0eee25374[m
+Author: ShfSkd <shmuelfried10@gmail.com>
+Date:   Tue Aug 13 18:45:31 2024 +0300
+
+    17
+
+[33mcommit f827fa93da37c39856b15440c1db752d071de14e[m
+Author: ShfSkd <shmuelfried10@gmail.com>
+Date:   Sun Aug 11 23:12:15 2024 +0300
+
+    16
+
+[33mcommit 386265346bd3a7c45b1a67017412dacbb54e4ef9[m
+Author: ShfSkd <shmuelfried10@gmail.com>
+Date:   Wed Aug 7 10:53:38 2024 +0300
+
+    15
+
+[33mcommit 931153c55179889397751a37ed514e6d7aa830a8[m
+Author: ShfSkd <shmuelfried10@gmail.com>
+Date:   Mon Aug 5 01:43:08 2024 +0300
+
+    14
+
+[33mcommit ca5325c60f6120ed4ab9a60c195bb406811f415a[m
+Author: ShfSkd <shmuelfried10@gmail.com>
+Date:   Wed Jul 31 18:23:02 2024 +0300
+
+    13
+
+[33mcommit 65ddcc55610f2a5b97927ae39cf1351a240f54b7[m
+Author: ShfSkd <shmuelfried10@gmail.com>
+Date:   Tue Jul 30 19:46:18 2024 +0300
+
+    12
+
+[33mcommit 477918c576eb3edca524c800adfc6c136f29d659[m
+Author: ShfSkd <shmuelfried10@gmail.com>
+Date:   Tue Jul 30 12:52:52 2024 +0300
+
+    lesson 10
+
+[33mcommit 618749614d4a9e4b0a7e791aaafe47aeb40447a2[m
+Author: ShfSkd <shmuelfried10@gmail.com>
+Date:   Thu Jul 25 23:24:47 2024 +0300
+
+    GitiGnore
+
+[33mcommit 941dc2169d18f57eb7e198f378070ccc8fa35e3e[m
+Author: ShfSkd <shmuelfried10@gmail.com>
+Date:   Thu Jul 25 23:06:18 2024 +0300
+
+    Lesson 5
+
+[33mcommit deba5e3d09c3be0150234154b5fe1e6f4a0de5b0[m
+Author: ShfSkd <shmuelfried10@gmail.com>
+Date:   Tue Jul 23 01:11:58 2024 +0300
+
+    Lesson 4
+
+[33mcommit 0cb1cb6bd80613df49b17ef4afc89de4a94b4850[m
+Author: ShfSkd <shmuelfried10@gmail.com>
+Date:   Mon Jul 22 18:55:02 2024 +0300
+
+    Initial commit
