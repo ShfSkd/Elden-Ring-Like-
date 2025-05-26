@@ -1,13 +1,11 @@
-﻿using SKD.Items;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using SKD.Items.Weapons;
 using SKD.Items.AshesOfWar;
 using SKD.Items.Equipment;
+using SKD.Items.Quick_Item_Slot;
 using SKD.Spells.Items;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace SKD.World_Manager
 {
@@ -39,9 +37,12 @@ namespace SKD.World_Manager
 
         [Header("Spells")]
         [SerializeField] List<SpellItem> _spells = new List<SpellItem>();
-        
+
         [Header("Projectiles")]
         [SerializeField] List<RangedProjectileItem> _projectiles = new List<RangedProjectileItem>();
+
+        [Header("Quick Slots Item")]
+        [SerializeField] List<QuickSlotItem> _quickSlotsItem = new List<QuickSlotItem>();
 
         [Header("Items")]
         // A list of every item that we have in the game 
@@ -87,6 +88,11 @@ namespace SKD.World_Manager
             {
                 _items.Add(projectile);
             }
+            foreach (var item in _quickSlotsItem)
+            {
+                _items.Add(item);
+            }
+
             // Assign all of our items a unique  item ID
             for (int i = 0; i < _items.Count; i++)
             {
@@ -129,5 +135,10 @@ namespace SKD.World_Manager
         {
             return _projectiles.FirstOrDefault(projectile => projectile._itemID == id);
         }
+        public QuickSlotItem GetQuickSlotItem(int id)
+        {
+            return _quickSlotsItem.FirstOrDefault(flask => flask._itemID == id);
+        }
+
     }
 }
