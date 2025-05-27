@@ -101,10 +101,10 @@ namespace SKD.Character.Player
                 _playerNetworkManager._mind.OnValueChanged += _playerNetworkManager.SetNewMaxFocusPointsValue;
 
                 // Updated UI stat bars when a stat changes(Health or stamina)
-                _playerNetworkManager._currentHealth.OnValueChanged += PlayerUIManger.Instance._playerUIHUDManager.SetNewHealthValue;
-                _playerNetworkManager._currentStamina.OnValueChanged += PlayerUIManger.Instance._playerUIHUDManager.SetNewStaminaValue;
+                _playerNetworkManager._currentHealth.OnValueChanged += PlayerUIManager.Instance._playerUIHUDManager.SetNewHealthValue;
+                _playerNetworkManager._currentStamina.OnValueChanged += PlayerUIManager.Instance._playerUIHUDManager.SetNewStaminaValue;
                 _playerNetworkManager._currentStamina.OnValueChanged += _playerStatsManager.ResetStaminaReganTimer;
-                _playerNetworkManager._currentFocusPoints.OnValueChanged += PlayerUIManger.Instance._playerUIHUDManager.SetNewFocusPointsValue;
+                _playerNetworkManager._currentFocusPoints.OnValueChanged += PlayerUIManager.Instance._playerUIHUDManager.SetNewFocusPointsValue;
                 
                 // Reset camera rotation to a standard when aiming is disabled 
                 _playerNetworkManager._isAiming.OnValueChanged += _playerNetworkManager.OnIsAimingChanged;
@@ -129,6 +129,7 @@ namespace SKD.Character.Player
             // Equipments
             _playerNetworkManager._currentRightHandWeaponID.OnValueChanged += _playerNetworkManager.OnCurrentRightHandWeaponIDChange;
             _playerNetworkManager._currentLeftWeaponID.OnValueChanged += _playerNetworkManager.OnCurrentLeftHandWeaponIDChange;
+            _playerNetworkManager._currentQuickSlotItemID.OnValueChanged += _playerNetworkManager.OnCurrentQuickSlotItemIDChange;
             _playerNetworkManager._currentWeaponBeingUsed.OnValueChanged += _playerNetworkManager.OnCurrentWeaponBeingUsedIDChange;
             _playerNetworkManager._currentSpellID.OnValueChanged += _playerNetworkManager.OnCurrentSpellIDChange;
             _playerNetworkManager._isBlocking.OnValueChanged += _playerNetworkManager.OnIsBlockingChanged;
@@ -178,9 +179,9 @@ namespace SKD.Character.Player
 
 
                 // Updated UI stat bars when a stat changes(Health or stamina)
-                _playerNetworkManager._currentHealth.OnValueChanged -= PlayerUIManger.Instance._playerUIHUDManager.SetNewHealthValue;
-                _playerNetworkManager._currentStamina.OnValueChanged -= PlayerUIManger.Instance._playerUIHUDManager.SetNewStaminaValue;
-                _playerNetworkManager._currentFocusPoints.OnValueChanged -= PlayerUIManger.Instance._playerUIHUDManager.SetNewFocusPointsValue;
+                _playerNetworkManager._currentHealth.OnValueChanged -= PlayerUIManager.Instance._playerUIHUDManager.SetNewHealthValue;
+                _playerNetworkManager._currentStamina.OnValueChanged -= PlayerUIManager.Instance._playerUIHUDManager.SetNewStaminaValue;
+                _playerNetworkManager._currentFocusPoints.OnValueChanged -= PlayerUIManager.Instance._playerUIHUDManager.SetNewFocusPointsValue;
                 _playerNetworkManager._currentStamina.OnValueChanged -= _playerStatsManager.ResetStaminaReganTimer;
     
                 // Reset camera rotation to a standard when aiming is disabled 
@@ -202,6 +203,7 @@ namespace SKD.Character.Player
 
             // Equipments
             _playerNetworkManager._currentRightHandWeaponID.OnValueChanged -= _playerNetworkManager.OnCurrentRightHandWeaponIDChange;
+            _playerNetworkManager._currentQuickSlotItemID.OnValueChanged -= _playerNetworkManager.OnCurrentQuickSlotItemIDChange;
             _playerNetworkManager._currentLeftWeaponID.OnValueChanged -= _playerNetworkManager.OnCurrentLeftHandWeaponIDChange;
             _playerNetworkManager._currentWeaponBeingUsed.OnValueChanged -= _playerNetworkManager.OnCurrentWeaponBeingUsedIDChange;
             _playerNetworkManager._currentSpellID.OnValueChanged -= _playerNetworkManager.OnCurrentSpellIDChange;
@@ -262,7 +264,7 @@ namespace SKD.Character.Player
         {
             if (IsOwner)
             {
-                PlayerUIManger.Instance._playerUIPopUpManager.SendYouDiedPopUp();
+                PlayerUIManager.Instance._playerUIPopUpManager.SendYouDiedPopUp();
             }
 
 

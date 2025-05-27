@@ -1,4 +1,5 @@
 using SKD.Items;
+using SKD.Items.Quick_Item_Slot;
 using SKD.Items.Weapons;
 using SKD.Spells.Items;
 using SKD.World_Manager;
@@ -20,6 +21,7 @@ namespace SKD.UI.PlayerUI
         [SerializeField] Image _rightWeaponQuickSlotIcon;
         [SerializeField] Image _leftWeaponQuickSlotIcon;
         [SerializeField] Image _spellQuickSlotIcon;
+        [SerializeField] Image _quickSlotItemQuickSlotIcon;
 
         [Header("Boss Health Bar")]
         public Transform _bossHealthBarParent;
@@ -152,6 +154,32 @@ namespace SKD.UI.PlayerUI
 
             _spellQuickSlotIcon.sprite = spell._itemIcon;
             _spellQuickSlotIcon.enabled = true;
+        }
+        public void SetQuickSlotItemQuickSlotIcon(int itemID)
+        {
+            QuickSlotItem quickSlotItem = WorldItemDatabase.Instance.GetQuickSlotItemByID(itemID);
+
+            if (quickSlotItem == null)
+            {
+                Debug.Log("ITEM IS NULL");
+                _quickSlotItemQuickSlotIcon.enabled = false;
+                _quickSlotItemQuickSlotIcon.sprite = null;
+                return;
+            }
+
+            if (quickSlotItem._itemIcon == null)
+            {
+                Debug.Log("ITEM HAS NO ICON");
+                _quickSlotItemQuickSlotIcon.enabled = false;
+                _quickSlotItemQuickSlotIcon.sprite = null;
+                return;
+            }
+
+//  TO DO, UPDATE QUANTITY LEFT, SHOW IN UI
+//  FADE OUT ICON IF NONE REMAINING
+
+            _quickSlotItemQuickSlotIcon.sprite = quickSlotItem._itemIcon;
+            _quickSlotItemQuickSlotIcon.enabled = true;
         }
     }
 

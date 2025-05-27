@@ -1,9 +1,7 @@
-﻿ using SKD.Character;
-using SKD.Items;
-using System.Collections;
+﻿using SKD.Character;
 using System.Collections.Generic;
 using SKD.Items.Equipment;
-using SKD.Items.Weapon_Actions;
+using SKD.Items.Quick_Item_Slot;
 using SKD.Items.Weapons;
 using SKD.Spells.Items;
 using UnityEngine;
@@ -20,22 +18,22 @@ namespace SKD.UI.PlayerUI
         [Header("Quick Slots")]
         public WeaponItem[] _weaponInRigthHandSlots = new WeaponItem[3];
         public int _rightHandWeaponIndex;
-        [FormerlySerializedAs("_weaponInLefthHandSlot")]
         public WeaponItem[] _weaponInLefthHandSlots = new WeaponItem[3];
         public int _leftHandWeaponIndex;
         public SpellItem _currentSpell;
+        public QuickSlotItem _currentQuickSlotItem;
 
         [Header("Armor")]
         public HeadEquipmentItem _headEquipment;
         public BodyEquipmentItem _bodyEquipment;
         public LegEquipmentItem _legEquipment;
         public HandEquipmentItem _handEquipment;
-        
+
         [Header("Projectiles")]
         public RangedProjectileItem _mainProjectile;
         [FormerlySerializedAs("_Seconderyrojectile")]
         public RangedProjectileItem _seconderyrojectile;
-        
+
         [Header("Inventory")]
         public List<Item> _itemInTheInventory;
 

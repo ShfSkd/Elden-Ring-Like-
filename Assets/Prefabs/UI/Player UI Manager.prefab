@@ -5381,6 +5381,7 @@ MonoBehaviour:
   _rightWeaponQuickSlotIcon: {fileID: 3622303583566285522}
   _leftWeaponQuickSlotIcon: {fileID: 3090510111919425345}
   _spellQuickSlotIcon: {fileID: 4539118580195119190}
+  _quickSlotItemQuickSlotIcon: {fileID: 6100548134928717073}
   _bossHealthBarParent: {fileID: 5179592460543120570}
   _bossHealthBarObject: {fileID: 2554542921052333143, guid: 747003d98c1f09e44937f5987e26b2fa, type: 3}
   _crosshair: {fileID: 5446695410725999576}
@@ -7486,6 +7487,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9045797109643820413}
     m_Modifications:
+    - target: {fileID: 125061418733944224, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4405806012498109624, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
       propertyPath: m_Name
       value: Item Quick Slot UI
@@ -7592,6 +7597,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
+--- !u!114 &6100548134928717073 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5540199908454669086, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
+  m_PrefabInstance: {fileID: 1750561334653521423}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6641698741586621454 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4928965022440454657, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
@@ -8560,6 +8576,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9045797109643820413}
     m_Modifications:
+    - target: {fileID: 125061418733944224, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4405806012498109624, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
       propertyPath: m_Name
       value: 'Spell Item Quick Slot UI '

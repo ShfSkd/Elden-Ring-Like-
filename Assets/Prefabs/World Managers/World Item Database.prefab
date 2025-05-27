@@ -70,3 +70,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6829a2d6f59160848a0226de5f18516e, type: 2}
   _projectiles:
   - {fileID: 11400000, guid: 2e09caf1bf5c68e448c5b8611004e53d, type: 2}
+  _quickSlotsItem:
+  - {fileID: 11400000, guid: 7c0942c30aaa0e140b9eefd58c3c1e44, type: 2}
+  - {fileID: 11400000, guid: 6f673057ed18ace43b0302f3c19baccd, type: 2}

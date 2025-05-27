@@ -39,6 +39,7 @@ namespace SKD.Character.Player
         [SerializeField] bool _switchRightWeapon_Input;
         [SerializeField] bool _switchLeftWeapon_Input;
         [SerializeField] bool _interactInput;
+        [SerializeField] bool _useItem_Input = false;
 
         [Header("Qued Inputs")]
         private bool _input_Que_IsActive;
@@ -118,6 +119,7 @@ namespace SKD.Character.Player
                 _playerControls.PlayerActions.SwitchRightWeapon.performed += i => _switchRightWeapon_Input = true;
                 _playerControls.PlayerActions.SwitchLeftWeapon.performed += i => _switchLeftWeapon_Input = true;
                 _playerControls.PlayerActions.Interact.performed += i => _interactInput = true;
+                _playerControls.PlayerActions.X.performed += i => _useItem_Input = true;
 
                 // Bumpers
                 _playerControls.PlayerActions.RB.performed += i => _RB_Input = true;
@@ -189,6 +191,7 @@ namespace SKD.Character.Player
 
         private void HandleAllInputs()
         {
+            HandleUseItemInput();
             HandleTwoHandInput();
             HandleLockOnInput();
             HandleLockOnSwitchTargetInput();
@@ -210,6 +213,24 @@ namespace SKD.Character.Player
             HandleInteractInput();
             HandleCloseUIInputs();
             HandleOpenCharacterMenuInputs();
+        }
+        //  USE ITEM
+        private void HandleUseItemInput()
+        {
+            if (_useItem_Input)
+            {
+                _useItem_Input = false;
+
+                if (PlayerUIManager.Instance._menuWindowIsOpen)
+                    return;
+
+                if (_player._playerInventoryManager._currentQuickSlotItem != null)
+                {
+                    _player._playerInventoryManager._currentQuickSlotItem.AttemptToUseItem(_player);
+
+                    //  SEND SERVER RPC SO OUR PLAYER PERFORMS ITEM ACTION ON OTHER CLIENTS GAME WINDOWS
+                }
+            }
         }
 
         //Two Hand
@@ -428,7 +449,7 @@ namespace SKD.Character.Player
             {
                 _jumpInput = false;
                 // If we have UI window Open, simply return without doing nothing
-                if (PlayerUIManger.Instance._menuWindowIsOpen)
+                if (PlayerUIManager.Instance._menuWindowIsOpen)
                     return;
 
                 // Attempt to perform jump
@@ -552,7 +573,7 @@ namespace SKD.Character.Player
             {
                 _switchRightWeapon_Input = false;
 
-                if (PlayerUIManger.Instance._menuWindowIsOpen)
+                if (PlayerUIManager.Instance._menuWindowIsOpen)
                     return;
 
                 _player._playerEquipmentManager.SwitchRightWeapon();
@@ -565,7 +586,7 @@ namespace SKD.Character.Player
             {
                 _switchLeftWeapon_Input = false;
 
-                if (PlayerUIManger.Instance._menuWindowIsOpen)
+                if (PlayerUIManager.Instance._menuWindowIsOpen)
                     return;
 
                 _player._playerEquipmentManager.SwitchLeftWeapon();
@@ -635,9 +656,9 @@ namespace SKD.Character.Player
             {
                 _openCharcterMenuInput = false;
 
-                PlayerUIManger.Instance._playerUIPopUpManager.CloseAllPopUpsWindows();
-                PlayerUIManger.Instance.ClosAllMenuWindows();
-                PlayerUIManger.Instance._playerUICharacterMenuManager.OpenCharacterMenu();
+                PlayerUIManager.Instance._playerUIPopUpManager.CloseAllPopUpsWindows();
+                PlayerUIManager.Instance.ClosAllMenuWindows();
+                PlayerUIManager.Instance._playerUICharacterMenuManager.OpenCharacterMenu();
             }
         }
         private void HandleCloseUIInputs()
@@ -646,9 +667,9 @@ namespace SKD.Character.Player
             {
                 _closeMenuInput = false;
 
-                if (PlayerUIManger.Instance._menuWindowIsOpen)
+                if (PlayerUIManager.Instance._menuWindowIsOpen)
                 {
-                    PlayerUIManger.Instance.ClosAllMenuWindows();
+                    PlayerUIManager.Instance.ClosAllMenuWindows();
                 }
             }
         }

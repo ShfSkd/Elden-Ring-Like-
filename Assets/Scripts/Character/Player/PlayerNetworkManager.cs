@@ -4,6 +4,7 @@ using SKD.Colliders;
 using SKD.Effects;
 using SKD.Items;
 using SKD.Items.Equipment;
+using SKD.Items.Quick_Item_Slot;
 using SKD.Items.Weapon_Actions;
 using SKD.Items.Weapons;
 using SKD.Spells.Items;
@@ -26,22 +27,14 @@ namespace SKD.Character.Player
             NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
         [Header("Equipment")]
-        public NetworkVariable<int> _currentWeaponBeingUsed =
-            new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-
-        public NetworkVariable<int> _currentRightHandWeaponID = new NetworkVariable<int>(0,
-            NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-
-        public NetworkVariable<int> _currentLeftWeaponID = new NetworkVariable<int>(0,
-            NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-
-        public NetworkVariable<bool> _isUsingRightHand = new NetworkVariable<bool>(false,
-            NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<int> _currentWeaponBeingUsed = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<int> _currentRightHandWeaponID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<int> _currentLeftWeaponID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<bool> _isUsingRightHand = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> _currentSpellID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-
-        public NetworkVariable<bool> _isUsingLeftHand = new NetworkVariable<bool>(false,
-            NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-
+        public NetworkVariable<bool> _isUsingLeftHand = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<int> _currentQuickSlotItemID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        
         [Header("Two Handed Weapons")]
         public NetworkVariable<int> _currentWeaponBeingTwoHanded = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<bool> _isTwoHandingWeapon = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
@@ -91,19 +84,19 @@ namespace SKD.Character.Player
         public void SetNewMaxHealthValue(int oldVitality, int newVitality)
         {
             _maxHealth.Value = _player._playerStatsManager.CalculateHealthBasedOnVitalityLevel(newVitality);
-            PlayerUIManger.Instance._playerUIHUDManager.SetMaxHealthValue(_maxHealth.Value);
+            PlayerUIManager.Instance._playerUIHUDManager.SetMaxHealthValue(_maxHealth.Value);
             _currentHealth.Value = _maxHealth.Value;
         }
         public void SetNewMaxFocusPointsValue(int oldMind, int newMind)
         {
             _maxFocusPoints.Value = _player._playerStatsManager.CalculateFucosPointsBasedOnMindLevel(newMind);
-            PlayerUIManger.Instance._playerUIHUDManager.SetMaxFocusPointsValue(_maxFocusPoints.Value);
+            PlayerUIManager.Instance._playerUIHUDManager.SetMaxFocusPointsValue(_maxFocusPoints.Value);
             _currentFocusPoints.Value = _maxFocusPoints.Value;
         }
         public void SetNewMaxStaminaValue(int oldEndurance, int newEndurance)
         {
             _maxStamina.Value = _player._playerStatsManager.CalculateStaminaBasedOnEnduraceLevel(newEndurance);
-            PlayerUIManger.Instance._playerUIHUDManager.SetMaxStaminaValue(_maxStamina.Value);
+            PlayerUIManager.Instance._playerUIHUDManager.SetMaxStaminaValue(_maxStamina.Value);
             _currentStamina.Value = _maxStamina.Value;
         }
         public void OnCurrentRightHandWeaponIDChange(int oldId, int newId)
@@ -114,7 +107,7 @@ namespace SKD.Character.Player
 
             if (_player.IsOwner)
             {
-                PlayerUIManger.Instance._playerUIHUDManager.SetRightWeaponQuickSlotIcon(newId);
+                PlayerUIManager.Instance._playerUIHUDManager.SetRightWeaponQuickSlotIcon(newId);
             }
         }
         public void OnCurrentSpellIDChange(int oldId, int newId)
@@ -129,10 +122,26 @@ namespace SKD.Character.Player
                 _player._playerInventoryManager._currentSpell = newSpell;
 
                 if (_player.IsOwner)
-                    PlayerUIManger.Instance._playerUIHUDManager.SetSpellItemQuickSlotIcon(newId);
+                    PlayerUIManager.Instance._playerUIHUDManager.SetSpellItemQuickSlotIcon(newId);
             }
 
 
+        }
+        
+        public void OnCurrentQuickSlotItemIDChange(int oldID, int newID)
+        {
+            QuickSlotItem newQuickSlotItem = null;
+
+            if (WorldItemDatabase.Instance.GetQuickSlotItemByID(newID))
+                newQuickSlotItem = Instantiate(WorldItemDatabase.Instance.GetQuickSlotItemByID(newID));
+
+            if (newQuickSlotItem != null)
+            {
+                _player._playerInventoryManager._currentQuickSlotItem = newQuickSlotItem;
+
+                if (_player.IsOwner)
+                    PlayerUIManager.Instance._playerUIHUDManager.SetQuickSlotItemQuickSlotIcon(newID);
+            }
         }
         public void OnMainProjectileIDChange(int oldId, int newId)
         {
@@ -174,7 +183,7 @@ namespace SKD.Character.Player
                 PlayerCamera.Instance._cameraObject.fieldOfView = 60;
                 PlayerCamera.Instance._cameraObject.nearClipPlane = 0.3f;
                 PlayerCamera.Instance._cameraPivotTransform.localPosition = new Vector3(0, PlayerCamera.Instance._cameraPivotYPositionOffset, 0);
-                PlayerUIManger.Instance._playerUIHUDManager._crosshair.SetActive(false);
+                PlayerUIManager.Instance._playerUIHUDManager._crosshair.SetActive(false);
             }
             else
             {
@@ -183,7 +192,7 @@ namespace SKD.Character.Player
                 PlayerCamera.Instance._cameraObject.fieldOfView = 40;
                 PlayerCamera.Instance._cameraObject.nearClipPlane = 1.3f;
                 PlayerCamera.Instance._cameraPivotTransform.localPosition = Vector3.zero;
-                PlayerUIManger.Instance._playerUIHUDManager._crosshair.SetActive(true);
+                PlayerUIManager.Instance._playerUIHUDManager._crosshair.SetActive(true);
 
             }
         }
@@ -199,7 +208,7 @@ namespace SKD.Character.Player
 
             if (_player.IsOwner)
             {
-                PlayerUIManger.Instance._playerUIHUDManager.SetLeftWeaponQuickSlotIcon(newId);
+                PlayerUIManager.Instance._playerUIHUDManager.SetLeftWeaponQuickSlotIcon(newId);
             }
         }
         public void OnCurrentWeaponBeingUsedIDChange(int oldId, int newId)
@@ -469,7 +478,7 @@ namespace SKD.Character.Player
         private void PerformReleaseProjectileFromRpc(int projectileID, float xPosition, float yPosition, float zPosition, float yCharacterRotation)
         {
             RangedProjectileItem projectileItem = null;
-            
+
             // The projectile we are firing 
             if (WorldItemDatabase.Instance.GetProjectileByID(projectileID) != null)
             {
@@ -483,7 +492,7 @@ namespace SKD.Character.Player
             GameObject projectileGameObject = null;
             Rigidbody projectileRigidbody = null;
             RangedProjectileDamageCollider projectileDamageCollider = null;
-            
+
             projectileInstantiationLocation = _player._playerCombatManager._lockOnTransform;
             projectileGameObject = Instantiate(projectileItem._releaseProjectileModel, projectileInstantiationLocation);
             projectileDamageCollider = projectileGameObject.GetComponent<RangedProjectileDamageCollider>();

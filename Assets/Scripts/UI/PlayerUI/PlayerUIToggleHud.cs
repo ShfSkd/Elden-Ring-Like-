@@ -7,12 +7,12 @@ namespace SKD.UI.PlayerUI
         void OnEnable()
         {
             // Hide the HUD
-            PlayerUIManger.Instance._playerUIHUDManager.ToggleHud(false);
+            PlayerUIManager.Instance._playerUIHUDManager.ToggleHud(false);
         }
         void OnDisable()
         {
             // Being the HUD back
-            PlayerUIManger.Instance._playerUIHUDManager.ToggleHud(true);
+            PlayerUIManager.Instance._playerUIHUDManager.ToggleHud(true);
 
         }
     }

@@ -39,11 +39,11 @@ namespace SKD.UI.PlayerUI
             _popUpMessageGameObject.SetActive(false);
             _itemPopUPGameObject.SetActive(false);
 
-            PlayerUIManger.Instance._popUpWindowIsOpen = false;
+            PlayerUIManager.Instance._popUpWindowIsOpen = false;
         }
         public void SendPlayerMessagePopUp(string messageText)
         {
-            PlayerUIManger.Instance._popUpWindowIsOpen = true;
+            PlayerUIManager.Instance._popUpWindowIsOpen = true;
             _popUpMessageText.text = messageText;
             _popUpMessageGameObject.SetActive(true);
 
@@ -60,7 +60,7 @@ namespace SKD.UI.PlayerUI
                 _itemAmount.text = "x" + amount;
             }
             _itemPopUPGameObject.SetActive(true);
-            PlayerUIManger.Instance._popUpWindowIsOpen = true;
+            PlayerUIManager.Instance._popUpWindowIsOpen = true;
         }
         public void SendYouDiedPopUp()
         {

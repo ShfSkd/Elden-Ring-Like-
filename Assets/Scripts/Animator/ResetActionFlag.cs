@@ -6,7 +6,7 @@ public class ResetActionFlag : StateMachineBehaviour
 {
     CharacterManager _character;
     //OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    public override void OnStateEnter(UnityEngine.Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (_character == null)
         {
@@ -25,6 +25,9 @@ public class ResetActionFlag : StateMachineBehaviour
         
         if(_character._characterEffectsManager._activeSpellWarmUpFX!=null)
             Destroy(_character._characterEffectsManager._activeSpellWarmUpFX);
+        
+        if (_character._characterEffectsManager._activeQuickSlotItemFX != null)
+            Destroy(_character._characterEffectsManager._activeQuickSlotItemFX);
 
         if (_character.IsOwner)
         {

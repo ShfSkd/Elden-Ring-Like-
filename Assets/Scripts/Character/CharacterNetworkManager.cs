@@ -448,6 +448,9 @@ namespace SKD.Character
 
             if (_character._characterEffectsManager._activeDrawnProjectileFX != null)
                 Destroy(_character._characterEffectsManager._activeDrawnProjectileFX);
+            
+            if (_character._characterEffectsManager._activeQuickSlotItemFX != null)
+                Destroy(_character._characterEffectsManager._activeQuickSlotItemFX);
         }
     }
 }

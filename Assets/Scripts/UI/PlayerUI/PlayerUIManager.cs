@@ -5,9 +5,9 @@ using UnityEngine.Serialization;
 
 namespace SKD.UI.PlayerUI
 {
-    public class PlayerUIManger : MonoBehaviour
+    public class PlayerUIManager : MonoBehaviour
     {
-        public static PlayerUIManger Instance;
+        public static PlayerUIManager Instance;
 
         [Header("Network Join")]
         [SerializeField] bool startGameAsClient;

@@ -110,7 +110,7 @@ namespace SKD.Items
             // 2. Add item to inventory
             player._playerInventoryManager.AddItemsToInventory(_item);
             // 3. Display a UI pop up showing item's name and picture 
-            PlayerUIManger.Instance._playerUIPopUpManager.SendItemPopUp(_item, 1);
+            PlayerUIManager.Instance._playerUIPopUpManager.SendItemPopUp(_item, 1);
 
             // 4. Save loot status
             if (_pickUpType == ItemPickUpType.WorldSpawn)

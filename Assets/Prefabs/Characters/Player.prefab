@@ -1859,6 +1859,8 @@ MonoBehaviour:
     m_InternalValue: 0
   _isUsingLeftHand:
     m_InternalValue: 0
+  _currentQuickSlotItemID:
+    m_InternalValue: 0
   _currentWeaponBeingTwoHanded:
     m_InternalValue: 0
   _isTwoHandingWeapon:
@@ -2028,6 +2030,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _activeSpellWarmUpFX: {fileID: 0}
   _activeDrawnProjectileFX: {fileID: 0}
+  _activeQuickSlotItemFX: {fileID: 0}
   _bloodSplatterVFX: {fileID: 3548738708314695399, guid: 13bdfb963274d4742a1e33fd72088c6b, type: 3}
   _criticalBloodSplatterVFX: {fileID: 8454313792392851383, guid: 53324987e073f464fad339a8ade67518, type: 3}
   _staticEffectsList: []
@@ -2048,12 +2051,16 @@ MonoBehaviour:
   _currentTwoHandWeapon: {fileID: 0}
   _weaponInRigthHandSlots:
   - {fileID: 11400000, guid: d55ff151205efd449ba3fdd0f79bb70e, type: 2}
-  - {fileID: 11400000, guid: d55ff151205efd449ba3fdd0f79bb70e, type: 2}
-  _rightHandWeaponIndex: 1
+  - {fileID: 11400000, guid: 14c3281558bbad84baaefea5fb58e2cf, type: 2}
+  - {fileID: 11400000, guid: 8e5375d83986e634ab25c2bfe42a5769, type: 2}
+  _rightHandWeaponIndex: 3
   _weaponInLefthHandSlots:
-  - {fileID: 11400000, guid: d55ff151205efd449ba3fdd0f79bb70e, type: 2}
-  _leftHandWeaponIndex: 4
-  _currentSpell: {fileID: 11400000, guid: 53deade270e05ce409e1b2fcb95c0d75, type: 2}
+  - {fileID: 11400000, guid: 14c3281558bbad84baaefea5fb58e2cf, type: 2}
+  - {fileID: 11400000, guid: 14c3281558bbad84baaefea5fb58e2cf, type: 2}
+  - {fileID: 11400000, guid: 14c3281558bbad84baaefea5fb58e2cf, type: 2}
+  _leftHandWeaponIndex: 3
+  _currentSpell: {fileID: 11400000, guid: 6829a2d6f59160848a0226de5f18516e, type: 2}
+  _currentQuickSlotItem: {fileID: 11400000, guid: 7c0942c30aaa0e140b9eefd58c3c1e44, type: 2}
   _headEquipment: {fileID: 0}
   _bodyEquipment: {fileID: 0}
   _legEquipment: {fileID: 0}

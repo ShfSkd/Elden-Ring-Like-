@@ -19,7 +19,7 @@ namespace SKD.Character
         [Header("Flags")]
         public bool _applyRootMotion = false;
 
-        [Header("Damage Animations")] 
+        [Header("Damage Animations")]
         public string _lastDamageAnimationPlayed;
 
         [Header("Ping Damage Animations")]
@@ -42,7 +42,7 @@ namespace SKD.Character
         public List<string> _right_Ping_damage_List;
         public List<string> _backeard_Ping_damage_List;
 
-        [Header("Medium Damage Animations")] 
+        [Header("Medium Damage Animations")]
         [SerializeField] string _hit_Forward_Medium_01 = "Hit_Forward_Medium_01";
 
         [SerializeField] string _hit_Forward_Medium_02 = "Hit_Forward_Medium_02";
@@ -83,7 +83,7 @@ namespace SKD.Character
 
             _right_Medium_damage_List.Add(_hit_Right_Medium_01);
             _right_Medium_damage_List.Add(_hit_Right_Medium_02);
-            
+
             // Ping
             _forward_Ping_Damage_List.Add(_hit_Forward_Ping_01);
             _forward_Ping_Damage_List.Add(_hit_Forward_Ping_02);
@@ -179,7 +179,8 @@ namespace SKD.Character
             bool isPerformingAction,
             bool applyRootMotion = true,
             bool canRotate = false,
-            bool canMove = false)
+            bool canMove = false,
+            bool canRun = true)
         {
             _applyRootMotion = applyRootMotion;
             _character._characterAnimationManager._applyRootMotion = applyRootMotion;
@@ -202,7 +203,8 @@ namespace SKD.Character
             bool isPerformingAction,
             bool applyRootMotion = true,
             bool canRotate = false,
-            bool canMove = false)
+            bool canMove = false,
+            bool canRun = true)
         {
             _applyRootMotion = applyRootMotion;
             _character._characterAnimationManager._applyRootMotion = applyRootMotion;
@@ -224,7 +226,8 @@ namespace SKD.Character
             bool isPerformingAction,
             bool applyRootMotion = true,
             bool canRotate = false,
-            bool canMove = false)
+            bool canMove = false,
+            bool canRun = true)
         {
             // Keep track of the last attack perform(for combos)
             // Keep track of current attack type(light,heavy,etc)
@@ -244,11 +247,11 @@ namespace SKD.Character
             _character._characterNetworkManager.NotifyTheServerOfActionAttackAnimationServerRpc(
                 NetworkManager.Singleton.LocalClientId, targetAnimationName, applyRootMotion);
         }
-   
+
         public void UpdateAnimatorController(AnimatorOverrideController weaponController)
         {
             _character._animator.runtimeAnimatorController = weaponController;
         }
-   
+
     }
 }

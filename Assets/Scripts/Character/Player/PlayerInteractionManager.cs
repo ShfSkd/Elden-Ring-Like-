@@ -26,7 +26,7 @@ namespace SKD.Character.Player
                 return;
 
             // If the UI menu is not open and also the UI pop up check for interactable 
-            if (!PlayerUIManger.Instance._menuWindowIsOpen && !PlayerUIManger.Instance._popUpWindowIsOpen)
+            if (!PlayerUIManager.Instance._menuWindowIsOpen && !PlayerUIManager.Instance._popUpWindowIsOpen)
             {
                 CheackForInteractable();
             }
@@ -46,7 +46,7 @@ namespace SKD.Character.Player
 
             // If we have an interactable action and have not modify the player ,we do it here
             if (_currentInteractableAction[0] != null)
-                PlayerUIManger.Instance._playerUIPopUpManager.SendPlayerMessagePopUp(_currentInteractableAction[0]._interactableText);
+                PlayerUIManager.Instance._playerUIPopUpManager.SendPlayerMessagePopUp(_currentInteractableAction[0]._interactableText);
         }
         private void RefreshInteractionList()
         {
@@ -59,7 +59,7 @@ namespace SKD.Character.Player
         public void Interact()
         {
             // If we press the interact button with or without an interactable, if will clear the pop up windows (item pick up, messages, etc)
-            PlayerUIManger.Instance._playerUIPopUpManager.CloseAllPopUpsWindows();
+            PlayerUIManager.Instance._playerUIPopUpManager.CloseAllPopUpsWindows();
             
             if (_currentInteractableAction.Count == 0)
                 return;

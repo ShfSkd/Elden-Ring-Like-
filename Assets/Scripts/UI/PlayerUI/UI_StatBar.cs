@@ -38,7 +38,7 @@ namespace SKD.UI.PlayerUI
                 _rectTransform.sizeDelta = new Vector2(maxValue * _widthScaleMultiplier, _rectTransform.sizeDelta.y);
 
                 // Reset the position of the bars based on their layout group's settings
-                PlayerUIManger.Instance._playerUIHUDManager.RefreshHUD();
+                PlayerUIManager.Instance._playerUIHUDManager.RefreshHUD();
             }
         }
     }

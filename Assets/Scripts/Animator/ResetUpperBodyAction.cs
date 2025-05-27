@@ -1,27 +1,36 @@
+using SKD.Character.Player;
 using UnityEngine;
-namespace Skd.Animator
+
+public class ResetUpperBodyAction : StateMachineBehaviour
 {
-    public class ResetUpperBodyAction : StateMachineBehaviour
+    PlayerManager _player;
+    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        public override void OnStateEnter(UnityEngine.Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-        {
-            
-        }
+        if (_player == null)
+            _player = animator.GetComponent<PlayerManager>();
 
-        /*public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-        {
-        }
+        if (_player == null)
+            return;
 
-        public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-        {
-        }
+        if (_player._playerEffectsManager._activeQuickSlotItemFX != null)
+            Destroy(_player._playerEffectsManager._activeQuickSlotItemFX);
 
-        public override void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-        {
-        }
-
-        public override void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-        {
-        }*/
+        _player._playerLocomotionManager._canRun = true;
     }
+
+    /*public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+    }
+
+    public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+    }
+
+    public override void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+    }
+
+    public override void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+    }*/
 }

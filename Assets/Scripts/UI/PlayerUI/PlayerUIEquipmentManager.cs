@@ -65,7 +65,7 @@ namespace SKD.UI.PlayerUI
         }
         public void OpenEquipmentManagerMenu()
         {
-            PlayerUIManger.Instance._menuWindowIsOpen = true;
+            PlayerUIManager.Instance._menuWindowIsOpen = true;
             ToggleEquipmentButtons(true);
             _menu.SetActive(true);
             _equipmentInventoryWindow.SetActive(false);
@@ -143,7 +143,7 @@ namespace SKD.UI.PlayerUI
         }
         public void CloseEquipmentManagerMenu()
         {
-            PlayerUIManger.Instance._menuWindowIsOpen = false;
+            PlayerUIManager.Instance._menuWindowIsOpen = false;
             _menu.SetActive(false);
         }
         private void RefreshEquipmentSlotIcons()
