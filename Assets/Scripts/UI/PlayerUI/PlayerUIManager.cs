@@ -16,6 +16,8 @@ namespace SKD.UI.PlayerUI
         [HideInInspector] public PlayerUIPopUpManager _playerUIPopUpManager;
         [HideInInspector] public PlayerUICharacterMenuManager _playerUICharacterMenuManager;
         [HideInInspector] public PlayerUIEquipmentManager _playerUIEquipmentManager;
+        [HideInInspector] public PlayerUISiteOfGraceManager _playerUISiteOfGraceManager;
+        [HideInInspector] public PlayerUITeleportLocationManager _playerUITeleportLocationManager;
 
         [Header("UI Flags")]
         public bool _menuWindowIsOpen;// Inventory Screen , Equipment menu, Shop,etc.
@@ -32,6 +34,8 @@ namespace SKD.UI.PlayerUI
             _playerUIPopUpManager = GetComponentInChildren<PlayerUIPopUpManager>();
             _playerUICharacterMenuManager = GetComponentInChildren<PlayerUICharacterMenuManager>();
             _playerUIEquipmentManager = GetComponentInChildren<PlayerUIEquipmentManager>();
+            _playerUISiteOfGraceManager = GetComponentInChildren<PlayerUISiteOfGraceManager>();
+            _playerUITeleportLocationManager = GetComponentInChildren<PlayerUITeleportLocationManager>();
         }
         private void Start()
         {
@@ -52,6 +56,8 @@ namespace SKD.UI.PlayerUI
         {
             _playerUICharacterMenuManager.CloseCharacterMenu();
             _playerUIEquipmentManager.CloseEquipmentManagerMenu();
+            _playerUISiteOfGraceManager.CloseSiteOfGraceManagerMenu();
+            _playerUITeleportLocationManager.CloseTeleportLocationMenu();
         }
     }
 

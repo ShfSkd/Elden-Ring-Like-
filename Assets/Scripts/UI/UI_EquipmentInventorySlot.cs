@@ -3,6 +3,7 @@ using SKD.Items.Weapons;
 using SKD.Character.Player;
 using SKD.Items;
 using SKD.Items.Equipment;
+using SKD.Items.Quick_Item_Slot;
 using SKD.UI.PlayerUI;
 using SKD.World_Manager;
 using Unity.Netcode;
@@ -16,7 +17,7 @@ namespace SKD.UI
         public Image _highlightedIcon;
         [SerializeField] public Item _currentItem;
 
-        public void Additem(Item item)
+        public void AddItem(Item item)
         {
             if (item == null)
             {
@@ -38,7 +39,7 @@ namespace SKD.UI
             _highlightedIcon.enabled = false;
         }
 
-        public void EquipeItem()
+        public void EquipItem()
         {
             PlayerManager player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerManager>();
             Item equippedtItem;
@@ -100,7 +101,7 @@ namespace SKD.UI
                     player._playerInventoryManager.RemoveItemFromInventory(_currentItem);
 
                     if (player._playerInventoryManager._leftHandWeaponIndex == 0)
-                        player._playerNetworkManager._currentLeftWeaponID.Value = _currentItem._itemID;
+                        player._playerNetworkManager._currentLeftHandWeaponID.Value = _currentItem._itemID;
 
                     PlayerUIManager.Instance._playerUIEquipmentManager.RefreshMenu();
                     break;
@@ -115,7 +116,7 @@ namespace SKD.UI
                     player._playerInventoryManager.RemoveItemFromInventory(_currentItem);
 
                     if (player._playerInventoryManager._leftHandWeaponIndex == 1)
-                        player._playerNetworkManager._currentLeftWeaponID.Value = _currentItem._itemID;
+                        player._playerNetworkManager._currentLeftHandWeaponID.Value = _currentItem._itemID;
 
                     PlayerUIManager.Instance._playerUIEquipmentManager.RefreshMenu();
                     break;
@@ -133,12 +134,75 @@ namespace SKD.UI
 
                     // Re-equip new weapon if we are holding the current weapon uin this slot (if you change weapon 3, and you are holding right weapon 1 nothing would happen here)
                     if (player._playerInventoryManager._leftHandWeaponIndex == 2)
-                        player._playerNetworkManager._currentLeftWeaponID.Value = _currentItem._itemID;
+                        player._playerNetworkManager._currentLeftHandWeaponID.Value = _currentItem._itemID;
 
                     // Refresh equipment window
                     PlayerUIManager.Instance._playerUIEquipmentManager.RefreshMenu();
                     break;
+                case EquipmentType.MainProjectile:
+                    equippedtItem = player._playerInventoryManager._mainProjectile;
 
+                    if (equippedtItem != null)
+                        player._playerInventoryManager.AddItemsToInventory(equippedtItem);
+
+                    player._playerInventoryManager._mainProjectile = _currentItem as RangedProjectileItem;
+                    player._playerInventoryManager.RemoveItemFromInventory(_currentItem);
+                    player._playerEquipmentManager.LoadMainProjectileEquipment(player._playerInventoryManager._mainProjectile);
+                    PlayerUIManager.Instance._playerUIEquipmentManager.RefreshMenu();
+                    break;
+                case EquipmentType.SecondaryProjectile:
+                    equippedtItem = player._playerInventoryManager._secondaryProjectile;
+
+                    if (equippedtItem != null)
+                        player._playerInventoryManager.AddItemsToInventory(equippedtItem);
+
+                    player._playerInventoryManager._secondaryProjectile = _currentItem as RangedProjectileItem;
+                    player._playerInventoryManager.RemoveItemFromInventory(_currentItem);
+                    player._playerEquipmentManager.LoadSecondaryProjectileEquipment(player._playerInventoryManager._secondaryProjectile);
+                    PlayerUIManager.Instance._playerUIEquipmentManager.RefreshMenu();
+                    break;
+                case EquipmentType.QuickSlot01:
+                    equippedtItem = player._playerInventoryManager._quickSlotItemInQuickSlots[0];
+
+                    if (equippedtItem != null)
+                        player._playerInventoryManager.AddItemsToInventory(equippedtItem);
+
+                    player._playerInventoryManager._quickSlotItemInQuickSlots[0] = _currentItem as QuickSlotItem;
+                    player._playerInventoryManager.RemoveItemFromInventory(_currentItem);
+
+                    if (player._playerInventoryManager._quickSlotItemIndex == 0)
+                        player._playerNetworkManager._currentQuickSlotItemID.Value = _currentItem._itemID;
+
+                    PlayerUIManager.Instance._playerUIEquipmentManager.RefreshMenu();
+                    break;
+                case EquipmentType.QuickSlot02:
+                    equippedtItem = player._playerInventoryManager._quickSlotItemInQuickSlots[1];
+
+                    if (equippedtItem != null)
+                        player._playerInventoryManager.AddItemsToInventory(equippedtItem);
+
+                    player._playerInventoryManager._quickSlotItemInQuickSlots[1] = _currentItem as QuickSlotItem;
+                    player._playerInventoryManager.RemoveItemFromInventory(_currentItem);
+
+                    if (player._playerInventoryManager._quickSlotItemIndex == 1)
+                        player._playerNetworkManager._currentQuickSlotItemID.Value = _currentItem._itemID;
+
+                    PlayerUIManager.Instance._playerUIEquipmentManager.RefreshMenu();
+                    break;
+                case EquipmentType.QuickSlot03:
+                    equippedtItem = player._playerInventoryManager._quickSlotItemInQuickSlots[2];
+
+                    if (equippedtItem != null)
+                        player._playerInventoryManager.AddItemsToInventory(equippedtItem);
+
+                    player._playerInventoryManager._quickSlotItemInQuickSlots[2] = _currentItem as QuickSlotItem;
+                    player._playerInventoryManager.RemoveItemFromInventory(_currentItem);
+
+                    if (player._playerInventoryManager._quickSlotItemIndex == 2)
+                        player._playerNetworkManager._currentQuickSlotItemID.Value = _currentItem._itemID;
+
+                    PlayerUIManager.Instance._playerUIEquipmentManager.RefreshMenu();
+                    break;
                 case EquipmentType.Head:
 
                     // If our Current Equipment is this slot, is not a null item, add it to our inventory

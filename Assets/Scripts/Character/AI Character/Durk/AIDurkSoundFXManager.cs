@@ -18,12 +18,12 @@ namespace SKD.Character.AI_Character.Durk
         public virtual void PlayClubImpactSFX()
         {
             if(_clubImpacts.Length > 0) 
-                PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(_clubImpacts));
+                PlaySoundFX(WorldSoundFXManager.Instance.ChooseRandomSFXFromArray(_clubImpacts));
         }
         public virtual void PlayStompImpact()
         {
             if (_stompImpacts.Length > 0)
-                PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(_stompImpacts));
+                PlaySoundFX(WorldSoundFXManager.Instance.ChooseRandomSFXFromArray(_stompImpacts));
         }
     }
 } 

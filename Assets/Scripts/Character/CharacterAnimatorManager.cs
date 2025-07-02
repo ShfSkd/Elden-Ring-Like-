@@ -180,10 +180,10 @@ namespace SKD.Character
             bool applyRootMotion = true,
             bool canRotate = false,
             bool canMove = false,
-            bool canRun = true)
+            bool canRun = true,
+            bool canRoll = false)
         {
             _applyRootMotion = applyRootMotion;
-            _character._characterAnimationManager._applyRootMotion = applyRootMotion;
 
             _character._animator.CrossFade(targetAnimationName, 0.2f);
             // Can be used to stop character from attempting new actions
@@ -192,7 +192,8 @@ namespace SKD.Character
             _character._isPerformingAction = isPerformingAction;
             _character._characterLocomotionManager._canRotate = canRotate;
             _character._characterLocomotionManager._canMove = canMove;
-            _character._characterNetworkManager._isAttacking.Value = true;
+            _character._characterLocomotionManager._canRun = canRun;
+            _character._characterLocomotionManager._canRun = canRoll;
 
             // Tell the server/host we played an animation, and to play that animation for everybody else present
             _character._characterNetworkManager.NotifyTheServerofActionAnimationServerRpc(
@@ -204,11 +205,10 @@ namespace SKD.Character
             bool applyRootMotion = true,
             bool canRotate = false,
             bool canMove = false,
-            bool canRun = true)
+            bool canRun = true,
+            bool canRoll = false)
         {
             _applyRootMotion = applyRootMotion;
-            _character._characterAnimationManager._applyRootMotion = applyRootMotion;
-
             _character._animator.Play(targetAnimationName);
             // Can be used to stop character from attempting new actions
             // for example:If you get damaged, and begin performing a damage animation this flag will turn true if you are stunned  
@@ -216,6 +216,8 @@ namespace SKD.Character
             _character._isPerformingAction = isPerformingAction;
             _character._characterLocomotionManager._canRotate = canRotate;
             _character._characterLocomotionManager._canMove = canMove;
+            _character._characterLocomotionManager._canRun = canRun;
+            _character._characterLocomotionManager._canRoll = canRoll;
 
             // Tell the server/host we played an animation, and to play that animation for everybody else present
             _character._characterNetworkManager.NotifyTheServerOfInstantActionAttackAnimationServerRpc(
@@ -227,8 +229,9 @@ namespace SKD.Character
             bool applyRootMotion = true,
             bool canRotate = false,
             bool canMove = false,
-            bool canRun = true)
+            bool canRoll = false)
         {
+            this._applyRootMotion = applyRootMotion;
             // Keep track of the last attack perform(for combos)
             // Keep track of current attack type(light,heavy,etc)
             // Update animation set to current weapons animations
@@ -237,11 +240,13 @@ namespace SKD.Character
             _character._characterCombatManager._currentAttackType = attackType;
             _character._characterCombatManager._lastAttackAnimationPerformed = targetAnimationName;
             UpdateAnimatorController(weapon._weaponAnimator);
-            _character._characterAnimationManager._applyRootMotion = applyRootMotion;
+            
             _character._animator.CrossFade(targetAnimationName, 0.2f);
             _character._isPerformingAction = isPerformingAction;
             _character._characterLocomotionManager._canRotate = canRotate;
             _character._characterLocomotionManager._canMove = canMove;
+            _character._characterLocomotionManager._canRoll = canRoll;
+            _character._characterNetworkManager._isAttacking.Value = true;
 
             // Tell the server/host we played an animation, and to play that animation for everybody else present
             _character._characterNetworkManager.NotifyTheServerOfActionAttackAnimationServerRpc(

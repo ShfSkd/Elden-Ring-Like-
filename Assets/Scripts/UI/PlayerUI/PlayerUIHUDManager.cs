@@ -1,8 +1,12 @@
+using SKD.Character.Player;
 using SKD.Items;
+using SKD.Items.Equipment;
 using SKD.Items.Quick_Item_Slot;
 using SKD.Items.Weapons;
 using SKD.Spells.Items;
 using SKD.World_Manager;
+using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,11 +26,17 @@ namespace SKD.UI.PlayerUI
         [SerializeField] Image _leftWeaponQuickSlotIcon;
         [SerializeField] Image _spellQuickSlotIcon;
         [SerializeField] Image _quickSlotItemQuickSlotIcon;
+        [SerializeField] TextMeshProUGUI _quickSlotItemCountText;
+        [SerializeField] GameObject _projectileQuickSlotsGameObject;
+        [SerializeField] Image _mainProjectileQuickSlotIcon;
+        [SerializeField] TextMeshProUGUI _mainProjectileCountText;
+        [SerializeField] Image _secondaryProjectileQuickSlotIcon;
+        [SerializeField] TextMeshProUGUI _secondaryProjectileCountText;
 
         [Header("Boss Health Bar")]
         public Transform _bossHealthBarParent;
         public GameObject _bossHealthBarObject;
-        
+
         [Header("Crosshair")]
         public GameObject _crosshair;
 
@@ -54,7 +64,7 @@ namespace SKD.UI.PlayerUI
 
             _staminaBar.gameObject.SetActive(false);
             _staminaBar.gameObject.SetActive(true);
-            
+
             _focusPointBar.gameObject.SetActive(false);
             _focusPointBar.gameObject.SetActive(true);
 
@@ -137,8 +147,8 @@ namespace SKD.UI.PlayerUI
             if (spell == null)
             {
                 Debug.Log("Spell is Null");
-              _spellQuickSlotIcon.enabled = false;
-              _spellQuickSlotIcon.sprite = null;
+                _spellQuickSlotIcon.enabled = false;
+                _spellQuickSlotIcon.sprite = null;
                 return;
             }
 
@@ -164,6 +174,7 @@ namespace SKD.UI.PlayerUI
                 Debug.Log("ITEM IS NULL");
                 _quickSlotItemQuickSlotIcon.enabled = false;
                 _quickSlotItemQuickSlotIcon.sprite = null;
+                _quickSlotItemCountText.enabled = false;
                 return;
             }
 
@@ -180,6 +191,77 @@ namespace SKD.UI.PlayerUI
 
             _quickSlotItemQuickSlotIcon.sprite = quickSlotItem._itemIcon;
             _quickSlotItemQuickSlotIcon.enabled = true;
+
+            if (quickSlotItem._isConsumable)
+            {
+                var player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerManager>();
+                _quickSlotItemCountText.text = quickSlotItem.GetCurrentAmount(player).ToString();
+                _quickSlotItemCountText.enabled = true;
+            }
+            else
+            {
+                _quickSlotItemCountText.enabled = false;
+            }
+        }
+        public void SetMainProjectileQuickSlotIcon(RangedProjectileItem projectileItem)
+        {
+            if (projectileItem == null)
+            {
+                Debug.Log("ITEM IS NULL");
+                _mainProjectileQuickSlotIcon.enabled = false;
+                _mainProjectileQuickSlotIcon.sprite = null;
+                _mainProjectileCountText.enabled = false;
+                return;
+            }
+
+            if (projectileItem._itemIcon == null)
+            {
+                Debug.Log("ITEM HAS NO ICON");
+                _mainProjectileQuickSlotIcon.enabled = false;
+                _mainProjectileQuickSlotIcon.sprite = null;
+                _mainProjectileCountText.enabled = false;
+                return;
+            }
+
+//  TO DO, UPDATE QUANTITY LEFT, SHOW IN UI
+//  FADE OUT ICON IF NONE REMAINING
+
+            _mainProjectileQuickSlotIcon.sprite = projectileItem._itemIcon;
+            _mainProjectileCountText.text = projectileItem._currentAmmoAmount.ToString();
+            _mainProjectileQuickSlotIcon.enabled = true;
+            _mainProjectileCountText.enabled = true;
+        }
+        public void SetSecondaryProjectileQuickSlotIcon(RangedProjectileItem projectileItem)
+        {
+            if (projectileItem == null)
+            {
+                Debug.Log("ITEM IS NULL");
+                _secondaryProjectileQuickSlotIcon.enabled = false;
+                _secondaryProjectileQuickSlotIcon.sprite = null;
+                _secondaryProjectileCountText.enabled = false;
+                return;
+            }
+
+            if (projectileItem._itemIcon == null)
+            {
+                Debug.Log("ITEM HAS NO ICON");
+                _secondaryProjectileQuickSlotIcon.enabled = false;
+                _secondaryProjectileQuickSlotIcon.sprite = null;
+                _secondaryProjectileCountText.enabled = true;
+                return;
+            }
+
+//  TO DO, UPDATE QUANTITY LEFT, SHOW IN UI
+//  FADE OUT ICON IF NONE REMAINING
+
+            _secondaryProjectileQuickSlotIcon.sprite = projectileItem._itemIcon;
+            _secondaryProjectileCountText.text = projectileItem._currentAmmoAmount.ToString();
+            _secondaryProjectileQuickSlotIcon.enabled = true;
+            _mainProjectileCountText.enabled = true;
+        }
+        public void ToggleProjectileQuickSlotVisibility(bool status)
+        {
+            _projectileQuickSlotsGameObject.SetActive(status);
         }
     }
 

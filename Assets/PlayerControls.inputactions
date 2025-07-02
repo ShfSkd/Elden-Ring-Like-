@@ -258,6 +258,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Switch Quick Slot Item",
+                    "type": "Button",
+                    "id": "1679a7f2-8c09-42e5-b58a-e3e910f98a46",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Seek Left Lock On Target",
                     "type": "Button",
                     "id": "830026b0-b33f-43e4-b2a8-9dbe247b1aca",
@@ -734,6 +743,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Hold LB",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ce0a2dba-0f63-4a05-b09a-98435d51460a",
+                    "path": "<Keyboard>/t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch Quick Slot Item",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3cddaf1c-ab89-47a8-8ac2-13fdb8fcc57f",
+                    "path": "<DualSenseGampadiOS>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch Quick Slot Item",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

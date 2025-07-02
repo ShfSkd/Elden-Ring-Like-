@@ -16,6 +16,19 @@ public class ResetUpperBodyAction : StateMachineBehaviour
             Destroy(_player._playerEffectsManager._activeQuickSlotItemFX);
 
         _player._playerLocomotionManager._canRun = true;
+        _player._playerEquipmentManager.UnhideWeapons();
+
+        if (_player._playerEffectsManager._activeQuickSlotItemFX != null)
+            Destroy(_player._playerEffectsManager._activeQuickSlotItemFX);
+        
+        // we check if the player is using an item 
+        if (_player._playerCombatManager._isUsingItem)
+        {
+            _player._playerCombatManager._isUsingItem = false;
+
+            if (!_player._isPerformingAction)
+                _player._playerLocomotionManager._canRoll = true;
+        }
     }
 
     /*public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

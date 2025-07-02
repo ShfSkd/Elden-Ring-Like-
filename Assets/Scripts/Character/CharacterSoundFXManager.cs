@@ -33,32 +33,32 @@ namespace SKD.Character
         }
         public void PlayRollSoundFX()
         {
-            _audioSource.PlayOneShot(WorldSoundFXManager.instance._rollSFX);
+            _audioSource.PlayOneShot(WorldSoundFXManager.Instance._rollSFX);
         }
         public virtual void PlayDamageGrunts()
         {
             if (_damageGrunts.Length > 0)
-                PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(_damageGrunts));
+                PlaySoundFX(WorldSoundFXManager.Instance.ChooseRandomSFXFromArray(_damageGrunts));
         }
         public virtual void PlayAttackGrunt()
         {
             if (_damageGrunts.Length > 0)
-                PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(_attackGrunts));
+                PlaySoundFX(WorldSoundFXManager.Instance.ChooseRandomSFXFromArray(_attackGrunts));
         }
 
         public virtual void PlayFootStepSFX()
         {
             if (_footStep.Length > 0)
-                PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray
+                PlaySoundFX(WorldSoundFXManager.Instance.ChooseRandomSFXFromArray
                     (_footStep));
         }
         public virtual void PlayStanceBreakSoundFX()
         {
-            _audioSource.PlayOneShot(WorldSoundFXManager.instance._stanceBreakSFX);
+            _audioSource.PlayOneShot(WorldSoundFXManager.Instance._stanceBreakSFX);
         }
         public void PlayCriticalStrikeSFX()
         {
-            _audioSource.PlayOneShot(WorldSoundFXManager.instance._criticalStrikeSFX);
+            _audioSource.PlayOneShot(WorldSoundFXManager.Instance._criticalStrikeSFX);
         }
         public virtual void PlayBlockingSFX()
         {

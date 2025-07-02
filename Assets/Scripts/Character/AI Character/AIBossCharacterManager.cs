@@ -185,7 +185,7 @@ namespace SKD.Character.AI_Character
         {
             if (_bossFightIsActive.Value)
             {
-                WorldSoundFXManager.instance.PlayBossTrack(_bossIntroClip, _bossLoopClip);
+                WorldSoundFXManager.Instance.PlayBossTrack(_bossIntroClip, _bossLoopClip);
 
                 // Create a HP bar for each boss that is in the fight
                 GameObject bossHealthBar =
@@ -197,7 +197,7 @@ namespace SKD.Character.AI_Character
             }
             else
             {
-                WorldSoundFXManager.instance.StopBossMusic();
+                WorldSoundFXManager.Instance.StopBossMusic();
             }
         }
         public void PhaseShift()

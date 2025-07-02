@@ -1,6 +1,7 @@
 using SKD.UI.PlayerUI;
 using SKD.WorldManager;
 using SKD.Items.Weapons;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -38,6 +39,7 @@ namespace SKD.Character.Player
         [SerializeField] bool _jumpInput;
         [SerializeField] bool _switchRightWeapon_Input;
         [SerializeField] bool _switchLeftWeapon_Input;
+        [SerializeField] bool _switchQuickSlotItem_Input;
         [SerializeField] bool _interactInput;
         [SerializeField] bool _useItem_Input = false;
 
@@ -118,6 +120,7 @@ namespace SKD.Character.Player
                 _playerControls.PlayerActions.Sprint.performed += i => _sprintInput = true;
                 _playerControls.PlayerActions.SwitchRightWeapon.performed += i => _switchRightWeapon_Input = true;
                 _playerControls.PlayerActions.SwitchLeftWeapon.performed += i => _switchLeftWeapon_Input = true;
+                _playerControls.PlayerActions.SwitchQuickSlotItem.performed += i => _switchQuickSlotItem_Input = true;
                 _playerControls.PlayerActions.Interact.performed += i => _interactInput = true;
                 _playerControls.PlayerActions.X.performed += i => _useItem_Input = true;
 
@@ -209,6 +212,7 @@ namespace SKD.Character.Player
             HandleChargeRTInput();
             HandleSwitchRightInput();
             HandleSwitchLeftInput();
+            HandleSwitchQuickSlotItemInput();
             HanleQueInputs();
             HandleInteractInput();
             HandleCloseUIInputs();
@@ -230,6 +234,9 @@ namespace SKD.Character.Player
 
                     //  SEND SERVER RPC SO OUR PLAYER PERFORMS ITEM ACTION ON OTHER CLIENTS GAME WINDOWS
                 }
+
+                _player._playerNetworkManager.NotifyServerOfQuickSlotItemServerRpc
+                    (NetworkManager.Singleton.LocalClientId, _player._playerInventoryManager._currentQuickSlotItem._itemID);
             }
         }
 
@@ -575,6 +582,12 @@ namespace SKD.Character.Player
 
                 if (PlayerUIManager.Instance._menuWindowIsOpen)
                     return;
+                
+                if(_player._isPerformingAction)
+                    return;
+                
+                if(_player._playerCombatManager._isUsingItem)
+                    return;
 
                 _player._playerEquipmentManager.SwitchRightWeapon();
             }
@@ -588,8 +601,32 @@ namespace SKD.Character.Player
 
                 if (PlayerUIManager.Instance._menuWindowIsOpen)
                     return;
+                
+                if(_player._isPerformingAction)
+                    return;
+                
+                if(_player._playerCombatManager._isUsingItem)
+                    return;
 
                 _player._playerEquipmentManager.SwitchLeftWeapon();
+            }
+        }
+        private void HandleSwitchQuickSlotItemInput()
+        {
+            if (_switchQuickSlotItem_Input)
+            {
+                _switchQuickSlotItem_Input = false;
+
+                if (PlayerUIManager.Instance._menuWindowIsOpen)
+                    return;
+                
+                if(_player._isPerformingAction)
+                    return;
+                
+                if(_player._playerCombatManager._isUsingItem)
+                    return;
+
+                _player._playerEquipmentManager.SwitchQuickSlotItem();
             }
         }
 

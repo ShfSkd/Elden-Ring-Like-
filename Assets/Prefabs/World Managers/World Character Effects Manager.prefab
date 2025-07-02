@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bloodSplatterVFX: {fileID: 3548738708314695399, guid: 13bdfb963274d4742a1e33fd72088c6b, type: 3}
   _criticalBloodSplatterVFX: {fileID: 8454313792392851383, guid: 53324987e073f464fad339a8ade67518, type: 3}
+  _healingFlaskVFX: {fileID: 786410993951286528, guid: ccb8b1c0d989de145af79c9640daa63e, type: 3}
   _takeDamageEffect: {fileID: 11400000, guid: a2600a8637ee2e5479c77ed2ba3b0184, type: 2}
   _takeBlockedDamageEffect: {fileID: 11400000, guid: 624be3bd5329f6741a764069d99acef1, type: 2}
   _takeCriticalDamageEffect: {fileID: 11400000, guid: 530b296cd9c0b2145890bbb196e52355, type: 2}

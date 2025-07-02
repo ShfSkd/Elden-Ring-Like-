@@ -10,6 +10,10 @@ namespace SKD.Items.Quick_Item_Slot
         [Header("Animations")]
         [SerializeField] protected string _useItemAnimation;
 
+        // Not all quick slot item are consumables
+        [Header("Consumable")]
+        public bool _isConsumable = true;
+
         public virtual void AttemptToUseItem(PlayerManager player)
         {
             if(!CanIUseThisItem(player))
@@ -17,10 +21,18 @@ namespace SKD.Items.Quick_Item_Slot
 
             player._playerAnimationManager.PlayTargetActionAnimation(_useItemAnimation, true);
         }
+        public virtual void SuccessfullyUseItem(PlayerManager player)
+        {
+           
+        }
 
         public virtual bool CanIUseThisItem(PlayerManager player)
         {
             return true;
+        }
+        public virtual int GetCurrentAmount(PlayerManager player)
+        {
+            return 0;
         }
     }
 }

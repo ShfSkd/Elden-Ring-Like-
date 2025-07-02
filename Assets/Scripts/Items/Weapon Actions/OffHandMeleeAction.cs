@@ -12,8 +12,12 @@ namespace SKD.Items.Weapon_Actions
         public override void AttemptToPerformedAction(PlayerManager playerPerformingAction, WeaponItem weaponPerformingAction)
         {
             base.AttemptToPerformedAction(playerPerformingAction, weaponPerformingAction);
-
+            
             if (!playerPerformingAction._playerCombatManager._canBlock)
+                return;
+            
+            // If we are using an item, return
+            if (playerPerformingAction._playerCombatManager._isUsingItem)
                 return;
 
             // Check for attack statues 

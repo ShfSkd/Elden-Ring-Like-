@@ -16,6 +16,10 @@ namespace SKD.Items.Weapon_Actions
 
             if (!playerPerformingAction.IsOwner)
                 return;
+            
+            // If we are using an item, return
+            if (playerPerformingAction._playerCombatManager._isUsingItem)
+                return;
 
             if (playerPerformingAction._playerNetworkManager._currentStamina.Value <= 0)
                 return;
@@ -27,7 +31,7 @@ namespace SKD.Items.Weapon_Actions
                     projectileItem = playerPerformingAction._playerInventoryManager._mainProjectile;
                     break;
                 case ProjectileSlot.Secondary:
-                    projectileItem = playerPerformingAction._playerInventoryManager._seconderyrojectile;
+                    projectileItem = playerPerformingAction._playerInventoryManager._secondaryProjectile;
                     break;
                 default:
                     break;

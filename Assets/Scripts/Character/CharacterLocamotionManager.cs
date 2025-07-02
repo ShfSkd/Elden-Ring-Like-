@@ -23,6 +23,7 @@ namespace SKD.Character
         public bool _canMove = true;
         public bool _canRun = true;
         public bool _isGrounded = true;
+        public bool _canRoll = true;
         protected virtual void Awake()
         {
             _characterManger = GetComponent<CharacterManager>();

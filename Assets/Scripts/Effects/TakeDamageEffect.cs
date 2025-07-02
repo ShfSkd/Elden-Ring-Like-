@@ -133,7 +133,7 @@ namespace SKD.Effects
         protected void PlayDamageSFX(CharacterManager character)
         {
             AudioClip physicalDamageSFX =
-                WorldSoundFXManager.instance.ChooseRandomSFXFromArray(WorldSoundFXManager.instance._physicalDamageSFX);
+                WorldSoundFXManager.Instance.ChooseRandomSFXFromArray(WorldSoundFXManager.Instance._physicalDamageSFX);
 
             character._characterSoundFXManager.PlaySoundFX(physicalDamageSFX);
             character._characterSoundFXManager.PlayDamageGrunts();

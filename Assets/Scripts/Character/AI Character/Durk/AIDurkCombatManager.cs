@@ -56,7 +56,7 @@ namespace SKD.Character.AI_Character.Durk
         {
             _clubDamageCollider.EnableDamageCollider();
             _durkCharacterManager._characterSoundFXManager.PlaySoundFX(
-                WorldSoundFXManager.instance.ChooseRandomSFXFromArray(_durkCharacterManager._aIDurkSoundFXManager
+                WorldSoundFXManager.Instance.ChooseRandomSFXFromArray(_durkCharacterManager._aIDurkSoundFXManager
                     ._clubWhooshes));
         }
 

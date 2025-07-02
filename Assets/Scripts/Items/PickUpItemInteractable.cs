@@ -98,11 +98,14 @@ namespace SKD.Items
         {
             if (player._isPerformingAction)
                 return;
+            
+            if(player._playerCombatManager._isUsingItem)
+                return;
 
             base.Interact(player);
 
             // 1. Play SFX
-            player._characterSoundFXManager.PlaySoundFX((WorldSoundFXManager.instance._pickUpItemSFX));
+            player._characterSoundFXManager.PlaySoundFX((WorldSoundFXManager.Instance._pickUpItemSFX));
             
             // Play Animation
             player._playerAnimationManager.PlayTargetActionAnimation("Pick_Up_Item_01", true); 

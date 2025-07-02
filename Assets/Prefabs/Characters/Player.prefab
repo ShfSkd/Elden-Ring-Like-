@@ -1847,11 +1847,15 @@ MonoBehaviour:
         byte0059: 0
         byte0060: 0
         byte0061: 0
+  _remainingHealthFlasks:
+    m_InternalValue: 3
+  _remainingFocusPointsFlasks:
+    m_InternalValue: 3
   _currentWeaponBeingUsed:
     m_InternalValue: 0
   _currentRightHandWeaponID:
     m_InternalValue: 0
-  _currentLeftWeaponID:
+  _currentLeftHandWeaponID:
     m_InternalValue: 0
   _isUsingRightHand:
     m_InternalValue: 0

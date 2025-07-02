@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Standard Arrow
   m_EditorClassIdentifier: 
   _itemName: Standard Arrow
-  _itemIcon: {fileID: 21300076, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
+  _itemIcon: {fileID: 21300016, guid: 09e4c6a7d75923945afe43953ef58ad2, type: 3}
   _itemDescription: 
   _itemID: 15
   _projectileClass: 0
@@ -21,7 +21,7 @@ MonoBehaviour:
   _upwardVelocity: 0
   _ammoMass: 0.01
   _maxAmmoAmount: 30
-  _currentAmmoAmount: 30
+  _currentAmmoAmount: 23
   _physicalDamage: 72
   _magicDamage: 0
   _fireDamage: 0

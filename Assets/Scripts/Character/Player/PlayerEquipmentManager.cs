@@ -4,6 +4,7 @@ using SKD.World_Manager;
 using System.Collections;
 using System.Collections.Generic;
 using SKD.Items.Equipment;
+using SKD.Items.Quick_Item_Slot;
 using SKD.Items.Weapons;
 using SKD.Weapons.Items;
 using UnityEngine;
@@ -110,7 +111,7 @@ namespace SKD.Character.Player
             base.Awake();
 
             _player = GetComponent<PlayerManager>();
-        //    InitializeArmorModels();
+            //    InitializeArmorModels();
             // Get our slots 
             InitializeWeaponSlots();
 
@@ -212,7 +213,7 @@ namespace SKD.Character.Player
         {
             base.Start();
 
-            LoadWeaponsOnBothhands();
+            LoadWeaponsOnBothHands();
         }
         void Update()
         {
@@ -239,8 +240,82 @@ namespace SKD.Character.Player
                 LoadLegEquipment(_player._playerInventoryManager._legEquipment);
         }
 
+        // Quick Slot
+        public void SwitchQuickSlotItem()
+        {
+            if (!_player.IsOwner)
+                return;
+
+            QuickSlotItem selectedQuickSlotItem = null;
+
+            // Disable two handing if we are two handing
+
+            // Add one to our index to switch ti the next potential item
+            _player._playerInventoryManager._quickSlotItemIndex += 1;
+            // If our index number is out of bounds, reset it to position #1(0)
+            if (_player._playerInventoryManager._quickSlotItemIndex is < 0 or > 2)
+            {
+                _player._playerInventoryManager._quickSlotItemIndex = 0;
+
+                // We check if we are holding more then one weapon 
+                float quickSlotCount = 0;
+                QuickSlotItem firstQuickSlot = null;
+                int firstQuickSlotPosition = 0;
+
+                for (int i = 0; i < _player._playerInventoryManager._quickSlotItemInQuickSlots.Length; i++)
+                {
+                    if (_player._playerInventoryManager._quickSlotItemInQuickSlots[i] != null)
+                    {
+                        quickSlotCount += 1;
+                        if (firstQuickSlot == null)
+                        {
+                            firstQuickSlot = _player._playerInventoryManager._quickSlotItemInQuickSlots[i];
+                            firstQuickSlotPosition = i;
+                        }
+                    }
+                }
+
+                if (quickSlotCount <= 1)
+                {
+                    _player._playerInventoryManager._quickSlotItemIndex = -1;
+                    selectedQuickSlotItem = null;
+                    _player._playerNetworkManager._currentQuickSlotItemID.Value = -1;
+                }
+                else
+                {
+                    _player._playerInventoryManager._quickSlotItemIndex = firstQuickSlotPosition;
+                    if (firstQuickSlot != null)
+                        _player._playerNetworkManager._currentQuickSlotItemID.Value = firstQuickSlot._itemID;
+                }
+
+                return;
+            }
+
+
+            // Check to see if the next potential weapon is not the "unarmed" weapon
+            if (_player._playerInventoryManager
+                    ._quickSlotItemInQuickSlots[_player._playerInventoryManager._quickSlotItemIndex] != null)
+            {
+                selectedQuickSlotItem =
+                    _player._playerInventoryManager._quickSlotItemInQuickSlots[
+                        _player._playerInventoryManager._quickSlotItemIndex];
+                // Assign the network weapon ID so it switch for all connected clients 
+                _player._playerNetworkManager._currentQuickSlotItemID.Value = _player._playerInventoryManager
+                    ._quickSlotItemInQuickSlots[_player._playerInventoryManager._rightHandWeaponIndex]._itemID;
+
+            }
+            else
+            {
+                _player._playerNetworkManager._currentQuickSlotItemID.Value = -1;
+            }
+
+            if (selectedQuickSlotItem == null && _player._playerInventoryManager._quickSlotItemInQuickSlots.Length <= 2)
+                SwitchQuickSlotItem();
+
+        }
+
         // Equipment 
-        private void InitializeArmorModels()  
+        private void InitializeArmorModels()
         {
             List<GameObject> maleBodiesList = new List<GameObject>();
             foreach (Transform child in _maleFullBodyObject.transform)
@@ -262,14 +337,14 @@ namespace SKD.Character.Player
                 maleLowerRightHandsList.Add(child.gameObject);
             }
             _maleRightLowerArms = maleLowerRightHandsList.ToArray();
-            
-            List<GameObject>maleRightLowerArmList = new List<GameObject>();
+
+            List<GameObject> maleRightLowerArmList = new List<GameObject>();
             foreach (Transform child in _maleRightLowerArmObject.transform)
             {
                 maleRightLowerArmList.Add(child.gameObject);
             }
-            _maleLeftLowerArms= maleRightLowerArmList.ToArray();
-            
+            _maleLeftLowerArms = maleRightLowerArmList.ToArray();
+
             List<GameObject> maleRightHandList = new List<GameObject>();
             foreach (Transform child in _maleRightHandObject.transform)
             {
@@ -340,7 +415,7 @@ namespace SKD.Character.Player
                 femaleLowerRightHandsList.Add(child.gameObject);
             }
             _femaleRightLowerArms = femaleLowerRightHandsList.ToArray();
-            
+
             List<GameObject> femaleRightHandList = new List<GameObject>();
             foreach (Transform child in _femaleRightHandObject.transform)
             {
@@ -355,7 +430,7 @@ namespace SKD.Character.Player
                 femaleUpperLeftHandList.Add(child.gameObject);
             }
             _femaleLeftUpperArms = femaleUpperLeftHandList.ToArray();
-            
+
             List<GameObject> femaleRightLowerArmList = new List<GameObject>();
             foreach (Transform child in _femaleRightLowerArmObject.transform)
             {
@@ -397,13 +472,13 @@ namespace SKD.Character.Player
                 femaleLeftLegList.Add(child.gameObject);
             }
             _femaleLeftLegs = femaleLeftLegList.ToArray();
-            
-            List<GameObject>femaleFullHelmetList = new List<GameObject>();
+
+            List<GameObject> femaleFullHelmetList = new List<GameObject>();
             foreach (Transform child in _femaleFullHelmetObject.transform)
             {
                 femaleFullHelmetList.Add(child.gameObject);
             }
-            _femaleHeadFullHelmets= femaleFullHelmetList.ToArray();
+            _femaleHeadFullHelmets = femaleFullHelmetList.ToArray();
         }
         public void LoadHeadEquipment(HeadEquipmentItem equipment)
         {
@@ -713,6 +788,46 @@ namespace SKD.Character.Player
 
         // Enable Body Fetures
 
+        // Projectile
+        public void LoadMainProjectileEquipment(RangedProjectileItem equipment)
+        {
+            // 1. If equipment is null simply set equipment in inventory to null and return 
+            if (equipment == null)
+            {
+                if (_player.IsOwner)
+                    _player._playerNetworkManager._mainProjectileID.Value = -1;// -1 will never be an item id,so is always be null
+
+                _player._playerInventoryManager._mainProjectile = null;
+                return;
+            }
+            // 2. If you have an "OnItemEquipped", run it now
+            // 3. Set current projectile equipment in player inventory to the equipment that is passed to this function 
+            _player._playerInventoryManager._mainProjectile = equipment;
+
+            if (_player.IsOwner)
+                _player._playerNetworkManager._mainProjectileID.Value = equipment._itemID;
+
+        }
+        public void LoadSecondaryProjectileEquipment(RangedProjectileItem equipment)
+        {
+            // 1. If equipment is null simply set equipment in inventory to null and return 
+            if (equipment == null)
+            {
+                if (_player.IsOwner)
+                    _player._playerNetworkManager._secondaryProjectileID.Value = -1;// -1 will never be an item id,so is always be null
+
+                _player._playerInventoryManager._secondaryProjectile = null;
+                return;
+            }
+            // 2. If you have an "OnItemEquipped", run it now
+            // 3. Set current projectile equipment in player inventory to the equipment that is passed to this function 
+            _player._playerInventoryManager._secondaryProjectile = equipment;
+
+            if (_player.IsOwner)
+                _player._playerNetworkManager._secondaryProjectileID.Value = equipment._itemID;
+
+        }
+        // Weapons
         private void InitializeWeaponSlots()
         {
             WeaponModelInstantiationSlot[] weaponsSlots = GetComponentsInChildren<WeaponModelInstantiationSlot>();
@@ -738,14 +853,14 @@ namespace SKD.Character.Player
             }
         }
 
-        private void LoadWeaponsOnBothhands()
+        private void LoadWeaponsOnBothHands()
         {
-            LoadRightWepon();
+            LoadRightWeapon();
             LoadLeftWeapon();
         }
 
         // Right Wepaon
-        public void LoadRightWepon()
+        public void LoadRightWeapon()
         {
             if (_player._playerInventoryManager._currentRightHandWeapon != null)
             {
@@ -769,6 +884,8 @@ namespace SKD.Character.Player
             if (!_player.IsOwner)
                 return;
 
+            _player._playerNetworkManager._isTwoHandingWeapon.Value = false;
+
             _player._playerAnimationManager.PlayTargetActionAnimation("Swap_Right_Weapon_01", false, false, true, true);
 
             // Elden Rings Weapon Swapping:
@@ -782,8 +899,7 @@ namespace SKD.Character.Player
             // Add one to our index to switch ti the next potential weapon
             _player._playerInventoryManager._rightHandWeaponIndex += 1;
             // If our index number is out of bounds, reset it to position #1(0)
-            if (_player._playerInventoryManager._rightHandWeaponIndex < 0 ||
-                _player._playerInventoryManager._rightHandWeaponIndex > 2)
+            if (_player._playerInventoryManager._rightHandWeaponIndex is < 0 or > 2)
             {
                 _player._playerInventoryManager._rightHandWeaponIndex = 0;
 
@@ -797,7 +913,7 @@ namespace SKD.Character.Player
                     if (_player._playerInventoryManager._weaponInRigthHandSlots[i]._itemID !=
                         WorldItemDatabase.Instance._unarmedWeapon._itemID)
                     {
-                        weaponCount++;
+                        weaponCount += 1;
                         if (firstWeapon == null)
                         {
                             firstWeapon = _player._playerInventoryManager._weaponInRigthHandSlots[i];
@@ -815,7 +931,8 @@ namespace SKD.Character.Player
                 else
                 {
                     _player._playerInventoryManager._rightHandWeaponIndex = firstWeaponPosition;
-                    _player._playerNetworkManager._currentRightHandWeaponID.Value = firstWeapon._itemID;
+                    if (firstWeapon != null)
+                        _player._playerNetworkManager._currentRightHandWeaponID.Value = firstWeapon._itemID;
                 }
 
                 return;
@@ -838,7 +955,7 @@ namespace SKD.Character.Player
                 }
             }
 
-            if (selectedWeapon == null && _player._playerInventoryManager._rightHandWeaponIndex <= 2)
+            if (_player._playerInventoryManager._rightHandWeaponIndex <= 2)
             {
                 SwitchRightWeapon();
             }
@@ -882,6 +999,8 @@ namespace SKD.Character.Player
             if (!_player.IsOwner)
                 return;
 
+            _player._playerNetworkManager._isTwoHandingWeapon.Value = false;
+            
             _player._playerAnimationManager.PlayTargetActionAnimation("Swap_Left_Weapon_01", false, false, true, true);
 
             // Elden Rings Weapon Swapping:
@@ -910,7 +1029,7 @@ namespace SKD.Character.Player
                     if (_player._playerInventoryManager._weaponInLefthHandSlots[i]._itemID !=
                         WorldItemDatabase.Instance._unarmedWeapon._itemID)
                     {
-                        weaponCount++;
+                        weaponCount += 1;
                         if (firstWeapon == null)
                         {
                             firstWeapon = _player._playerInventoryManager._weaponInLefthHandSlots[i];
@@ -923,12 +1042,13 @@ namespace SKD.Character.Player
                 {
                     _player._playerInventoryManager._leftHandWeaponIndex = -1;
                     selectedWeapon = WorldItemDatabase.Instance._unarmedWeapon;
-                    _player._playerNetworkManager._currentLeftWeaponID.Value = selectedWeapon._itemID;
+                    _player._playerNetworkManager._currentLeftHandWeaponID.Value = selectedWeapon._itemID;
                 }
                 else
                 {
                     _player._playerInventoryManager._leftHandWeaponIndex = firstWeaponPosition;
-                    _player._playerNetworkManager._currentLeftWeaponID.Value = firstWeapon._itemID;
+                    if (firstWeapon != null)
+                        _player._playerNetworkManager._currentLeftHandWeaponID.Value = firstWeapon._itemID;
                 }
 
                 return;
@@ -945,13 +1065,13 @@ namespace SKD.Character.Player
                         _player._playerInventoryManager._weaponInLefthHandSlots[
                             _player._playerInventoryManager._leftHandWeaponIndex];
                     // Assign the network weapon ID so it switch for all connected clients 
-                    _player._playerNetworkManager._currentLeftWeaponID.Value = _player._playerInventoryManager
+                    _player._playerNetworkManager._currentLeftHandWeaponID.Value = _player._playerInventoryManager
                         ._weaponInLefthHandSlots[_player._playerInventoryManager._leftHandWeaponIndex]._itemID;
                     return;
                 }
             }
 
-            if (selectedWeapon == null && _player._playerInventoryManager._leftHandWeaponIndex <= 2)
+            if (_player._playerInventoryManager._leftHandWeaponIndex <= 2)
             {
                 SwitchLeftWeapon();
             }
@@ -1053,14 +1173,14 @@ namespace SKD.Character.Player
             {
                 _rightWeaponManager._meleeDamageCollider.EnableDamageCollider();
                 _player._characterSoundFXManager.PlaySoundFX(
-                    WorldSoundFXManager.instance.ChooseRandomSFXFromArray(_player._playerInventoryManager
+                    WorldSoundFXManager.Instance.ChooseRandomSFXFromArray(_player._playerInventoryManager
                         ._currentRightHandWeapon._whooshes));
             }
             else if (_player._playerNetworkManager._isUsingLeftHand.Value)
             {
                 _leftWeaponManager._meleeDamageCollider.EnableDamageCollider();
                 _player._characterSoundFXManager.PlaySoundFX(
-                    WorldSoundFXManager.instance.ChooseRandomSFXFromArray(_player._playerInventoryManager
+                    WorldSoundFXManager.Instance.ChooseRandomSFXFromArray(_player._playerInventoryManager
                         ._currentLeftHandWeapon._whooshes));
             }
         }
@@ -1075,6 +1195,16 @@ namespace SKD.Character.Player
             {
                 _leftWeaponManager._meleeDamageCollider.DisableDamageCollider();
             }
+        }
+
+        // Unhide weapons
+        public void UnhideWeapons()
+        {
+            if (_player._playerEquipmentManager._rightHandWeaponModel != null)
+                _player._playerEquipmentManager._rightHandWeaponModel.SetActive(true);
+
+            if (_player._playerEquipmentManager._leftHandWeaponModel != null)
+                _player._playerEquipmentManager._leftHandWeaponModel.SetActive(true);
         }
     }
 }

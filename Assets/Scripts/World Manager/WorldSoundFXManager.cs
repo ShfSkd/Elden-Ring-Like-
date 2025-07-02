@@ -7,7 +7,7 @@ namespace SKD.World_Manager
 {
     public class WorldSoundFXManager : MonoBehaviour
     {
-        public static WorldSoundFXManager instance;
+        public static WorldSoundFXManager Instance;
 
         [Header("Boss Track")]
         [SerializeField] AudioSource _bossIntroPlayer;
@@ -23,11 +23,12 @@ namespace SKD.World_Manager
         public AudioClip _criticalStrikeSFX;
         public AudioClip[] _releaseArrowSFX;
         public AudioClip[] _notchArrowSFX;
+        public AudioClip _heallingFlaskFX;
 
         private void Awake()
         {
-            if (instance == null)
-                instance = this;
+            if (Instance == null)
+                Instance = this;
             else
                 Destroy(gameObject);
         }

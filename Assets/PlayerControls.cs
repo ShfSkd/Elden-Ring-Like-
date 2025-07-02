@@ -280,6 +280,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Switch Quick Slot Item"",
+                    ""type"": ""Button"",
+                    ""id"": ""1679a7f2-8c09-42e5-b58a-e3e910f98a46"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Seek Left Lock On Target"",
                     ""type"": ""Button"",
                     ""id"": ""830026b0-b33f-43e4-b2a8-9dbe247b1aca"",
@@ -758,6 +767,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Hold LB"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ce0a2dba-0f63-4a05-b09a-98435d51460a"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Switch Quick Slot Item"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3cddaf1c-ab89-47a8-8ac2-13fdb8fcc57f"",
+                    ""path"": ""<DualSenseGampadiOS>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Switch Quick Slot Item"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -911,6 +942,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_PlayerActions_LockOn = m_PlayerActions.FindAction("Lock On ", throwIfNotFound: true);
         m_PlayerActions_SwitchRightWeapon = m_PlayerActions.FindAction("Switch Right Weapon", throwIfNotFound: true);
         m_PlayerActions_SwitchLeftWeapon = m_PlayerActions.FindAction("Switch Left Weapon", throwIfNotFound: true);
+        m_PlayerActions_SwitchQuickSlotItem = m_PlayerActions.FindAction("Switch Quick Slot Item", throwIfNotFound: true);
         m_PlayerActions_SeekLeftLockOnTarget = m_PlayerActions.FindAction("Seek Left Lock On Target", throwIfNotFound: true);
         m_PlayerActions_SeekRightLockOnTarget = m_PlayerActions.FindAction("Seek Right Lock On Target", throwIfNotFound: true);
         m_PlayerActions_Interact = m_PlayerActions.FindAction("Interact", throwIfNotFound: true);
@@ -1047,6 +1079,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerActions_LockOn;
     private readonly InputAction m_PlayerActions_SwitchRightWeapon;
     private readonly InputAction m_PlayerActions_SwitchLeftWeapon;
+    private readonly InputAction m_PlayerActions_SwitchQuickSlotItem;
     private readonly InputAction m_PlayerActions_SeekLeftLockOnTarget;
     private readonly InputAction m_PlayerActions_SeekRightLockOnTarget;
     private readonly InputAction m_PlayerActions_Interact;
@@ -1074,6 +1107,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @LockOn => m_Wrapper.m_PlayerActions_LockOn;
         public InputAction @SwitchRightWeapon => m_Wrapper.m_PlayerActions_SwitchRightWeapon;
         public InputAction @SwitchLeftWeapon => m_Wrapper.m_PlayerActions_SwitchLeftWeapon;
+        public InputAction @SwitchQuickSlotItem => m_Wrapper.m_PlayerActions_SwitchQuickSlotItem;
         public InputAction @SeekLeftLockOnTarget => m_Wrapper.m_PlayerActions_SeekLeftLockOnTarget;
         public InputAction @SeekRightLockOnTarget => m_Wrapper.m_PlayerActions_SeekRightLockOnTarget;
         public InputAction @Interact => m_Wrapper.m_PlayerActions_Interact;
@@ -1146,6 +1180,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @SwitchLeftWeapon.started += instance.OnSwitchLeftWeapon;
             @SwitchLeftWeapon.performed += instance.OnSwitchLeftWeapon;
             @SwitchLeftWeapon.canceled += instance.OnSwitchLeftWeapon;
+            @SwitchQuickSlotItem.started += instance.OnSwitchQuickSlotItem;
+            @SwitchQuickSlotItem.performed += instance.OnSwitchQuickSlotItem;
+            @SwitchQuickSlotItem.canceled += instance.OnSwitchQuickSlotItem;
             @SeekLeftLockOnTarget.started += instance.OnSeekLeftLockOnTarget;
             @SeekLeftLockOnTarget.performed += instance.OnSeekLeftLockOnTarget;
             @SeekLeftLockOnTarget.canceled += instance.OnSeekLeftLockOnTarget;
@@ -1219,6 +1256,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @SwitchLeftWeapon.started -= instance.OnSwitchLeftWeapon;
             @SwitchLeftWeapon.performed -= instance.OnSwitchLeftWeapon;
             @SwitchLeftWeapon.canceled -= instance.OnSwitchLeftWeapon;
+            @SwitchQuickSlotItem.started -= instance.OnSwitchQuickSlotItem;
+            @SwitchQuickSlotItem.performed -= instance.OnSwitchQuickSlotItem;
+            @SwitchQuickSlotItem.canceled -= instance.OnSwitchQuickSlotItem;
             @SeekLeftLockOnTarget.started -= instance.OnSeekLeftLockOnTarget;
             @SeekLeftLockOnTarget.performed -= instance.OnSeekLeftLockOnTarget;
             @SeekLeftLockOnTarget.canceled -= instance.OnSeekLeftLockOnTarget;
@@ -1363,6 +1403,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnLockOn(InputAction.CallbackContext context);
         void OnSwitchRightWeapon(InputAction.CallbackContext context);
         void OnSwitchLeftWeapon(InputAction.CallbackContext context);
+        void OnSwitchQuickSlotItem(InputAction.CallbackContext context);
         void OnSeekLeftLockOnTarget(InputAction.CallbackContext context);
         void OnSeekRightLockOnTarget(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);

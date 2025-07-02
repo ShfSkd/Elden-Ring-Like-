@@ -5,8 +5,11 @@ using SKD.Items.Weapons;
 using SKD.Character.Player;
 using SKD.Items;
 using SKD.Items.Equipment;
+using SKD.Items.Quick_Item_Slot;
 using SKD.World_Manager;
+using TMPro;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.HID;
 using UnityEngine.Serialization;
@@ -31,6 +34,8 @@ namespace SKD.UI.PlayerUI
         private Button _leftHandSlot02Button;
         [SerializeField] Image _leftHandSlot03;
         private Button _leftHandSlot03Button;
+
+        [Header("Armor Slots")]
         [SerializeField] Image _headEquipmentSlot;
         private Button _headEquipmentSlotButton;
         [SerializeField] Image _bodyEquipmentSlot;
@@ -40,7 +45,26 @@ namespace SKD.UI.PlayerUI
         [SerializeField] Image _handEquipmentSlot;
         private Button _handEquipmentSlotButton;
 
-        // This inventory populate with related items when changing equipment
+        [Header("Projectile Slots")]
+        [SerializeField] Image _mainProjectileEquipmentSlot;
+        [SerializeField] TextMeshProUGUI _mainProjectileCountText;
+        private Button _mainProjectileEquipmentSlotButton;
+        [SerializeField] Image _secondaryProjectileEquipmentSlot;
+        [SerializeField] TextMeshProUGUI _secondaryProjectileCountText;
+        private Button _secondaryProjectileEquipmentSlotButton;
+
+        [Header("Quick Slots")]
+        [SerializeField] Image _quickSlot01EquipmentSlot;
+        [SerializeField] TextMeshProUGUI _quickSlot01CountText;
+        private Button _quickSlot01Button;
+        [SerializeField] Image _quickSlot02EquipmentSlot;
+        [SerializeField] TextMeshProUGUI _quickSlot02CountText;
+        private Button _quickSlot02Button;
+        [SerializeField] Image _quickSlot03EquipmentSlot;
+        [SerializeField] TextMeshProUGUI _quickSlot03CountText;
+        private Button _quickSlot03Button;
+
+        // This inventory populates with related items when changing equipment
         [Header("Equipment Inventory")]
         public EquipmentType _currentSelectedEquipmentSlot;
         [SerializeField] GameObject _equipmentInventoryWindow;
@@ -62,6 +86,12 @@ namespace SKD.UI.PlayerUI
             _bodyEquipmentSlotButton = _bodyEquipmentSlot.GetComponentInParent<Button>(true);
             _handEquipmentSlotButton = _handEquipmentSlot.GetComponentInParent<Button>(true);
             _legEquipmentSlotButton = _legEquipmentSlot.GetComponentInParent<Button>(true);
+            _mainProjectileEquipmentSlotButton = _mainProjectileEquipmentSlot.GetComponentInParent<Button>(true);
+            _secondaryProjectileEquipmentSlotButton = _secondaryProjectileEquipmentSlot.GetComponentInParent<Button>(true);
+
+            _quickSlot01Button = _quickSlot01EquipmentSlot.GetComponentInParent<Button>(true);
+            _quickSlot02Button = _quickSlot02EquipmentSlot.GetComponentInParent<Button>(true);
+            _quickSlot03Button = _quickSlot03EquipmentSlot.GetComponentInParent<Button>(true);
         }
         public void OpenEquipmentManagerMenu()
         {
@@ -91,7 +121,12 @@ namespace SKD.UI.PlayerUI
             _bodyEquipmentSlotButton.enabled = isEnabled;
             _handEquipmentSlotButton.enabled = isEnabled;
             _legEquipmentSlotButton.enabled = isEnabled;
+            _mainProjectileEquipmentSlotButton.enabled = isEnabled;
+            _secondaryProjectileEquipmentSlotButton.enabled = isEnabled;
 
+            _quickSlot01Button.enabled = isEnabled;
+            _quickSlot02Button.enabled = isEnabled;
+            _quickSlot03Button.enabled = isEnabled;
         }
 
         // This function simply returns you to the last selected button when you are finished equipping a new item 
@@ -102,37 +137,52 @@ namespace SKD.UI.PlayerUI
             switch (_currentSelectedEquipmentSlot)
             {
                 case EquipmentType.RightWeapon01:
-                    lastSelectedButton = _rightHandSlot01.GetComponentInParent<Button>();
+                    lastSelectedButton = _rightHandSlot01Button;
                     break;
                 case EquipmentType.RightWeapon02:
-                    lastSelectedButton = _rightHandSlot02.GetComponentInParent<Button>();
+                    lastSelectedButton = _rightHandSlot02Button;
                     break;
                 case EquipmentType.RightWeapon03:
-                    lastSelectedButton = _rightHandSlot03.GetComponentInParent<Button>();
+                    lastSelectedButton = _rightHandSlot03Button;
                     break;
                 case EquipmentType.LeftWeapon01:
-                    lastSelectedButton = _leftHandSlot01.GetComponentInParent<Button>();
+                    lastSelectedButton = _leftHandSlot01Button;
                     break;
                 case EquipmentType.LeftWeapon02:
-                    lastSelectedButton = _leftHandSlot02.GetComponentInParent<Button>();
+                    lastSelectedButton = _leftHandSlot02Button;
                     break;
                 case EquipmentType.LeftWeapon03:
-                    lastSelectedButton = _leftHandSlot03.GetComponentInParent<Button>();
+                    lastSelectedButton = _leftHandSlot03Button;
                     break;
                 case EquipmentType.Head:
-                    lastSelectedButton = _headEquipmentSlot.GetComponentInParent<Button>();
+                    lastSelectedButton = _headEquipmentSlotButton;
                     break;
                 case EquipmentType.Body:
-                    lastSelectedButton = _bodyEquipmentSlot.GetComponentInParent<Button>();
+                    lastSelectedButton = _bodyEquipmentSlotButton;
                     break;
                 case EquipmentType.Legs:
-                    lastSelectedButton = _legEquipmentSlot.GetComponentInParent<Button>();
+                    lastSelectedButton = _legEquipmentSlotButton;
                     break;
                 case EquipmentType.Hands:
-                    lastSelectedButton = _handEquipmentSlot.GetComponentInParent<Button>();
+                    lastSelectedButton = _handEquipmentSlotButton;
+                    break;
+                case EquipmentType.MainProjectile:
+                    lastSelectedButton = _mainProjectileEquipmentSlotButton;
+                    break;
+                case EquipmentType.SecondaryProjectile:
+                    lastSelectedButton = _secondaryProjectileEquipmentSlotButton;
+                    break;
+                case EquipmentType.QuickSlot01:
+                    lastSelectedButton = _quickSlot01Button;
+                    break;
+                case EquipmentType.QuickSlot02:
+                    lastSelectedButton = _quickSlot02Button;
+                    break;
+                case EquipmentType.QuickSlot03:
+                    lastSelectedButton = _quickSlot03Button;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    break;
             }
             if (lastSelectedButton != null)
             {
@@ -259,6 +309,100 @@ namespace SKD.UI.PlayerUI
             {
                 _handEquipmentSlot.enabled = false;
             }
+
+            // Projectile
+            RangedProjectileItem mainProjectileEquipment = player._playerInventoryManager._mainProjectile;
+            if (mainProjectileEquipment != null)
+            {
+                _mainProjectileEquipmentSlot.enabled = true;
+                _mainProjectileEquipmentSlot.sprite = mainProjectileEquipment._itemIcon;
+                _mainProjectileCountText.enabled = true;
+                _mainProjectileCountText.text = mainProjectileEquipment._currentAmmoAmount.ToString();
+            }
+            else
+            {
+                _mainProjectileEquipmentSlot.enabled = false;
+                _mainProjectileCountText.enabled = false;
+            }
+            RangedProjectileItem secondaryProjectileEquipment = player._playerInventoryManager._secondaryProjectile;
+            if (secondaryProjectileEquipment != null)
+            {
+                _secondaryProjectileEquipmentSlot.enabled = true;
+                _secondaryProjectileEquipmentSlot.sprite = secondaryProjectileEquipment._itemIcon;
+                _secondaryProjectileCountText.enabled = true;
+                _secondaryProjectileCountText.text = secondaryProjectileEquipment._currentAmmoAmount.ToString();
+            }
+            else
+            {
+                _secondaryProjectileEquipmentSlot.enabled = false;
+                _secondaryProjectileCountText.enabled = false;
+            }
+            QuickSlotItem quickSlotEquipment01 = player._playerInventoryManager._quickSlotItemInQuickSlots[0];
+            if (quickSlotEquipment01 != null)
+            {
+                _quickSlot01EquipmentSlot.enabled = true;
+                _quickSlot01EquipmentSlot.sprite = quickSlotEquipment01._itemIcon;
+
+                if (quickSlotEquipment01._isConsumable)
+                {
+                    _quickSlot01CountText.enabled = true;
+                    _quickSlot01CountText.text = quickSlotEquipment01.GetCurrentAmount(player).ToString();
+                }
+                else
+                {
+                    _quickSlot01CountText.enabled = false;
+                }
+
+            }
+            else
+            {
+                _quickSlot01EquipmentSlot.enabled = false;
+                _quickSlot01CountText.enabled = false;
+            }
+            QuickSlotItem quickSlotEquipment02 = player._playerInventoryManager._quickSlotItemInQuickSlots[1];
+            if (quickSlotEquipment02 != null)
+            {
+                _quickSlot02EquipmentSlot.enabled = true;
+                _quickSlot02EquipmentSlot.sprite = quickSlotEquipment02._itemIcon;
+
+                if (quickSlotEquipment02._isConsumable)
+                {
+                    _quickSlot02CountText.enabled = true;
+                    _quickSlot02CountText.text = quickSlotEquipment02.GetCurrentAmount(player).ToString();
+                }
+                else
+                {
+                    _quickSlot02CountText.enabled = false;
+                }
+
+            }
+            else
+            {
+                _quickSlot02EquipmentSlot.enabled = false;
+                _quickSlot02CountText.enabled = false;
+            }
+            QuickSlotItem quickSlotEquipment03 = player._playerInventoryManager._quickSlotItemInQuickSlots[2];
+            if (quickSlotEquipment03 != null)
+            {
+                _quickSlot03EquipmentSlot.enabled = true;
+                _quickSlot03EquipmentSlot.sprite = quickSlotEquipment03._itemIcon;
+
+                if (quickSlotEquipment03._isConsumable)
+                {
+                    _quickSlot03CountText.enabled = true;
+                    _quickSlot03CountText.text = quickSlotEquipment03.GetCurrentAmount(player).ToString();
+                }
+                else
+                {
+                    _quickSlot03CountText.enabled = false;
+                }
+
+            }
+            else
+            {
+                _quickSlot03EquipmentSlot.enabled = false;
+                _quickSlot03CountText.enabled = false;
+            }
         }
         private void ClearEquipmentInventory()
         {
@@ -304,6 +448,21 @@ namespace SKD.UI.PlayerUI
                 case EquipmentType.Hands:
                     LoadHandEquipmentInventory();
                     break;
+                case EquipmentType.MainProjectile:
+                    LoadProjectileInventory();
+                    break;
+                case EquipmentType.SecondaryProjectile:
+                    LoadProjectileInventory();
+                    break;
+                case EquipmentType.QuickSlot01:
+                    LoadQuickSlotInventory();
+                    break;
+                case EquipmentType.QuickSlot02:
+                    LoadQuickSlotInventory();
+                    break;
+                case EquipmentType.QuickSlot03:
+                    LoadQuickSlotInventory();
+                    break;
                 default:
                     break;
             }
@@ -335,7 +494,7 @@ namespace SKD.UI.PlayerUI
             {
                 GameObject inventorySlotGameObject = Instantiate(_equipmentInventorySlotPrefab, _equipmentInventoryContentWindow);
                 UI_EquipmentInventorySlot equipmentInventorySlot = inventorySlotGameObject.GetComponent<UI_EquipmentInventorySlot>();
-                equipmentInventorySlot.Additem(headEquipmentInventory[i]);
+                equipmentInventorySlot.AddItem(headEquipmentInventory[i]);
 
                 // This will select the first button in the list 
                 if (!hasSelectedFirstInventorySlot)
@@ -375,7 +534,7 @@ namespace SKD.UI.PlayerUI
             {
                 GameObject inventorySlotGameObject = Instantiate(_equipmentInventorySlotPrefab, _equipmentInventoryContentWindow);
                 UI_EquipmentInventorySlot equipmentInventorySlot = inventorySlotGameObject.GetComponent<UI_EquipmentInventorySlot>();
-                equipmentInventorySlot.Additem(bodyEquipmentInventory[i]);
+                equipmentInventorySlot.AddItem(bodyEquipmentInventory[i]);
 
                 // This will select the first button in the list 
                 if (!hasSelectedFirstInventorySlot)
@@ -414,7 +573,7 @@ namespace SKD.UI.PlayerUI
             {
                 GameObject inventorySlotGameObject = Instantiate(_equipmentInventorySlotPrefab, _equipmentInventoryContentWindow);
                 UI_EquipmentInventorySlot equipmentInventorySlot = inventorySlotGameObject.GetComponent<UI_EquipmentInventorySlot>();
-                equipmentInventorySlot.Additem(headEquipmentInventory[i]);
+                equipmentInventorySlot.AddItem(headEquipmentInventory[i]);
 
                 // This will select the first button in the list 
                 if (!hasSelectedFirstInventorySlot)
@@ -453,7 +612,7 @@ namespace SKD.UI.PlayerUI
             {
                 GameObject inventorySlotGameObject = Instantiate(_equipmentInventorySlotPrefab, _equipmentInventoryContentWindow);
                 UI_EquipmentInventorySlot equipmentInventorySlot = inventorySlotGameObject.GetComponent<UI_EquipmentInventorySlot>();
-                equipmentInventorySlot.Additem(handEquipmentInventory[i]);
+                equipmentInventorySlot.AddItem(handEquipmentInventory[i]);
 
                 // This will select the first button in the list 
                 if (!hasSelectedFirstInventorySlot)
@@ -492,8 +651,88 @@ namespace SKD.UI.PlayerUI
             {
                 GameObject inventorySlotGameObject = Instantiate(_equipmentInventorySlotPrefab, _equipmentInventoryContentWindow);
                 UI_EquipmentInventorySlot equipmentInventorySlot = inventorySlotGameObject.GetComponent<UI_EquipmentInventorySlot>();
-                equipmentInventorySlot.Additem(weaponsInInventory[i]);
-                
+                equipmentInventorySlot.AddItem(weaponsInInventory[i]);
+
+                Debug.Log("1");
+                // This will select the first button in the list 
+                if (!hasSelectedFirstInventorySlot)
+                {
+                    hasSelectedFirstInventorySlot = true;
+                    Button inventorySlotButton = inventorySlotGameObject.GetComponent<Button>();
+                    inventorySlotButton.Select();
+                    inventorySlotButton.OnSelect(null);
+                }
+            }
+        }
+        private void LoadProjectileInventory()
+        {
+            PlayerManager player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerManager>();
+
+            List<RangedProjectileItem> projectileInInventory = new List<RangedProjectileItem>();
+
+            // Search our entire inventory, and out of all the items in our inventory if the item is a weapon add it to our weapon list
+            for (int i = 0; i < player._playerInventoryManager._itemInTheInventory.Count; i++)
+            {
+                RangedProjectileItem projectile = player._playerInventoryManager._itemInTheInventory[i] as RangedProjectileItem;
+
+                if (projectile != null)
+                    projectileInInventory.Add(projectile);
+            }
+
+            if (projectileInInventory.Count <= 0)
+            {
+                _equipmentInventoryWindow.SetActive(false);
+                ToggleEquipmentButtons(true);
+                RefreshMenu();
+                return;
+            }
+            bool hasSelectedFirstInventorySlot = false;
+            for (int i = 0; i < projectileInInventory.Count; i++)
+            {
+                GameObject inventorySlotGameObject = Instantiate(_equipmentInventorySlotPrefab, _equipmentInventoryContentWindow);
+                UI_EquipmentInventorySlot equipmentInventorySlot = inventorySlotGameObject.GetComponent<UI_EquipmentInventorySlot>();
+                equipmentInventorySlot.AddItem(projectileInInventory[i]);
+
+                Debug.Log("1");
+                // This will select the first button in the list 
+                if (!hasSelectedFirstInventorySlot)
+                {
+                    hasSelectedFirstInventorySlot = true;
+                    Button inventorySlotButton = inventorySlotGameObject.GetComponent<Button>();
+                    inventorySlotButton.Select();
+                    inventorySlotButton.OnSelect(null);
+                }
+            }
+        }
+        private void LoadQuickSlotInventory()
+        {
+            PlayerManager player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerManager>();
+
+            List<QuickSlotItem> quickSlotItemsInInventory = new List<QuickSlotItem>();
+
+            // Search our entire inventory, and out of all the items in our inventory if the item is a weapon add it to our weapon list
+            for (int i = 0; i < player._playerInventoryManager._itemInTheInventory.Count; i++)
+            {
+                QuickSlotItem quickSlotItem = player._playerInventoryManager._itemInTheInventory[i] as QuickSlotItem;
+
+                if (quickSlotItem != null)
+                    quickSlotItemsInInventory.Add(quickSlotItem);
+            }
+
+            if (quickSlotItemsInInventory.Count <= 0)
+            {
+                _equipmentInventoryWindow.SetActive(false);
+                ToggleEquipmentButtons(true);
+                RefreshMenu();
+                return;
+            }
+            bool hasSelectedFirstInventorySlot = false;
+            for (int i = 0; i < quickSlotItemsInInventory.Count; i++)
+            {
+                GameObject inventorySlotGameObject = Instantiate(_equipmentInventorySlotPrefab, _equipmentInventoryContentWindow);
+                UI_EquipmentInventorySlot equipmentInventorySlot = inventorySlotGameObject.GetComponent<UI_EquipmentInventorySlot>();
+                equipmentInventorySlot.AddItem(quickSlotItemsInInventory[i]);
+
                 Debug.Log("1");
                 // This will select the first button in the list 
                 if (!hasSelectedFirstInventorySlot)
@@ -564,7 +803,7 @@ namespace SKD.UI.PlayerUI
                             player._playerInventoryManager.AddItemsToInventory(unequippedItem);
 
                         if (player._playerInventoryManager._leftHandWeaponIndex == 0)
-                            player._playerNetworkManager._currentLeftWeaponID.Value = WorldItemDatabase.Instance._unarmedWeapon._itemID;
+                            player._playerNetworkManager._currentLeftHandWeaponID.Value = WorldItemDatabase.Instance._unarmedWeapon._itemID;
                     }
                     break;
                 case EquipmentType.LeftWeapon02:
@@ -577,7 +816,7 @@ namespace SKD.UI.PlayerUI
                             player._playerInventoryManager.AddItemsToInventory(unequippedItem);
 
                         if (player._playerInventoryManager._leftHandWeaponIndex == 1)
-                            player._playerNetworkManager._currentLeftWeaponID.Value = WorldItemDatabase.Instance._unarmedWeapon._itemID;
+                            player._playerNetworkManager._currentLeftHandWeaponID.Value = WorldItemDatabase.Instance._unarmedWeapon._itemID;
                     }
                     break;
                 case EquipmentType.LeftWeapon03:
@@ -590,7 +829,7 @@ namespace SKD.UI.PlayerUI
                             player._playerInventoryManager.AddItemsToInventory(unequippedItem);
 
                         if (player._playerInventoryManager._leftHandWeaponIndex == 2)
-                            player._playerNetworkManager._currentLeftWeaponID.Value = WorldItemDatabase.Instance._unarmedWeapon._itemID;
+                            player._playerNetworkManager._currentLeftHandWeaponID.Value = WorldItemDatabase.Instance._unarmedWeapon._itemID;
                     }
                     break;
                 case EquipmentType.Head:
@@ -624,6 +863,53 @@ namespace SKD.UI.PlayerUI
 
                     player._playerInventoryManager._headEquipment = null;
                     player._playerEquipmentManager.LoadHandEquipment(player._playerInventoryManager._handEquipment);
+                    break;
+                case EquipmentType.MainProjectile:
+                    unequippedItem = player._playerInventoryManager._mainProjectile;
+                    if (unequippedItem != null)
+                        player._playerInventoryManager.AddItemsToInventory(unequippedItem);
+
+                    player._playerInventoryManager._mainProjectile = null;
+                    player._playerEquipmentManager.LoadMainProjectileEquipment(player._playerInventoryManager._mainProjectile);
+                    break;
+                case EquipmentType.SecondaryProjectile:
+                    unequippedItem = player._playerInventoryManager._secondaryProjectile;
+                    if (unequippedItem != null)
+                        player._playerInventoryManager.AddItemsToInventory(unequippedItem);
+
+                    player._playerInventoryManager._secondaryProjectile = null;
+                    player._playerEquipmentManager.LoadSecondaryProjectileEquipment(player._playerInventoryManager._mainProjectile);
+                    break;
+                case EquipmentType.QuickSlot01:
+                    unequippedItem = player._playerInventoryManager._quickSlotItemInQuickSlots[0];
+                    if (unequippedItem != null)
+                        player._playerInventoryManager.AddItemsToInventory(unequippedItem);
+
+                    player._playerInventoryManager._quickSlotItemInQuickSlots[0] = null;
+
+                    if (player._playerInventoryManager._quickSlotItemIndex == 0)
+                        player._playerNetworkManager._currentQuickSlotItemID.Value = -1;
+                    
+                    break;
+                case EquipmentType.QuickSlot02:
+                    unequippedItem = player._playerInventoryManager._quickSlotItemInQuickSlots[1];
+                    if (unequippedItem != null)
+                        player._playerInventoryManager.AddItemsToInventory(unequippedItem);
+
+                    player._playerInventoryManager._quickSlotItemInQuickSlots[2] = null;
+
+                    if (player._playerInventoryManager._quickSlotItemIndex == 2)
+                        player._playerNetworkManager._currentQuickSlotItemID.Value = -1;
+                    break;
+                case EquipmentType.QuickSlot03:
+                    unequippedItem = player._playerInventoryManager._quickSlotItemInQuickSlots[2];
+                    if (unequippedItem != null)
+                        player._playerInventoryManager.AddItemsToInventory(unequippedItem);
+
+                    player._playerInventoryManager._quickSlotItemInQuickSlots[2] = null;
+
+                    if (player._playerInventoryManager._quickSlotItemIndex == 2  )
+                        player._playerNetworkManager._currentQuickSlotItemID.Value = -1;
                     break;
                 default:
                     break;

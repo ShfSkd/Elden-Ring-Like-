@@ -35,7 +35,9 @@ namespace SKD
     {
        RightWeapon01,RightWeapon02,RightWeapon03, // 0-2
        LeftWeapon01,LeftWeapon02,LeftWeapon03, // 3-5
-       Head,Body,Legs,Hands // 6-9 
+       Head,Body,Legs,Hands, // 6-9 
+       MainProjectile,SecondaryProjectile // 10-11
+       ,QuickSlot01,QuickSlot02,QuickSlot03 //12-14
     }
     public enum HeadEquipmentType
     {

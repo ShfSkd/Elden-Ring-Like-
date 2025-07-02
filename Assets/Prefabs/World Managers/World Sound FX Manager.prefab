@@ -61,6 +61,7 @@ MonoBehaviour:
   _notchArrowSFX:
   - {fileID: 8300000, guid: da396a16a7f24f64cbb0054f5a56b46a, type: 3}
   - {fileID: 8300000, guid: f1547ad8fbfa4f24d83e5a445aee860d, type: 3}
+  _heallingFlaskFX: {fileID: 8300000, guid: dfd9240fb951bf6498605be9a417b5de, type: 3}
 --- !u!82 &9163660633888756998
 AudioSource:
   m_ObjectHideFlags: 0

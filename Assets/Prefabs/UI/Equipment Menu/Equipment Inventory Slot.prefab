@@ -127,7 +127,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: -581841382390471723}
         m_TargetAssemblyTypeName: SKD.UI.UI_EquipmentInvnentorySlot, Assembly-CSharp
-        m_MethodName: EquipeItem
+        m_MethodName: EquipItem
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

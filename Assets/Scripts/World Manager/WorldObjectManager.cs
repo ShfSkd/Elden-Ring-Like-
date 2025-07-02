@@ -1,6 +1,7 @@
 ﻿using SKD.Character.AI_Character;
 using System.Collections;
 using System.Collections.Generic;
+using SKD.Interacts;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -17,6 +18,9 @@ namespace SKD.World_Manager
 
         [Header("Fog Walls")]
         public List<FogWallIntractable> _fogWallsList = new List<FogWallIntractable>();
+        
+        [Header("Sites Of Grace")]
+        public List<SiteOfGraceInteractable> _sitesOfGraceList = new List<SiteOfGraceInteractable>();
 
         private void Awake()
         {
@@ -46,6 +50,20 @@ namespace SKD.World_Manager
             if (_fogWallsList.Contains(fogWall))
             {
                 _fogWallsList.Remove(fogWall);
+            }
+        }
+        public void AddSiteOfGraceToList(SiteOfGraceInteractable siteOfGrace)
+        {
+            if (!_sitesOfGraceList.Contains(siteOfGrace))
+            {
+                _sitesOfGraceList.Add(siteOfGrace);
+            }
+        }
+        public void RemoveSiteOfGraceFromList(SiteOfGraceInteractable siteOfGrace)
+        {
+            if (_sitesOfGraceList.Contains(siteOfGrace))
+            {
+                _sitesOfGraceList.Remove(siteOfGrace);
             }
         }
     }

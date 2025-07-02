@@ -26,15 +26,20 @@ namespace SKD.Character.Player
         public NetworkVariable<FixedString64Bytes> _characterName = new NetworkVariable<FixedString64Bytes>("Character",
             NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
+        [Header("Flasks")]
+        public NetworkVariable<int> _remainingHealthFlasks = new NetworkVariable<int>(3, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<int> _remainingFocusPointsFlasks = new NetworkVariable<int>(3, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<bool> _isChugging = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+
         [Header("Equipment")]
         public NetworkVariable<int> _currentWeaponBeingUsed = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> _currentRightHandWeaponID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-        public NetworkVariable<int> _currentLeftWeaponID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<int> _currentLeftHandWeaponID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<bool> _isUsingRightHand = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> _currentSpellID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<bool> _isUsingLeftHand = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> _currentQuickSlotItemID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-        
+
         [Header("Two Handed Weapons")]
         public NetworkVariable<int> _currentWeaponBeingTwoHanded = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<bool> _isTwoHandingWeapon = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
@@ -103,11 +108,40 @@ namespace SKD.Character.Player
         {
             WeaponItem newWeapon = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(newId));
             _player._playerInventoryManager._currentRightHandWeapon = newWeapon;
-            _player._playerEquipmentManager.LoadRightWepon();
+            _player._playerEquipmentManager.LoadRightWeapon();
 
             if (_player.IsOwner)
             {
                 PlayerUIManager.Instance._playerUIHUDManager.SetRightWeaponQuickSlotIcon(newId);
+
+                if (newWeapon._weaponClass == WeaponClass.Bow)
+                {
+                    PlayerUIManager.Instance._playerUIHUDManager.ToggleProjectileQuickSlotVisibility(true);
+                }
+                else
+                {
+                    PlayerUIManager.Instance._playerUIHUDManager.ToggleProjectileQuickSlotVisibility(false);
+                }
+            }
+        }
+        public void OnCurrentLeftHandWeaponIDChange(int oldId, int newId)
+        {
+            WeaponItem newWeapon = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(newId));
+            _player._playerInventoryManager._currentLeftHandWeapon = newWeapon;
+            _player._playerEquipmentManager.LoadLeftWeapon();
+
+            if (_player.IsOwner)
+            {
+                PlayerUIManager.Instance._playerUIHUDManager.SetLeftWeaponQuickSlotIcon(newId);
+
+                if (newWeapon._weaponClass == WeaponClass.Bow)
+                {
+                    PlayerUIManager.Instance._playerUIHUDManager.ToggleProjectileQuickSlotVisibility(true);
+                }
+                else
+                {
+                    PlayerUIManager.Instance._playerUIHUDManager.ToggleProjectileQuickSlotVisibility(false);
+                }
             }
         }
         public void OnCurrentSpellIDChange(int oldId, int newId)
@@ -127,7 +161,7 @@ namespace SKD.Character.Player
 
 
         }
-        
+
         public void OnCurrentQuickSlotItemIDChange(int oldID, int newID)
         {
             QuickSlotItem newQuickSlotItem = null;
@@ -136,12 +170,12 @@ namespace SKD.Character.Player
                 newQuickSlotItem = Instantiate(WorldItemDatabase.Instance.GetQuickSlotItemByID(newID));
 
             if (newQuickSlotItem != null)
-            {
                 _player._playerInventoryManager._currentQuickSlotItem = newQuickSlotItem;
-
-                if (_player.IsOwner)
-                    PlayerUIManager.Instance._playerUIHUDManager.SetQuickSlotItemQuickSlotIcon(newID);
-            }
+            else
+                _player._playerInventoryManager._currentQuickSlotItem = null;
+            
+            if (_player.IsOwner)
+                PlayerUIManager.Instance._playerUIHUDManager.SetQuickSlotItemQuickSlotIcon(newID);
         }
         public void OnMainProjectileIDChange(int oldId, int newId)
         {
@@ -150,9 +184,11 @@ namespace SKD.Character.Player
             if (WorldItemDatabase.Instance.GetProjectileByID(newId))
                 projectileItem = Instantiate(WorldItemDatabase.Instance.GetProjectileByID(newId));
 
-
             if (projectileItem != null)
                 _player._playerInventoryManager._mainProjectile = projectileItem;
+
+            if (_player.IsOwner)
+                PlayerUIManager.Instance._playerUIHUDManager.SetMainProjectileQuickSlotIcon(_player._playerInventoryManager._mainProjectile);
 
         }
         public void OnSecondaryProjectileIDChange(int oldId, int newId)
@@ -164,7 +200,10 @@ namespace SKD.Character.Player
 
 
             if (projectileItem != null)
-                _player._playerInventoryManager._seconderyrojectile = projectileItem;
+                _player._playerInventoryManager._secondaryProjectile = projectileItem;
+
+            if (_player.IsOwner)
+                PlayerUIManager.Instance._playerUIHUDManager.SetSecondaryProjectileQuickSlotIcon(_player._playerInventoryManager._secondaryProjectile);
 
         }
         public void OnIsChargingRightSpellChange(bool oldValue, bool newValue)
@@ -200,17 +239,7 @@ namespace SKD.Character.Player
         {
             _player._animator.SetBool("IsChargingLeftSpell", _isChargingLeftSpell.Value);
         }
-        public void OnCurrentLeftHandWeaponIDChange(int oldId, int newId)
-        {
-            WeaponItem newWeapon = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(newId));
-            _player._playerInventoryManager._currentLeftHandWeapon = newWeapon;
-            _player._playerEquipmentManager.LoadLeftWeapon();
 
-            if (_player.IsOwner)
-            {
-                PlayerUIManager.Instance._playerUIHUDManager.SetLeftWeaponQuickSlotIcon(newId);
-            }
-        }
         public void OnCurrentWeaponBeingUsedIDChange(int oldId, int newId)
         {
             WeaponItem newWeapon = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(newId));
@@ -264,12 +293,16 @@ namespace SKD.Character.Player
 
             if (IsOwner)
             {
-                _currentWeaponBeingTwoHanded.Value = _currentLeftWeaponID.Value;
+                _currentWeaponBeingTwoHanded.Value = _currentLeftHandWeaponID.Value;
                 _isTwoHandingWeapon.Value = true;
             }
             _player._playerInventoryManager._currentTwoHandWeapon =
                 _player._playerInventoryManager._currentLeftHandWeapon;
             _player._playerEquipmentManager.TwoHandLeftWeapon();
+        }
+        public void OnIsChuggingChanged(bool oldStatus, bool newStatus)
+        {
+            _player._animator.SetBool("IsChuggingFlask", newStatus);
         }
         public void OnHeadEquipmentChanged(int oldValue, int newValue)
         {
@@ -396,11 +429,11 @@ namespace SKD.Character.Player
         [ClientRpc]
         protected override void DestroyALlCurrentActionFXClientRpc()
         {
-            base.DestroyALlCurrentActionFXClientRpc();
+            //  base.DestroyALlCurrentActionFXClientRpc();
 
             if (_hasArrowNotched.Value)
             {
-                _player._characterSoundFXManager.PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(WorldSoundFXManager.instance._releaseArrowSFX));
+                _player._characterSoundFXManager.PlaySoundFX(WorldSoundFXManager.Instance.ChooseRandomSFXFromArray(WorldSoundFXManager.Instance._releaseArrowSFX));
 
                 // Animate the bow
                 Animator bowAnimator;
@@ -456,7 +489,7 @@ namespace SKD.Character.Player
             _player._playerEffectsManager._activeDrawnProjectileFX = arrow;
 
             // Play SFX
-            _player._characterSoundFXManager.PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(WorldSoundFXManager.instance._notchArrowSFX));
+            _player._characterSoundFXManager.PlaySoundFX(WorldSoundFXManager.Instance.ChooseRandomSFXFromArray(WorldSoundFXManager.Instance._notchArrowSFX));
 
         }
 
@@ -543,6 +576,38 @@ namespace SKD.Character.Player
 
             projectileRigidbody.AddForce(projectileGameObject.transform.forward * projectileItem._forwardVelocity);
             projectileGameObject.transform.parent = null;
+        }
+        [ServerRpc]
+        public void HideWeaponsServerRpc()
+        {
+            if (IsServer)
+                HideWeaponsClientRpc();
+
+        }
+        [ClientRpc]
+        private void HideWeaponsClientRpc()
+        {
+            if (_player._playerEquipmentManager._rightHandWeaponModel != null)
+                _player._playerEquipmentManager._rightHandWeaponModel.SetActive(false);
+
+            if (_player._playerEquipmentManager._leftHandWeaponModel != null)
+                _player._playerEquipmentManager._leftHandWeaponModel.SetActive(false);
+        }
+
+        [ServerRpc]
+        public void NotifyServerOfQuickSlotItemServerRpc(ulong clientId, int quickSlotItemID)
+        {
+            if (IsServer)
+                NotifyClientOfQuickSlotItemClientRpc(clientId, quickSlotItemID);
+        }
+        [ClientRpc]
+        private void NotifyClientOfQuickSlotItemClientRpc(ulong clientId, int quickSlotItemID)
+        {
+            if (clientId != NetworkManager.Singleton.LocalClientId)
+            {
+                QuickSlotItem quickSlotItem = WorldItemDatabase.Instance.GetQuickSlotItemByID(quickSlotItemID);
+                quickSlotItem.AttemptToUseItem(_player);
+            }
         }
 
     }

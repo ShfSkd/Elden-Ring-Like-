@@ -16,11 +16,13 @@ namespace SKD.UI.PlayerUI
         public WeaponItem _currentTwoHandWeapon;
 
         [Header("Quick Slots")]
-        public WeaponItem[] _weaponInRigthHandSlots = new WeaponItem[3];
+        public WeaponItem[] _weaponInRigthHandSlots = new WeaponItem[2];
         public int _rightHandWeaponIndex;
-        public WeaponItem[] _weaponInLefthHandSlots = new WeaponItem[3];
+        public WeaponItem[] _weaponInLefthHandSlots = new WeaponItem[2];
         public int _leftHandWeaponIndex;
         public SpellItem _currentSpell;
+        public QuickSlotItem[] _quickSlotItemInQuickSlots = new QuickSlotItem[3];
+        public int _quickSlotItemIndex;
         public QuickSlotItem _currentQuickSlotItem;
 
         [Header("Armor")]
@@ -31,8 +33,10 @@ namespace SKD.UI.PlayerUI
 
         [Header("Projectiles")]
         public RangedProjectileItem _mainProjectile;
+        [FormerlySerializedAs("_secondaryrojectile")]
+        [FormerlySerializedAs("_seconderyrojectile")]
         [FormerlySerializedAs("_Seconderyrojectile")]
-        public RangedProjectileItem _seconderyrojectile;
+        public RangedProjectileItem _secondaryProjectile;
 
         [Header("Inventory")]
         public List<Item> _itemInTheInventory;

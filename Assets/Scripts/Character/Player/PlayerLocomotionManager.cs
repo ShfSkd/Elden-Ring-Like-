@@ -276,7 +276,7 @@ namespace SKD.Character.Player
 
         public void AttemptToPerformDodge()
         {
-            if (_player._isPerformingAction)
+            if (!_canRoll)
                 return;
 
             if (_player._playerNetworkManager._currentStamina.Value <= 0)
@@ -312,6 +312,10 @@ namespace SKD.Character.Player
             // If we are performing a general action, we do not want to allow a jump (will change when combat is added)
             if (_player._isPerformingAction)
                 return;
+            
+            if(_player._playerCombatManager._isUsingItem)
+                return;
+            
             // If we are out of stamina, we do not wish to allow a jump
             if (_player._playerNetworkManager._currentStamina.Value <= 0)
                 return;

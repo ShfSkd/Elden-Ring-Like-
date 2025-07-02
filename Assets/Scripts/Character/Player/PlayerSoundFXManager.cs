@@ -16,7 +16,7 @@ namespace SKD.Character.Player
 
         public override void PlayBlockingSFX()
         {
-            PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(_player._playerCombatManager._currentWeaponBeingUsed._blocking));
+            PlaySoundFX(WorldSoundFXManager.Instance.ChooseRandomSFXFromArray(_player._playerCombatManager._currentWeaponBeingUsed._blocking));
         }
     }
 }

@@ -39,7 +39,7 @@ namespace SKD.World_Manager
 
         [Header("Spells")]
         [SerializeField] List<SpellItem> _spells = new List<SpellItem>();
-        
+
         [Header("Projectiles")]
         [SerializeField] List<RangedProjectileItem> _projectiles = new List<RangedProjectileItem>();
 
@@ -82,12 +82,11 @@ namespace SKD.World_Manager
 
             foreach (var item in _quickSlotsItem)
                 _items.Add(item);
-            
-       
+
+
             // Assign all of our items a unique  item ID
             for (int i = 0; i < _items.Count; i++)
                 _items[i]._itemID = i;
-<<<<<<< Updated upstream
         }
 
         public Item GetItemByID(int ID) =>
@@ -117,52 +116,8 @@ namespace SKD.World_Manager
         public RangedProjectileItem GetProjectileByID(int id) =>
             _projectiles.FirstOrDefault(projectile => projectile._itemID == id);
 
-        public QuickSlotItem GetQuickSlotItem(int id) =>
+        public QuickSlotItem GetQuickSlotItemByID(int id) =>
             _quickSlotsItem.FirstOrDefault(flask => flask._itemID == id);
-=======
-            }
-        }
-        public Item GetItemByID(int ID)
-        {
-            return _items.FirstOrDefault(item => item._itemID == ID);
-        }
-        public WeaponItem GetWeaponByID(int id)
-        {
-            return _weapons.FirstOrDefault(weapon => weapon._itemID == id);
-        }
-        public HeadEquipmentItem GetHeadEquipmentByID(int id)
-        {
-            return _headEquipment.FirstOrDefault(equipment => equipment._itemID == id);
-        }
-        public BodyEquipmentItem GetBodyEquipmentByID(int id)
-        {
-            return _bodyEqipment.FirstOrDefault(equipment => equipment._itemID == id);
-        }
-        public LegEquipmentItem GetLegEquipmentByID(int id)
-        {
-            return _legEqipment.FirstOrDefault(equipment => equipment._itemID == id);
-        }
-        public HandEquipmentItem GetHandEquipmentByID(int id)
-        {
-            return _handEqipment.FirstOrDefault(equipment => equipment._itemID == id);
-        }
-        public AshOfWar GetAshOfWarByID(int id)
-        {
-            return _ashOfWar.FirstOrDefault(ash => ash._itemID == id);
-        }
-        public SpellItem GetSpellByID(int id)
-        {
-            return _spells.FirstOrDefault(spell => spell._itemID == id);
-        }
-        public RangedProjectileItem GetProjectileByID(int id)
-        {
-            return _projectiles.FirstOrDefault(projectile => projectile._itemID == id);
-        }
-        public QuickSlotItem GetQuickSlotItemByID(int id)
-        {
-            return _quickSlotsItem.FirstOrDefault(flask => flask._itemID == id);
-        }
-        
->>>>>>> Stashed changes
+
     }
 }

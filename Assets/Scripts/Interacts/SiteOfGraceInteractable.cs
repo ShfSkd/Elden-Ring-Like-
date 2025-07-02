@@ -11,7 +11,7 @@ namespace SKD.Interacts
     public class SiteOfGraceInteractable : Interactable
     {
         [Header("Site Of Grace")]
-        [SerializeField] int _siteOfGraceID;
+        public int _siteOfGraceID;
         public NetworkVariable<bool> _isActivated = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
         [Header("VFX")]
@@ -20,6 +20,9 @@ namespace SKD.Interacts
         [Header("Interaction Text")]
         [SerializeField] string _unactivatedInteractionText = "Restore Site Of Grace";
         [SerializeField] string _activatedInteractionText = "Rest";
+
+        [Header("Teleport Transform")]
+        [SerializeField] Transform _teleportTransform;
 
         protected override void Start()
         {
@@ -49,7 +52,12 @@ namespace SKD.Interacts
         {
             base.OnNetworkSpawn();
 
+            if (!IsOwner)
+                OnIsActiveChanged(false, _isActivated.Value);
+
             _isActivated.OnValueChanged += OnIsActiveChanged;
+
+            WorldObjectManager.Instance.AddSiteOfGraceToList(this);
         }
         public override void OnNetworkDespawn()
         {
@@ -61,7 +69,7 @@ namespace SKD.Interacts
 
             _isActivated.OnValueChanged -= OnIsActiveChanged;
         }
-        private void RestoreSiteofGrace(PlayerManager player)
+        private void RestoreSiteOfGrace(PlayerManager player)
         {
             _isActivated.Value = true;
 
@@ -76,10 +84,12 @@ namespace SKD.Interacts
 
             PlayerUIManager.Instance._playerUIPopUpManager.SendGraceRestoredPopUp("Site of Grace Restored");
 
-            StartCoroutine(WaitForAnimationAndPopUpthenRestoreCollider());
+            StartCoroutine(WaitForAnimationAndPopUpThenRestoreCollider());
         }
         private void RestAtSiteOfGrace(PlayerManager player)
         {
+            PlayerUIManager.Instance._playerUISiteOfGraceManager.OpenSiteOfGraceManagerMenu();
+
             Debug.Log("Resting");
             _interactableCollider.enabled = true;
             player._playerNetworkManager._currentHealth.Value = player._playerNetworkManager._maxHealth.Value;
@@ -88,7 +98,7 @@ namespace SKD.Interacts
             WorldAIManager.Instance.ResetAllCharacters();
 
         }
-        private IEnumerator WaitForAnimationAndPopUpthenRestoreCollider()
+        private IEnumerator WaitForAnimationAndPopUpThenRestoreCollider()
         {
             yield return new WaitForSeconds(2);
             _interactableCollider.enabled = true;
@@ -110,14 +120,30 @@ namespace SKD.Interacts
         {
             base.Interact(player);
 
+            if (player._isPerformingAction)
+                return;
+
+            if (player._playerCombatManager._isUsingItem)
+                return;
+
             if (!_isActivated.Value)
             {
-                RestoreSiteofGrace(player);
+                RestoreSiteOfGrace(player);
             }
             else
             {
                 RestAtSiteOfGrace(player);
             }
+        }
+        public void TeleportToSiteOfGrace()
+        {
+            // The Player is only able to teleport when not in a co-op game so we can grab the local player from the network manager
+            PlayerManager player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerManager>();
+            
+            // Enable loading screen
+            
+            // Teleport Player
+            player.transform.position = _teleportTransform.position;
         }
     }
 }

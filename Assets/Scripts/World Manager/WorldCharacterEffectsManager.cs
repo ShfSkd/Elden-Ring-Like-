@@ -12,6 +12,7 @@ namespace SKD.WorldManager
         [Header("VFX")] 
         public GameObject _bloodSplatterVFX;
         public GameObject _criticalBloodSplatterVFX;
+        public GameObject _healingFlaskVFX; 
 
         [Header("Damage")]
         public TakeDamageEffect _takeDamageEffect;

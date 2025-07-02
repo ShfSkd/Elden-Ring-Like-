@@ -8,11 +8,13 @@ using SKD.Effects;
 using SKD.Items.Equipment;
 using SKD.Items.Weapon_Actions;
 using SKD.Items.Weapons;
+using SKD.UI.PlayerUI;
 using SKD.World_Manager;
 using SKD.WorldManager;
 using UnityEngine;
 using Unity.Netcode;
 using Unity.VisualScripting;
+using RangedProjectileItem = SKD.Items.Equipment.RangedProjectileItem;
 
 namespace SKD.Character.Player
 {
@@ -30,6 +32,7 @@ namespace SKD.Character.Player
         public bool _canComboWithMainHandWeapon;
         /*  public bool _canPerformRollingAttack;
           public bool _canPerformBackstopAttack;*/
+        public bool _isUsingItem;
 
         // public bool _canComboWithOffHandWeapon;
         protected override void Awake()
@@ -46,7 +49,7 @@ namespace SKD.Character.Player
                 weaponAction.AttemptToPerformedAction(_player, weaponPerformingAction);
 
             }
-            
+
         }
         protected override void CloseAllDamageColliders()
         {
@@ -259,7 +262,7 @@ namespace SKD.Character.Player
             if (_player._playerEffectsManager._activeDrawnProjectileFX != null)
                 Destroy(_player._playerEffectsManager._activeDrawnProjectileFX);
 
-            _player._characterSoundFXManager.PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(WorldSoundFXManager.instance._releaseArrowSFX));
+            _player._characterSoundFXManager.PlaySoundFX(WorldSoundFXManager.Instance.ChooseRandomSFXFromArray(WorldSoundFXManager.Instance._releaseArrowSFX));
 
             // Animate the bow
             Animator bowAnimator;
@@ -287,10 +290,10 @@ namespace SKD.Character.Player
                     projectileItem = _player._playerInventoryManager._mainProjectile;
                     break;
                 case ProjectileSlot.Secondary:
-                    projectileItem = _player._playerInventoryManager._seconderyrojectile;
+                    projectileItem = _player._playerInventoryManager._secondaryProjectile;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    break;
             }
 
             if (projectileItem == null)
@@ -306,7 +309,20 @@ namespace SKD.Character.Player
 
             // Subtract Ammo
             projectileItem._currentAmmoAmount -= 1;
-
+            
+            // Update ammo count in the UI
+            switch (_currentProjectileBeingUsed)
+            {
+                case ProjectileSlot.Main:
+                    PlayerUIManager.Instance._playerUIHUDManager.SetMainProjectileQuickSlotIcon(projectileItem);
+                    break;
+                case ProjectileSlot.Secondary:
+                    PlayerUIManager.Instance._playerUIHUDManager.SetSecondaryProjectileQuickSlotIcon(projectileItem);
+                    break;
+                default:
+                    break;
+            }
+            
             projectileInstantiationLocation = _player._playerCombatManager._lockOnTransform;
             projectileGameObject = Instantiate(projectileItem._releaseProjectileModel, projectileInstantiationLocation);
             projectileDamageCollider = projectileGameObject.GetComponent<RangedProjectileDamageCollider>();
@@ -340,7 +356,7 @@ namespace SKD.Character.Player
                 else
                 {
                     Quaternion arrowRotation = Quaternion.LookRotation(_player.transform.forward);
-                    
+
                     projectileGameObject.transform.rotation = arrowRotation;
                 }
 
@@ -359,7 +375,7 @@ namespace SKD.Character.Player
 
             projectileRigidbody.AddForce(projectileGameObject.transform.forward * projectileItem._forwardVelocity);
             projectileGameObject.transform.parent = null;
-            
+
             // Sync arrow fire with serverRpc
             _player._playerNetworkManager.NotifyServerOfReleasedProjectileServerRpc(_player.OwnerClientId, projectileItem._itemID,
                 _projectileAimeDirection.x, _projectileAimeDirection.y, _projectileAimeDirection.z, yRotationDuringFire);
@@ -372,6 +388,8 @@ namespace SKD.Character.Player
 
             _player._playerInventoryManager._currentSpell.InstantiateWarmUpSpellFX(_player);
         }
+
+        // Spell
         public void SuccessfullyCastSpell()
         {
             if (_player._playerInventoryManager._currentSpell == null)
@@ -387,6 +405,15 @@ namespace SKD.Character.Player
 
             _player._playerInventoryManager._currentSpell.SuccessfullyCastSpellFullCharge(_player);
         }
+
+        // Quick Slot
+        public void SuccessfullyQuickSlotItem()
+        {
+            if (_player._playerInventoryManager._currentQuickSlotItem != null)
+                _player._playerInventoryManager._currentQuickSlotItem.SuccessfullyUseItem(_player);
+        }
+
+        // Ashes of war
         public WeaponItem SelectWeaponToPerformAshOfWar()
         {
             WeaponItem selectedWeapon = _player._playerInventoryManager._currentLeftHandWeapon;

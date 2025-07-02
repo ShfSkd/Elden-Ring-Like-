@@ -12,6 +12,10 @@ namespace SKD.Items.Weapon_Actions
 
             if (!playerPerformingAction.IsOwner)
                 return;
+            
+            // If we are using an item, return
+            if (playerPerformingAction._playerCombatManager._isUsingItem)
+                return;
 
             // Check for stops
             if (playerPerformingAction._playerNetworkManager._currentStamina.Value <= 0)

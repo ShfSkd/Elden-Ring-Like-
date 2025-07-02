@@ -22,6 +22,10 @@ namespace SKD.Items.Weapon_Actions
             if (playerPerformingAction._playerNetworkManager._isLockOn.Value)
                 return;
 
+            // If we are using an item, return
+            if (playerPerformingAction._playerCombatManager._isUsingItem)
+                return;
+
             if (playerPerformingAction.IsOwner)
             {
                 // Two handed the weapon (bow) before we aim
