@@ -141,9 +141,13 @@ namespace SKD.Interacts
             PlayerManager player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerManager>();
             
             // Enable loading screen
+            PlayerUIManager.Instance._playerUILoadingScreenManager.ActivateLoadingScreen();
             
             // Teleport Player
             player.transform.position = _teleportTransform.position;
+            
+            // Disable Loading Screen
+            PlayerUIManager.Instance._playerUILoadingScreenManager.DeactivateLoadingScreen();
         }
     }
 }

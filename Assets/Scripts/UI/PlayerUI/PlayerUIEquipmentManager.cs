@@ -233,7 +233,7 @@ namespace SKD.UI.PlayerUI
                 _rightHandSlot03.enabled = false;
             }
 
-            WeaponItem leftHandWeapon01 = player._playerInventoryManager._weaponInLefthHandSlots[0];
+            WeaponItem leftHandWeapon01 = player._playerInventoryManager._weaponInLeftHandSlots[0];
             if (leftHandWeapon01._itemIcon != null)
             {
                 _leftHandSlot01.enabled = true;
@@ -244,7 +244,7 @@ namespace SKD.UI.PlayerUI
                 _leftHandSlot01.enabled = false;
             }
 
-            WeaponItem leftHandWeapon02 = player._playerInventoryManager._weaponInLefthHandSlots[1];
+            WeaponItem leftHandWeapon02 = player._playerInventoryManager._weaponInLeftHandSlots[1];
             if (leftHandWeapon02._itemIcon != null)
             {
                 _leftHandSlot02.enabled = true;
@@ -255,7 +255,7 @@ namespace SKD.UI.PlayerUI
                 _leftHandSlot02.enabled = false;
             }
 
-            WeaponItem leftHandWeapon03 = player._playerInventoryManager._weaponInLefthHandSlots[2];
+            WeaponItem leftHandWeapon03 = player._playerInventoryManager._weaponInLeftHandSlots[2];
             if (leftHandWeapon03._itemIcon != null)
             {
                 _leftHandSlot03.enabled = true;
@@ -794,10 +794,10 @@ namespace SKD.UI.PlayerUI
                     }
                     break;
                 case EquipmentType.LeftWeapon01:
-                    unequippedItem = player._playerInventoryManager._weaponInLefthHandSlots[0];
+                    unequippedItem = player._playerInventoryManager._weaponInLeftHandSlots[0];
                     if (unequippedItem != null)
                     {
-                        player._playerInventoryManager._weaponInLefthHandSlots[0] = Instantiate(WorldItemDatabase.Instance._unarmedWeapon);
+                        player._playerInventoryManager._weaponInLeftHandSlots[0] = Instantiate(WorldItemDatabase.Instance._unarmedWeapon);
 
                         if (unequippedItem._itemID != WorldItemDatabase.Instance._unarmedWeapon._itemID)
                             player._playerInventoryManager.AddItemsToInventory(unequippedItem);
@@ -807,10 +807,10 @@ namespace SKD.UI.PlayerUI
                     }
                     break;
                 case EquipmentType.LeftWeapon02:
-                    unequippedItem = player._playerInventoryManager._weaponInLefthHandSlots[1];
+                    unequippedItem = player._playerInventoryManager._weaponInLeftHandSlots[1];
                     if (unequippedItem != null)
                     {
-                        player._playerInventoryManager._weaponInLefthHandSlots[1] = Instantiate(WorldItemDatabase.Instance._unarmedWeapon);
+                        player._playerInventoryManager._weaponInLeftHandSlots[1] = Instantiate(WorldItemDatabase.Instance._unarmedWeapon);
 
                         if (unequippedItem._itemID != WorldItemDatabase.Instance._unarmedWeapon._itemID)
                             player._playerInventoryManager.AddItemsToInventory(unequippedItem);
@@ -820,10 +820,10 @@ namespace SKD.UI.PlayerUI
                     }
                     break;
                 case EquipmentType.LeftWeapon03:
-                    unequippedItem = player._playerInventoryManager._weaponInLefthHandSlots[2];
+                    unequippedItem = player._playerInventoryManager._weaponInLeftHandSlots[2];
                     if (unequippedItem != null)
                     {
-                        player._playerInventoryManager._weaponInLefthHandSlots[2] = Instantiate(WorldItemDatabase.Instance._unarmedWeapon);
+                        player._playerInventoryManager._weaponInLeftHandSlots[2] = Instantiate(WorldItemDatabase.Instance._unarmedWeapon);
 
                         if (unequippedItem._itemID != WorldItemDatabase.Instance._unarmedWeapon._itemID)
                             player._playerInventoryManager.AddItemsToInventory(unequippedItem);

@@ -31,13 +31,21 @@ namespace SKD.Character.Player
         public NetworkVariable<int> _remainingFocusPointsFlasks = new NetworkVariable<int>(3, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<bool> _isChugging = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
+        [Header("Actions")]
+        public NetworkVariable<bool> _isUsingRightHand = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<bool> _isUsingLeftHand = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        
+        [Header("Body")]
+        public NetworkVariable<int>_hairStyleID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Owner, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<float>_hairColorRed = new NetworkVariable<float>(0, NetworkVariableReadPermission.Owner, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<float>_hairColorGreen = new NetworkVariable<float>(0, NetworkVariableReadPermission.Owner, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<float>_hairColorBlue = new NetworkVariable<float>(0, NetworkVariableReadPermission.Owner, NetworkVariableWritePermission.Owner);
+        
         [Header("Equipment")]
         public NetworkVariable<int> _currentWeaponBeingUsed = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> _currentRightHandWeaponID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> _currentLeftHandWeaponID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-        public NetworkVariable<bool> _isUsingRightHand = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> _currentSpellID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-        public NetworkVariable<bool> _isUsingLeftHand = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> _currentQuickSlotItemID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
         [Header("Two Handed Weapons")]
@@ -98,6 +106,22 @@ namespace SKD.Character.Player
             PlayerUIManager.Instance._playerUIHUDManager.SetMaxFocusPointsValue(_maxFocusPoints.Value);
             _currentFocusPoints.Value = _maxFocusPoints.Value;
         }
+        public void OnHairStyleChanged(int oldID, int newID)
+        {
+            _player._playerBodyManager.ToggleHairType(_hairStyleID.Value);
+                 }
+        public void OnHairColorRedChanged(float oldID, float newID)
+        {
+            _player._playerBodyManager.SetHairColor();
+        }
+        public void OnHairColorGreenChanged(float oldID, float newID)
+        {
+            _player._playerBodyManager.SetHairColor();
+        }
+        public void OnHairColorBlueChanged(float oldID, float newID)
+        {
+            _player._playerBodyManager.SetHairColor();
+        }
         public void SetNewMaxStaminaValue(int oldEndurance, int newEndurance)
         {
             _maxStamina.Value = _player._playerStatsManager.CalculateStaminaBasedOnEnduraceLevel(newEndurance);
@@ -106,15 +130,19 @@ namespace SKD.Character.Player
         }
         public void OnCurrentRightHandWeaponIDChange(int oldId, int newId)
         {
-            WeaponItem newWeapon = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(newId));
-            _player._playerInventoryManager._currentRightHandWeapon = newWeapon;
+            if (!_player.IsOwner)
+            {
+                WeaponItem newWeapon = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(newId));
+                _player._playerInventoryManager._currentRightHandWeapon = newWeapon;
+            }
+
             _player._playerEquipmentManager.LoadRightWeapon();
 
             if (_player.IsOwner)
             {
                 PlayerUIManager.Instance._playerUIHUDManager.SetRightWeaponQuickSlotIcon(newId);
 
-                if (newWeapon._weaponClass == WeaponClass.Bow)
+                if (_player._playerInventoryManager._currentRightHandWeapon._weaponClass == WeaponClass.Bow)
                 {
                     PlayerUIManager.Instance._playerUIHUDManager.ToggleProjectileQuickSlotVisibility(true);
                 }
@@ -126,15 +154,18 @@ namespace SKD.Character.Player
         }
         public void OnCurrentLeftHandWeaponIDChange(int oldId, int newId)
         {
-            WeaponItem newWeapon = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(newId));
-            _player._playerInventoryManager._currentLeftHandWeapon = newWeapon;
+            if (!_player.IsOwner)
+            {
+                WeaponItem newWeapon = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(newId));
+                _player._playerInventoryManager._currentLeftHandWeapon = newWeapon;
+            }
             _player._playerEquipmentManager.LoadLeftWeapon();
 
             if (_player.IsOwner)
             {
                 PlayerUIManager.Instance._playerUIHUDManager.SetLeftWeaponQuickSlotIcon(newId);
 
-                if (newWeapon._weaponClass == WeaponClass.Bow)
+                if (_player._playerInventoryManager._currentLeftHandWeapon ._weaponClass == WeaponClass.Bow)
                 {
                     PlayerUIManager.Instance._playerUIHUDManager.ToggleProjectileQuickSlotVisibility(true);
                 }
@@ -161,7 +192,6 @@ namespace SKD.Character.Player
 
 
         }
-
         public void OnCurrentQuickSlotItemIDChange(int oldID, int newID)
         {
             QuickSlotItem newQuickSlotItem = null;
@@ -173,9 +203,9 @@ namespace SKD.Character.Player
                 _player._playerInventoryManager._currentQuickSlotItem = newQuickSlotItem;
             else
                 _player._playerInventoryManager._currentQuickSlotItem = null;
-            
+
             if (_player.IsOwner)
-                PlayerUIManager.Instance._playerUIHUDManager.SetQuickSlotItemQuickSlotIcon(newID);
+                PlayerUIManager.Instance._playerUIHUDManager.SetQuickSlotItemQuickSlotIcon(_player._playerInventoryManager._currentQuickSlotItem);
         }
         public void OnMainProjectileIDChange(int oldId, int newId)
         {
@@ -429,7 +459,14 @@ namespace SKD.Character.Player
         [ClientRpc]
         protected override void DestroyALlCurrentActionFXClientRpc()
         {
-            //  base.DestroyALlCurrentActionFXClientRpc();
+            if (_player._characterEffectsManager._activeSpellWarmUpFX != null)
+                Destroy(_player._characterEffectsManager._activeSpellWarmUpFX);
+
+            if (_player._characterEffectsManager._activeDrawnProjectileFX != null)
+                Destroy(_player._characterEffectsManager._activeDrawnProjectileFX);
+            
+            if (_player._characterEffectsManager._activeQuickSlotItemFX != null)
+                Destroy(_player._characterEffectsManager._activeQuickSlotItemFX);
 
             if (_hasArrowNotched.Value)
             {

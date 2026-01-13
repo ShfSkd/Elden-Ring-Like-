@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6127797734248604389}
   - component: {fileID: 8638195434474960205}
   - component: {fileID: 231474170066097601}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 8013402234765417100}
   - component: {fileID: 2978389984513460190}
   - component: {fileID: 3645409052965617648}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Stamina Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -193,7 +193,7 @@ GameObject:
   - component: {fileID: 898815762640780068}
   - component: {fileID: 3757318551403872430}
   - component: {fileID: 8769655624797779930}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Projectile Count Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -326,7 +326,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 63048365746844624}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Site Of Grace Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -366,7 +366,7 @@ GameObject:
   - component: {fileID: 2733991231060214345}
   - component: {fileID: 877312427784063740}
   - component: {fileID: 1365381044904551438}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Viewport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -458,7 +458,7 @@ GameObject:
   - component: {fileID: 8872716323672499938}
   - component: {fileID: 2641262945144476500}
   - component: {fileID: 3807545455035505491}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Equipment Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -615,7 +615,7 @@ GameObject:
   - component: {fileID: 2501512258642479817}
   - component: {fileID: 3534709829871812930}
   - component: {fileID: 5366792490300115729}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Item Amount Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -750,7 +750,7 @@ GameObject:
   - component: {fileID: 3156526340027134226}
   - component: {fileID: 5572835519548798306}
   - component: {fileID: 2641740197434625680}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Projectile Count Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -884,7 +884,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8481644650184384998}
   - component: {fileID: 4465733886417059518}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Armor Slots
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -952,7 +952,7 @@ GameObject:
   - component: {fileID: 230149183903329418}
   - component: {fileID: 8632122879948688956}
   - component: {fileID: 3627953815837130043}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1028,7 +1028,7 @@ GameObject:
   - component: {fileID: 925584623174088104}
   - component: {fileID: 4205982953135949373}
   - component: {fileID: 7178746587719522709}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Site Of Grace Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1163,7 +1163,7 @@ GameObject:
   - component: {fileID: 5868559569790166151}
   - component: {fileID: 7645913570829567289}
   - component: {fileID: 6878806011937161514}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1297,7 +1297,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5562488093064978447}
   - component: {fileID: 7849525183664029777}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Item Pop Up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1361,7 +1361,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8550020621674870831}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1400,7 +1400,7 @@ GameObject:
   - component: {fileID: 5665402291237188699}
   - component: {fileID: 1315667714118817867}
   - component: {fileID: 344251283886106839}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Projectile Count Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1535,7 +1535,7 @@ GameObject:
   - component: {fileID: 8436311785390838227}
   - component: {fileID: 2468272589253688421}
   - component: {fileID: 4635023047537450551}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1611,7 +1611,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5179592460543120570}
   - component: {fileID: 4082556121898206058}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Boss Health Bars Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1675,7 +1675,7 @@ GameObject:
   - component: {fileID: 5579429705009628199}
   - component: {fileID: 5648714733560704259}
   - component: {fileID: 458029859813388011}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1754,7 +1754,7 @@ GameObject:
   - component: {fileID: 1052291434253876522}
   - component: {fileID: 826057763863906950}
   - component: {fileID: 838379217476385312}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: 'Teleporte To A New Location '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1899,7 +1899,7 @@ GameObject:
   - component: {fileID: 2401400209655313580}
   - component: {fileID: 5303505616352070035}
   - component: {fileID: 8969948717461461794}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Message Pop Up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1976,7 +1976,7 @@ GameObject:
   - component: {fileID: 2903892379421071461}
   - component: {fileID: 4988354079940556805}
   - component: {fileID: 8732072048276367987}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2052,7 +2052,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4788106795105196977}
   - component: {fileID: 4161323806182197772}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Weapon Slots
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2117,7 +2117,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2265379087315563450}
   - component: {fileID: 8403058111753875110}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: 'Quick Slots '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2184,7 +2184,7 @@ GameObject:
   - component: {fileID: 7357544799724332690}
   - component: {fileID: 8137847843698460832}
   - component: {fileID: 6625928655036111131}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fobus Point Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2291,7 +2291,7 @@ GameObject:
   - component: {fileID: 6747543785647826860}
   - component: {fileID: 8054603921706216178}
   - component: {fileID: 767861399143753888}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Location (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2427,7 +2427,7 @@ GameObject:
   - component: {fileID: 8206570102150184134}
   - component: {fileID: 1946786219936928645}
   - component: {fileID: 5276464751781193681}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Player UI Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2452,8 +2452,9 @@ RectTransform:
   - {fileID: 5591605568927025014}
   - {fileID: 6943514165107020808}
   - {fileID: 5212956273980199219}
+  - {fileID: 2269334157750897530}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2479,6 +2480,7 @@ MonoBehaviour:
   _playerUIEquipmentManager: {fileID: 0}
   _playerUISiteOfGraceManager: {fileID: 0}
   _playerUITeleportLocationManager: {fileID: 0}
+  _playerUILoadingScreenManager: {fileID: 0}
   _menuWindowIsOpen: 0
   _popUpWindowIsOpen: 0
 --- !u!223 &8206570102150184134
@@ -2498,7 +2500,9 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -2553,7 +2557,7 @@ GameObject:
   - component: {fileID: 6665468035258571010}
   - component: {fileID: 8034094754928486830}
   - component: {fileID: 2915682766540623042}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: 'Site Of Grace Title '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2688,7 +2692,7 @@ GameObject:
   - component: {fileID: 9151541907081301512}
   - component: {fileID: 7447156935948768619}
   - component: {fileID: 3485422722493883314}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2823,7 +2827,7 @@ GameObject:
   - component: {fileID: 7504725654122813843}
   - component: {fileID: 1846508879534165105}
   - component: {fileID: 3919242503774218708}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2898,7 +2902,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5194615797317652862}
   - component: {fileID: 6393991511929539085}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: 'Left Hand Weapons '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2965,7 +2969,7 @@ GameObject:
   - component: {fileID: 3206906021410881846}
   - component: {fileID: 8928783578245274577}
   - component: {fileID: 3765775219128436563}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Tiltle (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3102,7 +3106,7 @@ GameObject:
   - component: {fileID: 2693158161881169199}
   - component: {fileID: 3183648933971097596}
   - component: {fileID: 5983054719818579034}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3178,7 +3182,7 @@ GameObject:
   - component: {fileID: 6982784493999981637}
   - component: {fileID: 7198879066257721212}
   - component: {fileID: 5466256695274534162}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Item BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3258,7 +3262,7 @@ GameObject:
   - component: {fileID: 8274659090501329923}
   - component: {fileID: 7722984526110709032}
   - component: {fileID: 9066412943368406220}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Item Count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3393,7 +3397,7 @@ GameObject:
   - component: {fileID: 8263575044515168885}
   - component: {fileID: 4460321862459704655}
   - component: {fileID: 2382509001129651885}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Projectile Count Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3529,7 +3533,7 @@ GameObject:
   - component: {fileID: 7394269463194150078}
   - component: {fileID: 5964305406775385239}
   - component: {fileID: 5014783611675298425}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Scrollbar Vertical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3655,7 +3659,7 @@ GameObject:
   - component: {fileID: 3564957565408505978}
   - component: {fileID: 8082943274812348379}
   - component: {fileID: 3594068093899544453}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: You Died  BG Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3791,7 +3795,7 @@ GameObject:
   - component: {fileID: 151454718227898744}
   - component: {fileID: 5948972765017962890}
   - component: {fileID: 2813883805586703825}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ' Boss Defetead BG Text'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3927,7 +3931,7 @@ GameObject:
   - component: {fileID: 6643336350651255797}
   - component: {fileID: 6033537041370580337}
   - component: {fileID: 618322909753071149}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Tiltle (0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4062,7 +4066,7 @@ GameObject:
   - component: {fileID: 2880822820841268181}
   - component: {fileID: 4589756858515334394}
   - component: {fileID: 7446738611059015162}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Tiltle (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4200,7 +4204,7 @@ GameObject:
   - component: {fileID: 1496797599976907729}
   - component: {fileID: 7840790028558970983}
   - component: {fileID: 2583285112617605854}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Location (0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4333,7 +4337,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9045797109643820413}
   - component: {fileID: 4741458601849375686}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Spell & Item Slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4399,7 +4403,7 @@ GameObject:
   - component: {fileID: 6536002050869555536}
   - component: {fileID: 3954966518505941367}
   - component: {fileID: 6633709221567923907}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: You Die Pop-Up Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4523,6 +4527,57 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &3510844329056540251
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 744295391994688092}
+  - component: {fileID: 4268001122023629452}
+  m_Layer: 5
+  m_Name: Loading Screen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &744295391994688092
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3510844329056540251}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8668962371329541471}
+  - {fileID: 3560851894890025255}
+  m_Father: {fileID: 2269334157750897530}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &4268001122023629452
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3510844329056540251}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &3576232611420831614
 GameObject:
   m_ObjectHideFlags: 0
@@ -4533,7 +4588,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7796595093383919365}
   - component: {fileID: 1261187174493076960}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Right Hand Weapons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4600,7 +4655,7 @@ GameObject:
   - component: {fileID: 4970832600896480499}
   - component: {fileID: 5275205838076286995}
   - component: {fileID: 1224360302953227291}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Equipment Inventory Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4688,7 +4743,7 @@ GameObject:
   - component: {fileID: 2340266196484813015}
   - component: {fileID: 4750235162332743246}
   - component: {fileID: 2899193756220694212}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4825,7 +4880,7 @@ GameObject:
   - component: {fileID: 4873054742698698128}
   - component: {fileID: 5980719656805627041}
   - component: {fileID: 8283254595597535680}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4902,7 +4957,7 @@ GameObject:
   - component: {fileID: 6269426435061284920}
   - component: {fileID: 2054178325292722906}
   - component: {fileID: 8425554910429482857}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4979,7 +5034,7 @@ GameObject:
   - component: {fileID: 5520346113153791498}
   - component: {fileID: 2977953085429599966}
   - component: {fileID: 851760772248974782}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5053,7 +5108,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9004508462158017301}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5092,7 +5147,7 @@ GameObject:
   - component: {fileID: 1254015532118530570}
   - component: {fileID: 1130209617204757933}
   - component: {fileID: 807416747691864359}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5227,7 +5282,7 @@ GameObject:
   - component: {fileID: 8993977527049044590}
   - component: {fileID: 5236517444084494458}
   - component: {fileID: 8527654460974327194}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Boss Defetead Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5360,7 +5415,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1464796929704653279}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5398,7 +5453,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4596373184071832768}
   - component: {fileID: 692820282875079411}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: 'Projectile Slots '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5464,7 +5519,7 @@ GameObject:
   - component: {fileID: 6379383579247114505}
   - component: {fileID: 7864988914546185084}
   - component: {fileID: 6162597533613259206}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5541,7 +5596,7 @@ GameObject:
   - component: {fileID: 9079830714475353806}
   - component: {fileID: 7839494427123526092}
   - component: {fileID: 1484430706357699985}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5632,7 +5687,7 @@ GameObject:
   - component: {fileID: 8015253518659501489}
   - component: {fileID: 4145390430504222890}
   - component: {fileID: 1278236417915029772}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5708,7 +5763,7 @@ GameObject:
   - component: {fileID: 3622313864135427227}
   - component: {fileID: 1702616980833169037}
   - component: {fileID: 1269675902290571829}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Tiltle (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5845,7 +5900,7 @@ GameObject:
   - component: {fileID: 420518558347059067}
   - component: {fileID: 9176583078828151627}
   - component: {fileID: 7155463118849807198}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Tiltle (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5981,7 +6036,7 @@ GameObject:
   - component: {fileID: 1180139220612459484}
   - component: {fileID: 6866369658134314173}
   - component: {fileID: 358615141480863642}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Inventory Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6103,7 +6158,7 @@ GameObject:
   - component: {fileID: 4741699546405142504}
   - component: {fileID: 5881809507400085898}
   - component: {fileID: 6615515976405571732}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6234,7 +6289,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7888594222235465012}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Quick Slots
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6276,7 +6331,7 @@ GameObject:
   - component: {fileID: 5042766152542258797}
   - component: {fileID: 5491455672279894997}
   - component: {fileID: 1577817227226421003}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Crosshair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6363,7 +6418,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5591605568927025014}
   - component: {fileID: 6234217601682468073}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Equipment Manger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6439,7 +6494,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1607872383946708061}
   - component: {fileID: 1106034240117296586}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Site Of Grace PopUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6489,7 +6544,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6554645716048343764}
   - component: {fileID: 2984819419346570001}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Boss Defeted Popup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6529,6 +6584,58 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!1 &5538360926707754104
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2269334157750897530}
+  - component: {fileID: 5734854721418767809}
+  m_Layer: 5
+  m_Name: Loading Screen Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2269334157750897530
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5538360926707754104}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 744295391994688092}
+  m_Father: {fileID: 2964552778842858486}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5734854721418767809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5538360926707754104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07137802e4da406585519cf3d17e67f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _loadingScreen: {fileID: 3510844329056540251}
+  _canvasGroup: {fileID: 4268001122023629452}
 --- !u!1 &5648970141925010377
 GameObject:
   m_ObjectHideFlags: 0
@@ -6540,7 +6647,7 @@ GameObject:
   - component: {fileID: 6127489556749022204}
   - component: {fileID: 2130632210368611052}
   - component: {fileID: 8226127199170421168}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6614,7 +6721,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 21760958297529242}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Loaction Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6653,7 +6760,7 @@ GameObject:
   - component: {fileID: 8614106373493842689}
   - component: {fileID: 8272472905513074167}
   - component: {fileID: 2243351322398297002}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6787,7 +6894,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8250673259361014368}
   - component: {fileID: 6090759032746220229}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Layout Group
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6859,7 +6966,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4478754127627007020}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Eqipment Slots Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6897,7 +7004,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1975778592317243071}
   - component: {fileID: 1322067208798733317}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: 'Projectile Slots '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6961,7 +7068,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5149397890326751388}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6999,7 +7106,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6943514165107020808}
   - component: {fileID: 3961721292302568702}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Site Of Grace Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7051,7 +7158,7 @@ GameObject:
   - component: {fileID: 8618818348106422368}
   - component: {fileID: 2342744318340746187}
   - component: {fileID: 1612837465872685556}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Pop Up manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7124,6 +7231,82 @@ MonoBehaviour:
   _graceRestoredPopUpBackgroundText: {fileID: 6340922852915885377}
   _graceRestoredPopUpText: {fileID: 7178746587719522709}
   _graceRestoredPopUpCanvasGroup: {fileID: 1106034240117296586}
+--- !u!1 &6322695933449977873
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8668962371329541471}
+  - component: {fileID: 1737295738286985502}
+  - component: {fileID: 8942789989687814012}
+  m_Layer: 5
+  m_Name: BG
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8668962371329541471
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6322695933449977873}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 744295391994688092}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1737295738286985502
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6322695933449977873}
+  m_CullTransparentMesh: 1
+--- !u!114 &8942789989687814012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6322695933449977873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &6411608762500369772
 GameObject:
   m_ObjectHideFlags: 0
@@ -7135,7 +7318,7 @@ GameObject:
   - component: {fileID: 2670678176688577211}
   - component: {fileID: 5944221894560534495}
   - component: {fileID: 2299195372804939654}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: 'Location Title '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7269,7 +7452,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7421308078108753553}
   - component: {fileID: 2125172947624049976}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Status Bars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7336,7 +7519,7 @@ GameObject:
   - component: {fileID: 4671160976785421960}
   - component: {fileID: 5342782281503326333}
   - component: {fileID: 6604931763339739642}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Underline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7470,7 +7653,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6720164651802250922}
   - component: {fileID: 7445800620962705799}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7521,7 +7704,7 @@ GameObject:
   - component: {fileID: 4741513145318122567}
   - component: {fileID: 657145056065316328}
   - component: {fileID: 5233421900277835314}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Item Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7597,7 +7780,7 @@ GameObject:
   - component: {fileID: 5924898154874906004}
   - component: {fileID: 2883519473472942954}
   - component: {fileID: 7412231604461376277}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7673,7 +7856,7 @@ GameObject:
   - component: {fileID: 849101723909825075}
   - component: {fileID: 1509359777288864527}
   - component: {fileID: 4358169718982785346}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7750,7 +7933,7 @@ GameObject:
   - component: {fileID: 3199784585140496608}
   - component: {fileID: 2575523787032850978}
   - component: {fileID: 541739807384935300}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7854,7 +8037,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5045781175542198694}
   - component: {fileID: 4807053372880702662}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Character Menu Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7906,7 +8089,7 @@ GameObject:
   - component: {fileID: 1277346680040956873}
   - component: {fileID: 1845675777219931316}
   - component: {fileID: 7937373402298782440}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Item name Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8040,7 +8223,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9049692462540689347}
   - component: {fileID: 5210765307413027536}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: You Died Pop-Up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8090,7 +8273,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5032627809412551382}
   - component: {fileID: 1654624077507617998}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Pop up Organizer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8156,7 +8339,7 @@ GameObject:
   - component: {fileID: 5345175121739139797}
   - component: {fileID: 6689556914558613202}
   - component: {fileID: 1690023191268986565}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HUD Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8241,7 +8424,7 @@ GameObject:
   - component: {fileID: 4409256708938389317}
   - component: {fileID: 7362667486221244020}
   - component: {fileID: 7538633953956992010}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8316,7 +8499,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3085377391765330064}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8355,7 +8538,7 @@ GameObject:
   - component: {fileID: 3435810021727712798}
   - component: {fileID: 5756674902370637176}
   - component: {fileID: 1143661966057808860}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8488,7 +8671,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 877964089579876164}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8526,7 +8709,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5212956273980199219}
   - component: {fileID: 6447672611078581282}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Teleport Location Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8581,7 +8764,7 @@ GameObject:
   - component: {fileID: 4365402500182250908}
   - component: {fileID: 3379060466705066282}
   - component: {fileID: 8950707194089237802}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: 'Healh  Bar '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8688,7 +8871,7 @@ GameObject:
   - component: {fileID: 8737496025000797504}
   - component: {fileID: 702135018068612732}
   - component: {fileID: 1032094330098116758}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8790,7 +8973,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7723404262564859103}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Sliding Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8828,7 +9011,7 @@ GameObject:
   m_Component:
   - component: {fileID: 273759865557296454}
   - component: {fileID: 1977096327484663448}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8890,7 +9073,7 @@ GameObject:
   - component: {fileID: 7975387819543610774}
   - component: {fileID: 6836085792224819462}
   - component: {fileID: 1131193475926481260}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9025,7 +9208,7 @@ GameObject:
   - component: {fileID: 8501546655278013698}
   - component: {fileID: 7413777650227691048}
   - component: {fileID: 2027228608988843686}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Projectile Count Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9160,7 +9343,7 @@ GameObject:
   - component: {fileID: 3760100777627390461}
   - component: {fileID: 2367929020699810318}
   - component: {fileID: 4951046269539348043}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Xonformation Control BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9237,7 +9420,7 @@ GameObject:
   - component: {fileID: 453258512263626860}
   - component: {fileID: 6431960390788802962}
   - component: {fileID: 7648978703804562066}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9314,7 +9497,7 @@ GameObject:
   - component: {fileID: 3408488834859817245}
   - component: {fileID: 1477530358150059825}
   - component: {fileID: 792261205420831149}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9449,7 +9632,7 @@ GameObject:
   - component: {fileID: 5911337553118561821}
   - component: {fileID: 7165165392081957149}
   - component: {fileID: 556151665085450747}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Projectile Count Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9584,7 +9767,7 @@ GameObject:
   - component: {fileID: 10527246086959770}
   - component: {fileID: 3729982637688499518}
   - component: {fileID: 8282575809234362166}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9719,7 +9902,7 @@ GameObject:
   - component: {fileID: 1357166397888826750}
   - component: {fileID: 1505546788913412498}
   - component: {fileID: 6340922852915885377}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Site Of Grace BG Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9856,7 +10039,7 @@ GameObject:
   - component: {fileID: 9165930719112954245}
   - component: {fileID: 6639623395316606507}
   - component: {fileID: 2342122240014144504}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Character Info
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9977,7 +10160,7 @@ GameObject:
   - component: {fileID: 6875458399951420346}
   - component: {fileID: 8756798814470853408}
   - component: {fileID: 6430749904078501313}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10042,6 +10225,96 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &8966931588275160114
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3560851894890025255}
+  - component: {fileID: 6863322745325378349}
+  - component: {fileID: 75327145257656268}
+  - component: {fileID: 8834428091741712643}
+  m_Layer: 5
+  m_Name: Loading Icon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3560851894890025255
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8966931588275160114}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 744295391994688092}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 99, y: 99}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &6863322745325378349
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8966931588275160114}
+  m_CullTransparentMesh: 1
+--- !u!114 &75327145257656268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8966931588275160114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: e6767760714a6514a8c65b0892d94f03, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8834428091741712643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8966931588275160114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77c1825621f047fc9d09e34c3d68a625, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fadeImage: {fileID: 75327145257656268}
 --- !u!1 &9003311513920255613
 GameObject:
   m_ObjectHideFlags: 0
@@ -10053,7 +10326,7 @@ GameObject:
   - component: {fileID: 2307120496236072088}
   - component: {fileID: 5562854027208603846}
   - component: {fileID: 3589542361540894508}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Projectile Count Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10187,7 +10460,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3450864746828630421}
   - component: {fileID: 2877097436796540622}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Menu Options
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10253,7 +10526,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8402339194256298101}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10286,6 +10559,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 5194615797317652862}
     m_Modifications:
     - target: {fileID: 1507196184603915237, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
@@ -10304,9 +10578,17 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 1644593513536170554, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
       propertyPath: m_Name
       value: Left Hand Weapon (0)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9000097408396748148, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
       propertyPath: m_Pivot.x
@@ -10394,6 +10676,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6075725715772979413, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2041821717}
+    - targetCorrespondingSourceObject: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1257318514155340887}
   m_SourcePrefab: {fileID: 100100000, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
 --- !u!114 &5038780436800788967 stripped
 MonoBehaviour:
@@ -10462,6 +10753,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 8481644650184384998}
     m_Modifications:
     - target: {fileID: 678749764018879138, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
@@ -10484,9 +10776,17 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 1644593513536170554, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
       propertyPath: m_Name
       value: Hands
+      objectReference: {fileID: 0}
+    - target: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9000097408396748148, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
       propertyPath: m_Pivot.x
@@ -10574,6 +10874,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6075725715772979413, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 489380485079221952}
   m_SourcePrefab: {fileID: 100100000, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
 --- !u!114 &87296984782386937 stripped
 MonoBehaviour:
@@ -10630,6 +10936,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 2265379087315563450}
     m_Modifications:
     - target: {fileID: 1507196184603915237, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
@@ -10648,9 +10955,17 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 1644593513536170554, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
       propertyPath: m_Name
       value: Quic Slot(2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9000097408396748148, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
       propertyPath: m_Pivot.x
@@ -10738,6 +11053,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6075725715772979413, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 9000097408396748148, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8263575044515168885}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9043501408258747189}
   m_SourcePrefab: {fileID: 100100000, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
 --- !u!114 &44387221026470479 stripped
 MonoBehaviour:
@@ -10794,6 +11118,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 4596373184071832768}
     m_Modifications:
     - target: {fileID: 1507196184603915237, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
@@ -10812,9 +11137,17 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 1644593513536170554, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
       propertyPath: m_Name
       value: Secondery Projectile Slot
+      objectReference: {fileID: 0}
+    - target: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9000097408396748148, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
       propertyPath: m_Pivot.x
@@ -10902,6 +11235,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6075725715772979413, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 9000097408396748148, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 898815762640780068}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4895653721235886688}
   m_SourcePrefab: {fileID: 100100000, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
 --- !u!114 &148672907122036281 stripped
 MonoBehaviour:
@@ -10958,6 +11300,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 8481644650184384998}
     m_Modifications:
     - target: {fileID: 678749764018879138, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
@@ -10980,9 +11323,17 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 1644593513536170554, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
       propertyPath: m_Name
       value: Legs
+      objectReference: {fileID: 0}
+    - target: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9000097408396748148, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
       propertyPath: m_Pivot.x
@@ -11070,6 +11421,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6075725715772979413, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6464042472974719274}
   m_SourcePrefab: {fileID: 100100000, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
 --- !u!114 &325226686833270312 stripped
 MonoBehaviour:
@@ -11126,6 +11483,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 8481644650184384998}
     m_Modifications:
     - target: {fileID: 678749764018879138, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
@@ -11148,9 +11506,17 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 1644593513536170554, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
       propertyPath: m_Name
       value: Head
+      objectReference: {fileID: 0}
+    - target: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9000097408396748148, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
       propertyPath: m_Pivot.x
@@ -11238,6 +11604,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6075725715772979413, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8818465240409128914}
   m_SourcePrefab: {fileID: 100100000, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
 --- !u!114 &1998370847697785921 stripped
 MonoBehaviour:
@@ -11294,6 +11666,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 5194615797317652862}
     m_Modifications:
     - target: {fileID: 1507196184603915237, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
@@ -11312,9 +11685,17 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 1644593513536170554, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
       propertyPath: m_Name
       value: Left Hand Weapon (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9000097408396748148, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
       propertyPath: m_Pivot.x
@@ -11402,6 +11783,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6075725715772979413, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 796721068636411034}
   m_SourcePrefab: {fileID: 100100000, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
 --- !u!114 &5894774258378731316 stripped
 MonoBehaviour:
@@ -11458,8 +11845,13 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 9045797109643820413}
     m_Modifications:
+    - target: {fileID: 125061418733944224, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 125061418733944224, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -11467,6 +11859,10 @@ PrefabInstance:
     - target: {fileID: 4405806012498109624, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
       propertyPath: m_Name
       value: Item Quick Slot UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 4405806012498109624, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4928965022440454657, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
       propertyPath: m_Pivot.x
@@ -11569,6 +11965,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4928965022440454657, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8274659090501329923}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
 --- !u!114 &6100548134928717073 stripped
 MonoBehaviour:
@@ -11591,6 +11993,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 7796595093383919365}
     m_Modifications:
     - target: {fileID: 1507196184603915237, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
@@ -11609,9 +12012,17 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 1644593513536170554, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
       propertyPath: m_Name
       value: Right Hand Weapon (0)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9000097408396748148, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
       propertyPath: m_Pivot.x
@@ -11698,6 +12109,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7934496934015486507}
   m_SourcePrefab: {fileID: 100100000, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
 --- !u!114 &6421174411361535833 stripped
 MonoBehaviour:
@@ -11754,6 +12171,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 2265379087315563450}
     m_Modifications:
     - target: {fileID: 1507196184603915237, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
@@ -11772,9 +12190,17 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 1644593513536170554, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
       propertyPath: m_Name
       value: Quic Slot(0)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9000097408396748148, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
       propertyPath: m_Pivot.x
@@ -11861,6 +12287,15 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 9000097408396748148, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3156526340027134226}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5517314879428812205}
   m_SourcePrefab: {fileID: 100100000, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
 --- !u!114 &1568354311998611466 stripped
 MonoBehaviour:
@@ -11917,6 +12352,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 8481644650184384998}
     m_Modifications:
     - target: {fileID: 678749764018879138, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
@@ -11939,9 +12375,17 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 1644593513536170554, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
       propertyPath: m_Name
       value: Body
+      objectReference: {fileID: 0}
+    - target: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9000097408396748148, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
       propertyPath: m_Pivot.x
@@ -12029,6 +12473,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6075725715772979413, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 32109358720448564}
   m_SourcePrefab: {fileID: 100100000, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
 --- !u!114 &2830754631866548759 stripped
 MonoBehaviour:
@@ -12085,11 +12535,16 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1975778592317243071}
     m_Modifications:
     - target: {fileID: 125061418733944224, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
       propertyPath: m_Name
       value: Item Icon
+      objectReference: {fileID: 0}
+    - target: {fileID: 125061418733944224, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 125061418733944224, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
       propertyPath: m_IsActive
@@ -12098,6 +12553,10 @@ PrefabInstance:
     - target: {fileID: 4405806012498109624, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
       propertyPath: m_Name
       value: 'Seconary Quick Slot UI '
+      objectReference: {fileID: 0}
+    - target: {fileID: 4405806012498109624, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4928965022440454657, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
       propertyPath: m_Pivot.x
@@ -12200,6 +12659,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4928965022440454657, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2307120496236072088}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
 --- !u!224 &8526726784093284777 stripped
 RectTransform:
@@ -12222,6 +12687,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 4596373184071832768}
     m_Modifications:
     - target: {fileID: 1507196184603915237, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
@@ -12240,9 +12706,17 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 1644593513536170554, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
       propertyPath: m_Name
       value: Main Projectile Slot
+      objectReference: {fileID: 0}
+    - target: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9000097408396748148, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
       propertyPath: m_Pivot.x
@@ -12330,6 +12804,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6075725715772979413, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 9000097408396748148, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5665402291237188699}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1623141577074148654}
   m_SourcePrefab: {fileID: 100100000, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
 --- !u!114 &3793068902664038250 stripped
 MonoBehaviour:
@@ -12386,6 +12869,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 5194615797317652862}
     m_Modifications:
     - target: {fileID: 1507196184603915237, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
@@ -12404,9 +12888,17 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 1644593513536170554, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
       propertyPath: m_Name
       value: Left Hand Weapon (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9000097408396748148, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
       propertyPath: m_Pivot.x
@@ -12494,6 +12986,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6075725715772979413, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4572299230495443113}
   m_SourcePrefab: {fileID: 100100000, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
 --- !u!114 &465467490249483774 stripped
 MonoBehaviour:
@@ -12550,6 +13048,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 7796595093383919365}
     m_Modifications:
     - target: {fileID: 1507196184603915237, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
@@ -12568,9 +13067,17 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 1644593513536170554, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
       propertyPath: m_Name
       value: Right Hand Weapon (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9000097408396748148, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
       propertyPath: m_Pivot.x
@@ -12658,6 +13165,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6075725715772979413, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7865248931363054723}
   m_SourcePrefab: {fileID: 100100000, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
 --- !u!114 &773402998624669313 stripped
 MonoBehaviour:
@@ -12714,11 +13227,16 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1975778592317243071}
     m_Modifications:
     - target: {fileID: 125061418733944224, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
       propertyPath: m_Name
       value: Item Icon
+      objectReference: {fileID: 0}
+    - target: {fileID: 125061418733944224, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 125061418733944224, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
       propertyPath: m_IsActive
@@ -12727,6 +13245,10 @@ PrefabInstance:
     - target: {fileID: 4405806012498109624, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
       propertyPath: m_Name
       value: Main Projectile Quick Slot UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 4405806012498109624, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4928965022440454657, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
       propertyPath: m_Pivot.x
@@ -12829,6 +13351,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4928965022440454657, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5911337553118561821}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
 --- !u!224 &1503214565697372979 stripped
 RectTransform:
@@ -12851,6 +13379,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 7796595093383919365}
     m_Modifications:
     - target: {fileID: 1507196184603915237, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
@@ -12869,9 +13398,17 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 1644593513536170554, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
       propertyPath: m_Name
       value: Right Hand Weapon (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9000097408396748148, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
       propertyPath: m_Pivot.x
@@ -12959,6 +13496,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6075725715772979413, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2740462416291641588}
   m_SourcePrefab: {fileID: 100100000, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
 --- !u!114 &1382413029678680304 stripped
 MonoBehaviour:
@@ -13015,11 +13558,16 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 4788106795105196977}
     m_Modifications:
     - target: {fileID: 125061418733944224, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
       propertyPath: m_Name
       value: Left Item Icon
+      objectReference: {fileID: 0}
+    - target: {fileID: 125061418733944224, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 125061418733944224, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
       propertyPath: m_IsActive
@@ -13028,6 +13576,10 @@ PrefabInstance:
     - target: {fileID: 4405806012498109624, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
       propertyPath: m_Name
       value: Left Weapon Quick Slot UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 4405806012498109624, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4928965022440454657, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
       propertyPath: m_Pivot.x
@@ -13130,6 +13682,9 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
 --- !u!224 &2478738423154812510 stripped
 RectTransform:
@@ -13152,6 +13707,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 2265379087315563450}
     m_Modifications:
     - target: {fileID: 1507196184603915237, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
@@ -13170,9 +13726,17 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 1644593513536170554, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
       propertyPath: m_Name
       value: Quic Slot(1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9000097408396748148, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
       propertyPath: m_Pivot.x
@@ -13260,6 +13824,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6075725715772979413, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 9000097408396748148, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8501546655278013698}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7079203746370579032, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 510628299883658017}
   m_SourcePrefab: {fileID: 100100000, guid: 256ed3e7a1f517d4c9f95cf08fbe4d36, type: 3}
 --- !u!1 &863618825495186702 stripped
 GameObject:
@@ -13316,8 +13889,13 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 9045797109643820413}
     m_Modifications:
+    - target: {fileID: 125061418733944224, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 125061418733944224, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -13325,6 +13903,10 @@ PrefabInstance:
     - target: {fileID: 4405806012498109624, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
       propertyPath: m_Name
       value: 'Spell Item Quick Slot UI '
+      objectReference: {fileID: 0}
+    - target: {fileID: 4405806012498109624, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4928965022440454657, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
       propertyPath: m_Pivot.x
@@ -13427,6 +14009,9 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
 --- !u!224 &3925940032473608521 stripped
 RectTransform:
@@ -13449,11 +14034,16 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 4788106795105196977}
     m_Modifications:
     - target: {fileID: 125061418733944224, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
       propertyPath: m_Name
       value: ' Right Item Icon'
+      objectReference: {fileID: 0}
+    - target: {fileID: 125061418733944224, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 125061418733944224, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
       propertyPath: m_IsActive
@@ -13462,6 +14052,10 @@ PrefabInstance:
     - target: {fileID: 4405806012498109624, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
       propertyPath: m_Name
       value: 'Right Weapon Quick Slot UI '
+      objectReference: {fileID: 0}
+    - target: {fileID: 4405806012498109624, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4928965022440454657, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
       propertyPath: m_Pivot.x
@@ -13564,6 +14158,9 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad93c4fa26532944581a8cecf80cfe23, type: 3}
 --- !u!114 &3622303583566285522 stripped
 MonoBehaviour:

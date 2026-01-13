@@ -18,7 +18,8 @@ namespace SKD.UI.PlayerUI
         [Header("Quick Slots")]
         public WeaponItem[] _weaponInRigthHandSlots = new WeaponItem[2];
         public int _rightHandWeaponIndex;
-        public WeaponItem[] _weaponInLefthHandSlots = new WeaponItem[2];
+        [FormerlySerializedAs("_weaponInLefthHandSlots")]
+        public WeaponItem[] _weaponInLeftHandSlots = new WeaponItem[2];
         public int _leftHandWeaponIndex;
         public SpellItem _currentSpell;
         public QuickSlotItem[] _quickSlotItemInQuickSlots = new QuickSlotItem[3];

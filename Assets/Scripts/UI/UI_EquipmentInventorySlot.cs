@@ -91,13 +91,13 @@ namespace SKD.UI
                     PlayerUIManager.Instance._playerUIEquipmentManager.RefreshMenu();
                     break;
                 case EquipmentType.LeftWeapon01:
-                    equippedtItem = player._playerInventoryManager._weaponInLefthHandSlots[0];
+                    equippedtItem = player._playerInventoryManager._weaponInLeftHandSlots[0];
 
                     if (equippedtItem._itemID != WorldItemDatabase.Instance._unarmedWeapon._itemID)
                     {
                         player._playerInventoryManager.AddItemsToInventory(equippedtItem);
                     }
-                    player._playerInventoryManager._weaponInLefthHandSlots[0] = _currentItem as WeaponItem;
+                    player._playerInventoryManager._weaponInLeftHandSlots[0] = _currentItem as WeaponItem;
                     player._playerInventoryManager.RemoveItemFromInventory(_currentItem);
 
                     if (player._playerInventoryManager._leftHandWeaponIndex == 0)
@@ -106,13 +106,13 @@ namespace SKD.UI
                     PlayerUIManager.Instance._playerUIEquipmentManager.RefreshMenu();
                     break;
                 case EquipmentType.LeftWeapon02:
-                    equippedtItem = player._playerInventoryManager._weaponInLefthHandSlots[1];
+                    equippedtItem = player._playerInventoryManager._weaponInLeftHandSlots[1];
 
                     if (equippedtItem._itemID != WorldItemDatabase.Instance._unarmedWeapon._itemID)
                     {
                         player._playerInventoryManager.AddItemsToInventory(equippedtItem);
                     }
-                    player._playerInventoryManager._weaponInLefthHandSlots[1] = _currentItem as WeaponItem;
+                    player._playerInventoryManager._weaponInLeftHandSlots[1] = _currentItem as WeaponItem;
                     player._playerInventoryManager.RemoveItemFromInventory(_currentItem);
 
                     if (player._playerInventoryManager._leftHandWeaponIndex == 1)
@@ -122,13 +122,13 @@ namespace SKD.UI
                     break;
                 case EquipmentType.LeftWeapon03:
                     // If our Current Equipment is this slot, is not a null item, add it to our inventory
-                    equippedtItem = player._playerInventoryManager._weaponInLefthHandSlots[2];
+                    equippedtItem = player._playerInventoryManager._weaponInLeftHandSlots[2];
                     if (equippedtItem._itemID != WorldItemDatabase.Instance._unarmedWeapon._itemID)
                     {
                         player._playerInventoryManager.AddItemsToInventory(equippedtItem);
                     }
                     // Then assign the slot our new Weapon
-                    player._playerInventoryManager._weaponInLefthHandSlots[2] = _currentItem as WeaponItem;
+                    player._playerInventoryManager._weaponInLeftHandSlots[2] = _currentItem as WeaponItem;
                     // Then remove the new weapon from our inventory
                     player._playerInventoryManager.RemoveItemFromInventory(_currentItem);
 

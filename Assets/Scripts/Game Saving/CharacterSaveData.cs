@@ -1,4 +1,7 @@
+using System.Collections.Generic;
+using SKD.Items.Quick_Item_Slot;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace SKD.GameSaving
 {
@@ -14,6 +17,10 @@ namespace SKD.GameSaving
         
         [Header("Body Type")]
         public bool _isMale = true;
+        public int _hairStyleID;
+        public float _hairColorRedID;
+        public float _hairColorGreenID;
+        public float _hairColorBlueID;
 
         [Header("Time Played")]
         public float _secondsPlayed;
@@ -53,15 +60,35 @@ namespace SKD.GameSaving
         public int _handEquipment;
 
         public int _rightWeaponIndex;
-        public int _rightWeapon01;
-        public int _rightWeapon02;
-        public int _rightWeapon03;
+        public SerializableWeapon _rightWeapon01;
+        public SerializableWeapon _rightWeapon02;
+        public SerializableWeapon _rightWeapon03;
 
         public int _leftWeaponIndex;
-        public int _leftWeapon01;
-        public int _leftWeapon02;
-        public int _leftWeapon03;
+        public SerializableWeapon _leftWeapon01;
+        public SerializableWeapon _leftWeapon02;
+        public SerializableWeapon _leftWeapon03;
 
+        public int _quickSlotIndex;
+        public SerializableQuickSlotIcon _quickSlotItem01;
+        public SerializableQuickSlotIcon _quickSlotItem02;
+        public SerializableQuickSlotIcon _quickSlotItem03;
+        
+        public SerializableRangedProjectile _mainProjectile;
+        public SerializableRangedProjectile _secondaryProjectile;
+        
+        public int _currentHelathFlaskRemaining = 3;
+        public int _currentPocusPointFlaskRemaining = 1;
+        
+        [Header("Inventory")]
+        public List<SerializableWeapon> _weaponInInventory;
+        public List<SerializableRangedProjectile> _projectileInInventory;
+        public List<SerializableQuickSlotIcon> _quickSlotItemInInventory;
+        public List<int> _headEquipmentInInventory;
+        public List<int> _bodyEquipmentInInventory;
+        public List<int> _legEquipmentInInventory;
+        public List<int> _handsEquipmentInInventory;
+        
         public int _currentSpell;
         public CharacterSaveData()
         {
@@ -69,6 +96,14 @@ namespace SKD.GameSaving
             _bossesAwakened = new SerializableDictionary<int, bool>();
             _bossesDefeated = new SerializableDictionary<int, bool>();
             _worldItemLooted = new SerializableDictionary<int, bool>();
+
+            _weaponInInventory = new List<SerializableWeapon>();
+            _projectileInInventory = new List<SerializableRangedProjectile>();
+            _quickSlotItemInInventory = new List<SerializableQuickSlotIcon>();
+            _headEquipmentInInventory = new List<int>();
+            _bodyEquipmentInInventory = new List<int>();
+            _legEquipmentInInventory = new List<int>();
+            _handsEquipmentInInventory = new List<int>();
         }
     }
 }

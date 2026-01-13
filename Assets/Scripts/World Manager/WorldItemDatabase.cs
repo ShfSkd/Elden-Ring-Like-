@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Items.Flasks;
+using SKD.GameSaving;
 using SKD.Items;
 using SKD.Items.AshesOfWar;
 using SKD.Items.Equipment;
 using SKD.Items.Quick_Item_Slot;
 using SKD.Items.Weapons;
 using SKD.Spells.Items;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -89,6 +92,8 @@ namespace SKD.World_Manager
                 _items[i]._itemID = i;
         }
 
+        // Item Database
+
         public Item GetItemByID(int ID) =>
             _items.FirstOrDefault(item => item._itemID == ID);
 
@@ -119,5 +124,51 @@ namespace SKD.World_Manager
         public QuickSlotItem GetQuickSlotItemByID(int id) =>
             _quickSlotsItem.FirstOrDefault(flask => flask._itemID == id);
 
+        // Item Serialization 
+        public WeaponItem GetWeaponFromSerializedData(SerializableWeapon serializableWeapon)
+        {
+            WeaponItem weapon = null;
+
+            if (GetWeaponByID(serializableWeapon._itemID))
+                weapon = Instantiate(GetWeaponByID(serializableWeapon._itemID));
+
+            if (weapon == null)
+                return Instantiate(_unarmedWeapon);
+
+            if (GetAshOfWarByID(serializableWeapon._ashOfWarID))
+            {
+                AshOfWar ashOfWar = Instantiate(GetAshOfWarByID(serializableWeapon._ashOfWarID));
+                weapon._ashesOfWarAction = ashOfWar;
+            }
+
+            return weapon;
+        }
+        public RangedProjectileItem GetRangedWeaponFromSerializedData(SerializableRangedProjectile serializableRangedProjectile)
+        {
+            RangedProjectileItem projectileItem = null;
+
+            if (GetProjectileByID(serializableRangedProjectile._itemID))
+            {
+                projectileItem = Instantiate(GetProjectileByID(serializableRangedProjectile._itemID));
+                projectileItem._currentAmmoAmount = serializableRangedProjectile._itemAmount;
+
+            }
+            return projectileItem;
+        }
+        public FlaskItem GetFlaskFromSerializedData(SerializableQuickSlotIcon serializableQuickSlotIcon)
+        {
+            return null;
+        }
+        public QuickSlotItem GetQuickSlotItemFromSerizlizedData(SerializableQuickSlotIcon serializableQuickSlotIcon)
+        {
+            QuickSlotItem quickSlotItem = null;
+            
+            if(GetQuickSlotItemByID(serializableQuickSlotIcon._itemID))
+            {
+                quickSlotItem= Instantiate(GetQuickSlotItemByID(serializableQuickSlotIcon._itemID));
+                quickSlotItem._itemAmount = serializableQuickSlotIcon._itemAmount;
+            }
+            return quickSlotItem;
+        }
     }
 }

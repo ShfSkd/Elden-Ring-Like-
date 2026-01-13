@@ -14,5 +14,12 @@ namespace SKD.UI
             _characterHPBar._oldHealthValue = oldValue;
             _characterHPBar.SetStat(newValue);
         }
+        public void ResetCharacterHpBar()
+        {
+            if(_characterHPBar==null)
+                return;
+
+            _characterHPBar._currentDamageTaken = 0;
+        }
     }
 }

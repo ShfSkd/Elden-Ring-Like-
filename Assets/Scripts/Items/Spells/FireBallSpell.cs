@@ -115,7 +115,7 @@ namespace SKD.Spells.Items
             Vector3 upwardVelocity = instantiateReleaseSpellFX.transform.up * _upwardVelocity;
             Vector3 forwardVelocity = instantiateReleaseSpellFX.transform.forward * _forwardVelocity;
             Vector3 totalVelocity = upwardVelocity + forwardVelocity;
-            spellRigidbody.velocity = totalVelocity;
+            spellRigidbody.linearVelocity = totalVelocity;
 
         }
         public override void SuccessfullyChargeSpell(PlayerManager player)
@@ -211,7 +211,7 @@ namespace SKD.Spells.Items
             Vector3 upwardVelocity = instantiateReleaseSpellFX.transform.up * _upwardVelocity;
             Vector3 forwardVelocity = instantiateReleaseSpellFX.transform.forward * _forwardVelocity;
             Vector3 totalVelocity = upwardVelocity + forwardVelocity;
-            spellRigidbody.velocity = totalVelocity;
+            spellRigidbody.linearVelocity = totalVelocity;
         }
     
     }

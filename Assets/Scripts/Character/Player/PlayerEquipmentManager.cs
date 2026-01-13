@@ -827,6 +827,28 @@ namespace SKD.Character.Player
                 _player._playerNetworkManager._secondaryProjectileID.Value = equipment._itemID;
 
         }
+        
+        // Quick slot Item
+        public void LoadQuickSlotEquipment(QuickSlotItem quickSlot)
+        {
+            // 1. If equipment is null simply set equipment in inventory to null and return 
+            if (quickSlot == null)
+            {
+                if (_player.IsOwner)
+                    _player._playerNetworkManager._currentQuickSlotItemID.Value = -1;// -1 will never be an item id,so is always be null
+
+                _player._playerInventoryManager._currentQuickSlotItem = null;
+                return;
+            }
+            // 2. If you have an "OnItemEquipped", run it now
+            // 3. Set current projectile equipment in player inventory to the equipment that is passed to this function 
+            _player._playerInventoryManager._currentQuickSlotItem = quickSlot;
+
+            if (_player.IsOwner)
+                _player._playerNetworkManager._currentQuickSlotItemID.Value = quickSlot._itemID;
+
+        }
+        
         // Weapons
         private void InitializeWeaponSlots()
         {
@@ -859,7 +881,7 @@ namespace SKD.Character.Player
             LoadLeftWeapon();
         }
 
-        // Right Wepaon
+        // Right Weapon
         public void LoadRightWeapon()
         {
             if (_player._playerInventoryManager._currentRightHandWeapon != null)
@@ -926,11 +948,14 @@ namespace SKD.Character.Player
                 {
                     _player._playerInventoryManager._rightHandWeaponIndex = -1;
                     selectedWeapon = WorldItemDatabase.Instance._unarmedWeapon;
+                    _player._playerInventoryManager._currentRightHandWeapon = selectedWeapon;
                     _player._playerNetworkManager._currentRightHandWeaponID.Value = selectedWeapon._itemID;
                 }
                 else
                 {
                     _player._playerInventoryManager._rightHandWeaponIndex = firstWeaponPosition;
+                    _player._playerInventoryManager._currentRightHandWeapon = null;
+                    
                     if (firstWeapon != null)
                         _player._playerNetworkManager._currentRightHandWeaponID.Value = firstWeapon._itemID;
                 }
@@ -949,8 +974,9 @@ namespace SKD.Character.Player
                         _player._playerInventoryManager._weaponInRigthHandSlots[
                             _player._playerInventoryManager._rightHandWeaponIndex];
                     // Assign the network weapon ID so it switch for all connected clients 
-                    _player._playerNetworkManager._currentRightHandWeaponID.Value = _player._playerInventoryManager
-                        ._weaponInRigthHandSlots[_player._playerInventoryManager._rightHandWeaponIndex]._itemID;
+                    _player._playerInventoryManager._currentRightHandWeapon = selectedWeapon;
+
+                    _player._playerNetworkManager._currentRightHandWeaponID.Value = selectedWeapon._itemID;
                     return;
                 }
             }
@@ -1000,7 +1026,7 @@ namespace SKD.Character.Player
                 return;
 
             _player._playerNetworkManager._isTwoHandingWeapon.Value = false;
-            
+             
             _player._playerAnimationManager.PlayTargetActionAnimation("Swap_Left_Weapon_01", false, false, true, true);
 
             // Elden Rings Weapon Swapping:
@@ -1024,15 +1050,15 @@ namespace SKD.Character.Player
                 WeaponItem firstWeapon = null;
                 int firstWeaponPosition = 0;
 
-                for (int i = 0; i < _player._playerInventoryManager._weaponInLefthHandSlots.Length; i++)
+                for (int i = 0; i < _player._playerInventoryManager._weaponInLeftHandSlots.Length; i++)
                 {
-                    if (_player._playerInventoryManager._weaponInLefthHandSlots[i]._itemID !=
+                    if (_player._playerInventoryManager._weaponInLeftHandSlots[i]._itemID !=
                         WorldItemDatabase.Instance._unarmedWeapon._itemID)
                     {
                         weaponCount += 1;
                         if (firstWeapon == null)
                         {
-                            firstWeapon = _player._playerInventoryManager._weaponInLefthHandSlots[i];
+                            firstWeapon = _player._playerInventoryManager._weaponInLeftHandSlots[i];
                             firstWeaponPosition = i;
                         }
                     }
@@ -1042,11 +1068,15 @@ namespace SKD.Character.Player
                 {
                     _player._playerInventoryManager._leftHandWeaponIndex = -1;
                     selectedWeapon = WorldItemDatabase.Instance._unarmedWeapon;
+                    _player._playerInventoryManager._currentLeftHandWeapon= selectedWeapon;
                     _player._playerNetworkManager._currentLeftHandWeaponID.Value = selectedWeapon._itemID;
                 }
                 else
                 {
                     _player._playerInventoryManager._leftHandWeaponIndex = firstWeaponPosition;
+                    _player._playerInventoryManager._currentLeftHandWeapon= null;
+
+                    
                     if (firstWeapon != null)
                         _player._playerNetworkManager._currentLeftHandWeaponID.Value = firstWeapon._itemID;
                 }
@@ -1054,19 +1084,19 @@ namespace SKD.Character.Player
                 return;
             }
 
-            foreach (WeaponItem weapon in _player._playerInventoryManager._weaponInLefthHandSlots)
+            foreach (WeaponItem weapon in _player._playerInventoryManager._weaponInLeftHandSlots)
             {
                 // Check to see if the next potential weapon is not the "unarmed" weapon
                 if (_player._playerInventoryManager
-                        ._weaponInLefthHandSlots[_player._playerInventoryManager._leftHandWeaponIndex]._itemID !=
+                        ._weaponInLeftHandSlots[_player._playerInventoryManager._leftHandWeaponIndex]._itemID !=
                     WorldItemDatabase.Instance._unarmedWeapon._itemID)
                 {
                     selectedWeapon =
-                        _player._playerInventoryManager._weaponInLefthHandSlots[
+                        _player._playerInventoryManager._weaponInLeftHandSlots[
                             _player._playerInventoryManager._leftHandWeaponIndex];
                     // Assign the network weapon ID so it switch for all connected clients 
-                    _player._playerNetworkManager._currentLeftHandWeaponID.Value = _player._playerInventoryManager
-                        ._weaponInLefthHandSlots[_player._playerInventoryManager._leftHandWeaponIndex]._itemID;
+                    _player._playerInventoryManager._currentLeftHandWeapon= selectedWeapon;
+                    _player._playerNetworkManager._currentLeftHandWeaponID.Value = selectedWeapon._itemID;
                     return;
                 }
             }

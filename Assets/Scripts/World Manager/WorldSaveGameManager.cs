@@ -2,6 +2,11 @@ using SKD.Character.Player;
 using SKD.GameSaving;
 using SKD.MenuScreen;
 using System.Collections;
+using Items.Flasks;
+using SKD.Items.Equipment;
+using SKD.Items.Quick_Item_Slot;
+using SKD.Items.Weapons;
+using SKD.UI.PlayerUI;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -67,6 +72,69 @@ namespace SKD.WorldManager
             }
 
         }
+
+        public bool HasFreeCharacterSlot()
+        {
+            _saveFileDataWriter = new SaveFileDataWriter();
+            _saveFileDataWriter._saveDataDirectoryPath = Application.persistentDataPath;
+            // Check to see if we can create a new save file (check for other existing files first
+            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_01);
+
+            if (!_saveFileDataWriter.ChechTooSeeFileExists())
+                return true;
+            
+            // Check to see if we can create a new save file (check for other existing files first
+            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_02);
+
+            if (!_saveFileDataWriter.ChechTooSeeFileExists())
+                return true;
+            
+            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_03);
+
+            if (!_saveFileDataWriter.ChechTooSeeFileExists())
+                return true;
+            
+            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_04);
+
+            if (!_saveFileDataWriter.ChechTooSeeFileExists())
+                return true;
+            
+            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_05);
+
+            if (!_saveFileDataWriter.ChechTooSeeFileExists())
+                return true;
+            
+            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_06);
+
+            if (!_saveFileDataWriter.ChechTooSeeFileExists())
+                return true;
+
+            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_07);
+
+            if (!_saveFileDataWriter.ChechTooSeeFileExists())
+
+                return true;
+
+            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_08);
+
+            if (!_saveFileDataWriter.ChechTooSeeFileExists())
+                return true;
+            
+            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_09);
+
+            if (!_saveFileDataWriter.ChechTooSeeFileExists())
+                return true;
+            
+            _saveFileDataWriter._saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_10);
+
+            if (!_saveFileDataWriter.ChechTooSeeFileExists())
+                return true;
+
+            // If they are no free slots, notify the player
+            TitleScreenManager.Instance.DisplayNoFreeCharacterSlotsPopUp();
+
+            return false;
+        }
         public string DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot characterSlot)
         {
             string fileName = "";
@@ -107,7 +175,7 @@ namespace SKD.WorldManager
             }
             return fileName;
         }
-        public void AttempToCreateNewGame()
+        public void AttemptToCreateNewGame()
         {
             _saveFileDataWriter = new SaveFileDataWriter();
             _saveFileDataWriter._saveDataDirectoryPath = Application.persistentDataPath;
@@ -319,6 +387,7 @@ namespace SKD.WorldManager
         }
         public void LoadWorldScene(int buildIndex)
         {
+            PlayerUIManager.Instance._playerUILoadingScreenManager.ActivateLoadingScreen();
             string worldScene = SceneUtility.GetScenePathByBuildIndex(buildIndex);
             NetworkManager.Singleton.SceneManager.LoadScene(worldScene, LoadSceneMode.Single);
 
@@ -332,6 +401,59 @@ namespace SKD.WorldManager
         public int GetWorldIndex()
         {
             return _worldSceneIndex;
+        }
+
+        public SerializableWeapon GetSerializableWeaponFromWeaponItem(WeaponItem weapon)
+        {
+            SerializableWeapon serializableWeapon = new SerializableWeapon();
+
+            serializableWeapon._itemID = weapon._itemID;
+
+            // Get ash of war ID if one is present (There is always be one by default)
+            if (weapon._ashesOfWarAction != null)
+            {
+                serializableWeapon._ashOfWarID = weapon._ashesOfWarAction._itemID;
+            }
+            else
+            {
+                // We use an invalid ID if there is no ash of war, so the value will bw null if it tries to search for one using ID
+                serializableWeapon._ashOfWarID = -1;
+            }
+            return serializableWeapon;
+        }
+        public SerializableRangedProjectile GetSerializableRangedProjectileFromRangedProjectileItem(RangedProjectileItem projectile)
+        {
+            SerializableRangedProjectile serializableProjectile = new SerializableRangedProjectile();
+
+            if (projectile != null)
+            {
+
+                serializableProjectile._itemID = projectile._itemID;
+                serializableProjectile._itemAmount = projectile._currentAmmoAmount;
+
+            }
+            else
+            {
+                serializableProjectile._itemID = -1;
+            }
+
+            return serializableProjectile;
+        }
+
+        public SerializableQuickSlotIcon GetSerializableQuickSlotIconFromQuickSLotIcon(QuickSlotItem quickSlot)
+        {
+            SerializableQuickSlotIcon serializableQuickSlotIcon = new SerializableQuickSlotIcon();
+
+            if (quickSlot != null)
+            {
+                serializableQuickSlotIcon._itemID = quickSlot._itemID;
+                serializableQuickSlotIcon._itemAmount = quickSlot._itemAmount;
+            }
+            else
+            {
+                serializableQuickSlotIcon._itemID = -1;
+            }
+            return serializableQuickSlotIcon;
         }
 
     }

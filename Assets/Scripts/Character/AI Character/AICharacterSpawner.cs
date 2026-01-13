@@ -9,6 +9,7 @@ namespace SKD.Character.AI_Character
         [Header("Character")]
         [SerializeField] GameObject _characterGameObject;
         [SerializeField] GameObject _instaniateGameObject;
+        private AICharacterManager _aiCharacter;
         private void Awake()
         {
         }
@@ -26,8 +27,31 @@ namespace SKD.Character.AI_Character
                 _instaniateGameObject.transform.position = transform.position;
                 _instaniateGameObject.transform.rotation = transform.rotation;
                 _instaniateGameObject.GetComponent<NetworkObject>().Spawn();
-                WorldAIManager.Instance.AddCharacterToSpawnCharactersList(_instaniateGameObject.GetComponent<AICharacterManager>());
+                _aiCharacter = _instaniateGameObject.GetComponent<AICharacterManager>();
+
+                if (_aiCharacter != null)
+                    WorldAIManager.Instance.AddCharacterToSpawnCharactersList(_aiCharacter);
             }
+        }
+        public void ResetCharacter()
+        {
+            if (_instaniateGameObject == null)
+                return;
+
+            if (_aiCharacter == null)
+                return;
+
+            _instaniateGameObject.transform.position = transform.position;
+            _instaniateGameObject.transform.rotation = transform.rotation;
+            _aiCharacter._aICharacterNetworkManager._currentHealth.Value = _aiCharacter._aICharacterNetworkManager._maxHealth.Value;
+
+            if (_aiCharacter._isDead.Value)
+            {
+                _aiCharacter._isDead.Value = false;
+                _aiCharacter._characterAnimationManager.PlayTargetActionAnimation("Empty", false, false, true, true, true, true);
+            }
+
+            _aiCharacter._characterUIManager.ResetCharacterHpBar();
         }
     }
 }

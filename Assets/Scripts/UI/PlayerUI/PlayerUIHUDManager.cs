@@ -165,10 +165,8 @@ namespace SKD.UI.PlayerUI
             _spellQuickSlotIcon.sprite = spell._itemIcon;
             _spellQuickSlotIcon.enabled = true;
         }
-        public void SetQuickSlotItemQuickSlotIcon(int itemID)
+        public void SetQuickSlotItemQuickSlotIcon(QuickSlotItem quickSlotItem)
         {
-            QuickSlotItem quickSlotItem = WorldItemDatabase.Instance.GetQuickSlotItemByID(itemID);
-
             if (quickSlotItem == null)
             {
                 Debug.Log("ITEM IS NULL");

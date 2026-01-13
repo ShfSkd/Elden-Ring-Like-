@@ -13,6 +13,7 @@ namespace SKD.Items.Quick_Item_Slot
         // Not all quick slot item are consumables
         [Header("Consumable")]
         public bool _isConsumable = true;
+        public int _itemAmount;
 
         public virtual void AttemptToUseItem(PlayerManager player)
         {

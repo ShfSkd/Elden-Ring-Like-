@@ -5,13 +5,14 @@ namespace SKD.Character.Player
     public class PlayerBodyManager : MonoBehaviour
     {
         PlayerManager _player;
-         
+
         [Header("Hair Object")]
         [SerializeField] public GameObject _hair;
+        [SerializeField] GameObject[] _hairObjects;
         [SerializeField] public GameObject _facialHair;
 
         [Header("Male")]
-        [SerializeField] GameObject _maleObject; // The master male gameObject parent
+        [SerializeField] GameObject _maleObject;// The master male gameObject parent
         [SerializeField] GameObject _maleHead;// Default head when unequipped Armor
         [SerializeField] GameObject[] _maleBody;// Default upper body armor when unequipped Armor (chest, upper right arm, upper left arm)
         [SerializeField] GameObject[] _maleArms;// Default upper when unequipped Armor (lower right arm, right hand,lower left arm, left hand)
@@ -20,7 +21,7 @@ namespace SKD.Character.Player
         [SerializeField] GameObject _maleFacialHair;
 
         [Header("Female")]
-        [SerializeField] GameObject _femaleObject; // The master female gameObject parent
+        [SerializeField] GameObject _femaleObject;// The master female gameObject parent
         [SerializeField] GameObject _femaleHead;
         [SerializeField] GameObject[] _femaleBody;
         [SerializeField] GameObject[] _femaleArms;
@@ -134,12 +135,39 @@ namespace SKD.Character.Player
                 _maleObject.SetActive(true);
                 _femaleObject.SetActive(false);
             }
-            else 
+            else
             {
                 _maleObject.SetActive(false);
                 _femaleObject.SetActive(true);
             }
             _player._playerEquipmentManager.EquipArmor();*/
+        }
+        public void ToggleHairType(int hairType)
+        {
+            foreach (var hair in _hairObjects)
+            {
+                hair.SetActive(false);
+            }
+
+            _hairObjects[hairType].SetActive(true);
+        }
+        public void SetHairColor()
+        {
+            Color32 hairColor;
+
+            byte red = (byte)_player._playerNetworkManager._hairColorRed.Value;
+            byte green = (byte)_player._playerNetworkManager._hairColorGreen.Value;
+            byte blue = (byte)_player._playerNetworkManager._hairColorBlue.Value;
+
+            hairColor = new Color32(red, green, blue, 255);
+
+            for (int i = 0; i < _hairObjects.Length; i++)
+            {
+                SkinnedMeshRenderer smr = _hairObjects[i].GetComponent<SkinnedMeshRenderer>();
+
+                if (smr != null)
+                   smr.material.SetColor("_Color_Hair", hairColor);
+            }
         }
     }
 }

@@ -13,7 +13,7 @@ namespace SKD.Character.AI_Character
         [HideInInspector] public AICharacterNetworkManager _aICharacterNetworkManager;
         [HideInInspector] public AICharterCombatManager _aICharacterCombatManager;
         [HideInInspector] public AICharacterLocomotionManager _aICharacterLocomotionManager;
-        [HideInInspector]public AICharacterInventoryManager _aICharacterInventoryManager;
+        [HideInInspector] public AICharacterInventoryManager _aICharacterInventoryManager;
         [Header("Navmesh Agent")]
         public NavMeshAgent _navMeshAgent;
 
@@ -41,15 +41,15 @@ namespace SKD.Character.AI_Character
         {
             base.OnEnable();
 
-            if(_characterUIManager._hasFloatingHPBar)
-            _characterNetworkManager._currentHealth.OnValueChanged += _characterUIManager.OnHPChanged;
+            if (_characterUIManager._hasFloatingHPBar)
+                _characterNetworkManager._currentHealth.OnValueChanged += _characterUIManager.OnHPChanged;
         }
         protected override void OnDisable()
         {
             base.OnDisable();
 
-            if(_characterUIManager._hasFloatingHPBar)
-            _characterNetworkManager._currentHealth.OnValueChanged -= _characterUIManager.OnHPChanged;
+            if (_characterUIManager._hasFloatingHPBar)
+                _characterNetworkManager._currentHealth.OnValueChanged -= _characterUIManager.OnHPChanged;
         }
         public override void OnNetworkSpawn()
         {
@@ -75,14 +75,12 @@ namespace SKD.Character.AI_Character
         protected override void Update()
         {
             base.Update();
+            
             _aICharacterCombatManager.HandleActionRecovery(this);
-        }
-        protected override void FixedUpdate()
-        {
-            base.FixedUpdate();
-
+            
             if (IsOwner)
                 ProcessStateMachine();
+            
         }
         private void ProcessStateMachine()
         {
@@ -124,5 +122,6 @@ namespace SKD.Character.AI_Character
 
             }
         }
+
     }
 }

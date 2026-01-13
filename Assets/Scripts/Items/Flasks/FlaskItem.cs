@@ -113,7 +113,8 @@ namespace Items.Flasks
                     player._playerNetworkManager._currentFocusPoints.Value += _flaskRestoration;
                     player._playerNetworkManager._remainingFocusPointsFlasks.Value -= 1;
                 }
-
+                    
+                PlayerUIManager.Instance._playerUIHUDManager.SetQuickSlotItemQuickSlotIcon(player._playerInventoryManager._currentQuickSlotItem);
             }
             if (_isHealthFlask && player._playerNetworkManager._remainingHealthFlasks.Value <= 0)
             {
@@ -143,7 +144,7 @@ namespace Items.Flasks
                 currentAmount = player._playerNetworkManager._remainingHealthFlasks.Value;
             else
                 currentAmount = player._playerNetworkManager._remainingFocusPointsFlasks.Value;
-            
+
             return currentAmount;
         }
     }

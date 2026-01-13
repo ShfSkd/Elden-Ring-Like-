@@ -27,9 +27,9 @@ namespace SKD.Colliders
         }
         private void FixedUpdate()
         {
-            if (_rigidbody.velocity != Vector3.zero)
+            if (_rigidbody.linearVelocity != Vector3.zero)
             {
-                _rigidbody.rotation = Quaternion.LookRotation(_rigidbody.velocity);
+                _rigidbody.rotation = Quaternion.LookRotation(_rigidbody.linearVelocity);
             }
         }
         private void OnCollisionEnter(Collision collision)

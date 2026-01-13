@@ -18,7 +18,7 @@ namespace SKD.UI
         [SerializeField] bool _displayCharacterNameOnDamage;
         [SerializeField] float _defaultTimeBeforeBarHides = 3f;
         [SerializeField] float _hideTimer;
-        [SerializeField] float _currentDamageTaken;
+        public float _currentDamageTaken;
         [SerializeField] TextMeshProUGUI _characterName;
         [SerializeField] TextMeshProUGUI _charcterDamage;
         [HideInInspector] public int _oldHealthValue;

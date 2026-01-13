@@ -1,4 +1,5 @@
 using System;
+using SKD.Character.Player;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -18,6 +19,7 @@ namespace SKD.UI.PlayerUI
         [HideInInspector] public PlayerUIEquipmentManager _playerUIEquipmentManager;
         [HideInInspector] public PlayerUISiteOfGraceManager _playerUISiteOfGraceManager;
         [HideInInspector] public PlayerUITeleportLocationManager _playerUITeleportLocationManager;
+        [HideInInspector] public PlayerUILoadingScreenManager _playerUILoadingScreenManager;
 
         [Header("UI Flags")]
         public bool _menuWindowIsOpen;// Inventory Screen , Equipment menu, Shop,etc.
@@ -36,6 +38,7 @@ namespace SKD.UI.PlayerUI
             _playerUIEquipmentManager = GetComponentInChildren<PlayerUIEquipmentManager>();
             _playerUISiteOfGraceManager = GetComponentInChildren<PlayerUISiteOfGraceManager>();
             _playerUITeleportLocationManager = GetComponentInChildren<PlayerUITeleportLocationManager>();
+            _playerUILoadingScreenManager = GetComponentInChildren<PlayerUILoadingScreenManager>();
         }
         private void Start()
         {

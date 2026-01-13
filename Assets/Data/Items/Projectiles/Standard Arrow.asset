@@ -21,7 +21,7 @@ MonoBehaviour:
   _upwardVelocity: 0
   _ammoMass: 0.01
   _maxAmmoAmount: 30
-  _currentAmmoAmount: 23
+  _currentAmmoAmount: 228
   _physicalDamage: 72
   _magicDamage: 0
   _fireDamage: 0
