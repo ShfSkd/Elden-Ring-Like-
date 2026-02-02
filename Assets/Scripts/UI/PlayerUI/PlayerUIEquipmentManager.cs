@@ -16,11 +16,8 @@ using UnityEngine.Serialization;
 using UnityEngine.UI;
 namespace SKD.UI.PlayerUI
 {
-    public class PlayerUIEquipmentManager : MonoBehaviour
+    public class PlayerUIEquipmentManager : PlayerUIMenu
     {
-        [Header("Menu")]
-        [SerializeField] GameObject _menu;
-
         [Header("Weapon Slots")]
         [SerializeField] Image _rightHandSlot01;
         private Button _rightHandSlot01Button;
@@ -95,12 +92,17 @@ namespace SKD.UI.PlayerUI
         }
         public void OpenEquipmentManagerMenu()
         {
-            PlayerUIManager.Instance._menuWindowIsOpen = true;
+        
+        }
+        public override void OpenMenu()
+        {
+            base.OpenMenu();
+            
             ToggleEquipmentButtons(true);
-            _menu.SetActive(true);
             _equipmentInventoryWindow.SetActive(false);
             ClearEquipmentInventory();
             RefreshEquipmentSlotIcons();
+        
         }
         public void RefreshMenu()
         {
@@ -190,11 +192,6 @@ namespace SKD.UI.PlayerUI
                 lastSelectedButton.OnSelect(null);
             }
             _equipmentInventoryWindow.SetActive(false);
-        }
-        public void CloseEquipmentManagerMenu()
-        {
-            PlayerUIManager.Instance._menuWindowIsOpen = false;
-            _menu.SetActive(false);
         }
         private void RefreshEquipmentSlotIcons()
         {

@@ -96,7 +96,7 @@ namespace SKD.Character.Player
         }
         public void SetNewMaxHealthValue(int oldVitality, int newVitality)
         {
-            _maxHealth.Value = _player._playerStatsManager.CalculateHealthBasedOnVitalityLevel(newVitality);
+            _maxHealth.Value = _player._playerStatsManager.CalculateHealthBasedOnVigorLevel(newVitality);
             PlayerUIManager.Instance._playerUIHUDManager.SetMaxHealthValue(_maxHealth.Value);
             _currentHealth.Value = _maxHealth.Value;
         }
@@ -387,7 +387,7 @@ namespace SKD.Character.Player
             // we already run the logic on the owner side, so there no point in running it again 
             if (!IsOwner) return;
 
-            HandEquipmentItem equipment = WorldItemDatabase.Instance.GetHandEquipmentByID(_headEquipmentID.Value);
+            HandEquipmentItem equipment = WorldItemDatabase.Instance.GetHandEquipmentByID(_handEquipmentID.Value);
 
             if (equipment != null)
             {

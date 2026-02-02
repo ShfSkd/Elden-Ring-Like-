@@ -16,6 +16,10 @@ namespace SKD
         Team01,
         Team02
     }
+    public enum CharacterAttributes
+    {
+        Vigor,Mind,Endurance,Strength,Dexterity,Intelligence,Faith
+    }
     public enum WeaponModelSlot
     {
         RightHandWeaponSlot, LeftHandWeaponSlot,LeftHandShieldSlot,

@@ -12,7 +12,7 @@ namespace SKD.Character.Player
     {
         public static PlayerInputManager Instance;
         PlayerControls _playerControls;
-        [FormerlySerializedAs("_playerManager")] public PlayerManager _player;
+        public PlayerManager _player;
 
         [Header("Player Movement Input")]
         [SerializeField] Vector2 _movementInput;
@@ -406,14 +406,14 @@ namespace SKD.Character.Player
             {
                 _player._playerAnimationManager.UpdateAnimatorMovementParameters(_horizontalInput,
                     _verticalInput, _player._playerNetworkManager._isSprinting.Value);
-                
+
                 return;
             }
             if (_player._playerNetworkManager._isAiming.Value)
             {
                 _player._playerAnimationManager.UpdateAnimatorMovementParameters(_horizontalInput,
                     _verticalInput, _player._playerNetworkManager._isSprinting.Value);
-                
+
                 return;
             }
             // If we are not locked on, only use the move amount
@@ -433,6 +433,9 @@ namespace SKD.Character.Player
             if (_dodgeInput)
             {
                 _dodgeInput = false;
+
+                if (PlayerUIManager.Instance._menuWindowIsOpen)
+                    return;
 
                 _player._playerLocomotionManager.AttemptToPerformDodge();
             }
@@ -582,11 +585,11 @@ namespace SKD.Character.Player
 
                 if (PlayerUIManager.Instance._menuWindowIsOpen)
                     return;
-                
-                if(_player._isPerformingAction)
+
+                if (_player._isPerformingAction)
                     return;
-                
-                if(_player._playerCombatManager._isUsingItem)
+
+                if (_player._playerCombatManager._isUsingItem)
                     return;
 
                 _player._playerEquipmentManager.SwitchRightWeapon();
@@ -601,11 +604,11 @@ namespace SKD.Character.Player
 
                 if (PlayerUIManager.Instance._menuWindowIsOpen)
                     return;
-                
-                if(_player._isPerformingAction)
+
+                if (_player._isPerformingAction)
                     return;
-                
-                if(_player._playerCombatManager._isUsingItem)
+
+                if (_player._playerCombatManager._isUsingItem)
                     return;
 
                 _player._playerEquipmentManager.SwitchLeftWeapon();
@@ -619,11 +622,11 @@ namespace SKD.Character.Player
 
                 if (PlayerUIManager.Instance._menuWindowIsOpen)
                     return;
-                
-                if(_player._isPerformingAction)
+
+                if (_player._isPerformingAction)
                     return;
-                
-                if(_player._playerCombatManager._isUsingItem)
+
+                if (_player._playerCombatManager._isUsingItem)
                     return;
 
                 _player._playerEquipmentManager.SwitchQuickSlotItem();
@@ -695,7 +698,7 @@ namespace SKD.Character.Player
 
                 PlayerUIManager.Instance._playerUIPopUpManager.CloseAllPopUpsWindows();
                 PlayerUIManager.Instance.ClosAllMenuWindows();
-                PlayerUIManager.Instance._playerUICharacterMenuManager.OpenCharacterMenu();
+                PlayerUIManager.Instance._playerUICharacterMenuManager.OpenMenu();
             }
         }
         private void HandleCloseUIInputs()

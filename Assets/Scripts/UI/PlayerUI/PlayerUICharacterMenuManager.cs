@@ -2,27 +2,25 @@ using System.Collections;
 using UnityEngine;
 namespace SKD.UI.PlayerUI
 {
-    public class PlayerUICharacterMenuManager : MonoBehaviour
+    public class PlayerUICharacterMenuManager : PlayerUIMenu
     {
-        [Header("Menu")]
-        [SerializeField] GameObject _menu;
 
-        public void OpenCharacterMenu()
+        public override void OpenMenu()
         {
             PlayerUIManager.Instance._menuWindowIsOpen = true;
             _menu.SetActive(true);
         }
-        public void CloseCharacterMenu()
+        public override void CloseMenu()
         {
             PlayerUIManager.Instance._menuWindowIsOpen = false;
             _menu.SetActive(false);
         }
 
-        public void CloseCharacterMenuAfterFixedUpdate()
+        public override void CloseMenuAfterFixedUpdate()
         {
             StartCoroutine(WaitThenCloseMenu());
         }
-        private IEnumerator WaitThenCloseMenu()
+        protected override IEnumerator WaitThenCloseMenu()
         {
             yield return new WaitForFixedUpdate();
             

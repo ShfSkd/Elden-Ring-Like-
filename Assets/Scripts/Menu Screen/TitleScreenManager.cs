@@ -361,7 +361,7 @@ namespace SKD.MenuScreen
             _hiddenHelmet = null;
 
             // 1. Set this stats
-            player._playerNetworkManager._vitality.Value = vitality;
+            player._playerNetworkManager._vigor.Value = vitality;
             player._playerNetworkManager._endurance.Value = endurance;
             player._playerNetworkManager._mind.Value = mind;
             player._playerNetworkManager._strength.Value = strength;

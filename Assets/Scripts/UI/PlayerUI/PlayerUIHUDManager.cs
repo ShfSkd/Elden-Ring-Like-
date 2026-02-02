@@ -1,3 +1,4 @@
+using System.Collections;
 using SKD.Character.Player;
 using SKD.Items;
 using SKD.Items.Equipment;
@@ -20,6 +21,13 @@ namespace SKD.UI.PlayerUI
         [SerializeField] UI_StatBar _healthBar;
         [SerializeField] UI_StatBar _staminaBar;
         [SerializeField] UI_StatBar _focusPointBar;
+
+        [Header("Runes")]
+        [SerializeField] float _runeUpdateCountDelayTimer = 2.5f;
+        private int _pendingRunesToAdd;
+        Coroutine _waitThenAddRunesCoroutine;
+        [SerializeField] TextMeshProUGUI _runesToAddText;
+        [SerializeField] TextMeshProUGUI _runesCountText;
 
         [Header("Quick Slots")]
         [SerializeField] Image _rightWeaponQuickSlotIcon;
@@ -68,6 +76,41 @@ namespace SKD.UI.PlayerUI
             _focusPointBar.gameObject.SetActive(false);
             _focusPointBar.gameObject.SetActive(true);
 
+        }
+        public void SetRunesCount(int runesToAdd)
+        {
+            _pendingRunesToAdd += runesToAdd;
+
+            if (_waitThenAddRunesCoroutine != null)
+                StopCoroutine(_waitThenAddRunesCoroutine);
+
+            _waitThenAddRunesCoroutine = StartCoroutine(WaitThenUpdateRuneCount());
+
+        }
+        private IEnumerator WaitThenUpdateRuneCount()
+        {
+            float timer = _runeUpdateCountDelayTimer;
+            int runesToAdd = _pendingRunesToAdd;
+            _runesToAddText.text = "+ " + runesToAdd ;
+            _runesToAddText.enabled = true;
+
+            while(timer > 0)
+            {
+                timer -= Time.deltaTime;
+
+                if (runesToAdd != _pendingRunesToAdd)
+                {
+                    runesToAdd = _pendingRunesToAdd;
+                    _runesToAddText.text =  "+ " +runesToAdd;
+                }
+
+                yield return null;
+            }
+            _runesToAddText.enabled = false;
+            _pendingRunesToAdd = 0;
+            _runesCountText.text = PlayerUIManager.Instance._localPlayer._playerStatsManager._runes.ToString();
+
+            yield return null;
         }
         public void SetNewHealthValue(int oldValue, int newValue)
         {
@@ -192,8 +235,7 @@ namespace SKD.UI.PlayerUI
 
             if (quickSlotItem._isConsumable)
             {
-                var player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerManager>();
-                _quickSlotItemCountText.text = quickSlotItem.GetCurrentAmount(player).ToString();
+                _quickSlotItemCountText.text = quickSlotItem.GetCurrentAmount(PlayerUIManager.Instance._localPlayer).ToString();
                 _quickSlotItemCountText.enabled = true;
             }
             else

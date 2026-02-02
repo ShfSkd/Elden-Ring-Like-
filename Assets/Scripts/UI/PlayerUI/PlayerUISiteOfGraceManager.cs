@@ -1,26 +1,17 @@
 using UnityEngine;
 namespace SKD.UI.PlayerUI
 {
-    public class PlayerUISiteOfGraceManager : MonoBehaviour
-    {
-        [Header("Menu")]
-        [SerializeField] GameObject _menu;
-        
-        public void OpenSiteOfGraceManagerMenu()
-        {
-            PlayerUIManager.Instance._menuWindowIsOpen = true;
-            _menu.SetActive(true);
-        }
-        public void CloseSiteOfGraceManagerMenu()
-        {
-            PlayerUIManager.Instance._menuWindowIsOpen = false;
-            _menu.SetActive(false);
-        }
-
+    public class PlayerUISiteOfGraceManager : PlayerUIMenu
+    { 
         public void OpenTeleportLocationMenu()
         {
-            CloseSiteOfGraceManagerMenu();
-            PlayerUIManager.Instance._playerUITeleportLocationManager.OpenTeleportLocationManagerMenu();
+            CloseMenu();
+            PlayerUIManager.Instance._playerUITeleportLocationManager.OpenMenu();
+        }
+        public void OpenLevelUpMenu()
+        {
+            CloseMenu();
+            PlayerUIManager.Instance._playerUILevelUpManager.OpenMenu();
         }
     }
 }

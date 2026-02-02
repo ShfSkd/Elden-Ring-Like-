@@ -9,9 +9,10 @@ namespace SKD.UI.PlayerUI
     public class PlayerUIManager : MonoBehaviour
     {
         public static PlayerUIManager Instance;
-
+        [HideInInspector] public PlayerManager _localPlayer;
+        
         [Header("Network Join")]
-        [SerializeField] bool startGameAsClient;
+        [SerializeField] bool _startGameAsClient;
 
         [HideInInspector] public PlayerUIHUDManager _playerUIHUDManager;
         [HideInInspector] public PlayerUIPopUpManager _playerUIPopUpManager;
@@ -20,6 +21,7 @@ namespace SKD.UI.PlayerUI
         [HideInInspector] public PlayerUISiteOfGraceManager _playerUISiteOfGraceManager;
         [HideInInspector] public PlayerUITeleportLocationManager _playerUITeleportLocationManager;
         [HideInInspector] public PlayerUILoadingScreenManager _playerUILoadingScreenManager;
+        [HideInInspector] public PlayerUILevelUpManager _playerUILevelUpManager;
 
         [Header("UI Flags")]
         public bool _menuWindowIsOpen;// Inventory Screen , Equipment menu, Shop,etc.
@@ -39,6 +41,7 @@ namespace SKD.UI.PlayerUI
             _playerUISiteOfGraceManager = GetComponentInChildren<PlayerUISiteOfGraceManager>();
             _playerUITeleportLocationManager = GetComponentInChildren<PlayerUITeleportLocationManager>();
             _playerUILoadingScreenManager = GetComponentInChildren<PlayerUILoadingScreenManager>();
+            _playerUILevelUpManager = GetComponentInChildren<PlayerUILevelUpManager>();
         }
         private void Start()
         {
@@ -46,9 +49,9 @@ namespace SKD.UI.PlayerUI
         }
         private void Update()
         {
-            if (startGameAsClient)
+            if (_startGameAsClient)
             {
-                startGameAsClient = false;
+                _startGameAsClient = false;
                 //we must first shut down, because we have to start a host during the tile screen
                 NetworkManager.Singleton.Shutdown();
                 // We restart as a client
@@ -57,10 +60,11 @@ namespace SKD.UI.PlayerUI
         }
         public void ClosAllMenuWindows()
         {
-            _playerUICharacterMenuManager.CloseCharacterMenu();
-            _playerUIEquipmentManager.CloseEquipmentManagerMenu();
-            _playerUISiteOfGraceManager.CloseSiteOfGraceManagerMenu();
-            _playerUITeleportLocationManager.CloseTeleportLocationMenu();
+            _playerUICharacterMenuManager.CloseMenuAfterFixedUpdate();
+            _playerUIEquipmentManager.CloseMenuAfterFixedUpdate();
+            _playerUISiteOfGraceManager.CloseMenuAfterFixedUpdate();
+            _playerUITeleportLocationManager.CloseMenuAfterFixedUpdate();
+            _playerUILevelUpManager.CloseMenuAfterFixedUpdate();
         }
     }
 

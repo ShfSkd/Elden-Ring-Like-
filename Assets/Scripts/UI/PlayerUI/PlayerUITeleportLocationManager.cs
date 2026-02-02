@@ -4,25 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 namespace SKD.UI.PlayerUI
 {
-    public class PlayerUITeleportLocationManager : MonoBehaviour
+    public class PlayerUITeleportLocationManager : PlayerUIMenu
     {
-        [Header("Menu")]
-        [SerializeField] GameObject _menu;
-
+        [Header("Teleport Location")]
         [SerializeField] GameObject[] _teleportLocations;
-        public void OpenTeleportLocationManagerMenu()
+    
+        public override void OpenMenu()
         {
-            PlayerUIManager.Instance._menuWindowIsOpen = true;
-            _menu.SetActive(true);
-
+            base.OpenMenu();
+            
             CheckForUnlockTeleports();
         }
-        public void CloseTeleportLocationMenu()
-        {
-            PlayerUIManager.Instance._menuWindowIsOpen = false;
-            _menu.SetActive(false);
-        }
-
         private void CheckForUnlockTeleports()
         {
             bool hasFirstSelectedButton = false;

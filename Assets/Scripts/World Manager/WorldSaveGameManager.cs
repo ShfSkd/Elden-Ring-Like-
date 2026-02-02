@@ -303,9 +303,13 @@ namespace SKD.WorldManager
         private void NewGame()
         {
             // Saves the newly created character stats, and items (when creation screen is added)
-            _playerManager._playerNetworkManager._vitality.Value = 15;
-            _playerManager._playerNetworkManager._endurance.Value = 10;
+            _playerManager._playerNetworkManager._vigor.Value = 15;
             _playerManager._playerNetworkManager._mind.Value = 10;
+            _playerManager._playerNetworkManager._endurance.Value = 10;
+            _playerManager._playerNetworkManager._strength.Value = 10;
+            _playerManager._playerNetworkManager._dexterty.Value = 10;
+            _playerManager._playerNetworkManager._intelligence.Value = 10;
+            _playerManager._playerNetworkManager._faith.Value = 10;
 
             SaveGame();
             LoadWorldScene(_worldSceneIndex);

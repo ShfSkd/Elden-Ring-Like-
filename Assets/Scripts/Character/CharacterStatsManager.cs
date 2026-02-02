@@ -1,12 +1,17 @@
 ﻿using System.Collections;
 using System.Globalization;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace SKD.Character
 {
     public class CharacterStatsManager : MonoBehaviour
     {
-        CharacterManager _characterManager;
+        CharacterManager _character;
+        
+        [Header("Runes")]
+        public int _runesDroppedOnDeath = 50;
+        
         [Header("Stamina Regeneration")]
         [SerializeField] float _staminaRegenAmount = 2f;
         private float _staminaRegeneartionTimer = 0f;
@@ -46,7 +51,7 @@ namespace SKD.Character
 
         protected virtual void Awake()
         {
-            _characterManager = GetComponent<CharacterManager>();
+            _character = GetComponent<CharacterManager>();
         }
         protected virtual void Start()
         {
@@ -57,15 +62,30 @@ namespace SKD.Character
         {
             HandlePoiseResetTimer();
         }
-        public int CalculateHealthBasedOnVitalityLevel(int vitality)
+        public int CalculateHealthBasedOnVigorLevel(int vigor)
         {
-            float health = vitality * 15;
+            float health = vigor * 15;
             return Mathf.RoundToInt(health);
         }   
         public int CalculateStaminaBasedOnEnduraceLevel(int endurance)
         {
             float stamina = endurance * 10;
             return Mathf.RoundToInt(stamina);
+        }
+
+        public int CalculateCharacterLevelBasedOnAttributes()
+        {
+            int totalAttributes = _character._characterNetworkManager._vigor.Value + _character._characterNetworkManager._mind.Value +
+                                  _character._characterNetworkManager._endurance.Value + _character._characterNetworkManager._strength.Value +
+                                  _character._characterNetworkManager._dexterty.Value + _character._characterNetworkManager._intelligence.Value +
+                                  _character._characterNetworkManager._faith.Value;
+
+            int characterLevel = totalAttributes - 70 + 1;
+            
+            if(characterLevel<1)
+                characterLevel = 1;
+            
+            return characterLevel;
         }
         public int CalculateFucosPointsBasedOnMindLevel(int mind)
         {
@@ -75,28 +95,28 @@ namespace SKD.Character
         public virtual void RegenerateStamina()
         {
             // Only owners can edit their network variables 
-            if (!_characterManager.IsOwner)
+            if (!_character.IsOwner)
                 return;
 
             // We do not want to regenerate stamina while sprinting
-            if (_characterManager._characterNetworkManager._isSprinting.Value)
+            if (_character._characterNetworkManager._isSprinting.Value)
                 return;
 
-            if (_characterManager._isPerformingAction)
+            if (_character._isPerformingAction)
                 return;
 
             _staminaRegeneartionTimer += Time.deltaTime;
 
             if (_staminaRegeneartionTimer >= _staminaRegenarationDelay)
             {
-                if (_characterManager._characterNetworkManager._currentStamina.Value < _characterManager._characterNetworkManager._maxStamina.Value)
+                if (_character._characterNetworkManager._currentStamina.Value < _character._characterNetworkManager._maxStamina.Value)
                 {
                     _staminaTickTimer += Time.deltaTime;
 
                     if (_staminaTickTimer >= 0.1f)
                     {
                         _staminaTickTimer = 0;
-                        _characterManager._characterNetworkManager._currentStamina.Value += _staminaRegenAmount;
+                        _character._characterNetworkManager._currentStamina.Value += _staminaRegenAmount;
                     }
                 }
             }

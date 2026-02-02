@@ -95,12 +95,13 @@ namespace SKD.Character.Player
             {
                 PlayerCamera.Instance._player = this;
                 PlayerInputManager.Instance._player = this;
+                PlayerUIManager.Instance._localPlayer = this;
                 WorldSaveGameManager.Instance._playerManager = this;
 
                 // Update the total amount of health or stamina when the stat linked to either changes
-                _playerNetworkManager._vitality.OnValueChanged += _playerNetworkManager.SetNewMaxHealthValue;
-                _playerNetworkManager._endurance.OnValueChanged += _playerNetworkManager.SetNewMaxStaminaValue;
+                _playerNetworkManager._vigor.OnValueChanged += _playerNetworkManager.SetNewMaxHealthValue;
                 _playerNetworkManager._mind.OnValueChanged += _playerNetworkManager.SetNewMaxFocusPointsValue;
+                _playerNetworkManager._endurance.OnValueChanged += _playerNetworkManager.SetNewMaxStaminaValue;
 
                 // Updated UI stat bars when a stat changes(Health or stamina)
                 _playerNetworkManager._currentHealth.OnValueChanged += PlayerUIManager.Instance._playerUIHUDManager.SetNewHealthValue;
@@ -182,7 +183,7 @@ namespace SKD.Character.Player
             if (IsOwner)
             {
                 // Update the total amount of health or stamina when the stat linked to either changes
-                _playerNetworkManager._vitality.OnValueChanged -= _playerNetworkManager.SetNewMaxHealthValue;
+                _playerNetworkManager._vigor.OnValueChanged -= _playerNetworkManager.SetNewMaxHealthValue;
                 _playerNetworkManager._endurance.OnValueChanged -= _playerNetworkManager.SetNewMaxStaminaValue;
                 _playerNetworkManager._mind.OnValueChanged -= _playerNetworkManager.SetNewMaxFocusPointsValue;
 
@@ -301,9 +302,14 @@ namespace SKD.Character.Player
             currenCharacterSaveData._currentStamina = _playerNetworkManager._currentStamina.Value;
             currenCharacterSaveData._currentFocusPoints = _playerNetworkManager._currentFocusPoints.Value;
 
-            currenCharacterSaveData._vitality = _playerNetworkManager._vitality.Value;
-            currenCharacterSaveData._endurance = _playerNetworkManager._endurance.Value;
+            currenCharacterSaveData._vigor = _playerNetworkManager._vigor.Value;
             currenCharacterSaveData._mind = _playerNetworkManager._mind.Value;
+            currenCharacterSaveData._endurance = _playerNetworkManager._endurance.Value;
+            currenCharacterSaveData._strength = _playerNetworkManager._strength.Value;
+            currenCharacterSaveData._dexterty = _playerNetworkManager._dexterty.Value;
+            currenCharacterSaveData._intelligence = _playerNetworkManager._intelligence.Value;
+            currenCharacterSaveData._faith = _playerNetworkManager._faith.Value;
+            
             currenCharacterSaveData._currentHelathFlaskRemaining = _playerNetworkManager._remainingHealthFlasks.Value;
             currenCharacterSaveData._currentPocusPointFlaskRemaining = _playerNetworkManager._remainingFocusPointsFlasks.Value;
 
@@ -393,9 +399,13 @@ namespace SKD.Character.Player
             Vector3 myPosition = new Vector3(currentCharacterSaveData._xPosition, currentCharacterSaveData._yPosition, currentCharacterSaveData._zPosition);
             transform.position = myPosition;
 
-            _playerNetworkManager._vitality.Value = currentCharacterSaveData._vitality;
+            _playerNetworkManager._vigor.Value = currentCharacterSaveData._vigor;
             _playerNetworkManager._endurance.Value = currentCharacterSaveData._endurance;
             _playerNetworkManager._mind.Value = currentCharacterSaveData._mind;
+            _playerNetworkManager._strength.Value = currentCharacterSaveData._strength;
+            _playerNetworkManager._dexterty.Value = currentCharacterSaveData._dexterty;
+            _playerNetworkManager._intelligence.Value = currentCharacterSaveData._intelligence;
+            _playerNetworkManager._faith.Value = currentCharacterSaveData._faith;
             
             // Body
             _playerNetworkManager._hairStyleID.Value = currentCharacterSaveData._hairStyleID;   
@@ -404,14 +414,14 @@ namespace SKD.Character.Player
             _playerNetworkManager._hairColorBlue.Value = currentCharacterSaveData._hairColorBlueID;
 
             // This will be moved when saving and loading is added
-            _playerNetworkManager._maxHealth.Value = _playerStatsManager.CalculateHealthBasedOnVitalityLevel(_playerNetworkManager._vitality.Value);
+            _playerNetworkManager._maxHealth.Value = _playerStatsManager.CalculateHealthBasedOnVigorLevel(_playerNetworkManager._vigor.Value);
             _playerNetworkManager._maxStamina.Value = _playerStatsManager.CalculateStaminaBasedOnEnduraceLevel(_playerNetworkManager._endurance.Value);
             _playerNetworkManager._maxFocusPoints.Value = _playerStatsManager.CalculateFucosPointsBasedOnMindLevel(_playerNetworkManager._mind.Value);
             _playerNetworkManager._currentHealth.Value = currentCharacterSaveData._currentHealth;
             _playerNetworkManager._currentStamina.Value = currentCharacterSaveData._currentStamina;
             _playerNetworkManager._currentFocusPoints.Value = currentCharacterSaveData._currentFocusPoints;
 
-            _playerNetworkManager._currentHealth.Value = currentCharacterSaveData._currentHelathFlaskRemaining;
+            _playerNetworkManager._remainingHealthFlasks.Value = currentCharacterSaveData._currentHelathFlaskRemaining;
             _playerNetworkManager._remainingFocusPointsFlasks.Value = currentCharacterSaveData._currentFocusPoints;
 
             // PlayerUIManger.instance._playerUIHUDManager.SetMaxStaminaValue(_playerNetworkManager._maxStamina.Value);

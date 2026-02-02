@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using SKD.UI.PlayerUI;
 using UnityEngine;
 
 namespace SKD.Character.Player
@@ -6,6 +7,10 @@ namespace SKD.Character.Player
     public class PlayerStatsManager : CharacterStatsManager
     {
         PlayerManager _player;
+
+        [Header("Runes")]
+        public int _runes;
+        
         protected override void Awake()
         {
             base.Awake();
@@ -17,7 +22,7 @@ namespace SKD.Character.Player
             base.Start();
 
             // Why calculate it here? When we make a character creation menu, and set the stats depending on the class , this will be calculate there. Until then however, stats are never calculate, so we do it here on start. If a save file exist they will be over written when loading into a scene 
-            CalculateHealthBasedOnVitalityLevel(_player._playerNetworkManager._vitality.Value);
+            CalculateHealthBasedOnVigorLevel(_player._playerNetworkManager._vigor.Value);
             CalculateStaminaBasedOnEnduraceLevel(_player._playerNetworkManager._endurance.Value);
             CalculateFucosPointsBasedOnMindLevel(_player._playerNetworkManager._mind.Value);
 
@@ -111,6 +116,12 @@ namespace SKD.Character.Player
                 _basePoiseDefence += _player._playerInventoryManager._handEquipment._poise;
             }
 
+        }
+
+        public void AddRunes(int runesToAdd)
+        {
+            _runes += runesToAdd;
+            PlayerUIManager.Instance._playerUIHUDManager.SetRunesCount(runesToAdd);
         }
     }
 }

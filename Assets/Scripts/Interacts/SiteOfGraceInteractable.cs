@@ -88,7 +88,7 @@ namespace SKD.Interacts
         }
         private void RestAtSiteOfGrace(PlayerManager player)
         {
-            PlayerUIManager.Instance._playerUISiteOfGraceManager.OpenSiteOfGraceManagerMenu();
+            PlayerUIManager.Instance._playerUISiteOfGraceManager.OpenMenu();
 
             Debug.Log("Resting");
             _interactableCollider.enabled = true;

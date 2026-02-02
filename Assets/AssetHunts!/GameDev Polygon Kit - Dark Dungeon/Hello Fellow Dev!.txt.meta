@@ -1,14 +1,7 @@
 fileFormatVersion: 2
-guid: 840a42ff5eba97b42b545ce731b9dca5
+guid: cc6afb43fca8e864ebc8d0217280a8eb
 TextScriptImporter:
   externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 308144
-  packageName: 'GameDev Polygon Kit - Dark Dungeon [Free Edition]'
-  packageVersion: v1.0.0
-  assetPath: Assets/AssetHunts!/GameDev Polygon Kit - Dark Dungeon/Hello Fellow Dev!.txt
-  uploadId: 749411

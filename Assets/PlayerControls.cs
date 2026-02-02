@@ -103,7 +103,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""Open Character Menu"",
                     ""type"": ""Button"",
                     ""id"": ""3b1bc37c-3018-450a-bb54-627906f3d35c"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -220,7 +220,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""LT"",
                     ""type"": ""Button"",
                     ""id"": ""cd9a545c-0b6f-4320-862e-45ef1318353c"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false

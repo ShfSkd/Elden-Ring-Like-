@@ -1,7 +1,9 @@
 ﻿using System;
 using SKD.World_Manager;
 using System.Collections;
+using SKD.Character.Player;
 using UnityEngine;
+using Unity.Netcode;
 
 namespace SKD.Character.AI_Character
 {
@@ -48,6 +50,21 @@ namespace SKD.Character.AI_Character
         private void FixedUpdate()
         {
             HandleStanceBreak();
+        }
+        public void AwardRunesOnDeath(PlayerManager player)
+        {
+            // 1. Check if the player is friendly to the host (Not an invader)
+            if(player._characterGroup==CharacterGroup.Team02)
+                return;
+            
+            // 2. If you want to give less or more runes to a client vs a host, do it here
+            if (NetworkManager.Singleton.IsHost)
+            {
+                
+            }
+            
+            // 3. Award Runes (consider rune altering items her or effects that give more or less runes)
+            player._playerStatsManager.AddRunes(_aICharacter._characterStatsManager._runesDroppedOnDeath);
         }
         private void HandleStanceBreak()
         {
