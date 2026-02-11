@@ -155,8 +155,7 @@ namespace SKD.UI.PlayerUI
                 return;
             }
             //  This is where you would check to see if you meet the item requirements if you want to create the warning foe not being able to wield it in the UI
-
-
+            
             _rightWeaponQuickSlotIcon.sprite = weapon._itemIcon;
             _rightWeaponQuickSlotIcon.enabled = true;
         }

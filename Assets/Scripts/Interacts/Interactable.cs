@@ -1,6 +1,7 @@
 ﻿using SKD.Character.Player;
 using SKD.UI.PlayerUI;
 using System.Collections;
+using SKD.WorldManager;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -29,6 +30,7 @@ namespace SKD.Interacts
             _interactableCollider.enabled = false;
             player._playerInteractionManager.RemoveInteractionList(this);
             PlayerUIManager.Instance._playerUIPopUpManager.CloseAllPopUpsWindows();
+            WorldSaveGameManager.Instance.SaveGame();
         }
         public virtual void OnTriggerEnter(Collider other)
         {

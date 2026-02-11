@@ -90,10 +90,6 @@ namespace SKD.UI.PlayerUI
             _quickSlot02Button = _quickSlot02EquipmentSlot.GetComponentInParent<Button>(true);
             _quickSlot03Button = _quickSlot03EquipmentSlot.GetComponentInParent<Button>(true);
         }
-        public void OpenEquipmentManagerMenu()
-        {
-        
-        }
         public override void OpenMenu()
         {
             base.OpenMenu();

@@ -37,6 +37,7 @@ namespace SKD.GameSaving
         public int _currentHealth;
         public float _currentStamina;
         public int _currentFocusPoints;
+        public int _runes;
         
         [Header("Stats")]
         public int _vigor;

@@ -1,4 +1,6 @@
+using System;
 using SKD.Character.Player;
+using SKD.WorldManager;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +9,11 @@ namespace SKD.UI.PlayerUI
 {
     public class PlayerUILevelUpManager : PlayerUIMenu
     {
+        [Header("Levels")]
+        [SerializeField] int[] _playerLevels = new int [100];
+        [SerializeField] int _baseLevelCost = 83;
+        [SerializeField] int _totalLevelUpCost = 0;
+
         [Header("Character Stats")]
         [SerializeField] TextMeshProUGUI _characterLevelText;
         [SerializeField] TextMeshProUGUI _runesHeldText;
@@ -33,13 +40,20 @@ namespace SKD.UI.PlayerUI
 
         [Header("Sliders")]
         public CharacterAttributes _currentSelectedAttribute;
-        [SerializeField] Slider _vigorSlider;
-        [SerializeField] Slider _mindSlider;
-        [SerializeField] Slider _eduranceSlider;
-        [SerializeField] Slider _strengthSlider;
-        [SerializeField] Slider _dexteritySlider;
-        [SerializeField] Slider _intelligenceSlider;
-        [SerializeField] Slider _faithSlider;
+        public Slider _vigorSlider;
+        public Slider _mindSlider;
+        public Slider _eduranceSlider;
+        public Slider _strengthSlider;
+        public Slider _dexteritySlider;
+        public Slider _intelligenceSlider;
+        public Slider _faithSlider;
+
+        [Header("Buttons")]
+        [SerializeField] Button _confirerLevelButton;
+        void Awake()
+        {
+            SetAllLevelCost();
+        }
 
         public override void OpenMenu()
         {
@@ -88,14 +102,16 @@ namespace SKD.UI.PlayerUI
             _faithLevelText.text = PlayerUIManager.Instance._localPlayer._playerNetworkManager._faith.Value.ToString();
             _projectedFaithLevelText.text = PlayerUIManager.Instance._localPlayer._playerNetworkManager._faith.Value.ToString();
             _faithSlider.minValue = PlayerUIManager.Instance._localPlayer._playerNetworkManager._faith.Value;
-            
+
             _vigorSlider.Select();
             _vigorSlider.OnSelect(null);
 
         }
-
+        // This is called evey time a level slider is changed
         public void UpdateSliderBasedOnCurrentlySelectedAttributes()
         {
+            PlayerManager player = PlayerUIManager.Instance._localPlayer;
+
             switch (_currentSelectedAttribute)
             {
                 case CharacterAttributes.Vigor:
@@ -123,18 +139,36 @@ namespace SKD.UI.PlayerUI
                     break;
             }
 
+            // Passed our current level and our projected level to set our cost for leveling up
+            CalculateLevelCost(player._characterStatsManager.CalculateCharacterLevelBasedOnAttributes(),
+                player._characterStatsManager.CalculateCharacterLevelBasedOnAttributes(true));
+
+            _projectedCharacterLevelText.text = player._characterStatsManager.CalculateCharacterLevelBasedOnAttributes(true).ToString();
+            _runesNeddedText.text = _totalLevelUpCost.ToString();
+
+            // 1.check Cost
+            if (_totalLevelUpCost > player._playerStatsManager._runes)
+            {
+                // 1. Disable confirm button so you cant level up 
+                _confirerLevelButton.interactable = false;
+                // 2. Optionally charge level up fields text to red
+            }
+            else
+            {
+                _confirerLevelButton.interactable = true;
+            }
+
+            ChangeTextColorDependingOnCost();
         }
 
         public void ConfirmLevels()
         {
-            // 1. Calculate Cost
-
-            // 2. Change stat texts or colors depending if the player can afford it or not, and if levels are higer
+            PlayerManager player = PlayerUIManager.Instance._localPlayer;
 
             // 3. Deduct cost from total runes
+            player._playerStatsManager._runes -= _totalLevelUpCost;
 
             // 4. Set new stat
-            PlayerManager player = PlayerUIManager.Instance._localPlayer;
 
             player._playerNetworkManager._vigor.Value = Mathf.RoundToInt(_vigorSlider.value);
             player._playerNetworkManager._mind.Value = Mathf.RoundToInt(_mindSlider.value);
@@ -143,8 +177,138 @@ namespace SKD.UI.PlayerUI
             player._playerNetworkManager._dexterty.Value = Mathf.RoundToInt(_dexteritySlider.value);
             player._playerNetworkManager._intelligence.Value = Mathf.RoundToInt(_intelligenceSlider.value);
             player._playerNetworkManager._faith.Value = Mathf.RoundToInt(_faithSlider.value);
-            
+
             SetCurrentStats();
+            ChangeTextColorDependingOnCost();
+            // Saving game after stats
+            WorldSaveGameManager.Instance.SaveGame();
+        }
+
+        private void SetAllLevelCost()
+        {
+            for (int i = 0; i < _playerLevels.Length; i++)
+            {
+                // Level 0 haas no cost
+                if (i == 0)
+                    continue;
+
+                // This is a safeguard to stop adding the cost if the player level some how exceed the size of the array we have created  
+                if (i > _playerLevels.Length)
+                    continue;
+
+                _playerLevels[i] = _baseLevelCost + (50 * i);
+            }
+        }
+        private void CalculateLevelCost(int currentLevel, int projectedLevel)
+        {
+            // We dont to charge for levels we already paid for
+            int totalCost = 0;
+            for (int i = 0; i < projectedLevel; i++)
+            {
+                // Do not charge until we get past our current level
+                if (i < currentLevel)
+                    continue;
+
+                totalCost += _playerLevels[i];
+            }
+            _totalLevelUpCost = totalCost;
+
+            _projectedRunesHeldText.text = (PlayerUIManager.Instance._localPlayer._playerStatsManager._runes - totalCost).ToString();
+
+            if (totalCost > PlayerUIManager.Instance._localPlayer._playerStatsManager._runes)
+                _projectedRunesHeldText.color = Color.red;
+            else
+            {
+                _projectedRunesHeldText.color = Color.white;
+            }
+        }
+
+        // This will change the color of the projected level
+        // Red- Cant afford, Blue- can e afford it, white- if the state is unchanged
+        private void ChangeTextColorDependingOnCost()
+        {
+            PlayerManager player = PlayerUIManager.Instance._localPlayer;
+
+            int projectedVigorLevel = Mathf.RoundToInt(_vigorSlider.value);
+            int projectedMindLevel = Mathf.RoundToInt(_mindSlider.value);
+            int projectedEnduranceLevel = Mathf.RoundToInt(_eduranceSlider.value);
+            int projectedStrengthLevel = Mathf.RoundToInt(_strengthSlider.value);
+            int projectedDexterityLevel = Mathf.RoundToInt(_dexteritySlider.value);
+            int projectedIntelligenceLevel = Mathf.RoundToInt(_intelligenceSlider.value);
+            int projectedFaithLevel = Mathf.RoundToInt(_faithSlider.value);
+
+            ChangeTextFieldToSpecificColorBasedOnStat(player, _projectedVigorLevelText, player._playerNetworkManager._vigor.Value, projectedVigorLevel);
+            ChangeTextFieldToSpecificColorBasedOnStat(player, _projectedMindLevelText, player._playerNetworkManager._mind.Value, projectedMindLevel);
+            ChangeTextFieldToSpecificColorBasedOnStat(player, _projectedEnduranceLevelText, player._playerNetworkManager._endurance.Value, projectedEnduranceLevel);
+            ChangeTextFieldToSpecificColorBasedOnStat(player, _projectedStrengthLevelText, player._playerNetworkManager._strength.Value, projectedStrengthLevel);
+            ChangeTextFieldToSpecificColorBasedOnStat(player, _projectedDexterityLevelText, player._playerNetworkManager._dexterty.Value, projectedDexterityLevel);
+            ChangeTextFieldToSpecificColorBasedOnStat(player, _projectedIntelligenceLevelText, player._playerNetworkManager._intelligence.Value, projectedIntelligenceLevel);
+            ChangeTextFieldToSpecificColorBasedOnStat(player, _projectedFaithLevelText, player._playerNetworkManager._faith.Value, projectedFaithLevel);
+
+            int projectPlayerLevel = player._characterStatsManager.CalculateCharacterLevelBasedOnAttributes(true);
+            int playerLevel = player._characterStatsManager.CalculateCharacterLevelBasedOnAttributes();
+
+            if (projectPlayerLevel == playerLevel)
+            {
+                _projectedCharacterLevelText.color = Color.white;
+                _projectedRunesHeldText.color = Color.white;
+                _runesNeddedText.color = Color.white;
+            }
+
+            // we can afford it 
+            if (_totalLevelUpCost <= player._playerStatsManager._runes)
+            {
+                _runesNeddedText.color = Color.white;
+
+                if (projectPlayerLevel > playerLevel)
+                {
+                     _projectedRunesHeldText.color = Color.red;
+                    _projectedCharacterLevelText.color = Color.blue;
+                }
+
+            }
+            else
+            {
+                _runesNeddedText.color = Color.red;
+
+                if (projectPlayerLevel > playerLevel)
+                    _projectedCharacterLevelText.color = Color.red;
+            }
+
+
+        }
+
+        private void ChangeTextFieldToSpecificColorBasedOnStat(PlayerManager player, TextMeshProUGUI textField, int stat, int projectedStat)
+        {
+            if (projectedStat == stat)
+                textField.color = Color.white; 
+            
+            // we can afford it 
+            if (_totalLevelUpCost <= player._playerStatsManager._runes)
+            {
+                if (projectedStat > stat)
+                {
+                    textField.color = Color.blue;
+                }
+                // If our projected state is the same, keep the color as default 
+                else
+                {
+                    textField.color = Color.white;
+                }
+            }
+            // We can't!
+            else
+            {
+
+                if (projectedStat > stat)
+                {
+                    textField.color = Color.red;
+                }
+                else
+                {
+                    textField.color = Color.white;
+                }
+            }
         }
     }
 }

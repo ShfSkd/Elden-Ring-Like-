@@ -210,7 +210,7 @@ namespace SKD.Character.Player
             // Lock On 
             _playerNetworkManager._isLockOn.OnValueChanged -= _playerNetworkManager.OnIsLockOnChanged;
             _playerNetworkManager._currentTargetNetworkObjectID.OnValueChanged -= _playerNetworkManager.OnLockOnTargetIDChange;
-            
+
             // Body
             _playerNetworkManager._hairStyleID.OnValueChanged -= _playerNetworkManager.OnHairStyleChanged;
             _playerNetworkManager._hairColorRed.OnValueChanged -= _playerNetworkManager.OnHairColorRedChanged;
@@ -287,73 +287,76 @@ namespace SKD.Character.Player
 
             return base.ProcessDeathEvent(manuallySelectDeathAnimation);
         }
-        public void SaveGameDataToCurrentCharacterData(ref CharacterSaveData currenCharacterSaveData)
+        public void SaveGameDataToCurrentCharacterData(ref CharacterSaveData currentCharacterSaveData)
         {
-            currenCharacterSaveData._sceneIndex = SceneManager.GetActiveScene().buildIndex;
+            currentCharacterSaveData._sceneIndex = SceneManager.GetActiveScene().buildIndex;
 
-            currenCharacterSaveData._characterName = _playerNetworkManager._characterName.Value.ToString();
-            currenCharacterSaveData._isMale = _playerNetworkManager._isMale.Value;
+            currentCharacterSaveData._characterName = _playerNetworkManager._characterName.Value.ToString();
+            currentCharacterSaveData._isMale = _playerNetworkManager._isMale.Value;
 
-            currenCharacterSaveData._xPosition = transform.position.x;
-            currenCharacterSaveData._yPosition = transform.position.y;
-            currenCharacterSaveData._zPosition = transform.position.z;
+            currentCharacterSaveData._xPosition = transform.position.x;
+            currentCharacterSaveData._yPosition = transform.position.y;
+            currentCharacterSaveData._zPosition = transform.position.z;
 
-            currenCharacterSaveData._currentHealth = _playerNetworkManager._currentHealth.Value;
-            currenCharacterSaveData._currentStamina = _playerNetworkManager._currentStamina.Value;
-            currenCharacterSaveData._currentFocusPoints = _playerNetworkManager._currentFocusPoints.Value;
+            // Stats
+            currentCharacterSaveData._currentHealth = _playerNetworkManager._currentHealth.Value;
+            currentCharacterSaveData._currentStamina = _playerNetworkManager._currentStamina.Value;
+            currentCharacterSaveData._currentFocusPoints = _playerNetworkManager._currentFocusPoints.Value;
 
-            currenCharacterSaveData._vigor = _playerNetworkManager._vigor.Value;
-            currenCharacterSaveData._mind = _playerNetworkManager._mind.Value;
-            currenCharacterSaveData._endurance = _playerNetworkManager._endurance.Value;
-            currenCharacterSaveData._strength = _playerNetworkManager._strength.Value;
-            currenCharacterSaveData._dexterty = _playerNetworkManager._dexterty.Value;
-            currenCharacterSaveData._intelligence = _playerNetworkManager._intelligence.Value;
-            currenCharacterSaveData._faith = _playerNetworkManager._faith.Value;
-            
-            currenCharacterSaveData._currentHelathFlaskRemaining = _playerNetworkManager._remainingHealthFlasks.Value;
-            currenCharacterSaveData._currentPocusPointFlaskRemaining = _playerNetworkManager._remainingFocusPointsFlasks.Value;
+            currentCharacterSaveData._vigor = _playerNetworkManager._vigor.Value;
+            currentCharacterSaveData._mind = _playerNetworkManager._mind.Value;
+            currentCharacterSaveData._endurance = _playerNetworkManager._endurance.Value;
+            currentCharacterSaveData._strength = _playerNetworkManager._strength.Value;
+            currentCharacterSaveData._dexterty = _playerNetworkManager._dexterty.Value;
+            currentCharacterSaveData._intelligence = _playerNetworkManager._intelligence.Value;
+            currentCharacterSaveData._faith = _playerNetworkManager._faith.Value;
+
+            currentCharacterSaveData._runes = _playerStatsManager._runes;
+
+            currentCharacterSaveData._currentHelathFlaskRemaining = _playerNetworkManager._remainingHealthFlasks.Value;
+            currentCharacterSaveData._currentPocusPointFlaskRemaining = _playerNetworkManager._remainingFocusPointsFlasks.Value;
 
             // Body
-            currenCharacterSaveData._hairStyleID = _playerNetworkManager._hairStyleID.Value;
-            currenCharacterSaveData._hairColorRedID = _playerNetworkManager._hairColorRed.Value;
-            currenCharacterSaveData._hairColorGreenID=_playerNetworkManager._hairColorGreen.Value;
-            currenCharacterSaveData._hairColorBlueID = _playerNetworkManager._hairColorBlue.Value;
+            currentCharacterSaveData._hairStyleID = _playerNetworkManager._hairStyleID.Value;
+            currentCharacterSaveData._hairColorRedID = _playerNetworkManager._hairColorRed.Value;
+            currentCharacterSaveData._hairColorGreenID = _playerNetworkManager._hairColorGreen.Value;
+            currentCharacterSaveData._hairColorBlueID = _playerNetworkManager._hairColorBlue.Value;
 
             // Equipment
-            currenCharacterSaveData._headEquipment = _playerNetworkManager._headEquipmentID.Value;
-            currenCharacterSaveData._bodyEquipment = _playerNetworkManager._bodyEquipmentID.Value;
-            currenCharacterSaveData._legEquipment = _playerNetworkManager._legEquipmentID.Value;
-            currenCharacterSaveData._handEquipment = _playerNetworkManager._handEquipmentID.Value;
+            currentCharacterSaveData._headEquipment = _playerNetworkManager._headEquipmentID.Value;
+            currentCharacterSaveData._bodyEquipment = _playerNetworkManager._bodyEquipmentID.Value;
+            currentCharacterSaveData._legEquipment = _playerNetworkManager._legEquipmentID.Value;
+            currentCharacterSaveData._handEquipment = _playerNetworkManager._handEquipmentID.Value;
 
-            currenCharacterSaveData._rightWeaponIndex = _playerInventoryManager._rightHandWeaponIndex;
-            currenCharacterSaveData._rightWeapon01 = WorldSaveGameManager.Instance.GetSerializableWeaponFromWeaponItem(_playerInventoryManager._weaponInRigthHandSlots[0]);
-            currenCharacterSaveData._rightWeapon02 = WorldSaveGameManager.Instance.GetSerializableWeaponFromWeaponItem(_playerInventoryManager._weaponInRigthHandSlots[1]);
-            currenCharacterSaveData._rightWeapon03 = WorldSaveGameManager.Instance.GetSerializableWeaponFromWeaponItem(_playerInventoryManager._weaponInRigthHandSlots[2]);
+            currentCharacterSaveData._rightWeaponIndex = _playerInventoryManager._rightHandWeaponIndex;
+            currentCharacterSaveData._rightWeapon01 = WorldSaveGameManager.Instance.GetSerializableWeaponFromWeaponItem(_playerInventoryManager._weaponInRigthHandSlots[0]);
+            currentCharacterSaveData._rightWeapon02 = WorldSaveGameManager.Instance.GetSerializableWeaponFromWeaponItem(_playerInventoryManager._weaponInRigthHandSlots[1]);
+            currentCharacterSaveData._rightWeapon03 = WorldSaveGameManager.Instance.GetSerializableWeaponFromWeaponItem(_playerInventoryManager._weaponInRigthHandSlots[2]);
 
-            currenCharacterSaveData._leftWeaponIndex = _playerInventoryManager._leftHandWeaponIndex;
-            currenCharacterSaveData._leftWeapon01 = WorldSaveGameManager.Instance.GetSerializableWeaponFromWeaponItem(_playerInventoryManager._weaponInLeftHandSlots[0]);
-            currenCharacterSaveData._leftWeapon02 = WorldSaveGameManager.Instance.GetSerializableWeaponFromWeaponItem(_playerInventoryManager._weaponInLeftHandSlots[1]);
-            currenCharacterSaveData._leftWeapon03 = WorldSaveGameManager.Instance.GetSerializableWeaponFromWeaponItem(_playerInventoryManager._weaponInLeftHandSlots[2]);
+            currentCharacterSaveData._leftWeaponIndex = _playerInventoryManager._leftHandWeaponIndex;
+            currentCharacterSaveData._leftWeapon01 = WorldSaveGameManager.Instance.GetSerializableWeaponFromWeaponItem(_playerInventoryManager._weaponInLeftHandSlots[0]);
+            currentCharacterSaveData._leftWeapon02 = WorldSaveGameManager.Instance.GetSerializableWeaponFromWeaponItem(_playerInventoryManager._weaponInLeftHandSlots[1]);
+            currentCharacterSaveData._leftWeapon03 = WorldSaveGameManager.Instance.GetSerializableWeaponFromWeaponItem(_playerInventoryManager._weaponInLeftHandSlots[2]);
 
-            currenCharacterSaveData._quickSlotIndex = _playerInventoryManager._quickSlotItemIndex;
-            currenCharacterSaveData._quickSlotItem01 = WorldSaveGameManager.Instance.GetSerializableQuickSlotIconFromQuickSLotIcon(_playerInventoryManager._quickSlotItemInQuickSlots[0]);
-            currenCharacterSaveData._quickSlotItem02 = WorldSaveGameManager.Instance.GetSerializableQuickSlotIconFromQuickSLotIcon(_playerInventoryManager._quickSlotItemInQuickSlots[1]);
-            currenCharacterSaveData._quickSlotItem03 = WorldSaveGameManager.Instance.GetSerializableQuickSlotIconFromQuickSLotIcon(_playerInventoryManager._quickSlotItemInQuickSlots[2]);
+            currentCharacterSaveData._quickSlotIndex = _playerInventoryManager._quickSlotItemIndex;
+            currentCharacterSaveData._quickSlotItem01 = WorldSaveGameManager.Instance.GetSerializableQuickSlotIconFromQuickSLotIcon(_playerInventoryManager._quickSlotItemInQuickSlots[0]);
+            currentCharacterSaveData._quickSlotItem02 = WorldSaveGameManager.Instance.GetSerializableQuickSlotIconFromQuickSLotIcon(_playerInventoryManager._quickSlotItemInQuickSlots[1]);
+            currentCharacterSaveData._quickSlotItem03 = WorldSaveGameManager.Instance.GetSerializableQuickSlotIconFromQuickSLotIcon(_playerInventoryManager._quickSlotItemInQuickSlots[2]);
 
-            currenCharacterSaveData._mainProjectile = WorldSaveGameManager.Instance.GetSerializableRangedProjectileFromRangedProjectileItem(_playerInventoryManager._mainProjectile);
-            currenCharacterSaveData._secondaryProjectile = WorldSaveGameManager.Instance.GetSerializableRangedProjectileFromRangedProjectileItem(_playerInventoryManager._secondaryProjectile);
+            currentCharacterSaveData._mainProjectile = WorldSaveGameManager.Instance.GetSerializableRangedProjectileFromRangedProjectileItem(_playerInventoryManager._mainProjectile);
+            currentCharacterSaveData._secondaryProjectile = WorldSaveGameManager.Instance.GetSerializableRangedProjectileFromRangedProjectileItem(_playerInventoryManager._secondaryProjectile);
 
             if (_playerInventoryManager._currentSpell != null)
-                currenCharacterSaveData._currentSpell = _playerInventoryManager._currentSpell._itemID;
+                currentCharacterSaveData._currentSpell = _playerInventoryManager._currentSpell._itemID;
 
             // Clear List before save
-            currenCharacterSaveData._weaponInInventory = new List<SerializableWeapon>();
-            currenCharacterSaveData._projectileInInventory = new List<SerializableRangedProjectile>();
-            currenCharacterSaveData._quickSlotItemInInventory = new List<SerializableQuickSlotIcon>();
-            currenCharacterSaveData._headEquipmentInInventory = new List<int>();
-            currenCharacterSaveData._bodyEquipmentInInventory = new List<int>();
-            currenCharacterSaveData._legEquipmentInInventory = new List<int>();
-            currenCharacterSaveData._handsEquipmentInInventory = new List<int>();
+            currentCharacterSaveData._weaponInInventory = new List<SerializableWeapon>();
+            currentCharacterSaveData._projectileInInventory = new List<SerializableRangedProjectile>();
+            currentCharacterSaveData._quickSlotItemInInventory = new List<SerializableQuickSlotIcon>();
+            currentCharacterSaveData._headEquipmentInInventory = new List<int>();
+            currentCharacterSaveData._bodyEquipmentInInventory = new List<int>();
+            currentCharacterSaveData._legEquipmentInInventory = new List<int>();
+            currentCharacterSaveData._handsEquipmentInInventory = new List<int>();
 
             for (int i = 0; i < _playerInventoryManager._itemInTheInventory.Count; i++)
             {
@@ -369,25 +372,25 @@ namespace SKD.Character.Player
                 HandEquipmentItem handEquipmentInInventory = _playerInventoryManager._itemInTheInventory[i] as HandEquipmentItem;
 
                 if (weaponInInventory != null)
-                    currenCharacterSaveData._weaponInInventory.Add(WorldSaveGameManager.Instance.GetSerializableWeaponFromWeaponItem(weaponInInventory));
+                    currentCharacterSaveData._weaponInInventory.Add(WorldSaveGameManager.Instance.GetSerializableWeaponFromWeaponItem(weaponInInventory));
 
                 if (projectileInInventory != null)
-                    currenCharacterSaveData._projectileInInventory.Add(WorldSaveGameManager.Instance.GetSerializableRangedProjectileFromRangedProjectileItem(projectileInInventory));
+                    currentCharacterSaveData._projectileInInventory.Add(WorldSaveGameManager.Instance.GetSerializableRangedProjectileFromRangedProjectileItem(projectileInInventory));
 
                 if (quickSlotItemInInventory != null)
-                    currenCharacterSaveData._quickSlotItemInInventory.Add(WorldSaveGameManager.Instance.GetSerializableQuickSlotIconFromQuickSLotIcon(quickSlotItemInInventory));
+                    currentCharacterSaveData._quickSlotItemInInventory.Add(WorldSaveGameManager.Instance.GetSerializableQuickSlotIconFromQuickSLotIcon(quickSlotItemInInventory));
 
                 if (headEquipmentInInventory != null)
-                    currenCharacterSaveData._headEquipmentInInventory.Add(headEquipmentInInventory._itemID);
+                    currentCharacterSaveData._headEquipmentInInventory.Add(headEquipmentInInventory._itemID);
 
                 if (bodyEquipmentInInventory != null)
-                    currenCharacterSaveData._bodyEquipmentInInventory.Add(bodyEquipmentInInventory._itemID);
+                    currentCharacterSaveData._bodyEquipmentInInventory.Add(bodyEquipmentInInventory._itemID);
 
                 if (legEquipmentInInventory != null)
-                    currenCharacterSaveData._legEquipmentInInventory.Add(legEquipmentInInventory._itemID);
+                    currentCharacterSaveData._legEquipmentInInventory.Add(legEquipmentInInventory._itemID);
 
                 if (handEquipmentInInventory != null)
-                    currenCharacterSaveData._handsEquipmentInInventory.Add(handEquipmentInInventory._itemID);
+                    currentCharacterSaveData._handsEquipmentInInventory.Add(handEquipmentInInventory._itemID);
             }
 
         }
@@ -399,6 +402,7 @@ namespace SKD.Character.Player
             Vector3 myPosition = new Vector3(currentCharacterSaveData._xPosition, currentCharacterSaveData._yPosition, currentCharacterSaveData._zPosition);
             transform.position = myPosition;
 
+            // Stats
             _playerNetworkManager._vigor.Value = currentCharacterSaveData._vigor;
             _playerNetworkManager._endurance.Value = currentCharacterSaveData._endurance;
             _playerNetworkManager._mind.Value = currentCharacterSaveData._mind;
@@ -406,12 +410,6 @@ namespace SKD.Character.Player
             _playerNetworkManager._dexterty.Value = currentCharacterSaveData._dexterty;
             _playerNetworkManager._intelligence.Value = currentCharacterSaveData._intelligence;
             _playerNetworkManager._faith.Value = currentCharacterSaveData._faith;
-            
-            // Body
-            _playerNetworkManager._hairStyleID.Value = currentCharacterSaveData._hairStyleID;   
-            _playerNetworkManager._hairColorRed.Value = currentCharacterSaveData._hairColorRedID;
-            _playerNetworkManager._hairColorGreen.Value = currentCharacterSaveData._hairColorGreenID;
-            _playerNetworkManager._hairColorBlue.Value = currentCharacterSaveData._hairColorBlueID;
 
             // This will be moved when saving and loading is added
             _playerNetworkManager._maxHealth.Value = _playerStatsManager.CalculateHealthBasedOnVigorLevel(_playerNetworkManager._vigor.Value);
@@ -420,6 +418,14 @@ namespace SKD.Character.Player
             _playerNetworkManager._currentHealth.Value = currentCharacterSaveData._currentHealth;
             _playerNetworkManager._currentStamina.Value = currentCharacterSaveData._currentStamina;
             _playerNetworkManager._currentFocusPoints.Value = currentCharacterSaveData._currentFocusPoints;
+            _playerStatsManager.AddRunes(currentCharacterSaveData._runes);
+
+            // Body
+            _playerNetworkManager._hairStyleID.Value = currentCharacterSaveData._hairStyleID;
+            _playerNetworkManager._hairColorRed.Value = currentCharacterSaveData._hairColorRedID;
+            _playerNetworkManager._hairColorGreen.Value = currentCharacterSaveData._hairColorGreenID;
+            _playerNetworkManager._hairColorBlue.Value = currentCharacterSaveData._hairColorBlueID;
+
 
             _playerNetworkManager._remainingHealthFlasks.Value = currentCharacterSaveData._currentHelathFlaskRemaining;
             _playerNetworkManager._remainingFocusPointsFlasks.Value = currentCharacterSaveData._currentFocusPoints;
@@ -569,7 +575,7 @@ namespace SKD.Character.Player
             _playerNetworkManager.OnIsMaleChanged(false, _playerNetworkManager._isMale.Value);
             _playerNetworkManager.OnHairStyleChanged(0, _playerNetworkManager._hairStyleID.Value);
             _playerNetworkManager.OnHairColorRedChanged(0, _playerNetworkManager._hairColorRed.Value);
-            _playerNetworkManager.OnHairColorGreenChanged(0,_playerNetworkManager._hairColorGreen.Value);
+            _playerNetworkManager.OnHairColorGreenChanged(0, _playerNetworkManager._hairColorGreen.Value);
             _playerNetworkManager.OnHairColorBlueChanged(0, _playerNetworkManager._hairColorBlue.Value);
 
             // Sync weapons 

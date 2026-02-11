@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Globalization;
+using SKD.UI.PlayerUI;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -8,10 +9,10 @@ namespace SKD.Character
     public class CharacterStatsManager : MonoBehaviour
     {
         CharacterManager _character;
-        
+
         [Header("Runes")]
         public int _runesDroppedOnDeath = 50;
-        
+
         [Header("Stamina Regeneration")]
         [SerializeField] float _staminaRegenAmount = 2f;
         private float _staminaRegeneartionTimer = 0f;
@@ -26,7 +27,7 @@ namespace SKD.Character
         public float _blockingHolyAbsorption;
         public float _stabiltyRating;
         public float _blockingStability;
-        
+
         [Header("Armor Absorption")]
         [Header("Equipment Absorption Bonus")]
         public float _armorPhysicalDamageAbsorption;
@@ -40,12 +41,12 @@ namespace SKD.Character
         public float _armorRobustness;// Resistance to bleed and frost 
         public float _armorFocus;// Resistance to madness and sleep
         public float _armorVitsality;// Resistance to death course
-        
+
         [Header("Poise")]
-        public float _totalPoiseDamage; // how much poise damage we have taken
-        public float _offensivePoiseDamage; // The posie bonus gained from using weapons (heavy weapon or much large bonus)
-        public float _basePoiseDefence;    // The poise bonus gained from armor/talisman etc..
-        public float _defualtPoiseRestTimer = 8f; // The time it takes for poise to reset (must not be hit in time or will reset)
+        public float _totalPoiseDamage;// how much poise damage we have taken
+        public float _offensivePoiseDamage;// The posie bonus gained from using weapons (heavy weapon or much large bonus)
+        public float _basePoiseDefence;// The poise bonus gained from armor/talisman etc..
+        public float _defualtPoiseRestTimer = 8f;// The time it takes for poise to reset (must not be hit in time or will reset)
         public float _poiseResetTimer;
 
 
@@ -55,7 +56,7 @@ namespace SKD.Character
         }
         protected virtual void Start()
         {
-            HandlePoiseResetTimer();    
+            HandlePoiseResetTimer();
         }
 
         protected virtual void Update()
@@ -66,26 +67,44 @@ namespace SKD.Character
         {
             float health = vigor * 15;
             return Mathf.RoundToInt(health);
-        }   
+        }
         public int CalculateStaminaBasedOnEnduraceLevel(int endurance)
         {
             float stamina = endurance * 10;
             return Mathf.RoundToInt(stamina);
         }
 
-        public int CalculateCharacterLevelBasedOnAttributes()
+        public int CalculateCharacterLevelBasedOnAttributes(bool calculateProjectedLevel = false)
         {
+            if (calculateProjectedLevel)
+            {
+                int totalProjectedAttributes = Mathf.RoundToInt(PlayerUIManager.Instance._playerUILevelUpManager._vigorSlider.value) +
+                                               Mathf.RoundToInt(PlayerUIManager.Instance._playerUILevelUpManager._mindSlider.value) +
+                                               Mathf.RoundToInt(PlayerUIManager.Instance._playerUILevelUpManager._eduranceSlider.value) +
+                                               Mathf.RoundToInt(PlayerUIManager.Instance._playerUILevelUpManager._strengthSlider.value) +
+                                               Mathf.RoundToInt(PlayerUIManager.Instance._playerUILevelUpManager._dexteritySlider.value) +
+                                               Mathf.RoundToInt(PlayerUIManager.Instance._playerUILevelUpManager._intelligenceSlider.value) +
+                                               Mathf.RoundToInt(PlayerUIManager.Instance._playerUILevelUpManager._faithSlider.value);
+
+                int projectedCharacterLevel = totalProjectedAttributes - 70 + 1;
+
+                if (projectedCharacterLevel < 1)
+                    projectedCharacterLevel = 1;
+
+                return projectedCharacterLevel;
+            }
             int totalAttributes = _character._characterNetworkManager._vigor.Value + _character._characterNetworkManager._mind.Value +
                                   _character._characterNetworkManager._endurance.Value + _character._characterNetworkManager._strength.Value +
                                   _character._characterNetworkManager._dexterty.Value + _character._characterNetworkManager._intelligence.Value +
                                   _character._characterNetworkManager._faith.Value;
 
             int characterLevel = totalAttributes - 70 + 1;
-            
-            if(characterLevel<1)
+
+            if (characterLevel < 1)
                 characterLevel = 1;
-            
+
             return characterLevel;
+
         }
         public int CalculateFucosPointsBasedOnMindLevel(int mind)
         {

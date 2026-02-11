@@ -1,14 +1,10 @@
-﻿using System;
-using SKD.Items;
-using SKD.World_Manager;
-using System.Collections;
+﻿using SKD.World_Manager;
 using System.Collections.Generic;
 using SKD.Items.Equipment;
 using SKD.Items.Quick_Item_Slot;
 using SKD.Items.Weapons;
 using SKD.Weapons.Items;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace SKD.Character.Player
 {
@@ -887,6 +883,7 @@ namespace SKD.Character.Player
             if (_player._playerInventoryManager._currentRightHandWeapon != null)
             {
                 // Remove the old weapon
+                if (_rightHandWeaponSlot._currentWeaponModel != null)
                 _rightHandWeaponSlot.UnloadWeaponModel();
 
                 // Bring in the new weapon
@@ -1040,8 +1037,7 @@ namespace SKD.Character.Player
             // Add one to our index to switch ti the next potential weapon
             _player._playerInventoryManager._leftHandWeaponIndex += 1;
             // If our index number is out of bounds, reset it to position #1(0)
-            if (_player._playerInventoryManager._leftHandWeaponIndex < 0 ||
-                _player._playerInventoryManager._leftHandWeaponIndex > 2)
+            if (_player._playerInventoryManager._leftHandWeaponIndex is < 0 or > 2)
             {
                 _player._playerInventoryManager._leftHandWeaponIndex = 0;
 
